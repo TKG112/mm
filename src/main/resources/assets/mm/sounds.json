@@ -1,0 +1,29 @@
+{
+  "nvon": {
+    "subtitle": "subtitles.nvon",
+    "sounds": [
+      {
+        "name": "mm:nvon",
+        "stream": false
+      }
+    ]
+  },
+  "nvoff": {
+    "subtitle": "subtitles.nvoff",
+    "sounds": [
+      {
+        "name": "mm:nvoff",
+        "stream": false
+      }
+    ]
+  },
+  "nvgturnknob": {
+    "subtitle": "subtitles.nvgturnknob",
+    "sounds": [
+      {
+        "name": "mm:switch_button_click_small",
+        "stream": false
+      }
+    ]
+  }
+}

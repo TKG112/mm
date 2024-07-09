@@ -1,0 +1,10 @@
+{
+  "replace": "false",
+  "values": [
+    "minecraft:air",
+    "mm:nvg",
+    "mm:military_glasses",
+    "mm:military_goggles",
+    "mm:tvg"
+  ]
+}

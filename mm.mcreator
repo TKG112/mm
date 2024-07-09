@@ -1,0 +1,912 @@
+{
+  "mod_elements": [
+    {
+      "name": "Tier1BackpackGUI",
+      "type": "gui",
+      "sortid": 24,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tier_1_backpack_gui",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/client/gui/Tier1BackpackGUIScreen.java",
+          "src/main/java/net/mcreator/mm/world/inventory/Tier1BackpackGUIMenu.java"
+        ]
+      },
+      "path": "~/tac_inv"
+    },
+    {
+      "name": "Tier2Backpack",
+      "type": "gui",
+      "sortid": 25,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tier_2_backpack",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/world/inventory/Tier2BackpackMenu.java",
+          "src/main/java/net/mcreator/mm/client/gui/Tier2BackpackScreen.java"
+        ]
+      },
+      "path": "~/tac_inv"
+    },
+    {
+      "name": "Tier3BackpackGUI",
+      "type": "gui",
+      "sortid": 26,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tier_3_backpack_gui",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/client/gui/Tier3BackpackGUIScreen.java",
+          "src/main/java/net/mcreator/mm/world/inventory/Tier3BackpackGUIMenu.java"
+        ]
+      },
+      "path": "~/tac_inv"
+    },
+    {
+      "name": "ToggleNVG",
+      "type": "keybind",
+      "sortid": 36,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "toggle_nvg",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/network/ToggleNVGMessage.java"
+        ]
+      },
+      "path": "~/tac_armor/NVGS"
+    },
+    {
+      "name": "ToggleNVGOnKeyPressed",
+      "type": "procedure",
+      "sortid": 37,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "toggle_nvg_on_key_pressed",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/ToggleNVGOnKeyPressedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/tac_armor/NVGS"
+    },
+    {
+      "name": "GogglesShow",
+      "type": "procedure",
+      "sortid": 38,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "goggles_show",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/GogglesShowProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/tac_armor/NVGS"
+    },
+    {
+      "name": "GogglesShader",
+      "type": "procedure",
+      "sortid": 39,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "goggles_shader",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/GogglesShaderProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/tac_armor/NVGS"
+    },
+    {
+      "name": "RigGUI",
+      "type": "gui",
+      "sortid": 41,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "rig_gui",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/world/inventory/RigGUIMenu.java",
+          "src/main/java/net/mcreator/mm/client/gui/RigGUIScreen.java"
+        ]
+      },
+      "path": "~/tac_inv"
+    },
+    {
+      "name": "IncreaseTubeGain",
+      "type": "keybind",
+      "sortid": 46,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "increase_tube_gain",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/network/IncreaseTubeGainMessage.java"
+        ]
+      },
+      "path": "~/tac_armor/NVGS"
+    },
+    {
+      "name": "DecreaseTubeGain",
+      "type": "keybind",
+      "sortid": 47,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "decrease_tube_gain",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/network/DecreaseTubeGainMessage.java"
+        ]
+      },
+      "path": "~/tac_armor/NVGS"
+    },
+    {
+      "name": "IncreaseTubeGainOnKeyPressed",
+      "type": "procedure",
+      "sortid": 69,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "increase_tube_gain_on_key_pressed",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/IncreaseTubeGainOnKeyPressedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/tac_armor/NVGS"
+    },
+    {
+      "name": "DecreaseTubeGainOnKeyPressed",
+      "type": "procedure",
+      "sortid": 70,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "decrease_tube_gain_on_key_pressed",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/DecreaseTubeGainOnKeyPressedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/tac_armor/NVGS"
+    },
+    {
+      "name": "GMS",
+      "type": "tab",
+      "sortid": 71,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "gms",
+      "metadata": {
+        "files": []
+      },
+      "path": "~/tac_inv"
+    },
+    {
+      "name": "BlackMilitaryHelmet",
+      "type": "animatedarmor",
+      "sortid": 81,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "black_military_helmet",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/BlackMilitaryHelmetItem.java",
+          "src/main/java/net/mcreator/mm/client/renderer/BlackMilitaryHelmetArmorRenderer.java",
+          "src/main/resources/assets/mm/models/item/black_military_helmet_helmet.json",
+          "src/main/java/net/mcreator/mm/item/model/BlackMilitaryHelmetModel.java"
+        ]
+      },
+      "path": "~/tac_armor/Helmets"
+    },
+    {
+      "name": "NVG",
+      "type": "curiosbauble",
+      "sortid": 82,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "nvg",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/gms/models/item/nvg.json",
+          "src/main/java/net/mcreator/gms/client/renderer/NVGRenderer.java",
+          "src/main/java/net/mcreator/gms/item/NVGItem.java"
+        ]
+      },
+      "path": "~/tac_armor/NVGS"
+    },
+    {
+      "name": "HelmetCheck",
+      "type": "procedure",
+      "sortid": 83,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "helmet_check",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/HelmetCheckProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/tac_armor/Helmets"
+    },
+    {
+      "name": "Duffelbag",
+      "type": "item",
+      "sortid": 84,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "duffelbag",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/gms/item/DuffelbagItem.java",
+          "src/main/resources/assets/gms/models/item/duffelbag.json"
+        ]
+      },
+      "path": "~/tac_items"
+    },
+    {
+      "name": "MenuItem",
+      "type": "item",
+      "sortid": 85,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "menu_item",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/MenuItemItem.java",
+          "src/main/resources/assets/mm/models/item/menu_item.json"
+        ]
+      },
+      "path": "~/tac_items"
+    },
+    {
+      "name": "Eyewear",
+      "type": "curiosslot",
+      "sortid": 86,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "eyewear",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/curios/tags/items/eyewear.json"
+        ]
+      },
+      "path": "~/tac_inv"
+    },
+    {
+      "name": "Earwear",
+      "type": "curiosslot",
+      "sortid": 87,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "earwear",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/curios/tags/items/earwear.json"
+        ]
+      },
+      "path": "~/tac_inv"
+    },
+    {
+      "name": "Balaclava",
+      "type": "curiosbauble",
+      "sortid": 88,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "balaclava",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/gms/client/renderer/BalaclavaRenderer.java",
+          "src/main/java/net/mcreator/gms/item/BalaclavaItem.java",
+          "src/main/resources/assets/gms/models/item/balaclava.json"
+        ]
+      },
+      "path": "~/tac_armor/Balaclavas"
+    },
+    {
+      "name": "MilitaryBalaclava",
+      "type": "curiosbauble",
+      "sortid": 89,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "military_balaclava",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/gms/item/MilitaryBalaclavaItem.java",
+          "src/main/java/net/mcreator/gms/client/renderer/MilitaryBalaclavaRenderer.java",
+          "src/main/resources/assets/gms/models/item/military_balaclava.json"
+        ]
+      },
+      "path": "~/tac_armor/Balaclavas"
+    },
+    {
+      "name": "MilitaryGlasses",
+      "type": "curiosbauble",
+      "sortid": 90,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "military_glasses",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/gms/item/MilitaryGlassesItem.java",
+          "src/main/resources/assets/gms/models/item/military_glasses.json",
+          "src/main/java/net/mcreator/gms/client/renderer/MilitaryGlassesRenderer.java"
+        ]
+      },
+      "path": "~/tac_armor/Goggles And Glasses"
+    },
+    {
+      "name": "MilitaryGoggles",
+      "type": "curiosbauble",
+      "sortid": 91,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "military_goggles",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/gms/client/renderer/MilitaryGogglesRenderer.java",
+          "src/main/resources/assets/gms/models/item/military_goggles.json",
+          "src/main/java/net/mcreator/gms/item/MilitaryGogglesItem.java"
+        ]
+      },
+      "path": "~/tac_armor/Goggles And Glasses"
+    },
+    {
+      "name": "MilitaryHeadset",
+      "type": "curiosbauble",
+      "sortid": 92,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "military_headset",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/gms/item/MilitaryHeadsetItem.java",
+          "src/main/java/net/mcreator/gms/client/renderer/MilitaryHeadsetRenderer.java",
+          "src/main/resources/assets/gms/models/item/military_headset.json"
+        ]
+      },
+      "path": "~/tac_armor/Headsets"
+    }
+  ],
+  "variable_elements": [
+    {
+      "name": "bp1_save",
+      "type": "logic",
+      "scope": "player_persistent",
+      "value": "false"
+    },
+    {
+      "name": "bp1_slot0",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp1_slot1",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp1_slot2",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp1_slot3",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp1_slot4",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp1_slot5",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp1_slot6",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp1_slot7",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp1_slot8",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp2_save",
+      "type": "logic",
+      "scope": "player_persistent",
+      "value": "true"
+    },
+    {
+      "name": "bp2_slot0",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp2_slot1",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp2_slot10",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp2_slot11",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp2_slot12",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp2_slot13",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp2_slot14",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp2_slot2",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp2_slot3",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp2_slot4",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp2_slot5",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp2_slot6",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp2_slot7",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp2_slot8",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp2_slot9",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_save",
+      "type": "logic",
+      "scope": "player_persistent",
+      "value": "true"
+    },
+    {
+      "name": "bp3_slot0",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot1",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot10",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot11",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot12",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot13",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot14",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot15",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot16",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot17",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot18",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot19",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot2",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot20",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot4",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot5",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot6",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot7",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot8",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot9",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "NGV_Black_Shader",
+      "type": "logic",
+      "scope": "player_persistent",
+      "value": "false"
+    },
+    {
+      "name": "NVG_Black_Check",
+      "type": "logic",
+      "scope": "player_persistent",
+      "value": "false"
+    },
+    {
+      "name": "rig_save",
+      "type": "logic",
+      "scope": "player_persistent",
+      "value": "true"
+    },
+    {
+      "name": "rig_slot0",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "rig_slot1",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "rig_slot2",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "rig_slot3",
+      "type": "itemstack",
+      "scope": "player_lifetime",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "bp3_slot3",
+      "type": "itemstack",
+      "scope": "player_persistent",
+      "value": "ItemStack.EMPTY"
+    },
+    {
+      "name": "NVG_Black_Tube_Gain",
+      "type": "number",
+      "scope": "player_persistent",
+      "value": "0"
+    },
+    {
+      "name": "Helmet_Using",
+      "type": "logic",
+      "scope": "player_lifetime",
+      "value": "false"
+    },
+    {
+      "name": "TVG_Check",
+      "type": "logic",
+      "scope": "player_persistent",
+      "value": "false"
+    },
+    {
+      "name": "TVG_Shader",
+      "type": "logic",
+      "scope": "player_persistent",
+      "value": "false"
+    }
+  ],
+  "sound_elements": [
+    {
+      "name": "nvon",
+      "files": [
+        "nvon"
+      ],
+      "category": "neutral",
+      "subtitle": "NVG On"
+    },
+    {
+      "name": "nvoff",
+      "files": [
+        "nvoff"
+      ],
+      "category": "neutral",
+      "subtitle": "NVG Off"
+    },
+    {
+      "name": "nvgturnknob",
+      "files": [
+        "switch_button_click_small"
+      ],
+      "category": "neutral",
+      "subtitle": "NVG Gain Change"
+    }
+  ],
+  "tag_elements": {},
+  "language_map": {
+    "en_us": {
+      "curios.identifier.earwear": "Earwear",
+      "item.gms.military_headset": "Military Headset",
+      "key.gms.decrease_tube_gain": "Decrease NVG Tube Gain",
+      "key.mm.increase_tube_gain": "Increase NVG Tube Gain",
+      "subtitles.nvoff": "NVG Off",
+      "item.gms.black_military_helmet_leggings": "Black Military Helmet Leggings",
+      "subtitles.ear-ringing": "Ear Ringing",
+      "item.mm.black_military_helmet_helmet": "Black Military Helmet",
+      "item_group.gms.gms": "GMS",
+      "gui.gms.tac_inv.label_inventory": "Inventory",
+      "item.gms.military_balaclava": "Military Balaclava",
+      "subtitles.nvon": "NVG On",
+      "item.gms.duffelbag": "Duffelbag",
+      "item.gms.military_goggles": "Military Goggles",
+      "item.gms.menu_item": "menu item (you shoudn\u0027t be seen this)",
+      "item.mm.black_military_helmet_boots": "Black Military Helmet Boots",
+      "item.gms.black_military_helmet_helmet": "Black Military Helmet",
+      "key.gms.toggle_nvg": "Toggle NVG",
+      "item.mm.menu_item": "menu item (you shoudn\u0027t be seen this)",
+      "curios.identifier.eyewear": "Eyewear",
+      "subtitles.smokesoundeffect": "Smoke Grenade Explode",
+      "gui.gms.tac_inv.label_character": "Character",
+      "item.gms.black_military_helmet_chestplate": "Black Military Helmet Chestplate",
+      "key.mm.toggle_nvg": "Toggle NVG",
+      "item.mm.black_military_helmet_chestplate": "Black Military Helmet Chestplate",
+      "subtitles.knob_turn": "NVG Gain Change",
+      "item.gms.military_glasses": "Military Glasses",
+      "subtitles.nvgturnknob": "NVG Gain Change",
+      "item.gms.balaclava": "Balaclava",
+      "key.gms.increase_tube_gain": "Increase NVG Tube Gain",
+      "gui.gms.tac_inv.label_empty": "Inventory",
+      "item.mm.black_military_helmet_leggings": "Black Military Helmet Leggings",
+      "item.gms.black_military_helmet_boots": "Black Military Helmet Boots",
+      "key.mm.decrease_tube_gain": "Decrease NVG Tube Gain",
+      "item_group.mm.gms": "GMS",
+      "item.gms.tvg": "TVG",
+      "item.gms.nvg": "NVG"
+    }
+  },
+  "foldersRoot": {
+    "name": "~",
+    "children": [
+      {
+        "name": "tac_inv",
+        "children": []
+      },
+      {
+        "name": "tac_armor",
+        "children": [
+          {
+            "name": "NVGS",
+            "children": []
+          },
+          {
+            "name": "Balaclavas",
+            "children": []
+          },
+          {
+            "name": "Helmets",
+            "children": []
+          },
+          {
+            "name": "Goggles And Glasses",
+            "children": []
+          },
+          {
+            "name": "Headsets",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "tac_items",
+        "children": []
+      }
+    ]
+  },
+  "workspaceSettings": {
+    "modid": "mm",
+    "modName": "ModernMayhem",
+    "version": "1.0.0",
+    "author": "User, MCreator",
+    "websiteURL": "https://mcreator.net",
+    "license": "Not specified",
+    "serverSideOnly": false,
+    "requiredMods": [],
+    "dependencies": [],
+    "dependants": [],
+    "mcreatorDependencies": [
+      "kleidersplayerrenderer",
+      "curios_api",
+      "geckolib"
+    ],
+    "currentGenerator": "forge-1.20.1",
+    "credits": "Created using mod maker MCreator - https://mcreator.net/about",
+    "modElementsPackage": "net.mcreator.mm"
+  },
+  "mcreatorVersion": 202400118518
+}

@@ -1,0 +1,65 @@
+{
+    "targets": [
+        "swap",
+        "previous",
+		"final"
+    ],
+    "passes": [
+		{
+            "name": "color_convolve",
+            "intarget": "minecraft:main",
+            "outtarget": "swap",
+            "uniforms": [
+                {
+                    "name": "Saturation",
+                    "values": [ 0.0 ]
+                }
+            ]
+        },
+        {
+            "name": "bits",
+            "intarget": "swap",
+            "outtarget": "minecraft:main",
+            "auxtargets": [
+                {"id":"final", "name":"Final"}
+            ],
+            "uniforms": [
+                {
+                    "name": "Resolution",
+                    "values": [ 16.0 ]
+                },
+                {
+                    "name": "MosaicSize",
+                    "values": [ 2.0 ]
+                }
+            ]
+        },
+		{
+            "name": "phosphor",
+            "intarget": "minecraft:main",
+            "outtarget": "swap",
+            "auxtargets": [
+                {
+                    "name": "PrevSampler",
+                    "id": "previous"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name": "Phosphor",
+                    "values": [ 0.95, 0.95, 0.95 ]
+                }
+            ]
+        },
+        {
+            "name": "blit",
+            "intarget": "swap",
+            "outtarget": "previous"
+        },
+        {
+            "name": "blit",
+            "intarget": "swap",
+            "outtarget": "minecraft:main"
+        }
+    ]
+}
