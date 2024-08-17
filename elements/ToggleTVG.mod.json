@@ -1,0 +1,12 @@
+{
+  "_fv": 60,
+  "_type": "keybind",
+  "definition": {
+    "triggerKey": "K",
+    "keyBindingName": "Toggle TVG",
+    "keyBindingCategoryKey": "misc",
+    "onKeyPressed": {
+      "name": "ToggleTVGOnKeyPressed"
+    }
+  }
+}

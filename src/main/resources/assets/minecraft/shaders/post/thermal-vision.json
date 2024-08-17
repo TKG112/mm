@@ -1,11 +1,10 @@
 {
     "targets": [
         "swap",
-        "previous",
-		"final"
+        "final"
     ],
     "passes": [
-		{
+        {
             "name": "color_convolve",
             "intarget": "minecraft:main",
             "outtarget": "swap",
@@ -33,33 +32,6 @@
                     "values": [ 2.0 ]
                 }
             ]
-        },
-		{
-            "name": "phosphor",
-            "intarget": "minecraft:main",
-            "outtarget": "swap",
-            "auxtargets": [
-                {
-                    "name": "PrevSampler",
-                    "id": "previous"
-                }
-            ],
-            "uniforms": [
-                {
-                    "name": "Phosphor",
-                    "values": [ 0.95, 0.95, 0.95 ]
-                }
-            ]
-        },
-        {
-            "name": "blit",
-            "intarget": "swap",
-            "outtarget": "previous"
-        },
-        {
-            "name": "blit",
-            "intarget": "swap",
-            "outtarget": "minecraft:main"
         }
     ]
 }

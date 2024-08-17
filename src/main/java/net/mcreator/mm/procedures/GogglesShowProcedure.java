@@ -36,26 +36,31 @@ public class GogglesShowProcedure {
 				if ((entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MmModVariables.PlayerVariables())).NVG_Black_Tube_Gain == 0) {
 					if (Minecraft.getInstance().gameRenderer.currentEffect() == null) {
 						Minecraft.getInstance().gameRenderer.togglePostEffect();
-						Minecraft.getInstance().gameRenderer.loadEffect(new ResourceLocation("minecraft:shaders/post/night-vision-wp-0.json"));
-					} else if (!Minecraft.getInstance().gameRenderer.currentEffect().getName().equals("minecraft:shaders/post/night-vision-wp-0.json")) {
+						Minecraft.getInstance().gameRenderer.loadEffect(new ResourceLocation("minecraft:shaders/post/night-vision-gp-0.json"));
+					} else if (!Minecraft.getInstance().gameRenderer.currentEffect().getName().equals("minecraft:shaders/post/night-vision-gp-0.json")) {
 						Minecraft.getInstance().gameRenderer.shutdownEffect();
 					}
 				}
 				if ((entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MmModVariables.PlayerVariables())).NVG_Black_Tube_Gain == 1) {
 					if (Minecraft.getInstance().gameRenderer.currentEffect() == null) {
 						Minecraft.getInstance().gameRenderer.togglePostEffect();
-						Minecraft.getInstance().gameRenderer.loadEffect(new ResourceLocation("minecraft:shaders/post/night-vision-wp-1.json"));
-					} else if (!Minecraft.getInstance().gameRenderer.currentEffect().getName().equals("minecraft:shaders/post/night-vision-wp-1.json")) {
+						Minecraft.getInstance().gameRenderer.loadEffect(new ResourceLocation("minecraft:shaders/post/night-vision-gp-1.json"));
+					} else if (!Minecraft.getInstance().gameRenderer.currentEffect().getName().equals("minecraft:shaders/post/night-vision-gp-1.json")) {
 						Minecraft.getInstance().gameRenderer.shutdownEffect();
 					}
 				}
 				if ((entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MmModVariables.PlayerVariables())).NVG_Black_Tube_Gain == 2) {
 					if (Minecraft.getInstance().gameRenderer.currentEffect() == null) {
 						Minecraft.getInstance().gameRenderer.togglePostEffect();
-						Minecraft.getInstance().gameRenderer.loadEffect(new ResourceLocation("minecraft:shaders/post/night-vision-wp-2.json"));
-					} else if (!Minecraft.getInstance().gameRenderer.currentEffect().getName().equals("minecraft:shaders/post/night-vision-wp-2.json")) {
+						Minecraft.getInstance().gameRenderer.loadEffect(new ResourceLocation("minecraft:shaders/post/night-vision-gp-2.json"));
+					} else if (!Minecraft.getInstance().gameRenderer.currentEffect().getName().equals("minecraft:shaders/post/night-vision-gp-2.json")) {
 						Minecraft.getInstance().gameRenderer.shutdownEffect();
 					}
+				}
+			} else if ((entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MmModVariables.PlayerVariables())).TVG_Shader) {
+				if (Minecraft.getInstance().gameRenderer.currentEffect() == null) {
+					Minecraft.getInstance().gameRenderer.togglePostEffect();
+					Minecraft.getInstance().gameRenderer.loadEffect(new ResourceLocation("minecraft:shaders/post/thermal-vision.json"));
 				}
 			} else {
 				if (Minecraft.getInstance().gameRenderer.currentEffect() != null) {

@@ -1,0 +1,23 @@
+{
+  "_fv": 60,
+  "_type": "potioneffect",
+  "definition": {
+    "effectName": "Broken Leg",
+    "icon": "broken_leg.png",
+    "color": {
+      "value": -1,
+      "falpha": 0.0
+    },
+    "isInstant": false,
+    "isBad": true,
+    "isBenefitical": false,
+    "renderStatusInInventory": true,
+    "renderStatusInHUD": true,
+    "onActiveTick": {
+      "name": "BrokenLegEffectStartedapplied"
+    },
+    "onExpired": {
+      "name": "BrokenLegEffectExpires"
+    }
+  }
+}

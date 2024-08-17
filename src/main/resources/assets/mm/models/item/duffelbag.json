@@ -1,9 +1,7 @@
 {
   "parent": "mm:custom/duffelbag",
   "textures": {
-    "0": "mm:block/texture",
-    "1": "mm:block/texture2",
-    "2": "m:block/texture3",
+    "0": "mm:block/duffelbag",
     "particle": "mm:item/duffelbag"
   }
 }

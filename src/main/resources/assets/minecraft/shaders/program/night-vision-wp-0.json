@@ -13,6 +13,7 @@
     ],
     "uniforms": [
         { "name": "NightVisionEnabled", "type": "float",     "count": 1,  "values": [1.0] },
+		{ "name": "NightVisionRadius",  "type": "float",     "count": 1,  "values": [0.55] },
         { "name": "VignetteEnabled",    "type": "float",     "count": 1,  "values": [0.0] },
         { "name": "VignetteRadius",     "type": "float",     "count": 1,  "values": [0.55] },
         { "name": "Brightness",         "type": "float",     "count": 1,  "values": [1.0] },

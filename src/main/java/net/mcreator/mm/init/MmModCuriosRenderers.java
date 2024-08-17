@@ -13,6 +13,8 @@ import net.mcreator.mm.client.renderer.MilitaryGogglesRenderer;
 import net.mcreator.mm.client.renderer.MilitaryGlassesRenderer;
 import net.mcreator.mm.client.renderer.MilitaryBalaclavaRenderer;
 import net.mcreator.mm.client.renderer.BalaclavaRenderer;
+import net.mcreator.mm.client.renderer.BackpackTier1Renderer;
+import net.mcreator.mm.client.model.Modelplaceholder;
 import net.mcreator.mm.client.model.Modelmodel_Converted;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -25,6 +27,7 @@ public class MmModCuriosRenderers {
 		evt.registerLayerDefinition(MmModLayerDefinitions.MILITARY_GLASSES, Modelmodel_Converted::createBodyLayer);
 		evt.registerLayerDefinition(MmModLayerDefinitions.MILITARY_GOGGLES, Modelmodel_Converted::createBodyLayer);
 		evt.registerLayerDefinition(MmModLayerDefinitions.MILITARY_HEADSET, Modelmodel_Converted::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.BACKPACK_TIER_1, Modelplaceholder::createBodyLayer);
 	}
 
 	@SubscribeEvent
@@ -35,5 +38,6 @@ public class MmModCuriosRenderers {
 		CuriosRendererRegistry.register(MmModItems.MILITARY_GLASSES.get(), MilitaryGlassesRenderer::new);
 		CuriosRendererRegistry.register(MmModItems.MILITARY_GOGGLES.get(), MilitaryGogglesRenderer::new);
 		CuriosRendererRegistry.register(MmModItems.MILITARY_HEADSET.get(), MilitaryHeadsetRenderer::new);
+		CuriosRendererRegistry.register(MmModItems.BACKPACK_TIER_1.get(), BackpackTier1Renderer::new);
 	}
 }

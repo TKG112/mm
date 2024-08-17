@@ -3,7 +3,7 @@
   "_type": "curiosslot",
   "definition": {
     "texture": "empty_armor_slot_goggles.png",
-    "name": "Eyewear",
+    "name": "Facewear",
     "amount": 1
   }
 }

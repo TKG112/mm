@@ -7,8 +7,8 @@
 				"texture_width": 64,
 				"texture_height": 64,
 				"visible_bounds_width": 2,
-				"visible_bounds_height": 5.5,
-				"visible_bounds_offset": [0, 2.25, 0]
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
 			},
 			"bones": [
 				{
@@ -31,21 +31,14 @@
 								"up": {"uv": [24, 23], "uv_size": [2, 1]},
 								"down": {"uv": [31, 19], "uv_size": [2, -1]}
 							}
-						},
-						{
-							"origin": [-0.9998, 29.08954, -6.35335],
-							"size": [1.9996, 1.9996, 0.9996],
-							"pivot": [0, 30.08934, -5.85355],
-							"rotation": [-45, 0, 0],
-							"uv": {
-								"north": {"uv": [14, 28], "uv_size": [2, 2]},
-								"east": {"uv": [26, 31], "uv_size": [1, 2]},
-								"south": {"uv": [18, 28], "uv_size": [2, 2]},
-								"west": {"uv": [31, 26], "uv_size": [1, 2]},
-								"up": {"uv": [27, 31], "uv_size": [2, 1]},
-								"down": {"uv": [0, 33], "uv_size": [2, -1]}
-							}
-						},
+						}
+					]
+				},
+				{
+					"name": "rotate",
+					"parent": "armorHead",
+					"pivot": [0, 30.44972, -5.5],
+					"cubes": [
 						{
 							"origin": [-4, 28.75, -7.15],
 							"size": [8, 1, 2],
@@ -188,6 +181,20 @@
 								"west": {"uv": [10, 28], "uv_size": [2, 3]},
 								"up": {"uv": [31, 10], "uv_size": [2, 2]},
 								"down": {"uv": [31, 18], "uv_size": [2, -2]}
+							}
+						},
+						{
+							"origin": [-0.9998, 29.08954, -6.35335],
+							"size": [1.9996, 1.9996, 0.9996],
+							"pivot": [0, 30.08934, -5.85355],
+							"rotation": [-45, 0, 0],
+							"uv": {
+								"north": {"uv": [14, 28], "uv_size": [2, 2]},
+								"east": {"uv": [26, 31], "uv_size": [1, 2]},
+								"south": {"uv": [18, 28], "uv_size": [2, 2]},
+								"west": {"uv": [31, 26], "uv_size": [1, 2]},
+								"up": {"uv": [27, 31], "uv_size": [2, 1]},
+								"down": {"uv": [0, 33], "uv_size": [2, -1]}
 							}
 						}
 					]

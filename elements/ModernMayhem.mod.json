@@ -1,0 +1,32 @@
+{
+  "_fv": 60,
+  "_type": "config",
+  "definition": {
+    "pools": [
+      {
+        "category": "Grenades",
+        "entries": [
+          {
+            "item": {
+              "value": ""
+            },
+            "silkTouchMode": 0,
+            "block": {
+              "value": ""
+            },
+            "logicField": 0,
+            "numberField": 0.0,
+            "textDefault": "",
+            "comment": "",
+            "vardisplay": "Grenades Break Blocks",
+            "varname": "grenades_break_blocks",
+            "enablecomment": false,
+            "stringlist": []
+          }
+        ]
+      }
+    ],
+    "file": "modernmayhem",
+    "configType": 1
+  }
+}

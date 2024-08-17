@@ -25,5 +25,30 @@
         "stream": false
       }
     ]
+  },
+  "fb-explosion": {
+    "subtitle": "subtitles.fb-explosion",
+    "sounds": [
+      {
+        "name": "mm:explode",
+        "stream": false
+      }
+    ]
+  },
+  "nade-landing": {
+    "sounds": [
+      {
+        "name": "mm:land",
+        "stream": false
+      }
+    ]
+  },
+  "bullet-fly-by": {
+    "sounds": [
+      {
+        "name": "mm:bullet_flyby",
+        "stream": false
+      }
+    ]
   }
 }

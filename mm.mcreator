@@ -9,11 +9,11 @@
       "registry_name": "tier_1_backpack_gui",
       "metadata": {
         "files": [
-          "src/main/java/net/mcreator/mm/client/gui/Tier1BackpackGUIScreen.java",
-          "src/main/java/net/mcreator/mm/world/inventory/Tier1BackpackGUIMenu.java"
+          "src/main/java/net/mcreator/mm/world/inventory/Tier1BackpackGUIMenu.java",
+          "src/main/java/net/mcreator/mm/client/gui/Tier1BackpackGUIScreen.java"
         ]
       },
-      "path": "~/tac_inv"
+      "path": "~/Armors/Backpacks/BackpackTier1"
     },
     {
       "name": "Tier2Backpack",
@@ -28,7 +28,7 @@
           "src/main/java/net/mcreator/mm/client/gui/Tier2BackpackScreen.java"
         ]
       },
-      "path": "~/tac_inv"
+      "path": "~/Armors/Backpacks/BackpackTier2"
     },
     {
       "name": "Tier3BackpackGUI",
@@ -43,7 +43,7 @@
           "src/main/java/net/mcreator/mm/world/inventory/Tier3BackpackGUIMenu.java"
         ]
       },
-      "path": "~/tac_inv"
+      "path": "~/Armors/Backpacks/BackpackTier3"
     },
     {
       "name": "ToggleNVG",
@@ -57,7 +57,7 @@
           "src/main/java/net/mcreator/mm/network/ToggleNVGMessage.java"
         ]
       },
-      "path": "~/tac_armor/NVGS"
+      "path": "~/Armors/Special Goggles/NVGs"
     },
     {
       "name": "ToggleNVGOnKeyPressed",
@@ -81,7 +81,7 @@
           }
         ]
       },
-      "path": "~/tac_armor/NVGS"
+      "path": "~/Armors/Special Goggles/NVGs"
     },
     {
       "name": "GogglesShow",
@@ -105,7 +105,7 @@
           }
         ]
       },
-      "path": "~/tac_armor/NVGS"
+      "path": "~/Armors/Special Goggles"
     },
     {
       "name": "GogglesShader",
@@ -125,7 +125,7 @@
           }
         ]
       },
-      "path": "~/tac_armor/NVGS"
+      "path": "~/Armors/Special Goggles"
     },
     {
       "name": "RigGUI",
@@ -136,11 +136,11 @@
       "registry_name": "rig_gui",
       "metadata": {
         "files": [
-          "src/main/java/net/mcreator/mm/world/inventory/RigGUIMenu.java",
-          "src/main/java/net/mcreator/mm/client/gui/RigGUIScreen.java"
+          "src/main/java/net/mcreator/mm/client/gui/RigGUIScreen.java",
+          "src/main/java/net/mcreator/mm/world/inventory/RigGUIMenu.java"
         ]
       },
-      "path": "~/tac_inv"
+      "path": "~/Armors/Rigs"
     },
     {
       "name": "IncreaseTubeGain",
@@ -154,7 +154,7 @@
           "src/main/java/net/mcreator/mm/network/IncreaseTubeGainMessage.java"
         ]
       },
-      "path": "~/tac_armor/NVGS"
+      "path": "~/Armors/Special Goggles/NVGs"
     },
     {
       "name": "DecreaseTubeGain",
@@ -168,7 +168,7 @@
           "src/main/java/net/mcreator/mm/network/DecreaseTubeGainMessage.java"
         ]
       },
-      "path": "~/tac_armor/NVGS"
+      "path": "~/Armors/Special Goggles/NVGs"
     },
     {
       "name": "IncreaseTubeGainOnKeyPressed",
@@ -192,7 +192,7 @@
           }
         ]
       },
-      "path": "~/tac_armor/NVGS"
+      "path": "~/Armors/Special Goggles/NVGs"
     },
     {
       "name": "DecreaseTubeGainOnKeyPressed",
@@ -216,7 +216,7 @@
           }
         ]
       },
-      "path": "~/tac_armor/NVGS"
+      "path": "~/Armors/Special Goggles/NVGs"
     },
     {
       "name": "GMS",
@@ -228,7 +228,7 @@
       "metadata": {
         "files": []
       },
-      "path": "~/tac_inv"
+      "path": "~/Inv"
     },
     {
       "name": "BlackMilitaryHelmet",
@@ -239,13 +239,13 @@
       "registry_name": "black_military_helmet",
       "metadata": {
         "files": [
-          "src/main/java/net/mcreator/mm/item/BlackMilitaryHelmetItem.java",
-          "src/main/java/net/mcreator/mm/client/renderer/BlackMilitaryHelmetArmorRenderer.java",
           "src/main/resources/assets/mm/models/item/black_military_helmet_helmet.json",
-          "src/main/java/net/mcreator/mm/item/model/BlackMilitaryHelmetModel.java"
+          "src/main/java/net/mcreator/mm/client/renderer/BlackMilitaryHelmetArmorRenderer.java",
+          "src/main/java/net/mcreator/mm/item/model/BlackMilitaryHelmetModel.java",
+          "src/main/java/net/mcreator/mm/item/BlackMilitaryHelmetItem.java"
         ]
       },
-      "path": "~/tac_armor/Helmets"
+      "path": "~/Armors/Helmets"
     },
     {
       "name": "NVG",
@@ -256,12 +256,12 @@
       "registry_name": "nvg",
       "metadata": {
         "files": [
-          "src/main/resources/assets/gms/models/item/nvg.json",
-          "src/main/java/net/mcreator/gms/client/renderer/NVGRenderer.java",
-          "src/main/java/net/mcreator/gms/item/NVGItem.java"
+          "src/main/resources/assets/mm/models/item/nvg.json",
+          "src/main/java/net/mcreator/mm/item/NVGItem.java",
+          "src/main/java/net/mcreator/mm/client/renderer/NVGRenderer.java"
         ]
       },
-      "path": "~/tac_armor/NVGS"
+      "path": "~/Armors/Special Goggles/NVGs"
     },
     {
       "name": "HelmetCheck",
@@ -285,22 +285,7 @@
           }
         ]
       },
-      "path": "~/tac_armor/Helmets"
-    },
-    {
-      "name": "Duffelbag",
-      "type": "item",
-      "sortid": 84,
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "duffelbag",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/gms/item/DuffelbagItem.java",
-          "src/main/resources/assets/gms/models/item/duffelbag.json"
-        ]
-      },
-      "path": "~/tac_items"
+      "path": "~/Armors/Helmets"
     },
     {
       "name": "MenuItem",
@@ -315,7 +300,7 @@
           "src/main/resources/assets/mm/models/item/menu_item.json"
         ]
       },
-      "path": "~/tac_items"
+      "path": "~/Items"
     },
     {
       "name": "Eyewear",
@@ -323,13 +308,13 @@
       "sortid": 86,
       "compiles": true,
       "locked_code": false,
-      "registry_name": "eyewear",
+      "registry_name": "facewear",
       "metadata": {
         "files": [
-          "src/main/resources/data/curios/tags/items/eyewear.json"
+          "src/main/resources/data/curios/tags/items/facewear.json"
         ]
       },
-      "path": "~/tac_inv"
+      "path": "~/Inv"
     },
     {
       "name": "Earwear",
@@ -343,7 +328,7 @@
           "src/main/resources/data/curios/tags/items/earwear.json"
         ]
       },
-      "path": "~/tac_inv"
+      "path": "~/Inv"
     },
     {
       "name": "Balaclava",
@@ -354,12 +339,12 @@
       "registry_name": "balaclava",
       "metadata": {
         "files": [
-          "src/main/java/net/mcreator/gms/client/renderer/BalaclavaRenderer.java",
-          "src/main/java/net/mcreator/gms/item/BalaclavaItem.java",
-          "src/main/resources/assets/gms/models/item/balaclava.json"
+          "src/main/java/net/mcreator/mm/item/BalaclavaItem.java",
+          "src/main/resources/assets/mm/models/item/balaclava.json",
+          "src/main/java/net/mcreator/mm/client/renderer/BalaclavaRenderer.java"
         ]
       },
-      "path": "~/tac_armor/Balaclavas"
+      "path": "~/Armors/Balaclavas"
     },
     {
       "name": "MilitaryBalaclava",
@@ -370,12 +355,12 @@
       "registry_name": "military_balaclava",
       "metadata": {
         "files": [
-          "src/main/java/net/mcreator/gms/item/MilitaryBalaclavaItem.java",
-          "src/main/java/net/mcreator/gms/client/renderer/MilitaryBalaclavaRenderer.java",
-          "src/main/resources/assets/gms/models/item/military_balaclava.json"
+          "src/main/java/net/mcreator/mm/item/MilitaryBalaclavaItem.java",
+          "src/main/resources/assets/mm/models/item/military_balaclava.json",
+          "src/main/java/net/mcreator/mm/client/renderer/MilitaryBalaclavaRenderer.java"
         ]
       },
-      "path": "~/tac_armor/Balaclavas"
+      "path": "~/Armors/Balaclavas"
     },
     {
       "name": "MilitaryGlasses",
@@ -386,12 +371,12 @@
       "registry_name": "military_glasses",
       "metadata": {
         "files": [
-          "src/main/java/net/mcreator/gms/item/MilitaryGlassesItem.java",
-          "src/main/resources/assets/gms/models/item/military_glasses.json",
-          "src/main/java/net/mcreator/gms/client/renderer/MilitaryGlassesRenderer.java"
+          "src/main/java/net/mcreator/mm/client/renderer/MilitaryGlassesRenderer.java",
+          "src/main/resources/assets/mm/models/item/military_glasses.json",
+          "src/main/java/net/mcreator/mm/item/MilitaryGlassesItem.java"
         ]
       },
-      "path": "~/tac_armor/Goggles And Glasses"
+      "path": "~/Armors/Goggles And Glasses"
     },
     {
       "name": "MilitaryGoggles",
@@ -402,12 +387,12 @@
       "registry_name": "military_goggles",
       "metadata": {
         "files": [
-          "src/main/java/net/mcreator/gms/client/renderer/MilitaryGogglesRenderer.java",
-          "src/main/resources/assets/gms/models/item/military_goggles.json",
-          "src/main/java/net/mcreator/gms/item/MilitaryGogglesItem.java"
+          "src/main/java/net/mcreator/mm/item/MilitaryGogglesItem.java",
+          "src/main/java/net/mcreator/mm/client/renderer/MilitaryGogglesRenderer.java",
+          "src/main/resources/assets/mm/models/item/military_goggles.json"
         ]
       },
-      "path": "~/tac_armor/Goggles And Glasses"
+      "path": "~/Armors/Goggles And Glasses"
     },
     {
       "name": "MilitaryHeadset",
@@ -418,12 +403,1144 @@
       "registry_name": "military_headset",
       "metadata": {
         "files": [
-          "src/main/java/net/mcreator/gms/item/MilitaryHeadsetItem.java",
-          "src/main/java/net/mcreator/gms/client/renderer/MilitaryHeadsetRenderer.java",
-          "src/main/resources/assets/gms/models/item/military_headset.json"
+          "src/main/java/net/mcreator/mm/client/renderer/MilitaryHeadsetRenderer.java",
+          "src/main/java/net/mcreator/mm/item/MilitaryHeadsetItem.java",
+          "src/main/resources/assets/mm/models/item/military_headset.json"
         ]
       },
-      "path": "~/tac_armor/Headsets"
+      "path": "~/Armors/Headsets"
+    },
+    {
+      "name": "Frag",
+      "type": "item",
+      "sortid": 93,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "frag",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/FragItem.java",
+          "src/main/resources/assets/mm/models/item/frag.json"
+        ]
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "FragProjectile",
+      "type": "projectile",
+      "sortid": 94,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "frag_projectile",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/entity/FragProjectileEntity.java"
+        ]
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "FragProjectileEntityWhileProjectileFlyingTick",
+      "type": "procedure",
+      "sortid": 95,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "frag_projectile_entity_while_projectile_flying_tick",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/FragProjectileEntityWhileProjectileFlyingTickProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "ModernMayhem",
+      "type": "config",
+      "sortid": 96,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "modern_mayhem",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/configuration/ModernMayhemConfiguration.java"
+        ]
+      }
+    },
+    {
+      "name": "Impact",
+      "type": "item",
+      "sortid": 97,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "impact",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/ImpactItem.java",
+          "src/main/resources/assets/mm/models/item/impact.json"
+        ]
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "ImpactProjectile",
+      "type": "projectile",
+      "sortid": 98,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "impact_projectile",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/entity/ImpactProjectileEntity.java"
+        ]
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "GMSItems",
+      "type": "tab",
+      "sortid": 99,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "gms_items",
+      "metadata": {
+        "files": []
+      },
+      "path": "~/Inv"
+    },
+    {
+      "name": "Molotov",
+      "type": "item",
+      "sortid": 100,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "molotov",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/MolotovItem.java",
+          "src/main/resources/assets/mm/models/item/molotov.json"
+        ]
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "MolotovProjectile",
+      "type": "projectile",
+      "sortid": 101,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "molotov_projectile",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/entity/MolotovProjectileEntity.java"
+        ]
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "MolotovProjectileProjectileHitsBlock",
+      "type": "procedure",
+      "sortid": 102,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "molotov_projectile_projectile_hits_block",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/MolotovProjectileProjectileHitsBlockProcedure.java"
+        ],
+        "dependencies": []
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "Flash",
+      "type": "potioneffect",
+      "sortid": 103,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "flash",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/potion/FlashMobEffect.java"
+        ]
+      },
+      "path": "~/Effects"
+    },
+    {
+      "name": "Vignette",
+      "type": "potioneffect",
+      "sortid": 104,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "vignette",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/potion/VignetteMobEffect.java"
+        ]
+      },
+      "path": "~/Effects"
+    },
+    {
+      "name": "Flashbang",
+      "type": "item",
+      "sortid": 105,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "flashbang",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/mm/models/item/flashbang.json",
+          "src/main/java/net/mcreator/mm/item/FlashbangItem.java"
+        ]
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "FlashbangProjectile",
+      "type": "projectile",
+      "sortid": 106,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "flashbang_projectile",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/entity/FlashbangProjectileEntity.java"
+        ]
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "FlashbangProjectileWhileProjectileFlyingTick",
+      "type": "procedure",
+      "sortid": 107,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "flashbang_projectile_while_projectile_flying_tick",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/FlashbangProjectileWhileProjectileFlyingTickProcedure.java"
+        ],
+        "dependencies": []
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "FlashbangOverlay",
+      "type": "overlay",
+      "sortid": 108,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "flashbang_overlay",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/client/screens/FlashbangOverlayOverlay.java"
+        ]
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "FlashbangOverlayReturn",
+      "type": "procedure",
+      "sortid": 109,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "flashbang_overlay_return",
+      "metadata": {
+        "return_type": "logic",
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/FlashbangOverlayReturnProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "Smoke",
+      "type": "item",
+      "sortid": 112,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "smoke",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/SmokeItem.java",
+          "src/main/resources/assets/mm/models/item/smoke.json"
+        ]
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "SmokeProjectile",
+      "type": "projectile",
+      "sortid": 113,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "smoke_projectile",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/entity/SmokeProjectileEntity.java"
+        ]
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "VignetteEffectReturn",
+      "type": "procedure",
+      "sortid": 117,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "vignette_effect_return",
+      "metadata": {
+        "return_type": "logic",
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/VignetteEffectReturnProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/Effects"
+    },
+    {
+      "name": "VignetteOverlay",
+      "type": "overlay",
+      "sortid": 118,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "vignette_overlay",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/client/screens/VignetteOverlayOverlay.java"
+        ]
+      },
+      "path": "~/Effects"
+    },
+    {
+      "name": "SmokeFadeParticle",
+      "type": "particle",
+      "sortid": 120,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "smoke_fade_particle",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/mm/particles/smoke_fade_particle.json",
+          "src/main/java/net/mcreator/mm/client/particle/SmokeFadeParticleParticle.java"
+        ]
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "SmokeFade",
+      "type": "procedure",
+      "sortid": 121,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "smoke_fade",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/SmokeFadeProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "SmokeParticle",
+      "type": "particle",
+      "sortid": 122,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "smoke_particle",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/mm/particles/smoke_particle.json",
+          "src/main/java/net/mcreator/mm/client/particle/SmokeParticleParticle.java"
+        ]
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "SmokeParticleSpawn",
+      "type": "procedure",
+      "sortid": 123,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "smoke_particle_spawn",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/SmokeParticleSpawnProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "BackpackTier1",
+      "type": "curiosbauble",
+      "sortid": 124,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "backpack_tier_1",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/mm/models/item/backpack_tier_1.json",
+          "src/main/java/net/mcreator/mm/client/renderer/BackpackTier1Renderer.java",
+          "src/main/java/net/mcreator/mm/item/inventory/BackpackTier1InventoryCapability.java",
+          "src/main/java/net/mcreator/mm/item/BackpackTier1Item.java"
+        ]
+      },
+      "path": "~/Armors/Backpacks/BackpackTier1"
+    },
+    {
+      "name": "OpenBackpack",
+      "type": "keybind",
+      "sortid": 125,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "open_backpack",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/network/OpenBackpackMessage.java"
+        ]
+      },
+      "path": "~/Armors/Backpacks"
+    },
+    {
+      "name": "OpenBackpackOnKeyPressed",
+      "type": "procedure",
+      "sortid": 126,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "open_backpack_on_key_pressed",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/OpenBackpackOnKeyPressedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Armors/Backpacks"
+    },
+    {
+      "name": "Tier1BackpackGUIWhileThisGUIIsOpenTick",
+      "type": "procedure",
+      "sortid": 127,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tier_1_backpack_gui_while_this_gui_is_open_tick",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/Tier1BackpackGUIWhileThisGUIIsOpenTickProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Armors/Backpacks/BackpackTier1"
+    },
+    {
+      "name": "Tier1BackpackGUIThisGUIIsClosed",
+      "type": "procedure",
+      "sortid": 128,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tier_1_backpack_gui_this_gui_is_closed",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/Tier1BackpackGUIThisGUIIsClosedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Armors/Backpacks/BackpackTier1"
+    },
+    {
+      "name": "BulletSound",
+      "type": "procedure",
+      "sortid": 130,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "bullet_sound",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/BulletSoundProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Armors/Headsets"
+    },
+    {
+      "name": "BulletVignetteSpawn",
+      "type": "procedure",
+      "sortid": 131,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "bullet_vignette_spawn",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/BulletVignetteSpawnProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Armors/Goggles And Glasses"
+    },
+    {
+      "name": "BulletVignetteTick",
+      "type": "procedure",
+      "sortid": 132,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "bullet_vignette_tick",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/BulletVignetteTickProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Armors/Goggles And Glasses"
+    },
+    {
+      "name": "ToggleTVG",
+      "type": "keybind",
+      "sortid": 133,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "toggle_tvg",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/network/ToggleTVGMessage.java"
+        ]
+      },
+      "path": "~/Armors/Special Goggles/TVGs"
+    },
+    {
+      "name": "ToggleTVGOnKeyPressed",
+      "type": "procedure",
+      "sortid": 134,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "toggle_tvg_on_key_pressed",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/ToggleTVGOnKeyPressedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Armors/Special Goggles/TVGs"
+    },
+    {
+      "name": "TVGEffect",
+      "type": "procedure",
+      "sortid": 135,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tvg_effect",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/TVGEffectProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/Armors/Special Goggles/TVGs"
+    },
+    {
+      "name": "VignetteEffectApply",
+      "type": "procedure",
+      "sortid": 137,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "vignette_effect_apply",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/VignetteEffectApplyProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/Effects"
+    },
+    {
+      "name": "BulletFlyBySound",
+      "type": "procedure",
+      "sortid": 138,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "bullet_fly_by_sound",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/BulletFlyBySoundProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Effects"
+    },
+    {
+      "name": "Duffelbag",
+      "type": "item",
+      "sortid": 139,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "duffelbag",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/DuffelbagItem.java",
+          "src/main/resources/assets/mm/models/item/duffelbag.json"
+        ]
+      },
+      "path": "~/Items/Duffelbag"
+    },
+    {
+      "name": "DuffelbagBlock",
+      "type": "block",
+      "sortid": 140,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "duffelbag_block",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/mm/loot_tables/blocks/duffelbag_block.json",
+          "src/main/java/net/mcreator/mm/block/DuffelbagBlockBlock.java",
+          "src/main/java/net/mcreator/mm/block/entity/DuffelbagBlockBlockEntity.java",
+          "src/main/resources/assets/mm/models/item/duffelbag_block.json",
+          "src/main/resources/assets/mm/blockstates/duffelbag_block.json",
+          "src/main/resources/assets/mm/models/block/duffelbag_block.json"
+        ]
+      },
+      "path": "~/Items/Duffelbag"
+    },
+    {
+      "name": "DuffelbagRightclickedOnBlock",
+      "type": "procedure",
+      "sortid": 141,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "duffelbag_rightclicked_on_block",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "itemstack",
+            "type": "itemstack"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Items/Duffelbag"
+    },
+    {
+      "name": "DuffelbagBlockNeighbourBlockChanges",
+      "type": "procedure",
+      "sortid": 142,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "duffelbag_block_neighbour_block_changes",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/DuffelbagBlockNeighbourBlockChangesProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Items/Duffelbag"
+    },
+    {
+      "name": "Bleeding",
+      "type": "potioneffect",
+      "sortid": 143,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "bleeding",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/potion/BleedingMobEffect.java"
+        ]
+      },
+      "path": "~/Effects"
+    },
+    {
+      "name": "BrokenLeg",
+      "type": "potioneffect",
+      "sortid": 144,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "broken_leg",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/potion/BrokenLegMobEffect.java"
+        ]
+      },
+      "path": "~/Effects"
+    },
+    {
+      "name": "Splint",
+      "type": "item",
+      "sortid": 145,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "splint",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/SplintItem.java",
+          "src/main/resources/assets/mm/models/item/splint.json"
+        ]
+      },
+      "path": "~/Items/Splint"
+    },
+    {
+      "name": "Bandage",
+      "type": "item",
+      "sortid": 146,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "bandage",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/BandageItem.java",
+          "src/main/resources/assets/mm/models/item/bandage.json"
+        ]
+      },
+      "path": "~/Items/Bandage"
+    },
+    {
+      "name": "Medkit",
+      "type": "item",
+      "sortid": 147,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "medkit",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/MedkitItem.java",
+          "src/main/resources/assets/mm/models/item/medkit.json"
+        ]
+      },
+      "path": "~/Items/Medkit"
+    },
+    {
+      "name": "BandageRightclicked",
+      "type": "procedure",
+      "sortid": 148,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "bandage_rightclicked",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/BandageRightclickedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "itemstack",
+            "type": "itemstack"
+          }
+        ]
+      },
+      "path": "~/Items/Bandage"
+    },
+    {
+      "name": "SplintRightclicked",
+      "type": "procedure",
+      "sortid": 149,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "splint_rightclicked",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/SplintRightclickedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "itemstack",
+            "type": "itemstack"
+          }
+        ]
+      },
+      "path": "~/Items/Splint"
+    },
+    {
+      "name": "MedkitRightclicked",
+      "type": "procedure",
+      "sortid": 150,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "medkit_rightclicked",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/MedkitRightclickedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "itemstack",
+            "type": "itemstack"
+          }
+        ]
+      },
+      "path": "~/Items/Medkit"
+    },
+    {
+      "name": "ApplyBrokenLegEffect",
+      "type": "procedure",
+      "sortid": 151,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "apply_broken_leg_effect",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/ApplyBrokenLegEffectProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "damagesource",
+            "type": "damagesource"
+          },
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/Inv"
+    },
+    {
+      "name": "ApplyBleedingEffect",
+      "type": "procedure",
+      "sortid": 152,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "apply_bleeding_effect",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/ApplyBleedingEffectProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "amount",
+            "type": "number"
+          }
+        ]
+      },
+      "path": "~/Inv"
+    },
+    {
+      "name": "BrokenLegEffectStartedapplied",
+      "type": "procedure",
+      "sortid": 154,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "broken_leg_effect_startedapplied",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/BrokenLegEffectStartedappliedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/Effects"
+    },
+    {
+      "name": "BrokenLegEffectExpires",
+      "type": "procedure",
+      "sortid": 155,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "broken_leg_effect_expires",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/BrokenLegEffectExpiresProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/Effects"
+    },
+    {
+      "name": "BleedingActiveTickCondition",
+      "type": "procedure",
+      "sortid": 156,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "bleeding_active_tick_condition",
+      "metadata": {
+        "return_type": "logic",
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/BleedingActiveTickConditionProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "amplifier",
+            "type": "number"
+          },
+          {
+            "name": "duration",
+            "type": "number"
+          }
+        ]
+      },
+      "path": "~/Effects"
+    },
+    {
+      "name": "BleedingOnEffectActiveTick",
+      "type": "procedure",
+      "sortid": 157,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "bleeding_on_effect_active_tick",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/BleedingOnEffectActiveTickProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Effects"
+    },
+    {
+      "name": "Bleed",
+      "type": "damagetype",
+      "sortid": 158,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "bleed",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/mm/damage_type/bleed.json"
+        ]
+      },
+      "path": "~/Effects"
+    },
+    {
+      "name": "NVGWhileBaubleIsEquippedTick",
+      "type": "procedure",
+      "sortid": 159,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "nvg_while_bauble_is_equipped_tick",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/NVGWhileBaubleIsEquippedTickProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "itemstack",
+            "type": "itemstack"
+          }
+        ]
+      },
+      "path": "~/Armors/Special Goggles/NVGs"
     }
   ],
   "variable_elements": [
@@ -806,63 +1923,146 @@
       ],
       "category": "neutral",
       "subtitle": "NVG Gain Change"
+    },
+    {
+      "name": "fb-explosion",
+      "files": [
+        "explode"
+      ],
+      "category": "neutral",
+      "subtitle": "Flashbang Explosion"
+    },
+    {
+      "name": "nade-landing",
+      "files": [
+        "land"
+      ],
+      "category": "neutral",
+      "subtitle": ""
+    },
+    {
+      "name": "bullet-fly-by",
+      "files": [
+        "bullet_flyby"
+      ],
+      "category": "neutral",
+      "subtitle": ""
     }
   ],
   "tag_elements": {},
   "language_map": {
     "en_us": {
-      "curios.identifier.earwear": "Earwear",
       "item.gms.military_headset": "Military Headset",
       "key.gms.decrease_tube_gain": "Decrease NVG Tube Gain",
-      "key.mm.increase_tube_gain": "Increase NVG Tube Gain",
-      "subtitles.nvoff": "NVG Off",
       "item.gms.black_military_helmet_leggings": "Black Military Helmet Leggings",
-      "subtitles.ear-ringing": "Ear Ringing",
-      "item.mm.black_military_helmet_helmet": "Black Military Helmet",
+      "item.mm.military_goggles": "Military Goggles",
+      "subtitles.ear-ringing": "",
       "item_group.gms.gms": "GMS",
-      "gui.gms.tac_inv.label_inventory": "Inventory",
-      "item.gms.military_balaclava": "Military Balaclava",
-      "subtitles.nvon": "NVG On",
+      "effect.mm.broken_leg": "Broken Leg",
+      "item.mm.duffelbag": "Duffelbag",
       "item.gms.duffelbag": "Duffelbag",
-      "item.gms.military_goggles": "Military Goggles",
       "item.gms.menu_item": "menu item (you shoudn\u0027t be seen this)",
-      "item.mm.black_military_helmet_boots": "Black Military Helmet Boots",
       "item.gms.black_military_helmet_helmet": "Black Military Helmet",
+      "item.mm.backpack_tier_1": "Small Backpack",
+      "gui.mm.tier_1_backpack_gui.label_empty": "",
       "key.gms.toggle_nvg": "Toggle NVG",
+      "death.attack.bleed.player": "%1$s bleed out whilst trying to escape %2$s",
       "item.mm.menu_item": "menu item (you shoudn\u0027t be seen this)",
-      "curios.identifier.eyewear": "Eyewear",
-      "subtitles.smokesoundeffect": "Smoke Grenade Explode",
-      "gui.gms.tac_inv.label_character": "Character",
-      "item.gms.black_military_helmet_chestplate": "Black Military Helmet Chestplate",
-      "key.mm.toggle_nvg": "Toggle NVG",
       "item.mm.black_military_helmet_chestplate": "Black Military Helmet Chestplate",
+      "key.mm.toggle_nvg": "Toggle NVG",
+      "subtitles.bullet-fly-by": "",
+      "item.mm.splint": "Splint",
       "subtitles.knob_turn": "NVG Gain Change",
+      "item.mm.balaclava": "Balaclava",
       "item.gms.military_glasses": "Military Glasses",
+      "effect.mm.flash": "Flashbang",
+      "subtitles.ear-ringing-fade": "",
+      "death.attack.bleed": "%1$s bleed out",
+      "subtitles.fb-explosion": "Flashbang Explosion",
       "subtitles.nvgturnknob": "NVG Gain Change",
-      "item.gms.balaclava": "Balaclava",
+      "subtitles.nade-landing": "",
+      "key.mm.toggle_tvg": "Toggle TVG",
       "key.gms.increase_tube_gain": "Increase NVG Tube Gain",
       "gui.gms.tac_inv.label_empty": "Inventory",
+      "item_group.mm.gms": "MM Armors",
+      "item.gms.tvg": "TVG",
+      "item.mm.bandage": "Bandage",
+      "item_group.mm.gms_items": "MM Items",
+      "curios.identifier.facewear": "Facewear",
+      "item.mm.military_balaclava": "Military Balaclava",
+      "item.gms.nvg": "NVG",
+      "subtitles.flashbang-boom": "Flashbang Explosion",
+      "curios.identifier.earwear": "Earwear",
+      "effect.mm.bleeding": "Bleeding",
+      "item.mm.military_glasses": "Military Glasses",
+      "key.mm.increase_tube_gain": "Increase NVG Tube Gain",
+      "subtitles.nvoff": "NVG Off",
+      "item.mm.black_military_helmet_helmet": "Black Military Helmet",
+      "gui.gms.tac_inv.label_inventory": "Inventory",
+      "effect.mm.vignette": "Vignette",
+      "item.gms.military_balaclava": "Military Balaclava",
+      "subtitles.nvon": "NVG On",
+      "key.mm.open_backpack": "Open Backpack",
+      "item.gms.military_goggles": "Military Goggles",
+      "item.mm.black_military_helmet_boots": "Black Military Helmet Boots",
+      "item.mm.military_headset": "Military Headset",
+      "subtitles.smokesoundeffect": "Smoke Grenade Explode",
+      "block.mm.duffelbag_block": "Duffelbag Block",
+      "gui.gms.tac_inv.label_character": "Character",
+      "item.gms.black_military_helmet_chestplate": "Black Military Helmet Chestplate",
+      "item.mm.medkit": "Medkit",
+      "item.mm.molotov": "Molotov",
+      "death.attack.bleed.item": "%1$s bleed out by %2$s using %3$s",
+      "subtitles.ear-ringing-10": "",
+      "subtitles.ear-ringing-2": "",
+      "item.mm.nvg": "NVG",
+      "subtitles.ear-ringing-11": "",
+      "subtitles.ear-ringing-1": "",
+      "subtitles.ear-ringing-12": "",
+      "subtitles.ear-ringing-4": "",
+      "subtitles.ear-ringing-13": "",
+      "subtitles.ear-ringing-3": "",
+      "subtitles.ear-ringing-14": "",
+      "subtitles.ear-ringing-15": "",
+      "item.mm.smoke": "Smoke Grenade",
+      "subtitles.ring1": "",
+      "subtitles.ring2": "",
+      "item.gms.balaclava": "Balaclava",
       "item.mm.black_military_helmet_leggings": "Black Military Helmet Leggings",
       "item.gms.black_military_helmet_boots": "Black Military Helmet Boots",
       "key.mm.decrease_tube_gain": "Decrease NVG Tube Gain",
-      "item_group.mm.gms": "GMS",
-      "item.gms.tvg": "TVG",
-      "item.gms.nvg": "NVG"
+      "item.mm.frag": "Frag Grenade",
+      "subtitles.ear-ringing-6": "",
+      "subtitles.ear-ringing-5": "",
+      "subtitles.ear-ringing-8": "",
+      "item.mm.impact": "Impact Grenade",
+      "subtitles.ear-ringing-7": "",
+      "item.mm.flashbang": "Flashbang Grenade",
+      "subtitles.ear-ringing-9": ""
     }
   },
   "foldersRoot": {
     "name": "~",
     "children": [
       {
-        "name": "tac_inv",
+        "name": "Inv",
         "children": []
       },
       {
-        "name": "tac_armor",
+        "name": "Armors",
         "children": [
           {
-            "name": "NVGS",
-            "children": []
+            "name": "Special Goggles",
+            "children": [
+              {
+                "name": "TVGs",
+                "children": []
+              },
+              {
+                "name": "NVGs",
+                "children": []
+              }
+            ]
           },
           {
             "name": "Balaclavas",
@@ -879,11 +2079,61 @@
           {
             "name": "Headsets",
             "children": []
+          },
+          {
+            "name": "Backpacks",
+            "children": [
+              {
+                "name": "BackpackTier1",
+                "children": []
+              },
+              {
+                "name": "BackpackTier2",
+                "children": []
+              },
+              {
+                "name": "BackpackTier3",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Rigs",
+            "children": []
+          },
+          {
+            "name": "Kneepads",
+            "children": []
           }
         ]
       },
       {
-        "name": "tac_items",
+        "name": "Items",
+        "children": [
+          {
+            "name": "Grenades",
+            "children": []
+          },
+          {
+            "name": "Duffelbag",
+            "children": []
+          },
+          {
+            "name": "Splint",
+            "children": []
+          },
+          {
+            "name": "Bandage",
+            "children": []
+          },
+          {
+            "name": "Medkit",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Effects",
         "children": []
       }
     ]
@@ -891,9 +2141,9 @@
   "workspaceSettings": {
     "modid": "mm",
     "modName": "ModernMayhem",
-    "version": "1.0.0",
-    "author": "User, MCreator",
-    "websiteURL": "https://mcreator.net",
+    "version": "0.0.1",
+    "description": "A bunch of military stuff",
+    "author": "TKG112, Foky, ZenZen.",
     "license": "Not specified",
     "serverSideOnly": false,
     "requiredMods": [],
@@ -901,6 +2151,7 @@
     "dependants": [],
     "mcreatorDependencies": [
       "kleidersplayerrenderer",
+      "use_compiled_mods",
       "curios_api",
       "geckolib"
     ],

@@ -1,6 +1,7 @@
 package net.mcreator.mm.item;
 
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
+import top.theillusivec4.curios.api.SlotContext;
 
 import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
@@ -33,6 +34,10 @@ public class NVGItem extends Item implements GeoItem, ICurioItem {
 	public NVGItem() {
 		super(new Item.Properties().stacksTo(1).durability(0));
 	}
+
+    public void curioTick(SlotContext slotContext, ItemStack itemstack, Entity entity) {
+    	
+    }
 
 	@Override
 	public void initializeClient(Consumer<IClientItemExtensions> consumer) {

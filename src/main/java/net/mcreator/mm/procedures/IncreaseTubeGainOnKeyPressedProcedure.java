@@ -21,42 +21,40 @@ public class IncreaseTubeGainOnKeyPressedProcedure {
 	public static void execute(LevelAccessor world, Entity entity) {
 		if (entity == null)
 			return;
-		if ((entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MmModVariables.PlayerVariables())).NVG_Black_Tube_Gain == 0 && entity instanceof LivingEntity lv
-				? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.NVG.get(), lv).isPresent()
-				: false) {
-			{
-				double _setval = 1;
-				entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-					capability.NVG_Black_Tube_Gain = _setval;
-					capability.syncPlayerVariables(entity);
-				});
-			}
-			if (world instanceof Level _level) {
-				if (!_level.isClientSide()) {
-					_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
-							(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1));
-				} else {
-					_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
-							(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1), false);
+		if (entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.NVG.get(), lv).isPresent() : false) {
+			if ((entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MmModVariables.PlayerVariables())).NVG_Black_Tube_Gain == 0) {
+				{
+					double _setval = 2;
+					entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+						capability.NVG_Black_Tube_Gain = _setval;
+						capability.syncPlayerVariables(entity);
+					});
 				}
-			}
-		} else if ((entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MmModVariables.PlayerVariables())).NVG_Black_Tube_Gain == 1 && entity instanceof LivingEntity lv
-				? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.NVG.get(), lv).isPresent()
-				: false) {
-			{
-				double _setval = 2;
-				entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-					capability.NVG_Black_Tube_Gain = _setval;
-					capability.syncPlayerVariables(entity);
-				});
-			}
-			if (world instanceof Level _level) {
-				if (!_level.isClientSide()) {
-					_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
-							(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1));
-				} else {
-					_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
-							(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1), false);
+				if (world instanceof Level _level) {
+					if (!_level.isClientSide()) {
+						_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
+								(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1));
+					} else {
+						_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
+								(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1), false);
+					}
+				}
+			} else if ((entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MmModVariables.PlayerVariables())).NVG_Black_Tube_Gain == 1) {
+				{
+					double _setval = 2;
+					entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+						capability.NVG_Black_Tube_Gain = _setval;
+						capability.syncPlayerVariables(entity);
+					});
+				}
+				if (world instanceof Level _level) {
+					if (!_level.isClientSide()) {
+						_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
+								(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1));
+					} else {
+						_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
+								(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1), false);
+					}
 				}
 			}
 		}

@@ -2,9 +2,7 @@
   "mappings": {
     "default": {
       "map": {
-        "0": "texture",
-        "1": "texture2",
-        "2": "texture3"
+        "0": "duffelbag"
       },
       "name": "default"
     }

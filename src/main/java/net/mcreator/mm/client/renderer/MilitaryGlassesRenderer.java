@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.resources.ResourceLocation;
 
 import net.mcreator.mm.item.model.MilitaryGlassesModel;
 import net.mcreator.mm.item.MilitaryGlassesItem;
@@ -36,6 +37,11 @@ public class MilitaryGlassesRenderer extends GeoArmorRenderer<MilitaryGlassesIte
 		this.leftLeg = new GeoBone(null, "armorLeftLeg", false, (double) 0, false, false);
 		this.rightBoot = new GeoBone(null, "armorRightBoot", false, (double) 0, false, false);
 		this.leftBoot = new GeoBone(null, "armorLeftBoot", false, (double) 0, false, false);
+	}
+
+	@Override
+	public RenderType getRenderType(MilitaryGlassesItem animatable, ResourceLocation texture, MultiBufferSource bufferSource, float partialTick) {
+		return RenderType.entityTranslucent(getTextureLocation(animatable));
 	}
 
 	@Override

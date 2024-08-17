@@ -10,7 +10,7 @@
     "name": "Duffelbag",
     "rarity": "COMMON",
     "creativeTab": {
-      "value": "CUSTOM:GMS"
+      "value": "CUSTOM:GMSItems"
     },
     "stackSize": 1,
     "enchantability": 0,
@@ -35,10 +35,13 @@
     "guiBoundTo": "<NONE>",
     "inventorySize": 9,
     "inventoryStackSize": 64,
+    "onRightClickedOnBlock": {
+      "name": "DuffelbagRightclickedOnBlock"
+    },
     "enableRanged": false,
     "shootConstantly": false,
     "projectile": {
-      "value": "Arrow"
+      "value": "CUSTOM:FragProjectile"
     },
     "isFood": false,
     "nutritionalValue": 4,

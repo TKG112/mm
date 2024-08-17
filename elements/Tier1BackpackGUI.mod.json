@@ -23,7 +23,7 @@
           "disablePickup": {
             "fixedValue": false
           },
-          "dropItemsWhenNotBound": true,
+          "dropItemsWhenNotBound": false,
           "x": 187,
           "y": 54
         }
@@ -41,7 +41,7 @@
           "disablePickup": {
             "fixedValue": false
           },
-          "dropItemsWhenNotBound": true,
+          "dropItemsWhenNotBound": false,
           "x": 205,
           "y": 54
         }
@@ -59,7 +59,7 @@
           "disablePickup": {
             "fixedValue": false
           },
-          "dropItemsWhenNotBound": true,
+          "dropItemsWhenNotBound": false,
           "x": 223,
           "y": 54
         }
@@ -77,7 +77,7 @@
           "disablePickup": {
             "fixedValue": false
           },
-          "dropItemsWhenNotBound": true,
+          "dropItemsWhenNotBound": false,
           "x": 187,
           "y": 72
         }
@@ -95,7 +95,7 @@
           "disablePickup": {
             "fixedValue": false
           },
-          "dropItemsWhenNotBound": true,
+          "dropItemsWhenNotBound": false,
           "x": 205,
           "y": 72
         }
@@ -113,7 +113,7 @@
           "disablePickup": {
             "fixedValue": false
           },
-          "dropItemsWhenNotBound": true,
+          "dropItemsWhenNotBound": false,
           "x": 223,
           "y": 72
         }
@@ -131,7 +131,7 @@
           "disablePickup": {
             "fixedValue": false
           },
-          "dropItemsWhenNotBound": true,
+          "dropItemsWhenNotBound": false,
           "x": 187,
           "y": 90
         }
@@ -149,7 +149,7 @@
           "disablePickup": {
             "fixedValue": false
           },
-          "dropItemsWhenNotBound": true,
+          "dropItemsWhenNotBound": false,
           "x": 205,
           "y": 90
         }
@@ -167,12 +167,15 @@
           "disablePickup": {
             "fixedValue": false
           },
-          "dropItemsWhenNotBound": true,
+          "dropItemsWhenNotBound": false,
           "x": 223,
           "y": 90
         }
       }
     ],
+    "onClosed": {
+      "name": "Tier1BackpackGUIThisGUIIsClosed"
+    },
     "gridSettings": {
       "sx": 18,
       "sy": 18,

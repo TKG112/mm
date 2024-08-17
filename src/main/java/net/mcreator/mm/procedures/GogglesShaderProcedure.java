@@ -71,5 +71,30 @@ public class GogglesShaderProcedure {
 				});
 			}
 		}
+		if ((entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MmModVariables.PlayerVariables())).TVG_Check == true) {
+			{
+				boolean _setval = true;
+				entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+					capability.TVG_Shader = _setval;
+					capability.syncPlayerVariables(entity);
+				});
+			}
+		} else if ((entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MmModVariables.PlayerVariables())).TVG_Check == false) {
+			{
+				boolean _setval = false;
+				entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+					capability.TVG_Shader = _setval;
+					capability.syncPlayerVariables(entity);
+				});
+			}
+		} else {
+			{
+				boolean _setval = false;
+				entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+					capability.TVG_Shader = _setval;
+					capability.syncPlayerVariables(entity);
+				});
+			}
+		}
 	}
 }

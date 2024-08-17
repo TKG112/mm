@@ -19,8 +19,13 @@ import net.minecraft.network.FriendlyByteBuf;
 
 import net.mcreator.mm.init.MmModTabs;
 import net.mcreator.mm.init.MmModSounds;
+import net.mcreator.mm.init.MmModParticleTypes;
+import net.mcreator.mm.init.MmModMobEffects;
 import net.mcreator.mm.init.MmModMenus;
 import net.mcreator.mm.init.MmModItems;
+import net.mcreator.mm.init.MmModEntities;
+import net.mcreator.mm.init.MmModBlocks;
+import net.mcreator.mm.init.MmModBlockEntities;
 
 import java.util.function.Supplier;
 import java.util.function.Function;
@@ -42,10 +47,16 @@ public class MmMod {
 		MinecraftForge.EVENT_BUS.register(this);
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		MmModSounds.REGISTRY.register(bus);
-
+		MmModBlocks.REGISTRY.register(bus);
+		MmModBlockEntities.REGISTRY.register(bus);
 		MmModItems.REGISTRY.register(bus);
+		MmModEntities.REGISTRY.register(bus);
 
 		MmModTabs.REGISTRY.register(bus);
+
+		MmModMobEffects.REGISTRY.register(bus);
+
+		MmModParticleTypes.REGISTRY.register(bus);
 
 		MmModMenus.REGISTRY.register(bus);
 		// Start of user code block mod init

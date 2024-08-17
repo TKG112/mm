@@ -4,11 +4,12 @@ license="Not specified"
 
 [[mods]]
 modId="mm"
-version="1.0.0"
+version="0.0.1"
 displayName="ModernMayhem"
 displayURL="https://mcreator.net"
 credits="Created using mod maker MCreator - https://mcreator.net/about"
-authors="User, MCreator"
+authors="TKG112, Foky, ZenZen."
+description="A bunch of military stuff"
 
 # Start of user code block mod configuration
 # End of user code block mod configuration
@@ -23,6 +24,12 @@ authors="User, MCreator"
 
 [[dependencies.mm]]
     modId="kleidersplayerrenderer"
+    mandatory=false
+    versionRange="[0,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.mm]]
+    modId="use_compiled_mods"
     mandatory=false
     versionRange="[0,)"
     ordering="NONE"

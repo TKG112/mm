@@ -10,4 +10,5 @@ public class MmModLayerDefinitions {
 	public static final ModelLayerLocation MILITARY_GLASSES = new ModelLayerLocation(new ResourceLocation("mm", "military_glasses"), "military_glasses");
 	public static final ModelLayerLocation MILITARY_GOGGLES = new ModelLayerLocation(new ResourceLocation("mm", "military_goggles"), "military_goggles");
 	public static final ModelLayerLocation MILITARY_HEADSET = new ModelLayerLocation(new ResourceLocation("mm", "military_headset"), "military_headset");
+	public static final ModelLayerLocation BACKPACK_TIER_1 = new ModelLayerLocation(new ResourceLocation("mm", "backpack_tier_1"), "backpack_tier_1");
 }

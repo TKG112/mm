@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 public class MmModCustomCuriosSlots {
 	@SubscribeEvent
 	public static void enqueueIMC(final InterModEnqueueEvent event) {
-		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("eyewear").icon(new ResourceLocation("curios:slot/empty_armor_slot_goggles")).size(1).build());
+		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("facewear").icon(new ResourceLocation("curios:slot/empty_armor_slot_goggles")).size(1).build());
 		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("earwear").icon(new ResourceLocation("curios:slot/empty_armor_slot_headset")).size(1).build());
 	}
 }
