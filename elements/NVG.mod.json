@@ -8,8 +8,8 @@
     "name": "NVG",
     "rarity": "COMMON",
     "slotType": "Eyewear",
-    "baubleModel": "Modelmodel_Converted",
-    "baubleModelTexture": "duffelbag.png",
+    "baubleModel": "Modelplaceholder",
+    "baubleModelTexture": "empty.png",
     "creativeTab": {
       "value": "CUSTOM:GMS"
     },
@@ -38,9 +38,6 @@
     "inventorySize": 9,
     "inventoryStackSize": 64,
     "slotAmount": 1,
-    "curioTick": {
-      "name": "NVGWhileBaubleIsEquippedTick"
-    },
     "isFood": false,
     "friendlyPigs": false,
     "enderMask": false,

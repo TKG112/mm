@@ -8,8 +8,8 @@
     "name": "Military Glasses",
     "rarity": "COMMON",
     "slotType": "Eyewear",
-    "baubleModel": "Modelmodel_Converted",
-    "baubleModelTexture": "duffelbag.png",
+    "baubleModel": "Modelplaceholder",
+    "baubleModelTexture": "empty.png",
     "creativeTab": {
       "value": "CUSTOM:GMS"
     },

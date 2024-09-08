@@ -41,6 +41,12 @@ description="A bunch of military stuff"
     ordering="NONE"
     side="BOTH"
 [[dependencies.mm]]
+    modId="taczsupport"
+    mandatory=false
+    versionRange="[0,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.mm]]
     modId="geckolib"
     mandatory=false
     versionRange="[0,)"

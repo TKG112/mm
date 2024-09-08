@@ -3,7 +3,7 @@
     {
       "name": "Tier1BackpackGUI",
       "type": "gui",
-      "sortid": 24,
+      "sortid": 17,
       "compiles": true,
       "locked_code": false,
       "registry_name": "tier_1_backpack_gui",
@@ -13,12 +13,12 @@
           "src/main/java/net/mcreator/mm/client/gui/Tier1BackpackGUIScreen.java"
         ]
       },
-      "path": "~/Armors/Backpacks/BackpackTier1"
+      "path": "~/Armors/Black/Chest/Backpacks/Backpack T1"
     },
     {
       "name": "Tier2Backpack",
       "type": "gui",
-      "sortid": 25,
+      "sortid": 18,
       "compiles": true,
       "locked_code": false,
       "registry_name": "tier_2_backpack",
@@ -28,12 +28,12 @@
           "src/main/java/net/mcreator/mm/client/gui/Tier2BackpackScreen.java"
         ]
       },
-      "path": "~/Armors/Backpacks/BackpackTier2"
+      "path": "~/Armors/Black/Chest/Backpacks/Backpack T2"
     },
     {
       "name": "Tier3BackpackGUI",
       "type": "gui",
-      "sortid": 26,
+      "sortid": 19,
       "compiles": true,
       "locked_code": false,
       "registry_name": "tier_3_backpack_gui",
@@ -43,12 +43,12 @@
           "src/main/java/net/mcreator/mm/world/inventory/Tier3BackpackGUIMenu.java"
         ]
       },
-      "path": "~/Armors/Backpacks/BackpackTier3"
+      "path": "~/Armors/Black/Chest/Backpacks/Backpack T3"
     },
     {
       "name": "ToggleNVG",
       "type": "keybind",
-      "sortid": 36,
+      "sortid": 20,
       "compiles": true,
       "locked_code": false,
       "registry_name": "toggle_nvg",
@@ -57,12 +57,12 @@
           "src/main/java/net/mcreator/mm/network/ToggleNVGMessage.java"
         ]
       },
-      "path": "~/Armors/Special Goggles/NVGs"
+      "path": "~/Armors/Black/Head/Special Goggles/NVGs"
     },
     {
       "name": "ToggleNVGOnKeyPressed",
       "type": "procedure",
-      "sortid": 37,
+      "sortid": 21,
       "compiles": true,
       "locked_code": false,
       "registry_name": "toggle_nvg_on_key_pressed",
@@ -81,12 +81,12 @@
           }
         ]
       },
-      "path": "~/Armors/Special Goggles/NVGs"
+      "path": "~/Armors/Black/Head/Special Goggles/NVGs"
     },
     {
       "name": "GogglesShow",
       "type": "procedure",
-      "sortid": 38,
+      "sortid": 22,
       "compiles": true,
       "locked_code": false,
       "registry_name": "goggles_show",
@@ -105,12 +105,12 @@
           }
         ]
       },
-      "path": "~/Armors/Special Goggles"
+      "path": "~/Armors/Black/Head/Special Goggles"
     },
     {
       "name": "GogglesShader",
       "type": "procedure",
-      "sortid": 39,
+      "sortid": 23,
       "compiles": true,
       "locked_code": true,
       "registry_name": "goggles_shader",
@@ -125,12 +125,12 @@
           }
         ]
       },
-      "path": "~/Armors/Special Goggles"
+      "path": "~/Armors/Black/Head/Special Goggles"
     },
     {
       "name": "RigGUI",
       "type": "gui",
-      "sortid": 41,
+      "sortid": 24,
       "compiles": true,
       "locked_code": false,
       "registry_name": "rig_gui",
@@ -140,12 +140,12 @@
           "src/main/java/net/mcreator/mm/world/inventory/RigGUIMenu.java"
         ]
       },
-      "path": "~/Armors/Rigs"
+      "path": "~/Armors/Black/Chest/Plate Carriers"
     },
     {
       "name": "IncreaseTubeGain",
       "type": "keybind",
-      "sortid": 46,
+      "sortid": 25,
       "compiles": true,
       "locked_code": false,
       "registry_name": "increase_tube_gain",
@@ -154,12 +154,12 @@
           "src/main/java/net/mcreator/mm/network/IncreaseTubeGainMessage.java"
         ]
       },
-      "path": "~/Armors/Special Goggles/NVGs"
+      "path": "~/Armors/Black/Head/Special Goggles/NVGs"
     },
     {
       "name": "DecreaseTubeGain",
       "type": "keybind",
-      "sortid": 47,
+      "sortid": 26,
       "compiles": true,
       "locked_code": false,
       "registry_name": "decrease_tube_gain",
@@ -168,12 +168,12 @@
           "src/main/java/net/mcreator/mm/network/DecreaseTubeGainMessage.java"
         ]
       },
-      "path": "~/Armors/Special Goggles/NVGs"
+      "path": "~/Armors/Black/Head/Special Goggles/NVGs"
     },
     {
       "name": "IncreaseTubeGainOnKeyPressed",
       "type": "procedure",
-      "sortid": 69,
+      "sortid": 27,
       "compiles": true,
       "locked_code": false,
       "registry_name": "increase_tube_gain_on_key_pressed",
@@ -192,12 +192,12 @@
           }
         ]
       },
-      "path": "~/Armors/Special Goggles/NVGs"
+      "path": "~/Armors/Black/Head/Special Goggles/NVGs"
     },
     {
       "name": "DecreaseTubeGainOnKeyPressed",
       "type": "procedure",
-      "sortid": 70,
+      "sortid": 28,
       "compiles": true,
       "locked_code": false,
       "registry_name": "decrease_tube_gain_on_key_pressed",
@@ -216,12 +216,12 @@
           }
         ]
       },
-      "path": "~/Armors/Special Goggles/NVGs"
+      "path": "~/Armors/Black/Head/Special Goggles/NVGs"
     },
     {
       "name": "GMS",
       "type": "tab",
-      "sortid": 71,
+      "sortid": 29,
       "compiles": true,
       "locked_code": false,
       "registry_name": "gms",
@@ -231,26 +231,9 @@
       "path": "~/Inv"
     },
     {
-      "name": "BlackMilitaryHelmet",
-      "type": "animatedarmor",
-      "sortid": 81,
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "black_military_helmet",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/mm/models/item/black_military_helmet_helmet.json",
-          "src/main/java/net/mcreator/mm/client/renderer/BlackMilitaryHelmetArmorRenderer.java",
-          "src/main/java/net/mcreator/mm/item/model/BlackMilitaryHelmetModel.java",
-          "src/main/java/net/mcreator/mm/item/BlackMilitaryHelmetItem.java"
-        ]
-      },
-      "path": "~/Armors/Helmets"
-    },
-    {
       "name": "NVG",
       "type": "curiosbauble",
-      "sortid": 82,
+      "sortid": 6,
       "compiles": true,
       "locked_code": true,
       "registry_name": "nvg",
@@ -261,12 +244,12 @@
           "src/main/java/net/mcreator/mm/client/renderer/NVGRenderer.java"
         ]
       },
-      "path": "~/Armors/Special Goggles/NVGs"
+      "path": "~/Armors/Black/Head/Special Goggles/NVGs"
     },
     {
       "name": "HelmetCheck",
       "type": "procedure",
-      "sortid": 83,
+      "sortid": 30,
       "compiles": true,
       "locked_code": false,
       "registry_name": "helmet_check",
@@ -285,12 +268,12 @@
           }
         ]
       },
-      "path": "~/Armors/Helmets"
+      "path": "~/Armors/Black/Head/Helmet"
     },
     {
       "name": "MenuItem",
       "type": "item",
-      "sortid": 85,
+      "sortid": 31,
       "compiles": true,
       "locked_code": false,
       "registry_name": "menu_item",
@@ -305,7 +288,7 @@
     {
       "name": "Eyewear",
       "type": "curiosslot",
-      "sortid": 86,
+      "sortid": 32,
       "compiles": true,
       "locked_code": false,
       "registry_name": "facewear",
@@ -319,7 +302,7 @@
     {
       "name": "Earwear",
       "type": "curiosslot",
-      "sortid": 87,
+      "sortid": 33,
       "compiles": true,
       "locked_code": false,
       "registry_name": "earwear",
@@ -333,87 +316,87 @@
     {
       "name": "Balaclava",
       "type": "curiosbauble",
-      "sortid": 88,
+      "sortid": 2,
       "compiles": true,
       "locked_code": true,
       "registry_name": "balaclava",
       "metadata": {
         "files": [
-          "src/main/java/net/mcreator/mm/item/BalaclavaItem.java",
           "src/main/resources/assets/mm/models/item/balaclava.json",
+          "src/main/java/net/mcreator/mm/item/BalaclavaItem.java",
           "src/main/java/net/mcreator/mm/client/renderer/BalaclavaRenderer.java"
         ]
       },
-      "path": "~/Armors/Balaclavas"
+      "path": "~/Armors/Other/Balaclava"
     },
     {
       "name": "MilitaryBalaclava",
       "type": "curiosbauble",
-      "sortid": 89,
+      "sortid": 3,
       "compiles": true,
       "locked_code": true,
       "registry_name": "military_balaclava",
       "metadata": {
         "files": [
-          "src/main/java/net/mcreator/mm/item/MilitaryBalaclavaItem.java",
           "src/main/resources/assets/mm/models/item/military_balaclava.json",
-          "src/main/java/net/mcreator/mm/client/renderer/MilitaryBalaclavaRenderer.java"
+          "src/main/java/net/mcreator/mm/client/renderer/MilitaryBalaclavaRenderer.java",
+          "src/main/java/net/mcreator/mm/item/MilitaryBalaclavaItem.java"
         ]
       },
-      "path": "~/Armors/Balaclavas"
+      "path": "~/Armors/Black/Head/Military Balaclava"
     },
     {
       "name": "MilitaryGlasses",
       "type": "curiosbauble",
-      "sortid": 90,
+      "sortid": 4,
       "compiles": true,
       "locked_code": true,
       "registry_name": "military_glasses",
       "metadata": {
         "files": [
+          "src/main/java/net/mcreator/mm/item/MilitaryGlassesItem.java",
           "src/main/java/net/mcreator/mm/client/renderer/MilitaryGlassesRenderer.java",
-          "src/main/resources/assets/mm/models/item/military_glasses.json",
-          "src/main/java/net/mcreator/mm/item/MilitaryGlassesItem.java"
+          "src/main/resources/assets/mm/models/item/military_glasses.json"
         ]
       },
-      "path": "~/Armors/Goggles And Glasses"
+      "path": "~/Armors/Black/Head/Goggles and Glasses"
     },
     {
       "name": "MilitaryGoggles",
       "type": "curiosbauble",
-      "sortid": 91,
+      "sortid": 5,
       "compiles": true,
       "locked_code": true,
       "registry_name": "military_goggles",
       "metadata": {
         "files": [
-          "src/main/java/net/mcreator/mm/item/MilitaryGogglesItem.java",
           "src/main/java/net/mcreator/mm/client/renderer/MilitaryGogglesRenderer.java",
+          "src/main/java/net/mcreator/mm/item/MilitaryGogglesItem.java",
           "src/main/resources/assets/mm/models/item/military_goggles.json"
         ]
       },
-      "path": "~/Armors/Goggles And Glasses"
+      "path": "~/Armors/Black/Head/Goggles and Glasses"
     },
     {
       "name": "MilitaryHeadset",
       "type": "curiosbauble",
-      "sortid": 92,
+      "sortid": 7,
       "compiles": true,
       "locked_code": true,
       "registry_name": "military_headset",
       "metadata": {
         "files": [
+          "src/main/resources/assets/mm/models/item/military_headset.json",
           "src/main/java/net/mcreator/mm/client/renderer/MilitaryHeadsetRenderer.java",
-          "src/main/java/net/mcreator/mm/item/MilitaryHeadsetItem.java",
-          "src/main/resources/assets/mm/models/item/military_headset.json"
+          "src/main/java/net/mcreator/mm/item/MilitaryHeadsetItem.java"
         ]
       },
-      "path": "~/Armors/Headsets"
+      "path": "~/Armors/Black/Head/Headset"
     },
     {
       "name": "Frag",
       "type": "item",
-      "sortid": 93,
+      "sortid": 8,
       "compiles": true,
       "locked_code": true,
       "registry_name": "frag",
@@ -428,7 +411,7 @@
     {
       "name": "FragProjectile",
       "type": "projectile",
-      "sortid": 94,
+      "sortid": 34,
       "compiles": true,
       "locked_code": true,
       "registry_name": "frag_projectile",
@@ -442,7 +425,7 @@
     {
       "name": "FragProjectileEntityWhileProjectileFlyingTick",
       "type": "procedure",
-      "sortid": 95,
+      "sortid": 35,
       "compiles": true,
       "locked_code": false,
       "registry_name": "frag_projectile_entity_while_projectile_flying_tick",
@@ -466,7 +449,7 @@
     {
       "name": "ModernMayhem",
       "type": "config",
-      "sortid": 96,
+      "sortid": 36,
       "compiles": true,
       "locked_code": false,
       "registry_name": "modern_mayhem",
@@ -479,7 +462,7 @@
     {
       "name": "Impact",
       "type": "item",
-      "sortid": 97,
+      "sortid": 9,
       "compiles": true,
       "locked_code": true,
       "registry_name": "impact",
@@ -494,7 +477,7 @@
     {
       "name": "ImpactProjectile",
       "type": "projectile",
-      "sortid": 98,
+      "sortid": 37,
       "compiles": true,
       "locked_code": true,
       "registry_name": "impact_projectile",
@@ -508,7 +491,7 @@
     {
       "name": "GMSItems",
       "type": "tab",
-      "sortid": 99,
+      "sortid": 38,
       "compiles": true,
       "locked_code": false,
       "registry_name": "gms_items",
@@ -520,7 +503,7 @@
     {
       "name": "Molotov",
       "type": "item",
-      "sortid": 100,
+      "sortid": 10,
       "compiles": true,
       "locked_code": true,
       "registry_name": "molotov",
@@ -535,7 +518,7 @@
     {
       "name": "MolotovProjectile",
       "type": "projectile",
-      "sortid": 101,
+      "sortid": 39,
       "compiles": true,
       "locked_code": true,
       "registry_name": "molotov_projectile",
@@ -549,7 +532,7 @@
     {
       "name": "MolotovProjectileProjectileHitsBlock",
       "type": "procedure",
-      "sortid": 102,
+      "sortid": 40,
       "compiles": true,
       "locked_code": true,
       "registry_name": "molotov_projectile_projectile_hits_block",
@@ -564,7 +547,7 @@
     {
       "name": "Flash",
       "type": "potioneffect",
-      "sortid": 103,
+      "sortid": 41,
       "compiles": true,
       "locked_code": false,
       "registry_name": "flash",
@@ -578,7 +561,7 @@
     {
       "name": "Vignette",
       "type": "potioneffect",
-      "sortid": 104,
+      "sortid": 42,
       "compiles": true,
       "locked_code": false,
       "registry_name": "vignette",
@@ -592,7 +575,7 @@
     {
       "name": "Flashbang",
       "type": "item",
-      "sortid": 105,
+      "sortid": 11,
       "compiles": true,
       "locked_code": true,
       "registry_name": "flashbang",
@@ -607,7 +590,7 @@
     {
       "name": "FlashbangProjectile",
       "type": "projectile",
-      "sortid": 106,
+      "sortid": 43,
       "compiles": true,
       "locked_code": true,
       "registry_name": "flashbang_projectile",
@@ -621,7 +604,7 @@
     {
       "name": "FlashbangProjectileWhileProjectileFlyingTick",
       "type": "procedure",
-      "sortid": 107,
+      "sortid": 44,
       "compiles": true,
       "locked_code": true,
       "registry_name": "flashbang_projectile_while_projectile_flying_tick",
@@ -636,7 +619,7 @@
     {
       "name": "FlashbangOverlay",
       "type": "overlay",
-      "sortid": 108,
+      "sortid": 45,
       "compiles": true,
       "locked_code": true,
       "registry_name": "flashbang_overlay",
@@ -650,7 +633,7 @@
     {
       "name": "FlashbangOverlayReturn",
       "type": "procedure",
-      "sortid": 109,
+      "sortid": 46,
       "compiles": true,
       "locked_code": false,
       "registry_name": "flashbang_overlay_return",
@@ -671,7 +654,7 @@
     {
       "name": "Smoke",
       "type": "item",
-      "sortid": 112,
+      "sortid": 12,
       "compiles": true,
       "locked_code": true,
       "registry_name": "smoke",
@@ -686,7 +669,7 @@
     {
       "name": "SmokeProjectile",
       "type": "projectile",
-      "sortid": 113,
+      "sortid": 47,
       "compiles": true,
       "locked_code": true,
       "registry_name": "smoke_projectile",
@@ -700,7 +683,7 @@
     {
       "name": "VignetteEffectReturn",
       "type": "procedure",
-      "sortid": 117,
+      "sortid": 48,
       "compiles": true,
       "locked_code": false,
       "registry_name": "vignette_effect_return",
@@ -721,7 +704,7 @@
     {
       "name": "VignetteOverlay",
       "type": "overlay",
-      "sortid": 118,
+      "sortid": 49,
       "compiles": true,
       "locked_code": true,
       "registry_name": "vignette_overlay",
@@ -735,7 +718,7 @@
     {
       "name": "SmokeFadeParticle",
       "type": "particle",
-      "sortid": 120,
+      "sortid": 50,
       "compiles": true,
       "locked_code": true,
       "registry_name": "smoke_fade_particle",
@@ -750,7 +733,7 @@
     {
       "name": "SmokeFade",
       "type": "procedure",
-      "sortid": 121,
+      "sortid": 51,
       "compiles": true,
       "locked_code": false,
       "registry_name": "smoke_fade",
@@ -782,7 +765,7 @@
     {
       "name": "SmokeParticle",
       "type": "particle",
-      "sortid": 122,
+      "sortid": 52,
       "compiles": true,
       "locked_code": false,
       "registry_name": "smoke_particle",
@@ -797,7 +780,7 @@
     {
       "name": "SmokeParticleSpawn",
       "type": "procedure",
-      "sortid": 123,
+      "sortid": 53,
       "compiles": true,
       "locked_code": false,
       "registry_name": "smoke_particle_spawn",
@@ -827,148 +810,9 @@
       "path": "~/Items/Grenades"
     },
     {
-      "name": "BackpackTier1",
-      "type": "curiosbauble",
-      "sortid": 124,
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "backpack_tier_1",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/mm/models/item/backpack_tier_1.json",
-          "src/main/java/net/mcreator/mm/client/renderer/BackpackTier1Renderer.java",
-          "src/main/java/net/mcreator/mm/item/inventory/BackpackTier1InventoryCapability.java",
-          "src/main/java/net/mcreator/mm/item/BackpackTier1Item.java"
-        ]
-      },
-      "path": "~/Armors/Backpacks/BackpackTier1"
-    },
-    {
-      "name": "OpenBackpack",
-      "type": "keybind",
-      "sortid": 125,
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "open_backpack",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/mm/network/OpenBackpackMessage.java"
-        ]
-      },
-      "path": "~/Armors/Backpacks"
-    },
-    {
-      "name": "OpenBackpackOnKeyPressed",
-      "type": "procedure",
-      "sortid": 126,
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "open_backpack_on_key_pressed",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/mm/procedures/OpenBackpackOnKeyPressedProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      },
-      "path": "~/Armors/Backpacks"
-    },
-    {
-      "name": "Tier1BackpackGUIWhileThisGUIIsOpenTick",
-      "type": "procedure",
-      "sortid": 127,
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "tier_1_backpack_gui_while_this_gui_is_open_tick",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/mm/procedures/Tier1BackpackGUIWhileThisGUIIsOpenTickProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      },
-      "path": "~/Armors/Backpacks/BackpackTier1"
-    },
-    {
-      "name": "Tier1BackpackGUIThisGUIIsClosed",
-      "type": "procedure",
-      "sortid": 128,
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "tier_1_backpack_gui_this_gui_is_closed",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/mm/procedures/Tier1BackpackGUIThisGUIIsClosedProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      },
-      "path": "~/Armors/Backpacks/BackpackTier1"
-    },
-    {
-      "name": "BulletSound",
-      "type": "procedure",
-      "sortid": 130,
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "bullet_sound",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/mm/procedures/BulletSoundProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      },
-      "path": "~/Armors/Headsets"
-    },
-    {
       "name": "BulletVignetteSpawn",
       "type": "procedure",
-      "sortid": 131,
+      "sortid": 54,
       "compiles": true,
       "locked_code": false,
       "registry_name": "bullet_vignette_spawn",
@@ -987,12 +831,12 @@
           }
         ]
       },
-      "path": "~/Armors/Goggles And Glasses"
+      "path": "~/Armors/Black/Head/Goggles and Glasses"
     },
     {
       "name": "BulletVignetteTick",
       "type": "procedure",
-      "sortid": 132,
+      "sortid": 55,
       "compiles": true,
       "locked_code": false,
       "registry_name": "bullet_vignette_tick",
@@ -1011,70 +855,12 @@
           }
         ]
       },
-      "path": "~/Armors/Goggles And Glasses"
-    },
-    {
-      "name": "ToggleTVG",
-      "type": "keybind",
-      "sortid": 133,
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "toggle_tvg",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/mm/network/ToggleTVGMessage.java"
-        ]
-      },
-      "path": "~/Armors/Special Goggles/TVGs"
-    },
-    {
-      "name": "ToggleTVGOnKeyPressed",
-      "type": "procedure",
-      "sortid": 134,
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "toggle_tvg_on_key_pressed",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/mm/procedures/ToggleTVGOnKeyPressedProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      },
-      "path": "~/Armors/Special Goggles/TVGs"
-    },
-    {
-      "name": "TVGEffect",
-      "type": "procedure",
-      "sortid": 135,
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "tvg_effect",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/mm/procedures/TVGEffectProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          }
-        ]
-      },
-      "path": "~/Armors/Special Goggles/TVGs"
+      "path": "~/Armors/Black/Head/Goggles and Glasses"
     },
     {
       "name": "VignetteEffectApply",
       "type": "procedure",
-      "sortid": 137,
+      "sortid": 59,
       "compiles": true,
       "locked_code": false,
       "registry_name": "vignette_effect_apply",
@@ -1094,7 +880,7 @@
     {
       "name": "BulletFlyBySound",
       "type": "procedure",
-      "sortid": 138,
+      "sortid": 60,
       "compiles": true,
       "locked_code": false,
       "registry_name": "bullet_fly_by_sound",
@@ -1126,7 +912,7 @@
     {
       "name": "Duffelbag",
       "type": "item",
-      "sortid": 139,
+      "sortid": 13,
       "compiles": true,
       "locked_code": true,
       "registry_name": "duffelbag",
@@ -1141,7 +927,7 @@
     {
       "name": "DuffelbagBlock",
       "type": "block",
-      "sortid": 140,
+      "sortid": 61,
       "compiles": true,
       "locked_code": false,
       "registry_name": "duffelbag_block",
@@ -1160,11 +946,14 @@
     {
       "name": "DuffelbagRightclickedOnBlock",
       "type": "procedure",
-      "sortid": 141,
+      "sortid": 62,
       "compiles": true,
       "locked_code": false,
       "registry_name": "duffelbag_rightclicked_on_block",
       "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/DuffelbagRightclickedOnBlockProcedure.java"
+        ],
         "dependencies": [
           {
             "name": "entity",
@@ -1197,7 +986,7 @@
     {
       "name": "DuffelbagBlockNeighbourBlockChanges",
       "type": "procedure",
-      "sortid": 142,
+      "sortid": 63,
       "compiles": true,
       "locked_code": false,
       "registry_name": "duffelbag_block_neighbour_block_changes",
@@ -1229,7 +1018,7 @@
     {
       "name": "Bleeding",
       "type": "potioneffect",
-      "sortid": 143,
+      "sortid": 64,
       "compiles": true,
       "locked_code": false,
       "registry_name": "bleeding",
@@ -1243,7 +1032,7 @@
     {
       "name": "BrokenLeg",
       "type": "potioneffect",
-      "sortid": 144,
+      "sortid": 65,
       "compiles": true,
       "locked_code": false,
       "registry_name": "broken_leg",
@@ -1257,7 +1046,7 @@
     {
       "name": "Splint",
       "type": "item",
-      "sortid": 145,
+      "sortid": 14,
       "compiles": true,
       "locked_code": false,
       "registry_name": "splint",
@@ -1272,7 +1061,7 @@
     {
       "name": "Bandage",
       "type": "item",
-      "sortid": 146,
+      "sortid": 15,
       "compiles": true,
       "locked_code": false,
       "registry_name": "bandage",
@@ -1287,7 +1076,7 @@
     {
       "name": "Medkit",
       "type": "item",
-      "sortid": 147,
+      "sortid": 16,
       "compiles": true,
       "locked_code": false,
       "registry_name": "medkit",
@@ -1302,7 +1091,7 @@
     {
       "name": "BandageRightclicked",
       "type": "procedure",
-      "sortid": 148,
+      "sortid": 66,
       "compiles": true,
       "locked_code": false,
       "registry_name": "bandage_rightclicked",
@@ -1326,7 +1115,7 @@
     {
       "name": "SplintRightclicked",
       "type": "procedure",
-      "sortid": 149,
+      "sortid": 67,
       "compiles": true,
       "locked_code": false,
       "registry_name": "splint_rightclicked",
@@ -1350,7 +1139,7 @@
     {
       "name": "MedkitRightclicked",
       "type": "procedure",
-      "sortid": 150,
+      "sortid": 68,
       "compiles": true,
       "locked_code": false,
       "registry_name": "medkit_rightclicked",
@@ -1374,7 +1163,7 @@
     {
       "name": "ApplyBrokenLegEffect",
       "type": "procedure",
-      "sortid": 151,
+      "sortid": 69,
       "compiles": true,
       "locked_code": false,
       "registry_name": "apply_broken_leg_effect",
@@ -1398,7 +1187,7 @@
     {
       "name": "ApplyBleedingEffect",
       "type": "procedure",
-      "sortid": 152,
+      "sortid": 70,
       "compiles": true,
       "locked_code": true,
       "registry_name": "apply_bleeding_effect",
@@ -1422,7 +1211,7 @@
     {
       "name": "BrokenLegEffectStartedapplied",
       "type": "procedure",
-      "sortid": 154,
+      "sortid": 71,
       "compiles": true,
       "locked_code": false,
       "registry_name": "broken_leg_effect_startedapplied",
@@ -1442,7 +1231,7 @@
     {
       "name": "BrokenLegEffectExpires",
       "type": "procedure",
-      "sortid": 155,
+      "sortid": 72,
       "compiles": true,
       "locked_code": false,
       "registry_name": "broken_leg_effect_expires",
@@ -1462,7 +1251,7 @@
     {
       "name": "BleedingActiveTickCondition",
       "type": "procedure",
-      "sortid": 156,
+      "sortid": 73,
       "compiles": true,
       "locked_code": false,
       "registry_name": "bleeding_active_tick_condition",
@@ -1487,7 +1276,7 @@
     {
       "name": "BleedingOnEffectActiveTick",
       "type": "procedure",
-      "sortid": 157,
+      "sortid": 74,
       "compiles": true,
       "locked_code": false,
       "registry_name": "bleeding_on_effect_active_tick",
@@ -1511,7 +1300,7 @@
     {
       "name": "Bleed",
       "type": "damagetype",
-      "sortid": 158,
+      "sortid": 75,
       "compiles": true,
       "locked_code": false,
       "registry_name": "bleed",
@@ -1523,24 +1312,275 @@
       "path": "~/Effects"
     },
     {
-      "name": "NVGWhileBaubleIsEquippedTick",
-      "type": "procedure",
-      "sortid": 159,
+      "name": "BlackMilitaryHelmet",
+      "type": "animatedarmor",
+      "sortid": 1,
       "compiles": true,
-      "locked_code": false,
-      "registry_name": "nvg_while_bauble_is_equipped_tick",
+      "locked_code": true,
+      "registry_name": "black_military_helmet",
       "metadata": {
         "files": [
-          "src/main/java/net/mcreator/mm/procedures/NVGWhileBaubleIsEquippedTickProcedure.java"
+          "src/main/resources/assets/mm/models/item/black_military_helmet_helmet.json",
+          "src/main/java/net/mcreator/mm/client/renderer/BlackMilitaryHelmetArmorRenderer.java",
+          "src/main/java/net/mcreator/mm/item/model/BlackMilitaryHelmetModel.java",
+          "src/main/java/net/mcreator/mm/item/BlackMilitaryHelmetItem.java"
+        ]
+      },
+      "path": "~/Armors/Black/Head/Helmet"
+    },
+    {
+      "name": "EarRing",
+      "type": "potioneffect",
+      "sortid": 76,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "ear_ring",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/potion/EarRingMobEffect.java"
+        ]
+      },
+      "path": "~/Effects"
+    },
+    {
+      "name": "EarRingActiveTickCondition",
+      "type": "procedure",
+      "sortid": 77,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "ear_ring_active_tick_condition",
+      "metadata": {
+        "return_type": "logic",
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/EarRingActiveTickConditionProcedure.java"
         ],
         "dependencies": [
           {
-            "name": "itemstack",
-            "type": "itemstack"
+            "name": "amplifier",
+            "type": "number"
+          },
+          {
+            "name": "duration",
+            "type": "number"
           }
         ]
       },
-      "path": "~/Armors/Special Goggles/NVGs"
+      "path": "~/Effects"
+    },
+    {
+      "name": "EarRingOnEffectActiveTick",
+      "type": "procedure",
+      "sortid": 78,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "ear_ring_on_effect_active_tick",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/EarRingOnEffectActiveTickProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Effects"
+    },
+    {
+      "name": "EarRingEffectExpires",
+      "type": "procedure",
+      "sortid": 79,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "ear_ring_effect_expires",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/EarRingEffectExpiresProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Effects"
+    },
+    {
+      "name": "FlashbangSun",
+      "type": "overlay",
+      "sortid": 80,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "flashbang_sun",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/client/screens/FlashbangSunOverlay.java"
+        ]
+      },
+      "path": "~/Items/Grenades"
+    },
+    {
+      "name": "BlackKevlarBody",
+      "type": "animatedarmor",
+      "sortid": 81,
+      "compiles": false,
+      "locked_code": false,
+      "registry_name": "black_kevlar_body",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/client/renderer/BlackKevlarBodyArmorRenderer.java",
+          "src/main/java/net/mcreator/mm/item/BlackKevlarBodyItem.java",
+          "src/main/java/net/mcreator/mm/item/model/BlackKevlarBodyModel.java",
+          "src/main/resources/assets/mm/models/item/black_kevlar_body_chestplate.json"
+        ]
+      },
+      "path": "~/Armors/Black/Chest/Kevlar Body"
+    },
+    {
+      "name": "BlackKevlarPants",
+      "type": "animatedarmor",
+      "sortid": 82,
+      "compiles": false,
+      "locked_code": false,
+      "registry_name": "black_kevlar_pants",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/client/renderer/BlackKevlarPantsArmorRenderer.java",
+          "src/main/java/net/mcreator/mm/item/BlackKevlarPantsItem.java",
+          "src/main/java/net/mcreator/mm/item/model/BlackKevlarPantsModel.java",
+          "src/main/resources/assets/mm/models/item/black_kevlar_pants_leggings.json"
+        ]
+      },
+      "path": "~/Armors/Black/Legs/Kevlar Pants"
+    },
+    {
+      "name": "BlackKevlarBoots",
+      "type": "animatedarmor",
+      "sortid": 83,
+      "compiles": false,
+      "locked_code": false,
+      "registry_name": "black_kevlar_boots",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/mm/models/item/black_kevlar_boots_boots.json",
+          "src/main/java/net/mcreator/mm/item/BlackKevlarBootsItem.java",
+          "src/main/java/net/mcreator/mm/client/renderer/BlackKevlarBootsArmorRenderer.java",
+          "src/main/java/net/mcreator/mm/item/model/BlackKevlarBootsModel.java"
+        ]
+      },
+      "path": "~/Armors/Black/Feet/Kevlar Boots"
+    },
+    {
+      "name": "BlackBackpack1",
+      "type": "curiosbauble",
+      "sortid": 84,
+      "compiles": false,
+      "locked_code": true,
+      "registry_name": "black_backpack_1",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/inventory/BlackBackpack1InventoryCapability.java",
+          "src/main/java/net/mcreator/mm/client/renderer/BlackBackpack1Renderer.java",
+          "src/main/resources/assets/mm/models/item/black_backpack_1.json",
+          "src/main/java/net/mcreator/mm/item/BlackBackpack1Item.java"
+        ]
+      },
+      "path": "~/Armors/Black/Chest/Backpacks/Backpack T1"
+    },
+    {
+      "name": "BlackBackpack2",
+      "type": "curiosbauble",
+      "sortid": 85,
+      "compiles": false,
+      "locked_code": true,
+      "registry_name": "black_backpack_2",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/mm/models/item/black_backpack_2.json",
+          "src/main/java/net/mcreator/mm/item/inventory/BlackBackpack2InventoryCapability.java",
+          "src/main/java/net/mcreator/mm/item/BlackBackpack2Item.java",
+          "src/main/java/net/mcreator/mm/client/renderer/BlackBackpack2Renderer.java"
+        ]
+      },
+      "path": "~/Armors/Black/Chest/Backpacks/Backpack T2"
+    },
+    {
+      "name": "BlackBackpack3",
+      "type": "curiosbauble",
+      "sortid": 86,
+      "compiles": false,
+      "locked_code": true,
+      "registry_name": "black_backpack_3",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/inventory/BlackBackpack3InventoryCapability.java",
+          "src/main/java/net/mcreator/mm/client/renderer/BlackBackpack3Renderer.java",
+          "src/main/java/net/mcreator/mm/item/BlackBackpack3Item.java",
+          "src/main/resources/assets/mm/models/item/black_backpack_3.json"
+        ]
+      },
+      "path": "~/Armors/Black/Chest/Backpacks/Backpack T3"
+    },
+    {
+      "name": "BlackPlateCarrier",
+      "type": "curiosbauble",
+      "sortid": 87,
+      "compiles": false,
+      "locked_code": true,
+      "registry_name": "black_plate_carrier",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/client/renderer/BlackPlateCarrierRenderer.java",
+          "src/main/resources/assets/mm/models/item/black_plate_carrier.json",
+          "src/main/java/net/mcreator/mm/item/inventory/BlackPlateCarrierInventoryCapability.java",
+          "src/main/java/net/mcreator/mm/item/BlackPlateCarrierItem.java"
+        ]
+      },
+      "path": "~/Armors/Black/Chest/Plate Carriers/Normal"
+    },
+    {
+      "name": "BlackPlateCarrierAmmo",
+      "type": "curiosbauble",
+      "sortid": 88,
+      "compiles": false,
+      "locked_code": true,
+      "registry_name": "black_plate_carrier_ammo",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/client/renderer/BlackPlateCarrierAmmoRenderer.java",
+          "src/main/java/net/mcreator/mm/item/inventory/BlackPlateCarrierAmmoInventoryCapability.java",
+          "src/main/resources/assets/mm/models/item/black_plate_carrier_ammo.json",
+          "src/main/java/net/mcreator/mm/item/BlackPlateCarrierAmmoItem.java"
+        ]
+      },
+      "path": "~/Armors/Black/Chest/Plate Carriers/AmmoPouches"
+    },
+    {
+      "name": "BlackPlateCarrierPouches",
+      "type": "curiosbauble",
+      "sortid": 89,
+      "compiles": false,
+      "locked_code": true,
+      "registry_name": "black_plate_carrier_pouches",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/inventory/BlackPlateCarrierPouchesInventoryCapability.java",
+          "src/main/java/net/mcreator/mm/item/BlackPlateCarrierPouchesItem.java",
+          "src/main/java/net/mcreator/mm/client/renderer/BlackPlateCarrierPouchesRenderer.java",
+          "src/main/resources/assets/mm/models/item/black_plate_carrier_pouches.json"
+        ]
+      },
+      "path": "~/Armors/Black/Chest/Plate Carriers/Pouches"
     }
   ],
   "variable_elements": [
@@ -1947,6 +1987,22 @@
       ],
       "category": "neutral",
       "subtitle": ""
+    },
+    {
+      "name": "ear-ringing",
+      "files": [
+        "ear-ringing"
+      ],
+      "category": "master",
+      "subtitle": ""
+    },
+    {
+      "name": "ear-ringing-fade",
+      "files": [
+        "ear-ringing-fade"
+      ],
+      "category": "master",
+      "subtitle": ""
     }
   ],
   "tag_elements": {},
@@ -1954,39 +2010,44 @@
     "en_us": {
       "item.gms.military_headset": "Military Headset",
       "key.gms.decrease_tube_gain": "Decrease NVG Tube Gain",
-      "item.gms.black_military_helmet_leggings": "Black Military Helmet Leggings",
       "item.mm.military_goggles": "Military Goggles",
+      "item.gms.black_military_helmet_leggings": "Black Military Helmet Leggings",
       "subtitles.ear-ringing": "",
+      "item.mm.black_kevlar_boots_boots": "Black Kevlar Boots",
       "item_group.gms.gms": "GMS",
+      "item.mm.black_kevlar_pants_chestplate": "Black Kevlar Pants Chestplate",
       "effect.mm.broken_leg": "Broken Leg",
       "item.mm.duffelbag": "Duffelbag",
       "item.gms.duffelbag": "Duffelbag",
       "item.gms.menu_item": "menu item (you shoudn\u0027t be seen this)",
+      "item.mm.black_kevlar_boots_chestplate": "Black Kevlar Boots Chestplate",
       "item.gms.black_military_helmet_helmet": "Black Military Helmet",
-      "item.mm.backpack_tier_1": "Small Backpack",
-      "gui.mm.tier_1_backpack_gui.label_empty": "",
       "key.gms.toggle_nvg": "Toggle NVG",
-      "death.attack.bleed.player": "%1$s bleed out whilst trying to escape %2$s",
+      "death.attack.bleed.player": "%1$s bled out whilst trying to escape %2$s",
       "item.mm.menu_item": "menu item (you shoudn\u0027t be seen this)",
-      "item.mm.black_military_helmet_chestplate": "Black Military Helmet Chestplate",
+      "item.mm.black_plate_carrier": "Black Plate Carrier",
+      "item.mm.black_plate_carrier_pouches": "Black Plate Carrier - Pouches",
+      "item.mm.black_kevlar_body_helmet": "Black Kevlar Body Helmet",
       "key.mm.toggle_nvg": "Toggle NVG",
-      "subtitles.bullet-fly-by": "",
+      "item.mm.black_military_helmet_chestplate": "Black Military Helmet Chestplate",
       "item.mm.splint": "Splint",
+      "item.mm.black_kevlar_pants_leggings": "Black Kevlar Pants",
       "subtitles.knob_turn": "NVG Gain Change",
       "item.mm.balaclava": "Balaclava",
       "item.gms.military_glasses": "Military Glasses",
       "effect.mm.flash": "Flashbang",
+      "death.attack.bleed": "%1$s bled out",
       "subtitles.ear-ringing-fade": "",
-      "death.attack.bleed": "%1$s bleed out",
       "subtitles.fb-explosion": "Flashbang Explosion",
       "subtitles.nvgturnknob": "NVG Gain Change",
       "subtitles.nade-landing": "",
-      "key.mm.toggle_tvg": "Toggle TVG",
       "key.gms.increase_tube_gain": "Increase NVG Tube Gain",
       "gui.gms.tac_inv.label_empty": "Inventory",
+      "item.mm.black_kevlar_body_leggings": "Black Kevlar Body Leggings",
       "item_group.mm.gms": "MM Armors",
       "item.gms.tvg": "TVG",
       "item.mm.bandage": "Bandage",
+      "item.mm.black_kevlar_boots_leggings": "Black Kevlar Boots Leggings",
       "item_group.mm.gms_items": "MM Items",
       "curios.identifier.facewear": "Facewear",
       "item.mm.military_balaclava": "Military Balaclava",
@@ -2002,43 +2063,35 @@
       "effect.mm.vignette": "Vignette",
       "item.gms.military_balaclava": "Military Balaclava",
       "subtitles.nvon": "NVG On",
-      "key.mm.open_backpack": "Open Backpack",
+      "item.mm.black_plate_carrier_ammo": "Black Plate Carrier - Ammo Pouches",
       "item.gms.military_goggles": "Military Goggles",
+      "item.mm.black_kevlar_body_chestplate": "Black Kevlar Body",
+      "effect.mm.ear_ring": "Ear Ringing",
       "item.mm.black_military_helmet_boots": "Black Military Helmet Boots",
       "item.mm.military_headset": "Military Headset",
+      "item.mm.black_backpack_1": "Black Backpack Tier 1",
+      "item.mm.black_backpack_3": "Black Backpack Tier 3",
+      "item.mm.black_backpack_2": "Black Backpack Tier 2",
       "subtitles.smokesoundeffect": "Smoke Grenade Explode",
       "block.mm.duffelbag_block": "Duffelbag Block",
       "gui.gms.tac_inv.label_character": "Character",
       "item.gms.black_military_helmet_chestplate": "Black Military Helmet Chestplate",
       "item.mm.medkit": "Medkit",
       "item.mm.molotov": "Molotov",
-      "death.attack.bleed.item": "%1$s bleed out by %2$s using %3$s",
-      "subtitles.ear-ringing-10": "",
-      "subtitles.ear-ringing-2": "",
+      "death.attack.bleed.item": "%1$s bled out by %2$s using %3$s",
+      "item.mm.black_kevlar_pants_boots": "Black Kevlar Pants Boots",
       "item.mm.nvg": "NVG",
-      "subtitles.ear-ringing-11": "",
-      "subtitles.ear-ringing-1": "",
-      "subtitles.ear-ringing-12": "",
-      "subtitles.ear-ringing-4": "",
-      "subtitles.ear-ringing-13": "",
-      "subtitles.ear-ringing-3": "",
-      "subtitles.ear-ringing-14": "",
-      "subtitles.ear-ringing-15": "",
+      "item.mm.black_kevlar_boots_helmet": "Black Kevlar Boots Helmet",
       "item.mm.smoke": "Smoke Grenade",
-      "subtitles.ring1": "",
-      "subtitles.ring2": "",
+      "item.mm.black_kevlar_body_boots": "Black Kevlar Body Boots",
       "item.gms.balaclava": "Balaclava",
+      "item.mm.black_kevlar_pants_helmet": "Black Kevlar Pants Helmet",
       "item.mm.black_military_helmet_leggings": "Black Military Helmet Leggings",
       "item.gms.black_military_helmet_boots": "Black Military Helmet Boots",
       "key.mm.decrease_tube_gain": "Decrease NVG Tube Gain",
       "item.mm.frag": "Frag Grenade",
-      "subtitles.ear-ringing-6": "",
-      "subtitles.ear-ringing-5": "",
-      "subtitles.ear-ringing-8": "",
       "item.mm.impact": "Impact Grenade",
-      "subtitles.ear-ringing-7": "",
-      "item.mm.flashbang": "Flashbang Grenade",
-      "subtitles.ear-ringing-9": ""
+      "item.mm.flashbang": "Flashbang Grenade"
     }
   },
   "foldersRoot": {
@@ -2052,58 +2105,125 @@
         "name": "Armors",
         "children": [
           {
-            "name": "Special Goggles",
+            "name": "Black",
             "children": [
               {
-                "name": "TVGs",
-                "children": []
+                "name": "Head",
+                "children": [
+                  {
+                    "name": "Military Balaclava",
+                    "children": []
+                  },
+                  {
+                    "name": "Headset",
+                    "children": []
+                  },
+                  {
+                    "name": "Special Goggles",
+                    "children": [
+                      {
+                        "name": "NVGs",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Goggles and Glasses",
+                    "children": []
+                  },
+                  {
+                    "name": "Helmet",
+                    "children": []
+                  }
+                ]
               },
               {
-                "name": "NVGs",
-                "children": []
+                "name": "Chest",
+                "children": [
+                  {
+                    "name": "Backpacks",
+                    "children": [
+                      {
+                        "name": "Backpack T1",
+                        "children": []
+                      },
+                      {
+                        "name": "Backpack T2",
+                        "children": []
+                      },
+                      {
+                        "name": "Backpack T3",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Plate Carriers",
+                    "children": [
+                      {
+                        "name": "Normal",
+                        "children": []
+                      },
+                      {
+                        "name": "AmmoPouches",
+                        "children": []
+                      },
+                      {
+                        "name": "Pouches",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Kevlar Body",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "Legs",
+                "children": [
+                  {
+                    "name": "Kneepads",
+                    "children": []
+                  },
+                  {
+                    "name": "Kevlar Pants",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "Feet",
+                "children": [
+                  {
+                    "name": "Kevlar Boots",
+                    "children": []
+                  }
+                ]
               }
             ]
           },
           {
-            "name": "Balaclavas",
+            "name": "Arctic",
             "children": []
           },
           {
-            "name": "Helmets",
+            "name": "Forest",
             "children": []
           },
           {
-            "name": "Goggles And Glasses",
+            "name": "Desert",
             "children": []
           },
           {
-            "name": "Headsets",
-            "children": []
-          },
-          {
-            "name": "Backpacks",
+            "name": "Other",
             "children": [
               {
-                "name": "BackpackTier1",
-                "children": []
-              },
-              {
-                "name": "BackpackTier2",
-                "children": []
-              },
-              {
-                "name": "BackpackTier3",
+                "name": "Balaclava",
                 "children": []
               }
             ]
-          },
-          {
-            "name": "Rigs",
-            "children": []
-          },
-          {
-            "name": "Kneepads",
-            "children": []
           }
         ]
       },
@@ -2144,6 +2264,7 @@
     "version": "0.0.1",
     "description": "A bunch of military stuff",
     "author": "TKG112, Foky, ZenZen.",
+    "websiteURL": "https://mcreator.net",
     "license": "Not specified",
     "serverSideOnly": false,
     "requiredMods": [],
@@ -2153,6 +2274,7 @@
       "kleidersplayerrenderer",
       "use_compiled_mods",
       "curios_api",
+      "taczsupport",
       "geckolib"
     ],
     "currentGenerator": "forge-1.20.1",

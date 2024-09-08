@@ -8,8 +8,8 @@
     "name": "Military Balaclava",
     "rarity": "COMMON",
     "slotType": "HEAD",
-    "baubleModel": "Modelmodel_Converted",
-    "baubleModelTexture": "duffelbag.png",
+    "baubleModel": "Modelplaceholder",
+    "baubleModelTexture": "empty.png",
     "creativeTab": {
       "value": "CUSTOM:GMS"
     },

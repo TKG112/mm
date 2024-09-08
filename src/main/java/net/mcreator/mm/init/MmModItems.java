@@ -27,15 +27,22 @@ import net.mcreator.mm.item.ImpactItem;
 import net.mcreator.mm.item.FragItem;
 import net.mcreator.mm.item.FlashbangItem;
 import net.mcreator.mm.item.DuffelbagItem;
+import net.mcreator.mm.item.BlackPlateCarrierPouchesItem;
+import net.mcreator.mm.item.BlackPlateCarrierItem;
+import net.mcreator.mm.item.BlackPlateCarrierAmmoItem;
 import net.mcreator.mm.item.BlackMilitaryHelmetItem;
+import net.mcreator.mm.item.BlackKevlarPantsItem;
+import net.mcreator.mm.item.BlackKevlarBootsItem;
+import net.mcreator.mm.item.BlackKevlarBodyItem;
+import net.mcreator.mm.item.BlackBackpack3Item;
+import net.mcreator.mm.item.BlackBackpack2Item;
+import net.mcreator.mm.item.BlackBackpack1Item;
 import net.mcreator.mm.item.BandageItem;
 import net.mcreator.mm.item.BalaclavaItem;
-import net.mcreator.mm.item.BackpackTier1Item;
 import net.mcreator.mm.MmMod;
 
 public class MmModItems {
 	public static final DeferredRegister<Item> REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, MmMod.MODID);
-	public static final RegistryObject<BlackMilitaryHelmetItem> BLACK_MILITARY_HELMET_HELMET = REGISTRY.register("black_military_helmet_helmet", () -> new BlackMilitaryHelmetItem(ArmorItem.Type.HELMET, new Item.Properties()));
 	public static final RegistryObject<Item> NVG = REGISTRY.register("nvg", () -> new NVGItem());
 	public static final RegistryObject<Item> MENU_ITEM = REGISTRY.register("menu_item", () -> new MenuItemItem());
 	public static final RegistryObject<Item> BALACLAVA = REGISTRY.register("balaclava", () -> new BalaclavaItem());
@@ -48,12 +55,21 @@ public class MmModItems {
 	public static final RegistryObject<Item> MOLOTOV = REGISTRY.register("molotov", () -> new MolotovItem());
 	public static final RegistryObject<Item> FLASHBANG = REGISTRY.register("flashbang", () -> new FlashbangItem());
 	public static final RegistryObject<Item> SMOKE = REGISTRY.register("smoke", () -> new SmokeItem());
-	public static final RegistryObject<Item> BACKPACK_TIER_1 = REGISTRY.register("backpack_tier_1", () -> new BackpackTier1Item());
 	public static final RegistryObject<Item> DUFFELBAG = REGISTRY.register("duffelbag", () -> new DuffelbagItem());
 	public static final RegistryObject<Item> DUFFELBAG_BLOCK = block(MmModBlocks.DUFFELBAG_BLOCK);
 	public static final RegistryObject<Item> SPLINT = REGISTRY.register("splint", () -> new SplintItem());
 	public static final RegistryObject<Item> BANDAGE = REGISTRY.register("bandage", () -> new BandageItem());
 	public static final RegistryObject<Item> MEDKIT = REGISTRY.register("medkit", () -> new MedkitItem());
+	public static final RegistryObject<BlackMilitaryHelmetItem> BLACK_MILITARY_HELMET_HELMET = REGISTRY.register("black_military_helmet_helmet", () -> new BlackMilitaryHelmetItem(ArmorItem.Type.HELMET, new Item.Properties()));
+	public static final RegistryObject<BlackKevlarBodyItem> BLACK_KEVLAR_BODY_CHESTPLATE = REGISTRY.register("black_kevlar_body_chestplate", () -> new BlackKevlarBodyItem(ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+	public static final RegistryObject<BlackKevlarPantsItem> BLACK_KEVLAR_PANTS_LEGGINGS = REGISTRY.register("black_kevlar_pants_leggings", () -> new BlackKevlarPantsItem(ArmorItem.Type.LEGGINGS, new Item.Properties()));
+	public static final RegistryObject<BlackKevlarBootsItem> BLACK_KEVLAR_BOOTS_BOOTS = REGISTRY.register("black_kevlar_boots_boots", () -> new BlackKevlarBootsItem(ArmorItem.Type.BOOTS, new Item.Properties()));
+	public static final RegistryObject<Item> BLACK_BACKPACK_1 = REGISTRY.register("black_backpack_1", () -> new BlackBackpack1Item());
+	public static final RegistryObject<Item> BLACK_BACKPACK_2 = REGISTRY.register("black_backpack_2", () -> new BlackBackpack2Item());
+	public static final RegistryObject<Item> BLACK_BACKPACK_3 = REGISTRY.register("black_backpack_3", () -> new BlackBackpack3Item());
+	public static final RegistryObject<Item> BLACK_PLATE_CARRIER = REGISTRY.register("black_plate_carrier", () -> new BlackPlateCarrierItem());
+	public static final RegistryObject<Item> BLACK_PLATE_CARRIER_AMMO = REGISTRY.register("black_plate_carrier_ammo", () -> new BlackPlateCarrierAmmoItem());
+	public static final RegistryObject<Item> BLACK_PLATE_CARRIER_POUCHES = REGISTRY.register("black_plate_carrier_pouches", () -> new BlackPlateCarrierPouchesItem());
 
 	// Start of user code block custom items
 	// End of user code block custom items

@@ -21,4 +21,6 @@ public class MmModSounds {
 	public static final RegistryObject<SoundEvent> FB_EXPLOSION = REGISTRY.register("fb-explosion", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("mm", "fb-explosion")));
 	public static final RegistryObject<SoundEvent> NADE_LANDING = REGISTRY.register("nade-landing", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("mm", "nade-landing")));
 	public static final RegistryObject<SoundEvent> BULLET_FLY_BY = REGISTRY.register("bullet-fly-by", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("mm", "bullet-fly-by")));
+	public static final RegistryObject<SoundEvent> EAR_RINGING = REGISTRY.register("ear-ringing", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("mm", "ear-ringing")));
+	public static final RegistryObject<SoundEvent> EAR_RINGING_FADE = REGISTRY.register("ear-ringing-fade", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("mm", "ear-ringing-fade")));
 }

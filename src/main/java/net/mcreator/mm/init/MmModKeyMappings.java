@@ -15,9 +15,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.KeyMapping;
 
-import net.mcreator.mm.network.ToggleTVGMessage;
 import net.mcreator.mm.network.ToggleNVGMessage;
-import net.mcreator.mm.network.OpenBackpackMessage;
 import net.mcreator.mm.network.IncreaseTubeGainMessage;
 import net.mcreator.mm.network.DecreaseTubeGainMessage;
 import net.mcreator.mm.MmMod;
@@ -63,40 +61,12 @@ public class MmModKeyMappings {
 			isDownOld = isDown;
 		}
 	};
-	public static final KeyMapping OPEN_BACKPACK = new KeyMapping("key.mm.open_backpack", GLFW.GLFW_KEY_B, "key.categories.misc") {
-		private boolean isDownOld = false;
-
-		@Override
-		public void setDown(boolean isDown) {
-			super.setDown(isDown);
-			if (isDownOld != isDown && isDown) {
-				MmMod.PACKET_HANDLER.sendToServer(new OpenBackpackMessage(0, 0));
-				OpenBackpackMessage.pressAction(Minecraft.getInstance().player, 0, 0);
-			}
-			isDownOld = isDown;
-		}
-	};
-	public static final KeyMapping TOGGLE_TVG = new KeyMapping("key.mm.toggle_tvg", GLFW.GLFW_KEY_K, "key.categories.misc") {
-		private boolean isDownOld = false;
-
-		@Override
-		public void setDown(boolean isDown) {
-			super.setDown(isDown);
-			if (isDownOld != isDown && isDown) {
-				MmMod.PACKET_HANDLER.sendToServer(new ToggleTVGMessage(0, 0));
-				ToggleTVGMessage.pressAction(Minecraft.getInstance().player, 0, 0);
-			}
-			isDownOld = isDown;
-		}
-	};
 
 	@SubscribeEvent
 	public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
 		event.register(TOGGLE_NVG);
 		event.register(INCREASE_TUBE_GAIN);
 		event.register(DECREASE_TUBE_GAIN);
-		event.register(OPEN_BACKPACK);
-		event.register(TOGGLE_TVG);
 	}
 
 	@Mod.EventBusSubscriber({Dist.CLIENT})
@@ -107,8 +77,6 @@ public class MmModKeyMappings {
 				TOGGLE_NVG.consumeClick();
 				INCREASE_TUBE_GAIN.consumeClick();
 				DECREASE_TUBE_GAIN.consumeClick();
-				OPEN_BACKPACK.consumeClick();
-				TOGGLE_TVG.consumeClick();
 			}
 		}
 	}

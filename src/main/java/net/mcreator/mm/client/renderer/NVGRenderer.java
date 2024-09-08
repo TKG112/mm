@@ -25,7 +25,7 @@ import net.mcreator.mm.item.NVGItem;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-public class NVGRenderer extends GeoArmorRenderer<NVGItem> implements ICurioRenderer{
+public class NVGRenderer extends GeoArmorRenderer<NVGItem> implements ICurioRenderer {
 	public NVGRenderer() {
 		super(new NVGModel());
 		this.head = new GeoBone(null, "armorHead", false, (double) 0, false, false);

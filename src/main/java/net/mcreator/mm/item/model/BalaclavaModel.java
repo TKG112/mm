@@ -19,6 +19,6 @@ public class BalaclavaModel extends GeoModel<BalaclavaItem> {
 
 	@Override
 	public ResourceLocation getTextureResource(BalaclavaItem object) {
-		return new ResourceLocation("mm", "textures/item/other_black.png");
+		return new ResourceLocation("mm", "textures/item/balaclava.png");
 	}
 }

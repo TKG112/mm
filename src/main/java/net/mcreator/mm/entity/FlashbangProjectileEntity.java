@@ -30,6 +30,8 @@ import net.mcreator.mm.init.MmModEntities;
 @OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
 public class FlashbangProjectileEntity extends ThrowableItemProjectile implements ItemSupplier {
 	public static final ItemStack PROJECTILE_ITEM = new ItemStack(MmModItems.FLASHBANG.get());
+	// Static variables to store the explosion coordinates
+	private static Vec3 lastExplosionPosition = null;
 
 	public FlashbangProjectileEntity(PlayMessages.SpawnEntity packet, Level world) {
 		super(MmModEntities.FLASHBANG_PROJECTILE.get(), world);
@@ -73,22 +75,22 @@ public class FlashbangProjectileEntity extends ThrowableItemProjectile implement
 
 	@Override
 	protected void onHitBlock(BlockHitResult result) {
-    	super.onHitBlock(result);
-    	Vec3 currentVelocity = this.getDeltaMovement();
-    	Vec3i normalVec3i = result.getDirection().getNormal();
-    	Vec3 normal = new Vec3(normalVec3i.getX(), normalVec3i.getY(), normalVec3i.getZ());
-    	Vec3 reflectedVelocity = currentVelocity.subtract(normal.scale(2 * currentVelocity.dot(normal))).scale(0.4);
-
-    	// Threshold for stopping the entity
-    	double stopThreshold = 0.1;
-
-    	// If the new velocity is below the threshold, stop the entity
-    	if (reflectedVelocity.length() < stopThreshold) {
-        	this.setDeltaMovement(Vec3.ZERO);
-    	} else {
-        	this.setDeltaMovement(reflectedVelocity);
-        	this.level().playSound(null, BlockPos.containing(this.getX(), this.getY(), this.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nade-landing")), SoundSource.NEUTRAL, 1, 1);
-    	}
+		super.onHitBlock(result);
+		// Set the explosion coordinates when the projectile hits a block
+		lastExplosionPosition = new Vec3(this.getX(), this.getY(), this.getZ());
+		Vec3 currentVelocity = this.getDeltaMovement();
+		Vec3i normalVec3i = result.getDirection().getNormal();
+		Vec3 normal = new Vec3(normalVec3i.getX(), normalVec3i.getY(), normalVec3i.getZ());
+		Vec3 reflectedVelocity = currentVelocity.subtract(normal.scale(2 * currentVelocity.dot(normal))).scale(0.4);
+		// Threshold for stopping the entity
+		double stopThreshold = 0.1;
+		// If the new velocity is below the threshold, stop the entity
+		if (reflectedVelocity.length() < stopThreshold) {
+			this.setDeltaMovement(Vec3.ZERO);
+		} else {
+			this.setDeltaMovement(reflectedVelocity);
+			this.level().playSound(null, BlockPos.containing(this.getX(), this.getY(), this.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nade-landing")), SoundSource.NEUTRAL, 1, 1);
+		}
 	}
 
 	public static FlashbangProjectileEntity shoot(Level world, LivingEntity entity, RandomSource source) {
@@ -99,7 +101,6 @@ public class FlashbangProjectileEntity extends ThrowableItemProjectile implement
 		FlashbangProjectileEntity entityProjectile = new FlashbangProjectileEntity(MmModEntities.FLASHBANG_PROJECTILE.get(), entity, world);
 		entityProjectile.shootFromRotation(entity, entity.getXRot(), entity.getYRot(), 0.0F, power * 2.0F, 1.0F);
 		entityProjectile.setSilent(true);
-		// Implement custom damage and knockback if needed
 		world.addFreshEntity(entityProjectile);
 		world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.arrow.shoot")), SoundSource.PLAYERS, 1, 1f / (random.nextFloat() * 0.5f + 1) + (power / 2));
 		return entityProjectile;
@@ -112,9 +113,13 @@ public class FlashbangProjectileEntity extends ThrowableItemProjectile implement
 		double dz = target.getZ() - entity.getZ();
 		entityProjectile.shoot(dx, dy - entityProjectile.getY() + Math.hypot(dx, dz) * 0.2F, dz, 1f * 2, 12.0F);
 		entityProjectile.setSilent(true);
-		// Implement custom damage and knockback if needed
 		entity.level().addFreshEntity(entityProjectile);
 		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.arrow.shoot")), SoundSource.PLAYERS, 1, 1f / (RandomSource.create().nextFloat() * 0.5f + 1));
 		return entityProjectile;
+	}
+
+	// Getter for the last explosion position
+	public static Vec3 getLastExplosionPosition() {
+		return lastExplosionPosition;
 	}
 }

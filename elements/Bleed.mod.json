@@ -5,8 +5,8 @@
     "exhaustion": 0.1,
     "scaling": "never",
     "effects": "hurt",
-    "normalDeathMessage": "%1$s bleed out",
-    "itemDeathMessage": "%1$s bleed out by %2$s using %3$s",
-    "playerDeathMessage": "%1$s bleed out whilst trying to escape %2$s"
+    "normalDeathMessage": "%1$s bled out",
+    "itemDeathMessage": "%1$s bled out by %2$s using %3$s",
+    "playerDeathMessage": "%1$s bled out whilst trying to escape %2$s"
   }
 }

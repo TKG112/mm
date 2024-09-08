@@ -1,0 +1,26 @@
+{
+  "_fv": 60,
+  "_type": "potioneffect",
+  "definition": {
+    "effectName": "Ear Ringing",
+    "icon": "ear_ring.png",
+    "color": {
+      "value": -1,
+      "falpha": 0.0
+    },
+    "isInstant": false,
+    "isBad": false,
+    "isBenefitical": false,
+    "renderStatusInInventory": true,
+    "renderStatusInHUD": false,
+    "onActiveTick": {
+      "name": "EarRingOnEffectActiveTick"
+    },
+    "onExpired": {
+      "name": "EarRingEffectExpires"
+    },
+    "activeTickCondition": {
+      "name": "EarRingActiveTickCondition"
+    }
+  }
+}

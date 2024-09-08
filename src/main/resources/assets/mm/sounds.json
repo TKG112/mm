@@ -50,5 +50,21 @@
         "stream": false
       }
     ]
+  },
+  "ear-ringing": {
+    "sounds": [
+      {
+        "name": "mm:ear-ringing",
+        "stream": false
+      }
+    ]
+  },
+  "ear-ringing-fade": {
+    "sounds": [
+      {
+        "name": "mm:ear-ringing-fade",
+        "stream": false
+      }
+    ]
   }
 }

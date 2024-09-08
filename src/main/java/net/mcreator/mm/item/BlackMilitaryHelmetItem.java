@@ -6,8 +6,8 @@ import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.animatable.GeoItem;
@@ -50,7 +50,7 @@ public class BlackMilitaryHelmetItem extends ArmorItem implements GeoItem {
 
 			@Override
 			public int getDefenseForType(ArmorItem.Type type) {
-				return new int[]{0, 0, 0, 3}[type.getSlot().getIndex()];
+				return new int[]{0, 0, 0, 2}[type.getSlot().getIndex()];
 			}
 
 			@Override

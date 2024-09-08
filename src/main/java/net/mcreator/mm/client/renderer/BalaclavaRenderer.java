@@ -20,7 +20,6 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.EntityModel;
 
 import net.mcreator.mm.item.model.BalaclavaModel;
-import net.mcreator.mm.item.NVGItem;
 import net.mcreator.mm.item.BalaclavaItem;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;

@@ -9,16 +9,16 @@ import net.mcreator.mm.item.NVGItem;
 public class NVGModel extends GeoModel<NVGItem> {
 	@Override
 	public ResourceLocation getAnimationResource(NVGItem object) {
-		return new ResourceLocation("mm", "animations/nvg.animation.json");
+		return new ResourceLocation("mm", "animations/black_gpnvgs.animation.json");
 	}
 
 	@Override
 	public ResourceLocation getModelResource(NVGItem object) {
-		return new ResourceLocation("mm", "geo/nvg.geo.json");
+		return new ResourceLocation("mm", "geo/black_gpnvgs.geo.json");
 	}
 
 	@Override
 	public ResourceLocation getTextureResource(NVGItem object) {
-		return new ResourceLocation("mm", "textures/item/eyewear_black.png");
+		return new ResourceLocation("mm", "textures/item/black_gpnvgs.png");
 	}
 }

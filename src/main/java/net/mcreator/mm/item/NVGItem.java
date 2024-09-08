@@ -35,9 +35,9 @@ public class NVGItem extends Item implements GeoItem, ICurioItem {
 		super(new Item.Properties().stacksTo(1).durability(0));
 	}
 
-    public void curioTick(SlotContext slotContext, ItemStack itemstack, Entity entity) {
-    	
-    }
+	public void curioTick(SlotContext slotContext, ItemStack itemstack, Entity entity) {
+
+	}
 
 	@Override
 	public void initializeClient(Consumer<IClientItemExtensions> consumer) {

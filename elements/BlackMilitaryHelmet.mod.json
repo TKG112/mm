@@ -46,7 +46,7 @@
     "bootsImmuneToFire": false,
     "fullyEquipped": false,
     "maxDamage": 25,
-    "damageValueHelmet": 3,
+    "damageValueHelmet": 2,
     "damageValueBody": 0,
     "damageValueLeggings": 0,
     "damageValueBoots": 0,

@@ -10,5 +10,10 @@ public class MmModLayerDefinitions {
 	public static final ModelLayerLocation MILITARY_GLASSES = new ModelLayerLocation(new ResourceLocation("mm", "military_glasses"), "military_glasses");
 	public static final ModelLayerLocation MILITARY_GOGGLES = new ModelLayerLocation(new ResourceLocation("mm", "military_goggles"), "military_goggles");
 	public static final ModelLayerLocation MILITARY_HEADSET = new ModelLayerLocation(new ResourceLocation("mm", "military_headset"), "military_headset");
-	public static final ModelLayerLocation BACKPACK_TIER_1 = new ModelLayerLocation(new ResourceLocation("mm", "backpack_tier_1"), "backpack_tier_1");
+	public static final ModelLayerLocation BLACK_BACKPACK_1 = new ModelLayerLocation(new ResourceLocation("mm", "black_backpack_1"), "black_backpack_1");
+	public static final ModelLayerLocation BLACK_BACKPACK_2 = new ModelLayerLocation(new ResourceLocation("mm", "black_backpack_2"), "black_backpack_2");
+	public static final ModelLayerLocation BLACK_BACKPACK_3 = new ModelLayerLocation(new ResourceLocation("mm", "black_backpack_3"), "black_backpack_3");
+	public static final ModelLayerLocation BLACK_PLATE_CARRIER = new ModelLayerLocation(new ResourceLocation("mm", "black_plate_carrier"), "black_plate_carrier");
+	public static final ModelLayerLocation BLACK_PLATE_CARRIER_AMMO = new ModelLayerLocation(new ResourceLocation("mm", "black_plate_carrier_ammo"), "black_plate_carrier_ammo");
+	public static final ModelLayerLocation BLACK_PLATE_CARRIER_POUCHES = new ModelLayerLocation(new ResourceLocation("mm", "black_plate_carrier_pouches"), "black_plate_carrier_pouches");
 }

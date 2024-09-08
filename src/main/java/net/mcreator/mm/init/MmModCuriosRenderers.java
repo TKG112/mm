@@ -12,22 +12,31 @@ import net.mcreator.mm.client.renderer.MilitaryHeadsetRenderer;
 import net.mcreator.mm.client.renderer.MilitaryGogglesRenderer;
 import net.mcreator.mm.client.renderer.MilitaryGlassesRenderer;
 import net.mcreator.mm.client.renderer.MilitaryBalaclavaRenderer;
+import net.mcreator.mm.client.renderer.BlackPlateCarrierRenderer;
+import net.mcreator.mm.client.renderer.BlackPlateCarrierPouchesRenderer;
+import net.mcreator.mm.client.renderer.BlackPlateCarrierAmmoRenderer;
+import net.mcreator.mm.client.renderer.BlackBackpack3Renderer;
+import net.mcreator.mm.client.renderer.BlackBackpack2Renderer;
+import net.mcreator.mm.client.renderer.BlackBackpack1Renderer;
 import net.mcreator.mm.client.renderer.BalaclavaRenderer;
-import net.mcreator.mm.client.renderer.BackpackTier1Renderer;
 import net.mcreator.mm.client.model.Modelplaceholder;
-import net.mcreator.mm.client.model.Modelmodel_Converted;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MmModCuriosRenderers {
 	@SubscribeEvent
 	public static void registerLayers(final EntityRenderersEvent.RegisterLayerDefinitions evt) {
-		evt.registerLayerDefinition(MmModLayerDefinitions.NVG, Modelmodel_Converted::createBodyLayer);
-		evt.registerLayerDefinition(MmModLayerDefinitions.BALACLAVA, Modelmodel_Converted::createBodyLayer);
-		evt.registerLayerDefinition(MmModLayerDefinitions.MILITARY_BALACLAVA, Modelmodel_Converted::createBodyLayer);
-		evt.registerLayerDefinition(MmModLayerDefinitions.MILITARY_GLASSES, Modelmodel_Converted::createBodyLayer);
-		evt.registerLayerDefinition(MmModLayerDefinitions.MILITARY_GOGGLES, Modelmodel_Converted::createBodyLayer);
-		evt.registerLayerDefinition(MmModLayerDefinitions.MILITARY_HEADSET, Modelmodel_Converted::createBodyLayer);
-		evt.registerLayerDefinition(MmModLayerDefinitions.BACKPACK_TIER_1, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.NVG, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.BALACLAVA, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.MILITARY_BALACLAVA, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.MILITARY_GLASSES, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.MILITARY_GOGGLES, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.MILITARY_HEADSET, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.BLACK_BACKPACK_1, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.BLACK_BACKPACK_2, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.BLACK_BACKPACK_3, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.BLACK_PLATE_CARRIER, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.BLACK_PLATE_CARRIER_AMMO, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.BLACK_PLATE_CARRIER_POUCHES, Modelplaceholder::createBodyLayer);
 	}
 
 	@SubscribeEvent
@@ -38,6 +47,11 @@ public class MmModCuriosRenderers {
 		CuriosRendererRegistry.register(MmModItems.MILITARY_GLASSES.get(), MilitaryGlassesRenderer::new);
 		CuriosRendererRegistry.register(MmModItems.MILITARY_GOGGLES.get(), MilitaryGogglesRenderer::new);
 		CuriosRendererRegistry.register(MmModItems.MILITARY_HEADSET.get(), MilitaryHeadsetRenderer::new);
-		CuriosRendererRegistry.register(MmModItems.BACKPACK_TIER_1.get(), BackpackTier1Renderer::new);
+		CuriosRendererRegistry.register(MmModItems.BLACK_BACKPACK_1.get(), BlackBackpack1Renderer::new);
+		CuriosRendererRegistry.register(MmModItems.BLACK_BACKPACK_2.get(), BlackBackpack2Renderer::new);
+		CuriosRendererRegistry.register(MmModItems.BLACK_BACKPACK_3.get(), BlackBackpack3Renderer::new);
+		CuriosRendererRegistry.register(MmModItems.BLACK_PLATE_CARRIER.get(), BlackPlateCarrierRenderer::new);
+		CuriosRendererRegistry.register(MmModItems.BLACK_PLATE_CARRIER_AMMO.get(), BlackPlateCarrierAmmoRenderer::new);
+		CuriosRendererRegistry.register(MmModItems.BLACK_PLATE_CARRIER_POUCHES.get(), BlackPlateCarrierPouchesRenderer::new);
 	}
 }

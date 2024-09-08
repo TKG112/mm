@@ -8,8 +8,8 @@
     "name": "Military Headset",
     "rarity": "COMMON",
     "slotType": "Earwear",
-    "baubleModel": "Modelmodel_Converted",
-    "baubleModelTexture": "duffelbag.png",
+    "baubleModel": "Modelplaceholder",
+    "baubleModelTexture": "empty.png",
     "creativeTab": {
       "value": "CUSTOM:GMS"
     },

@@ -12,13 +12,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.resources.ResourceLocation;
 
 import net.mcreator.mm.item.model.MilitaryGogglesModel;
 import net.mcreator.mm.item.MilitaryGogglesItem;

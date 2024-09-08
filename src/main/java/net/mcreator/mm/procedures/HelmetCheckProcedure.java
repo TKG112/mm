@@ -41,7 +41,7 @@ public class HelmetCheckProcedure {
 			if (entity instanceof LivingEntity lv) {
 				CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.NVG.get()).forEach(item -> {
 					ItemStack itemstackiterator = item.stack();
-					itemstackiterator.setCount(0);
+					itemstackiterator.shrink(1);
 				});
 			}
 			if (entity instanceof Player _player) {

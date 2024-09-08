@@ -19,7 +19,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.BlockPos;
 
-import net.mcreator.mm.procedures.Tier1BackpackGUIThisGUIIsClosedProcedure;
 import net.mcreator.mm.init.MmModMenus;
 
 import java.util.function.Supplier;
@@ -236,7 +235,6 @@ public class Tier1BackpackGUIMenu extends AbstractContainerMenu implements Suppl
 	@Override
 	public void removed(Player playerIn) {
 		super.removed(playerIn);
-		Tier1BackpackGUIThisGUIIsClosedProcedure.execute(world, entity);
 		if (!bound && playerIn instanceof ServerPlayer serverPlayer) {
 			if (!serverPlayer.isAlive() || serverPlayer.hasDisconnected()) {
 				for (int j = 0; j < internal.getSlots(); ++j) {
