@@ -30,7 +30,7 @@ import net.mcreator.mm.procedures.FragProjectileEntityWhileProjectileFlyingTickP
 
 @OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
 public class ImpactProjectileEntity extends ThrowableItemProjectile implements ItemSupplier {
-	public static final ItemStack PROJECTILE_ITEM = new ItemStack(MmModItems.IMPACT.get());
+	public static final ItemStack PROJECTILE_ITEM = new ItemStack(MmModItems.GRENADE_IMPACT.get());
 
 	public ImpactProjectileEntity(PlayMessages.SpawnEntity packet, Level world) {
 		super(MmModEntities.FRAG_PROJECTILE.get(), world);
@@ -61,7 +61,7 @@ public class ImpactProjectileEntity extends ThrowableItemProjectile implements I
 
 	@Override
 	protected Item getDefaultItem() {
-		return MmModItems.IMPACT.get();
+		return MmModItems.GRENADE_IMPACT.get();
 	}
 
 	@Override

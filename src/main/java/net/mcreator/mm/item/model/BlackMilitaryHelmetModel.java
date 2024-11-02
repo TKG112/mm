@@ -4,21 +4,21 @@ import software.bernie.geckolib.model.GeoModel;
 
 import net.minecraft.resources.ResourceLocation;
 
-import net.mcreator.mm.item.BlackMilitaryHelmetItem;
+import net.mcreator.mm.item.BlackCombatHelmetItem;
 
-public class BlackMilitaryHelmetModel extends GeoModel<BlackMilitaryHelmetItem> {
+public class BlackMilitaryHelmetModel extends GeoModel<BlackCombatHelmetItem> {
 	@Override
-	public ResourceLocation getAnimationResource(BlackMilitaryHelmetItem object) {
+	public ResourceLocation getAnimationResource(BlackCombatHelmetItem object) {
 		return new ResourceLocation("mm", "animations/black_combat_helmet.animation.json");
 	}
 
 	@Override
-	public ResourceLocation getModelResource(BlackMilitaryHelmetItem object) {
+	public ResourceLocation getModelResource(BlackCombatHelmetItem object) {
 		return new ResourceLocation("mm", "geo/black_combat_helmet.geo.json");
 	}
 
 	@Override
-	public ResourceLocation getTextureResource(BlackMilitaryHelmetItem object) {
+	public ResourceLocation getTextureResource(BlackCombatHelmetItem object) {
 		return new ResourceLocation("mm", "textures/item/black_combat_helmet_item.png");
 	}
 }

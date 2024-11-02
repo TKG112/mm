@@ -59,11 +59,6 @@ public class Tier1BackpackGUIScreen extends AbstractContainerScreen<Tier1Backpac
 	}
 
 	@Override
-	public void containerTick() {
-		super.containerTick();
-	}
-
-	@Override
 	protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
 	}
 

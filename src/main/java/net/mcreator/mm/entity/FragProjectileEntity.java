@@ -29,7 +29,7 @@ import net.mcreator.mm.init.MmModEntities;
 
 @OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
 public class FragProjectileEntity extends ThrowableItemProjectile implements ItemSupplier {
-	public static final ItemStack PROJECTILE_ITEM = new ItemStack(MmModItems.FRAG.get());
+	public static final ItemStack PROJECTILE_ITEM = new ItemStack(MmModItems.GRENADE_FRAG.get());
 
 	public FragProjectileEntity(PlayMessages.SpawnEntity packet, Level world) {
 		super(MmModEntities.FRAG_PROJECTILE.get(), world);
@@ -67,7 +67,7 @@ public class FragProjectileEntity extends ThrowableItemProjectile implements Ite
 
 	@Override
 	protected Item getDefaultItem() {
-		return MmModItems.FRAG.get();
+		return MmModItems.GRENADE_FRAG.get();
 	}
 
 	@Override

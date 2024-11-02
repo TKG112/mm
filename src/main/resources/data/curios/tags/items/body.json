@@ -1,7 +1,6 @@
 {
-  "replace": "false",
+  "replace": false,
   "values": [
-    "minecraft:air",
     "mm:black_plate_carrier",
     "mm:black_plate_carrier_ammo",
     "mm:black_plate_carrier_pouches"

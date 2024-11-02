@@ -1,10 +1,10 @@
 {
-  "_fv": 60,
+  "_fv": 66,
   "_type": "tab",
   "definition": {
     "name": "MM Items",
     "icon": {
-      "value": "CUSTOM:Frag"
+      "value": "CUSTOM:GrenadeFrag"
     },
     "showSearch": false
   }

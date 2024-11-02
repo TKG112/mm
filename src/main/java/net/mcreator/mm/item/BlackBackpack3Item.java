@@ -7,9 +7,12 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.constant.DataTickets;
+import software.bernie.geckolib.animatable.GeoItem;
 
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.items.ItemStackHandler;
@@ -27,7 +30,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.InteractionHand;
@@ -47,7 +49,7 @@ import java.util.function.Consumer;
 
 import io.netty.buffer.Unpooled;
 
-public class BlackBackpack3Item extends Item implements ICurioItem {
+public class BlackBackpack3Item extends Item implements GeoItem, ICurioItem {
 	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 	public String animationprocedure = "empty";
 

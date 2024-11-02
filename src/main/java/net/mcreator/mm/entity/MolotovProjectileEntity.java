@@ -30,7 +30,7 @@ import net.mcreator.mm.procedures.MolotovProjectileProjectileHitsBlockProcedure;
 
 @OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
 public class MolotovProjectileEntity extends ThrowableItemProjectile implements ItemSupplier {
-	public static final ItemStack PROJECTILE_ITEM = new ItemStack(MmModItems.MOLOTOV.get());
+	public static final ItemStack PROJECTILE_ITEM = new ItemStack(MmModItems.GRENADE_MOLOTOV.get());
 
 	public MolotovProjectileEntity(PlayMessages.SpawnEntity packet, Level world) {
 		super(MmModEntities.FRAG_PROJECTILE.get(), world);
@@ -61,7 +61,7 @@ public class MolotovProjectileEntity extends ThrowableItemProjectile implements 
 
 	@Override
 	protected Item getDefaultItem() {
-		return MmModItems.MOLOTOV.get();
+		return MmModItems.GRENADE_MOLOTOV.get();
 	}
 
 	@Override

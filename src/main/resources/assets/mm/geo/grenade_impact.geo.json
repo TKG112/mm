@@ -1,0 +1,112 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.grenade_impact",
+				"texture_width": 16,
+				"texture_height": 16,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 1.5,
+				"visible_bounds_offset": [0, 0.25, 0]
+			},
+			"bones": [
+				{
+					"name": "grenade_impact",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "bb_main",
+					"parent": "grenade_impact",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{
+							"origin": [-0.75, 3, -0.75],
+							"size": [1.5, 0.9, 1.5],
+							"uv": {
+								"north": {"uv": [5, 6], "uv_size": [2, 1]},
+								"east": {"uv": [6, 5], "uv_size": [2, 1]},
+								"south": {"uv": [5, 7], "uv_size": [2, 1]},
+								"west": {"uv": [7, 6], "uv_size": [2, 1]},
+								"up": {"uv": [3, 6], "uv_size": [2, 2]},
+								"down": {"uv": [6, 5], "uv_size": [2, -2]}
+							}
+						},
+						{
+							"origin": [-1.5, 0, -1.5],
+							"size": [3, 3, 3],
+							"uv": {
+								"north": {"uv": [0, 0], "uv_size": [3, 3]},
+								"east": {"uv": [0, 3], "uv_size": [3, 3]},
+								"south": {"uv": [3, 0], "uv_size": [3, 3]},
+								"west": {"uv": [3, 3], "uv_size": [3, 3]},
+								"up": {"uv": [0, 6], "uv_size": [3, 3]},
+								"down": {"uv": [6, 3], "uv_size": [3, -3]}
+							}
+						}
+					]
+				},
+				{
+					"name": "triangle",
+					"parent": "grenade_impact",
+					"pivot": [1.45248, 4.17733, 0.00643],
+					"rotation": [7, 0, 35],
+					"cubes": [
+						{
+							"origin": [2.23192, 3.36426, -0.93717],
+							"size": [0.56255, 0.00005, 1.68755],
+							"inflate": -0.0001,
+							"uv": {
+								"up": {"uv": [7, 7], "uv_size": [1, 2]}
+							}
+						},
+						{
+							"origin": [-0.90908, 3.36429, -2.19902],
+							"size": [0.5625, 0, 1.6875],
+							"pivot": [0.09128, 5.17532, 0.1824],
+							"rotation": [0, -120, 0],
+							"uv": {
+								"up": {"uv": [3, 8], "uv_size": [1, 2]}
+							}
+						},
+						{
+							"origin": [-0.43137, 3.36429, 1.15212],
+							"size": [0.5625, 0, 1.6875],
+							"pivot": [0.09128, 5.17532, 0.1824],
+							"rotation": [0, 120, 0],
+							"uv": {
+								"up": {"uv": [8, 3], "uv_size": [1, 2]}
+							}
+						},
+						{
+							"origin": [1.38537, 3.36429, -2.13874],
+							"size": [0.48714, 0, 0.1875],
+							"pivot": [0.09128, 5.17532, 0.1824],
+							"rotation": [0, -30, 0],
+							"uv": {
+								"up": {"uv": [4, 8], "uv_size": [1, 1]}
+							}
+						},
+						{
+							"origin": [1.66115, 3.36426, 1.83832],
+							"size": [0.48719, 0.00005, 0.18755],
+							"inflate": -0.0001,
+							"pivot": [0.09128, 5.17532, 0.1824],
+							"rotation": [0, 30, 0],
+							"uv": {
+								"up": {"uv": [5, 8], "uv_size": [1, 1]}
+							}
+						},
+						{
+							"origin": [0.91115, 3.36429, -0.33697],
+							"size": [0.1875, 0, 0.48714],
+							"uv": {
+								"up": {"uv": [8, 5], "uv_size": [1, 1]}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

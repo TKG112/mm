@@ -1,5 +1,5 @@
 {
-  "_fv": 60,
+  "_fv": 66,
   "_type": "animatedarmor",
   "definition": {
     "enableHelmet": false,
@@ -10,11 +10,13 @@
     "textureLeggings": "",
     "enableBoots": false,
     "textureBoots": "",
-    "creativeTab": {
-      "value": "CUSTOM:GMS"
-    },
-    "armorTextureFile": "black_kevlar_body.png",
-    "model": "black_kevlar_body.geo.json",
+    "creativeTabs": [
+      {
+        "value": "CUSTOM:GMS"
+      }
+    ],
+    "armorTextureFile": "black_combat_armor.png",
+    "model": "black_kevlar_armor.geo.json",
     "idle": "idle",
     "head": "armorHead",
     "chest": "armorBody",
@@ -24,10 +26,10 @@
     "leftLeg": "armorLeftLeg",
     "rightBoot": "armorRightBoot",
     "leftBoot": "armorLeftBoot",
-    "helmetName": "Black Kevlar Body Helmet",
+    "helmetName": "",
     "bodyName": "Black Kevlar Body",
-    "leggingsName": "Black Kevlar Body Leggings",
-    "bootsName": "Black Kevlar Body Boots",
+    "leggingsName": "",
+    "bootsName": "",
     "helmetSpecialInfo": [],
     "bodySpecialInfo": [],
     "leggingsSpecialInfo": [],

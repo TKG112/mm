@@ -30,7 +30,7 @@ import net.mcreator.mm.init.MmModEntities;
 
 @OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
 public class SmokeProjectileEntity extends ThrowableItemProjectile implements ItemSupplier {
-    public static final ItemStack PROJECTILE_ITEM = new ItemStack(MmModItems.SMOKE.get());
+    public static final ItemStack PROJECTILE_ITEM = new ItemStack(MmModItems.GRENADE_SMOKE.get());
 
     public SmokeProjectileEntity(PlayMessages.SpawnEntity packet, Level world) {
         super(MmModEntities.SMOKE_PROJECTILE.get(), world);
@@ -75,7 +75,7 @@ public class SmokeProjectileEntity extends ThrowableItemProjectile implements It
 
     @Override
     protected Item getDefaultItem() {
-        return MmModItems.SMOKE.get();
+        return MmModItems.GRENADE_SMOKE.get();
     }
 
     @Override

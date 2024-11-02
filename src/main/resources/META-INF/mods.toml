@@ -18,16 +18,10 @@ description="A bunch of military stuff"
     modId="minecraft"
     mandatory=true
     versionRange="[1.20.1]"
-    ordering="NONE"
+    ordering="AFTER"
     side="BOTH"
 
 
-[[dependencies.mm]]
-    modId="kleidersplayerrenderer"
-    mandatory=false
-    versionRange="[0,)"
-    ordering="NONE"
-    side="BOTH"
 [[dependencies.mm]]
     modId="use_compiled_mods"
     mandatory=false
@@ -41,15 +35,12 @@ description="A bunch of military stuff"
     ordering="NONE"
     side="BOTH"
 [[dependencies.mm]]
-    modId="taczsupport"
-    mandatory=false
-    versionRange="[0,)"
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.mm]]
     modId="geckolib"
     mandatory=false
     versionRange="[0,)"
     ordering="NONE"
     side="BOTH"
 
+
+# Start of user code block dependencies configuration
+# End of user code block dependencies configuration

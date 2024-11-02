@@ -1,7 +1,6 @@
 {
-  "replace": "false",
+  "replace": false,
   "values": [
-    "minecraft:air",
     "mm:balaclava",
     "mm:military_balaclava"
   ]

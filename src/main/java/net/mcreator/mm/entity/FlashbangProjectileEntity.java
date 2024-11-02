@@ -29,7 +29,7 @@ import net.mcreator.mm.init.MmModEntities;
 
 @OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
 public class FlashbangProjectileEntity extends ThrowableItemProjectile implements ItemSupplier {
-	public static final ItemStack PROJECTILE_ITEM = new ItemStack(MmModItems.FLASHBANG.get());
+	public static final ItemStack PROJECTILE_ITEM = new ItemStack(MmModItems.GRENADE_FLASHBANG.get());
 	// Static variables to store the explosion coordinates
 	private static Vec3 lastExplosionPosition = null;
 
@@ -70,13 +70,12 @@ public class FlashbangProjectileEntity extends ThrowableItemProjectile implement
 
 	@Override
 	protected Item getDefaultItem() {
-		return MmModItems.FLASHBANG.get();
+		return MmModItems.GRENADE_FLASHBANG.get();
 	}
 
 	@Override
 	protected void onHitBlock(BlockHitResult result) {
 		super.onHitBlock(result);
-		// Set the explosion coordinates when the projectile hits a block
 		lastExplosionPosition = new Vec3(this.getX(), this.getY(), this.getZ());
 		Vec3 currentVelocity = this.getDeltaMovement();
 		Vec3i normalVec3i = result.getDirection().getNormal();

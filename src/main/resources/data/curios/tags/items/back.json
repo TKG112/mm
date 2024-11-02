@@ -1,7 +1,6 @@
 {
-  "replace": "false",
+  "replace": false,
   "values": [
-    "minecraft:air",
     "mm:black_backpack_1",
     "mm:black_backpack_2",
     "mm:black_backpack_3"

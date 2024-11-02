@@ -1,0 +1,15 @@
+{
+  "credit": "Made with Blockbench",
+  "display": {
+    "thirdperson_righthand": {
+      "translation": [
+        -0.5,
+        -5.75,
+        0
+      ]
+    }
+  },
+  "textures": {
+    "particle": "item/grenade_molotov"
+  }
+}

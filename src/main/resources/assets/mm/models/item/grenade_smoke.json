@@ -1,0 +1,6 @@
+{
+  "parent": "mm:displaysettings/grenade_smoke",
+  "textures": {
+    "layer0": "mm:item/grenade_smoke"
+  }
+}
