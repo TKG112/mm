@@ -15,6 +15,7 @@ import net.mcreator.mm.client.gui.Tier3BackpackGUIScreen;
 import net.mcreator.mm.client.gui.Tier2BackpackScreen;
 import net.mcreator.mm.client.gui.Tier1BackpackGUIScreen;
 import net.mcreator.mm.client.gui.RigGUIScreen;
+import net.mcreator.mm.client.gui.AmmoGUIScreen;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class MmModScreens {
@@ -25,6 +26,7 @@ public class MmModScreens {
 			MenuScreens.register(MmModMenus.TIER_2_BACKPACK.get(), Tier2BackpackScreen::new);
 			MenuScreens.register(MmModMenus.TIER_3_BACKPACK_GUI.get(), Tier3BackpackGUIScreen::new);
 			MenuScreens.register(MmModMenus.RIG_GUI.get(), RigGUIScreen::new);
+			MenuScreens.register(MmModMenus.AMMO_GUI.get(), AmmoGUIScreen::new);
 		});
 	}
 }

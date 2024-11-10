@@ -35,9 +35,10 @@ public class HelmetCheckProcedure {
 	private static void execute(@Nullable Event event, LevelAccessor world, Entity entity) {
 		if (entity == null)
 			return;
-		if (!((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.BLACK_COMBAT_HELMET_HELMET.get()) && entity instanceof LivingEntity lv
-				? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.NVG.get(), lv).isPresent()
-				: false) {
+		if (!((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.BLACK_COMBAT_HELMET_HELMET.get()
+				|| (entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.HEAD_MOUNT_HELMET.get()) && entity instanceof LivingEntity lv
+						? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.NVG.get(), lv).isPresent()
+						: false) {
 			if (entity instanceof LivingEntity lv) {
 				CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.NVG.get()).forEach(item -> {
 					ItemStack itemstackiterator = item.stack();

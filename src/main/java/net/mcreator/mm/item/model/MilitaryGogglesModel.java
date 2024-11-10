@@ -9,12 +9,12 @@ import net.mcreator.mm.item.MilitaryGogglesItem;
 public class MilitaryGogglesModel extends GeoModel<MilitaryGogglesItem> {
 	@Override
 	public ResourceLocation getAnimationResource(MilitaryGogglesItem object) {
-		return new ResourceLocation("mm", "animations/military_goggles.animation.json");
+		return new ResourceLocation("mm", "animations/black_goggles.animation.json");
 	}
 
 	@Override
 	public ResourceLocation getModelResource(MilitaryGogglesItem object) {
-		return new ResourceLocation("mm", "geo/military_goggles.geo.json");
+		return new ResourceLocation("mm", "geo/black_goggles.geo.json");
 	}
 
 	@Override

@@ -1,0 +1,9 @@
+{
+  "_fv": 66,
+  "_type": "keybind",
+  "definition": {
+    "triggerKey": "V",
+    "keyBindingName": "Open Rig",
+    "keyBindingCategoryKey": "misc"
+  }
+}

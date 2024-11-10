@@ -53,7 +53,7 @@ public class BlackPlateCarrierPouchesInventoryCapability implements ICapabilityS
 	}
 
 	private ItemStackHandler createItemHandler() {
-		return new ItemStackHandler(4) {
+		return new ItemStackHandler(6) {
 			@Override
 			public int getSlotLimit(int slot) {
 				return 64;

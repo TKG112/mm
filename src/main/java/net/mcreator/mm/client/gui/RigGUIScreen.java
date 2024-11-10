@@ -28,7 +28,7 @@ public class RigGUIScreen extends AbstractContainerScreen<RigGUIMenu> {
 		this.z = container.z;
 		this.entity = container.entity;
 		this.imageWidth = 176;
-		this.imageHeight = 166;
+		this.imageHeight = 134;
 	}
 
 	private static final ResourceLocation texture = new ResourceLocation("mm:textures/screens/rig_gui.png");

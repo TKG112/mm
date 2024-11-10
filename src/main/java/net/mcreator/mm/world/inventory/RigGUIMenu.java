@@ -42,7 +42,7 @@ public class RigGUIMenu extends AbstractContainerMenu implements Supplier<Map<In
 		super(MmModMenus.RIG_GUI.get(), id);
 		this.entity = inv.player;
 		this.world = inv.player.level();
-		this.internal = new ItemStackHandler(4);
+		this.internal = new ItemStackHandler(6);
 		BlockPos pos = null;
 		if (extraData != null) {
 			pos = extraData.readBlockPos();
@@ -77,23 +77,29 @@ public class RigGUIMenu extends AbstractContainerMenu implements Supplier<Map<In
 					});
 			}
 		}
-		this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 52, 35) {
+		this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 62, 10) {
 			private final int slot = 0;
 		}));
-		this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 70, 35) {
+		this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 98, 10) {
 			private final int slot = 1;
 		}));
-		this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 88, 35) {
+		this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 80, 10) {
 			private final int slot = 2;
 		}));
-		this.customSlots.put(3, this.addSlot(new SlotItemHandler(internal, 3, 106, 35) {
+		this.customSlots.put(3, this.addSlot(new SlotItemHandler(internal, 3, 62, 28) {
 			private final int slot = 3;
+		}));
+		this.customSlots.put(4, this.addSlot(new SlotItemHandler(internal, 4, 80, 28) {
+			private final int slot = 4;
+		}));
+		this.customSlots.put(5, this.addSlot(new SlotItemHandler(internal, 5, 98, 28) {
+			private final int slot = 5;
 		}));
 		for (int si = 0; si < 3; ++si)
 			for (int sj = 0; sj < 9; ++sj)
-				this.addSlot(new Slot(inv, sj + (si + 1) * 9, 0 + 8 + sj * 18, 0 + 84 + si * 18));
+				this.addSlot(new Slot(inv, sj + (si + 1) * 9, 0 + 8 + sj * 18, -32 + 84 + si * 18));
 		for (int si = 0; si < 9; ++si)
-			this.addSlot(new Slot(inv, si, 0 + 8 + si * 18, 0 + 142));
+			this.addSlot(new Slot(inv, si, 0 + 8 + si * 18, -32 + 142));
 	}
 
 	@Override
@@ -116,16 +122,16 @@ public class RigGUIMenu extends AbstractContainerMenu implements Supplier<Map<In
 		if (slot != null && slot.hasItem()) {
 			ItemStack itemstack1 = slot.getItem();
 			itemstack = itemstack1.copy();
-			if (index < 4) {
-				if (!this.moveItemStackTo(itemstack1, 4, this.slots.size(), true))
+			if (index < 6) {
+				if (!this.moveItemStackTo(itemstack1, 6, this.slots.size(), true))
 					return ItemStack.EMPTY;
 				slot.onQuickCraft(itemstack1, itemstack);
-			} else if (!this.moveItemStackTo(itemstack1, 0, 4, false)) {
-				if (index < 4 + 27) {
-					if (!this.moveItemStackTo(itemstack1, 4 + 27, this.slots.size(), true))
+			} else if (!this.moveItemStackTo(itemstack1, 0, 6, false)) {
+				if (index < 6 + 27) {
+					if (!this.moveItemStackTo(itemstack1, 6 + 27, this.slots.size(), true))
 						return ItemStack.EMPTY;
 				} else {
-					if (!this.moveItemStackTo(itemstack1, 4, 4 + 27, false))
+					if (!this.moveItemStackTo(itemstack1, 6, 6 + 27, false))
 						return ItemStack.EMPTY;
 				}
 				return ItemStack.EMPTY;

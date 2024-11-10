@@ -7,17 +7,20 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 
+import net.mcreator.mm.client.renderer.ReconRenderer;
 import net.mcreator.mm.client.renderer.NVGRenderer;
 import net.mcreator.mm.client.renderer.MilitaryHeadsetRenderer;
 import net.mcreator.mm.client.renderer.MilitaryGogglesRenderer;
 import net.mcreator.mm.client.renderer.MilitaryGlassesRenderer;
 import net.mcreator.mm.client.renderer.MilitaryBalaclavaRenderer;
+import net.mcreator.mm.client.renderer.BlackVisorRenderer;
 import net.mcreator.mm.client.renderer.BlackPlateCarrierRenderer;
 import net.mcreator.mm.client.renderer.BlackPlateCarrierPouchesRenderer;
 import net.mcreator.mm.client.renderer.BlackPlateCarrierAmmoRenderer;
 import net.mcreator.mm.client.renderer.BlackBackpack3Renderer;
 import net.mcreator.mm.client.renderer.BlackBackpack2Renderer;
 import net.mcreator.mm.client.renderer.BlackBackpack1Renderer;
+import net.mcreator.mm.client.renderer.BandoleerRenderer;
 import net.mcreator.mm.client.renderer.BalaclavaRenderer;
 import net.mcreator.mm.client.model.Modelplaceholder;
 
@@ -37,6 +40,9 @@ public class MmModCuriosRenderers {
 		evt.registerLayerDefinition(MmModLayerDefinitions.BLACK_PLATE_CARRIER, Modelplaceholder::createBodyLayer);
 		evt.registerLayerDefinition(MmModLayerDefinitions.BLACK_PLATE_CARRIER_AMMO, Modelplaceholder::createBodyLayer);
 		evt.registerLayerDefinition(MmModLayerDefinitions.BLACK_PLATE_CARRIER_POUCHES, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.BANDOLEER, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.RECON, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.BLACK_VISOR, Modelplaceholder::createBodyLayer);
 	}
 
 	@SubscribeEvent
@@ -53,5 +59,8 @@ public class MmModCuriosRenderers {
 		CuriosRendererRegistry.register(MmModItems.BLACK_PLATE_CARRIER.get(), BlackPlateCarrierRenderer::new);
 		CuriosRendererRegistry.register(MmModItems.BLACK_PLATE_CARRIER_AMMO.get(), BlackPlateCarrierAmmoRenderer::new);
 		CuriosRendererRegistry.register(MmModItems.BLACK_PLATE_CARRIER_POUCHES.get(), BlackPlateCarrierPouchesRenderer::new);
+		CuriosRendererRegistry.register(MmModItems.BANDOLEER.get(), BandoleerRenderer::new);
+		CuriosRendererRegistry.register(MmModItems.RECON.get(), ReconRenderer::new);
+		CuriosRendererRegistry.register(MmModItems.BLACK_VISOR.get(), BlackVisorRenderer::new);
 	}
 }

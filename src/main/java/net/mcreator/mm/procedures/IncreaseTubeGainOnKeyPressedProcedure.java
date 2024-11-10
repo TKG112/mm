@@ -24,7 +24,7 @@ public class IncreaseTubeGainOnKeyPressedProcedure {
 		if (entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.NVG.get(), lv).isPresent() : false) {
 			if ((entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MmModVariables.PlayerVariables())).NVG_Black_Tube_Gain == 0) {
 				{
-					double _setval = 2;
+					double _setval = 1;
 					entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
 						capability.NVG_Black_Tube_Gain = _setval;
 						capability.syncPlayerVariables(entity);

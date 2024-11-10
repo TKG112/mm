@@ -18,7 +18,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.client.Minecraft;
 
 import net.mcreator.mm.init.MmModItems;
-import net.mcreator.mm.client.gui.RigGUIScreen;
+import net.mcreator.mm.client.gui.AmmoGUIScreen;
 
 import javax.annotation.Nullable;
 import javax.annotation.Nonnull;
@@ -29,7 +29,7 @@ public class BlackPlateCarrierAmmoInventoryCapability implements ICapabilitySeri
 	@OnlyIn(Dist.CLIENT)
 	public static void onItemDropped(ItemTossEvent event) {
 		if (event.getEntity().getItem().getItem() == MmModItems.BLACK_PLATE_CARRIER_AMMO.get()) {
-			if (Minecraft.getInstance().screen instanceof RigGUIScreen) {
+			if (Minecraft.getInstance().screen instanceof AmmoGUIScreen) {
 				Minecraft.getInstance().player.closeContainer();
 			}
 		}

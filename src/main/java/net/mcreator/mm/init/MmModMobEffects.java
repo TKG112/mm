@@ -13,15 +13,11 @@ import net.minecraft.world.effect.MobEffect;
 import net.mcreator.mm.potion.VignetteMobEffect;
 import net.mcreator.mm.potion.FlashMobEffect;
 import net.mcreator.mm.potion.EarRingMobEffect;
-import net.mcreator.mm.potion.BrokenLegMobEffect;
-import net.mcreator.mm.potion.BleedingMobEffect;
 import net.mcreator.mm.MmMod;
 
 public class MmModMobEffects {
 	public static final DeferredRegister<MobEffect> REGISTRY = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MmMod.MODID);
 	public static final RegistryObject<MobEffect> FLASH = REGISTRY.register("flash", () -> new FlashMobEffect());
 	public static final RegistryObject<MobEffect> VIGNETTE = REGISTRY.register("vignette", () -> new VignetteMobEffect());
-	public static final RegistryObject<MobEffect> BLEEDING = REGISTRY.register("bleeding", () -> new BleedingMobEffect());
-	public static final RegistryObject<MobEffect> BROKEN_LEG = REGISTRY.register("broken_leg", () -> new BrokenLegMobEffect());
 	public static final RegistryObject<MobEffect> EAR_RING = REGISTRY.register("ear_ring", () -> new EarRingMobEffect());
 }

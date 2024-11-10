@@ -29,7 +29,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.InteractionHand;
@@ -39,7 +39,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.client.model.HumanoidModel;
 
-import net.mcreator.mm.world.inventory.RigGUIMenu;
+import net.mcreator.mm.world.inventory.AmmoGUIMenu;
 import net.mcreator.mm.item.inventory.BlackPlateCarrierAmmoInventoryCapability;
 import net.mcreator.mm.client.renderer.BlackPlateCarrierAmmoRenderer;
 
@@ -124,7 +124,7 @@ public class BlackPlateCarrierAmmoItem extends Item implements GeoItem, ICurioIt
 					FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
 					packetBuffer.writeBlockPos(entity.blockPosition());
 					packetBuffer.writeByte(hand == InteractionHand.MAIN_HAND ? 0 : 1);
-					return new RigGUIMenu(id, inventory, packetBuffer);
+					return new AmmoGUIMenu(id, inventory, packetBuffer);
 				}
 			}, buf -> {
 				buf.writeBlockPos(entity.blockPosition());

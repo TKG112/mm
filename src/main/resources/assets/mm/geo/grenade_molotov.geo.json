@@ -12,12 +12,7 @@
 			},
 			"bones": [
 				{
-					"name": "grenade_molotov",
-					"pivot": [0, 0, 0]
-				},
-				{
 					"name": "bone",
-					"parent": "grenade_molotov",
 					"pivot": [0, 0, 0],
 					"rotation": [0, 90, 0],
 					"cubes": [

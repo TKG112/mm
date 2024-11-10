@@ -1,5 +1,6 @@
 {
   "credit": "Made with Blockbench",
+  "parent": "builtin/entity",
   "display": {
     "thirdperson_righthand": {
       "translation": [

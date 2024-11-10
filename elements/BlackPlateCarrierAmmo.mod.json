@@ -34,7 +34,7 @@
     "hasGlow": false,
     "customProperties": {},
     "states": [],
-    "guiBoundTo": "RigGUI",
+    "guiBoundTo": "AmmoGUI",
     "inventorySize": 4,
     "inventoryStackSize": 64,
     "slotAmount": 1,

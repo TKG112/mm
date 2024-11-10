@@ -16,4 +16,7 @@ public class MmModLayerDefinitions {
 	public static final ModelLayerLocation BLACK_PLATE_CARRIER = new ModelLayerLocation(new ResourceLocation("mm", "black_plate_carrier"), "black_plate_carrier");
 	public static final ModelLayerLocation BLACK_PLATE_CARRIER_AMMO = new ModelLayerLocation(new ResourceLocation("mm", "black_plate_carrier_ammo"), "black_plate_carrier_ammo");
 	public static final ModelLayerLocation BLACK_PLATE_CARRIER_POUCHES = new ModelLayerLocation(new ResourceLocation("mm", "black_plate_carrier_pouches"), "black_plate_carrier_pouches");
+	public static final ModelLayerLocation BANDOLEER = new ModelLayerLocation(new ResourceLocation("mm", "bandoleer"), "bandoleer");
+	public static final ModelLayerLocation RECON = new ModelLayerLocation(new ResourceLocation("mm", "recon"), "recon");
+	public static final ModelLayerLocation BLACK_VISOR = new ModelLayerLocation(new ResourceLocation("mm", "black_visor"), "black_visor");
 }

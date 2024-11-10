@@ -12,12 +12,7 @@
 			},
 			"bones": [
 				{
-					"name": "grenade_frag",
-					"pivot": [0, 0, 0]
-				},
-				{
 					"name": "bb_main",
-					"parent": "grenade_frag",
 					"pivot": [0, 0, 0],
 					"cubes": [
 						{
@@ -58,7 +53,6 @@
 				},
 				{
 					"name": "triangle",
-					"parent": "grenade_frag",
 					"pivot": [1.45248, 4.17733, 0.00643],
 					"rotation": [7, 0, 35],
 					"cubes": [
