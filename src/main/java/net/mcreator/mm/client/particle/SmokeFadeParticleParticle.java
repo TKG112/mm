@@ -14,7 +14,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 @OnlyIn(Dist.CLIENT)
 public class SmokeFadeParticleParticle extends TextureSheetParticle {
     private final SpriteSet spriteSet;
-    private final float initialAlpha = 1.0f;  // Initial alpha value
+    private final float initialAlpha = 1.0f;
 
     public static SmokeFadeParticleParticleProvider provider(SpriteSet spriteSet) {
         return new SmokeFadeParticleParticleProvider(spriteSet);
@@ -44,7 +44,7 @@ public class SmokeFadeParticleParticle extends TextureSheetParticle {
         this.yd = vy * 1;
         this.zd = vz * 1;
         this.pickSprite(spriteSet);
-        this.setAlpha(initialAlpha);  // Set initial alpha
+        this.setAlpha(initialAlpha);
     }
 
     @Override
@@ -55,9 +55,8 @@ public class SmokeFadeParticleParticle extends TextureSheetParticle {
     @Override
     public void tick() {
         super.tick();
-        // Fade out by decreasing the alpha value over time
         float ageRatio = (float) this.age / (float) this.lifetime;
-        this.setAlpha(initialAlpha * (1.0f - ageRatio));  // Linear fade-out
+        this.setAlpha(initialAlpha * (1.0f - ageRatio));
         if (this.age >= this.lifetime) {
             this.remove();
         }

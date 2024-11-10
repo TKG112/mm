@@ -1825,8 +1825,8 @@
     "en_us": {
       "item.gms.military_headset": "Military Headset",
       "key.gms.decrease_tube_gain": "Decrease NVG Tube Gain",
-      "item.mm.military_goggles": "Military Goggles",
       "item.gms.black_military_helmet_leggings": "Black Military Helmet Leggings",
+      "item.mm.military_goggles": "Military Goggles",
       "subtitles.ear-ringing": "",
       "item.mm.black_kevlar_boots_boots": "Black Kevlar Boots",
       "item_group.gms.gms": "GMS",

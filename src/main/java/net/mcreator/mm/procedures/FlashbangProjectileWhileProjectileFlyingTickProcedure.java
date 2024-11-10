@@ -58,19 +58,19 @@ public class FlashbangProjectileWhileProjectileFlyingTickProcedure {
 				_level.sendParticles(ParticleTypes.FLASH, x, y, z, 1, 0, 0, 0, 0);
 			}
 			if (entity instanceof Player player) {
-				double distance = Math.sqrt(player.distanceToSqr(x, y, z)); // Calculate distance
-				if (distance < 16) { // Only apply the effect if the player is within 16 blocks
-					int duration = (int) Math.max(1, 15 - (distance - 1)); // Calculate duration with dynamic distance system
-					playEarRingingSound(player, 16 - (int) distance, duration, entity); // Pass the duration to the playEarRingingSound method
+				double distance = Math.sqrt(player.distanceToSqr(x, y, z));
+				if (distance < 16) {
+					int duration = (int) Math.max(1, 15 - (distance - 1));
+					playEarRingingSound(player, 16 - (int) distance, duration, entity);
 					Vec3 playerViewVec = player.getViewVector(1.0F).normalize();
 					Vec3 toPosVec = new Vec3(x - player.getX(), y - player.getEyeY(), z - player.getZ()).normalize();
 					double dotProduct = playerViewVec.dot(toPosVec);
-					if (dotProduct > 0.5) { // Check if player is looking towards the point
+					if (dotProduct > 0.5) {
 						Vec3 startVec = new Vec3(player.getX(), player.getEyeY(), player.getZ());
 						Vec3 endVec = new Vec3(x, y, z);
 						ClipContext context = new ClipContext(startVec, endVec, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player);
 						if (world.clip(context).getType() == HitResult.Type.BLOCK) {
-							return; // There is a block in the way, so do not apply the effect
+							return;
 						}
 						if (duration > 0) {
 							if (!((entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.MILITARY_GLASSES.get(), lv).isPresent() : false) || (entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.MILITARY_GOGGLES.get(), lv).isPresent() : false))) {

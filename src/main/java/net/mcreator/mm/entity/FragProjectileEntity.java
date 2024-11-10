@@ -78,10 +78,8 @@ public class FragProjectileEntity extends ThrowableItemProjectile implements Ite
     	Vec3 normal = new Vec3(normalVec3i.getX(), normalVec3i.getY(), normalVec3i.getZ());
     	Vec3 reflectedVelocity = currentVelocity.subtract(normal.scale(2 * currentVelocity.dot(normal))).scale(0.4);
 
-    	// Threshold for stopping the entity
     	double stopThreshold = 0.1;
 
-    	// If the new velocity is below the threshold, stop the entity
     	if (reflectedVelocity.length() < stopThreshold) {
         	this.setDeltaMovement(Vec3.ZERO);
     	} else {
@@ -98,7 +96,7 @@ public class FragProjectileEntity extends ThrowableItemProjectile implements Ite
 		FragProjectileEntity entityProjectile = new FragProjectileEntity(MmModEntities.FRAG_PROJECTILE.get(), entity, world);
 		entityProjectile.shootFromRotation(entity, entity.getXRot(), entity.getYRot(), 0.0F, power * 2.0F, 1.0F);
 		entityProjectile.setSilent(true);
-		// Implement custom damage and knockback if needed
+
 		world.addFreshEntity(entityProjectile);
 		world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.arrow.shoot")), SoundSource.PLAYERS, 1, 1f / (random.nextFloat() * 0.5f + 1) + (power / 2));
 		return entityProjectile;
@@ -111,7 +109,7 @@ public class FragProjectileEntity extends ThrowableItemProjectile implements Ite
 		double dz = target.getZ() - entity.getZ();
 		entityProjectile.shoot(dx, dy - entityProjectile.getY() + Math.hypot(dx, dz) * 0.2F, dz, 1f * 2, 12.0F);
 		entityProjectile.setSilent(true);
-		// Implement custom damage and knockback if needed
+
 		entity.level().addFreshEntity(entityProjectile);
 		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.arrow.shoot")), SoundSource.PLAYERS, 1, 1f / (RandomSource.create().nextFloat() * 0.5f + 1));
 		return entityProjectile;

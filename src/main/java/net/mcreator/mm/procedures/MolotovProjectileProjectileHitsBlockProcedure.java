@@ -50,7 +50,7 @@ public class MolotovProjectileProjectileHitsBlockProcedure {
 	public static void execute(Level world, BlockPos pos, Entity entity) {
 		if (world instanceof ServerLevel) {
 			int radius = 4;
-			// Adicionar blocos de fogo em um raio de 5 blocos ao redor da posição
+
 			for (int x = -radius; x <= radius; x++) {
 				for (int y = -radius; y <= radius; y++) {
 					for (int z = -radius; z <= radius; z++) {

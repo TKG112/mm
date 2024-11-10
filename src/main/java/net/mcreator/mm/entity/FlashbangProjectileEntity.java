@@ -30,7 +30,7 @@ import net.mcreator.mm.init.MmModEntities;
 @OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
 public class FlashbangProjectileEntity extends ThrowableItemProjectile implements ItemSupplier {
 	public static final ItemStack PROJECTILE_ITEM = new ItemStack(MmModItems.GRENADE_FLASHBANG.get());
-	// Static variables to store the explosion coordinates
+
 	private static Vec3 lastExplosionPosition = null;
 
 	public FlashbangProjectileEntity(PlayMessages.SpawnEntity packet, Level world) {
@@ -81,9 +81,9 @@ public class FlashbangProjectileEntity extends ThrowableItemProjectile implement
 		Vec3i normalVec3i = result.getDirection().getNormal();
 		Vec3 normal = new Vec3(normalVec3i.getX(), normalVec3i.getY(), normalVec3i.getZ());
 		Vec3 reflectedVelocity = currentVelocity.subtract(normal.scale(2 * currentVelocity.dot(normal))).scale(0.4);
-		// Threshold for stopping the entity
+
 		double stopThreshold = 0.1;
-		// If the new velocity is below the threshold, stop the entity
+
 		if (reflectedVelocity.length() < stopThreshold) {
 			this.setDeltaMovement(Vec3.ZERO);
 		} else {
@@ -117,7 +117,7 @@ public class FlashbangProjectileEntity extends ThrowableItemProjectile implement
 		return entityProjectile;
 	}
 
-	// Getter for the last explosion position
+
 	public static Vec3 getLastExplosionPosition() {
 		return lastExplosionPosition;
 	}
