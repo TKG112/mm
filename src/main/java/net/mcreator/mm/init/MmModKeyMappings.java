@@ -61,16 +61,12 @@ public class MmModKeyMappings {
 			isDownOld = isDown;
 		}
 	};
-	public static final KeyMapping OPEN_BACKPACK = new KeyMapping("key.mm.open_backpack", GLFW.GLFW_KEY_B, "key.categories.misc");
-	public static final KeyMapping OPEN_RIG = new KeyMapping("key.mm.open_rig", GLFW.GLFW_KEY_V, "key.categories.misc");
 
 	@SubscribeEvent
 	public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
 		event.register(TOGGLE_NVG);
 		event.register(INCREASE_TUBE_GAIN);
 		event.register(DECREASE_TUBE_GAIN);
-		event.register(OPEN_BACKPACK);
-		event.register(OPEN_RIG);
 	}
 
 	@Mod.EventBusSubscriber({Dist.CLIENT})

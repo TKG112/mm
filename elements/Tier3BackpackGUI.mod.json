@@ -17,11 +17,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 0,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 151,
@@ -35,11 +35,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 1,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 169,
@@ -53,11 +53,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 2,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 187,
@@ -71,11 +71,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 3,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 205,
@@ -89,11 +89,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 4,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 223,
@@ -107,11 +107,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 5,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 241,
@@ -125,11 +125,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 6,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 259,
@@ -143,11 +143,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 7,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 151,
@@ -161,11 +161,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 8,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 169,
@@ -179,11 +179,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 9,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 187,
@@ -197,11 +197,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 10,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 205,
@@ -215,11 +215,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 11,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 223,
@@ -233,11 +233,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 12,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 241,
@@ -251,11 +251,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 13,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 259,
@@ -269,11 +269,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 14,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 151,
@@ -287,11 +287,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 15,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 169,
@@ -305,11 +305,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 16,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 187,
@@ -323,11 +323,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 17,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 205,
@@ -341,11 +341,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 18,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 223,
@@ -359,11 +359,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 19,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 241,
@@ -377,11 +377,11 @@
             "value": ""
           },
           "disablePlacement": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "id": 20,
           "disablePickup": {
-            "fixedValue": true
+            "fixedValue": false
           },
           "dropItemsWhenNotBound": false,
           "x": 259,

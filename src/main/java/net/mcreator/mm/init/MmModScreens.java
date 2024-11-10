@@ -15,6 +15,8 @@ import net.mcreator.mm.client.gui.Tier3BackpackGUIScreen;
 import net.mcreator.mm.client.gui.Tier2BackpackScreen;
 import net.mcreator.mm.client.gui.Tier1BackpackGUIScreen;
 import net.mcreator.mm.client.gui.RigGUIScreen;
+import net.mcreator.mm.client.gui.ReconGUIScreen;
+import net.mcreator.mm.client.gui.BandoleerGUIScreen;
 import net.mcreator.mm.client.gui.AmmoGUIScreen;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -27,6 +29,8 @@ public class MmModScreens {
 			MenuScreens.register(MmModMenus.TIER_3_BACKPACK_GUI.get(), Tier3BackpackGUIScreen::new);
 			MenuScreens.register(MmModMenus.RIG_GUI.get(), RigGUIScreen::new);
 			MenuScreens.register(MmModMenus.AMMO_GUI.get(), AmmoGUIScreen::new);
+			MenuScreens.register(MmModMenus.BANDOLEER_GUI.get(), BandoleerGUIScreen::new);
+			MenuScreens.register(MmModMenus.RECON_GUI.get(), ReconGUIScreen::new);
 		});
 	}
 }

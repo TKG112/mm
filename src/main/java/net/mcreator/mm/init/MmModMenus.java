@@ -15,6 +15,8 @@ import net.mcreator.mm.world.inventory.Tier3BackpackGUIMenu;
 import net.mcreator.mm.world.inventory.Tier2BackpackMenu;
 import net.mcreator.mm.world.inventory.Tier1BackpackGUIMenu;
 import net.mcreator.mm.world.inventory.RigGUIMenu;
+import net.mcreator.mm.world.inventory.ReconGUIMenu;
+import net.mcreator.mm.world.inventory.BandoleerGUIMenu;
 import net.mcreator.mm.world.inventory.AmmoGUIMenu;
 import net.mcreator.mm.MmMod;
 
@@ -25,4 +27,6 @@ public class MmModMenus {
 	public static final RegistryObject<MenuType<Tier3BackpackGUIMenu>> TIER_3_BACKPACK_GUI = REGISTRY.register("tier_3_backpack_gui", () -> IForgeMenuType.create(Tier3BackpackGUIMenu::new));
 	public static final RegistryObject<MenuType<RigGUIMenu>> RIG_GUI = REGISTRY.register("rig_gui", () -> IForgeMenuType.create(RigGUIMenu::new));
 	public static final RegistryObject<MenuType<AmmoGUIMenu>> AMMO_GUI = REGISTRY.register("ammo_gui", () -> IForgeMenuType.create(AmmoGUIMenu::new));
+	public static final RegistryObject<MenuType<BandoleerGUIMenu>> BANDOLEER_GUI = REGISTRY.register("bandoleer_gui", () -> IForgeMenuType.create(BandoleerGUIMenu::new));
+	public static final RegistryObject<MenuType<ReconGUIMenu>> RECON_GUI = REGISTRY.register("recon_gui", () -> IForgeMenuType.create(ReconGUIMenu::new));
 }

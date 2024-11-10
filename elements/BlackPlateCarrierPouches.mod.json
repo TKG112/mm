@@ -35,7 +35,7 @@
     "customProperties": {},
     "states": [],
     "guiBoundTo": "RigGUI",
-    "inventorySize": 6,
+    "inventorySize": 8,
     "inventoryStackSize": 64,
     "slotAmount": 1,
     "isFood": false,

@@ -18,18 +18,18 @@ import net.minecraft.core.Direction;
 import net.minecraft.client.Minecraft;
 
 import net.mcreator.mm.init.MmModItems;
-import net.mcreator.mm.client.gui.RigGUIScreen;
+import net.mcreator.mm.client.gui.ReconGUIScreen;
 
 import javax.annotation.Nullable;
 import javax.annotation.Nonnull;
 
 @Mod.EventBusSubscriber(Dist.CLIENT)
-public class BlackPlateCarrierPouchesInventoryCapability implements ICapabilitySerializable<CompoundTag> {
+public class ReconInventoryCapability implements ICapabilitySerializable<CompoundTag> {
 	@SubscribeEvent
 	@OnlyIn(Dist.CLIENT)
 	public static void onItemDropped(ItemTossEvent event) {
-		if (event.getEntity().getItem().getItem() == MmModItems.BLACK_PLATE_CARRIER_POUCHES.get()) {
-			if (Minecraft.getInstance().screen instanceof RigGUIScreen) {
+		if (event.getEntity().getItem().getItem() == MmModItems.RECON.get()) {
+			if (Minecraft.getInstance().screen instanceof ReconGUIScreen) {
 				Minecraft.getInstance().player.closeContainer();
 			}
 		}
@@ -53,7 +53,7 @@ public class BlackPlateCarrierPouchesInventoryCapability implements ICapabilityS
 	}
 
 	private ItemStackHandler createItemHandler() {
-		return new ItemStackHandler(8) {
+		return new ItemStackHandler(3) {
 			@Override
 			public int getSlotLimit(int slot) {
 				return 64;
@@ -61,7 +61,7 @@ public class BlackPlateCarrierPouchesInventoryCapability implements ICapabilityS
 
 			@Override
 			public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-				return stack.getItem() != MmModItems.BLACK_PLATE_CARRIER_POUCHES.get();
+				return stack.getItem() != MmModItems.RECON.get();
 			}
 
 			@Override
