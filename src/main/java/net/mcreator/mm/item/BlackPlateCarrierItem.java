@@ -39,8 +39,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.client.model.HumanoidModel;
 
-import net.mcreator.mm.world.inventory.RigGUIMenu;
-import net.mcreator.mm.item.inventory.BlackPlateCarrierInventoryCapability;
 import net.mcreator.mm.client.renderer.BlackPlateCarrierRenderer;
 
 import javax.annotation.Nullable;
@@ -103,40 +101,6 @@ public class BlackPlateCarrierItem extends Item implements GeoItem, ICurioItem {
 	@Override
 	public AnimatableInstanceCache getAnimatableInstanceCache() {
 		return this.cache;
-	}
-
-	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) {
-		InteractionResultHolder<ItemStack> ar = super.use(world, entity, hand);
-		ItemStack itemstack = ar.getObject();
-		double x = entity.getX();
-		double y = entity.getY();
-		double z = entity.getZ();
-		if (entity instanceof ServerPlayer serverPlayer) {
-			NetworkHooks.openScreen(serverPlayer, new MenuProvider() {
-				@Override
-				public Component getDisplayName() {
-					return Component.literal("Black Plate Carrier");
-				}
-
-				@Override
-				public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-					FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
-					packetBuffer.writeBlockPos(entity.blockPosition());
-					packetBuffer.writeByte(hand == InteractionHand.MAIN_HAND ? 0 : 1);
-					return new RigGUIMenu(id, inventory, packetBuffer);
-				}
-			}, buf -> {
-				buf.writeBlockPos(entity.blockPosition());
-				buf.writeByte(hand == InteractionHand.MAIN_HAND ? 0 : 1);
-			});
-		}
-		return ar;
-	}
-
-	@Override
-	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag compound) {
-		return new BlackPlateCarrierInventoryCapability();
 	}
 
 	@Override
