@@ -26,7 +26,6 @@ public class MmModTabs {
 				tabData.accept(MmModItems.HEAD_MOUNT_HELMET.get());
 				tabData.accept(MmModItems.BALACLAVA.get());
 				tabData.accept(MmModItems.MILITARY_BALACLAVA.get());
-				tabData.accept(MmModItems.NVG.get());
 				tabData.accept(MmModItems.BLACK_VISOR.get());
 				tabData.accept(MmModItems.MILITARY_GLASSES.get());
 				tabData.accept(MmModItems.MILITARY_GOGGLES.get());
@@ -39,6 +38,8 @@ public class MmModTabs {
 				tabData.accept(MmModItems.BLACK_BACKPACK_1.get());
 				tabData.accept(MmModItems.BLACK_BACKPACK_2.get());
 				tabData.accept(MmModItems.BLACK_BACKPACK_3.get());
+				tabData.accept(MmModItems.BLACK_NVG_21.get());
+				tabData.accept(MmModItems.BLACK_GPNVG.get());
 			})
 
 					.build());

@@ -1,0 +1,43 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"closed": {
+			"loop": true
+		},
+		"opening": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.25,
+			"bones": {
+				"bone": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.25": [-90, 0, 0]
+					}
+				}
+			}
+		},
+		"opened": {
+			"loop": true,
+			"bones": {
+				"bone": {
+					"rotation": [-90, 0, 0]
+				}
+			}
+		},
+		"closing": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.25,
+			"bones": {
+				"bone": {
+					"rotation": {
+						"0.0": [-90, 0, 0],
+						"0.25": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"idle": {
+			"loop": true
+		}
+	}
+}

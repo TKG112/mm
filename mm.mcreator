@@ -12,21 +12,7 @@
           "src/main/java/net/mcreator/mm/client/gui/Tier1BackpackGUIScreen.java"
         ]
       },
-      "path": "~/Armors/Black/Chest/Backpacks/Backpack T1"
-    },
-    {
-      "name": "Tier2Backpack",
-      "type": "gui",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "tier_2_backpack",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/mm/world/inventory/Tier2BackpackMenu.java",
-          "src/main/java/net/mcreator/mm/client/gui/Tier2BackpackScreen.java"
-        ]
-      },
-      "path": "~/Armors/Black/Chest/Backpacks/Backpack T2"
+      "path": "~/Inv/Backpacks"
     },
     {
       "name": "Tier3BackpackGUI",
@@ -40,7 +26,7 @@
           "src/main/java/net/mcreator/mm/world/inventory/Tier3BackpackGUIMenu.java"
         ]
       },
-      "path": "~/Armors/Black/Chest/Backpacks/Backpack T3"
+      "path": "~/Inv/Backpacks"
     },
     {
       "name": "ToggleNVG",
@@ -53,7 +39,7 @@
           "src/main/java/net/mcreator/mm/network/ToggleNVGMessage.java"
         ]
       },
-      "path": "~/Armors/Black/Head/Special Goggles/NVGs"
+      "path": "~/Armors/Black/Head/Facewear/Special Goggles/GPNVG"
     },
     {
       "name": "ToggleNVGOnKeyPressed",
@@ -76,7 +62,7 @@
           }
         ]
       },
-      "path": "~/Armors/Black/Head/Special Goggles/NVGs"
+      "path": "~/Armors/Black/Head/Facewear/Special Goggles/GPNVG"
     },
     {
       "name": "GogglesShow",
@@ -99,26 +85,7 @@
           }
         ]
       },
-      "path": "~/Armors/Black/Head/Special Goggles"
-    },
-    {
-      "name": "GogglesShader",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "goggles_shader",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/mm/procedures/GogglesShaderProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          }
-        ]
-      },
-      "path": "~/Armors/Black/Head/Special Goggles"
+      "path": "~/Armors/Black/Head/Facewear/Special Goggles"
     },
     {
       "name": "RigGUI",
@@ -132,7 +99,7 @@
           "src/main/java/net/mcreator/mm/world/inventory/RigGUIMenu.java"
         ]
       },
-      "path": "~/Armors/Black/Chest/Plate Carriers"
+      "path": "~/Inv/Rigs"
     },
     {
       "name": "IncreaseTubeGain",
@@ -145,7 +112,7 @@
           "src/main/java/net/mcreator/mm/network/IncreaseTubeGainMessage.java"
         ]
       },
-      "path": "~/Armors/Black/Head/Special Goggles/NVGs"
+      "path": "~/Armors/Black/Head/Facewear/Special Goggles/GPNVG"
     },
     {
       "name": "DecreaseTubeGain",
@@ -158,7 +125,7 @@
           "src/main/java/net/mcreator/mm/network/DecreaseTubeGainMessage.java"
         ]
       },
-      "path": "~/Armors/Black/Head/Special Goggles/NVGs"
+      "path": "~/Armors/Black/Head/Facewear/Special Goggles/GPNVG"
     },
     {
       "name": "IncreaseTubeGainOnKeyPressed",
@@ -181,7 +148,7 @@
           }
         ]
       },
-      "path": "~/Armors/Black/Head/Special Goggles/NVGs"
+      "path": "~/Armors/Black/Head/Facewear/Special Goggles/GPNVG"
     },
     {
       "name": "DecreaseTubeGainOnKeyPressed",
@@ -204,7 +171,7 @@
           }
         ]
       },
-      "path": "~/Armors/Black/Head/Special Goggles/NVGs"
+      "path": "~/Armors/Black/Head/Facewear/Special Goggles/GPNVG"
     },
     {
       "name": "GMS",
@@ -216,21 +183,6 @@
         "files": []
       },
       "path": "~/Inv"
-    },
-    {
-      "name": "NVG",
-      "type": "curiosbauble",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "nvg",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/mm/models/item/nvg.json",
-          "src/main/java/net/mcreator/mm/item/NVGItem.java",
-          "src/main/java/net/mcreator/mm/client/renderer/NVGRenderer.java"
-        ]
-      },
-      "path": "~/Armors/Black/Head/Special Goggles/NVGs"
     },
     {
       "name": "HelmetCheck",
@@ -253,7 +205,7 @@
           }
         ]
       },
-      "path": "~/Armors/Black/Head/Helmets"
+      "path": "~/Armors/Black/Head/Facewear/Special Goggles"
     },
     {
       "name": "MenuItem",
@@ -308,7 +260,7 @@
           "src/main/java/net/mcreator/mm/client/renderer/BalaclavaRenderer.java"
         ]
       },
-      "path": "~/Armors/Other/Head/Balaclava"
+      "path": "~/Armors/Other/Head/Headwear/Balaclava"
     },
     {
       "name": "MilitaryBalaclava",
@@ -323,7 +275,7 @@
           "src/main/java/net/mcreator/mm/item/MilitaryBalaclavaItem.java"
         ]
       },
-      "path": "~/Armors/Black/Head/Military Balaclava"
+      "path": "~/Armors/Black/Head/Headwear/Military Balaclava"
     },
     {
       "name": "MilitaryGlasses",
@@ -338,7 +290,7 @@
           "src/main/resources/assets/mm/models/item/military_glasses.json"
         ]
       },
-      "path": "~/Armors/Black/Head/Goggles and Glasses"
+      "path": "~/Armors/Black/Head/Facewear/Goggles and Glasses"
     },
     {
       "name": "MilitaryGoggles",
@@ -353,7 +305,7 @@
           "src/main/resources/assets/mm/models/item/military_goggles.json"
         ]
       },
-      "path": "~/Armors/Black/Head/Goggles and Glasses"
+      "path": "~/Armors/Black/Head/Facewear/Goggles and Glasses"
     },
     {
       "name": "MilitaryHeadset",
@@ -368,7 +320,7 @@
           "src/main/java/net/mcreator/mm/item/MilitaryHeadsetItem.java"
         ]
       },
-      "path": "~/Armors/Black/Head/Headset"
+      "path": "~/Armors/Black/Head/Earwear/Headset"
     },
     {
       "name": "FragProjectile",
@@ -712,7 +664,7 @@
           }
         ]
       },
-      "path": "~/Armors/Black/Head/Goggles and Glasses"
+      "path": "~/Armors/Black/Head/Facewear/Goggles and Glasses"
     },
     {
       "name": "BulletVignetteTick",
@@ -735,7 +687,7 @@
           }
         ]
       },
-      "path": "~/Armors/Black/Head/Goggles and Glasses"
+      "path": "~/Armors/Black/Head/Facewear/Goggles and Glasses"
     },
     {
       "name": "VignetteEffectApply",
@@ -999,7 +951,7 @@
           "src/main/java/net/mcreator/mm/item/BlackBackpack1Item.java"
         ]
       },
-      "path": "~/Armors/Black/Chest/Backpacks/Backpack T1"
+      "path": "~/Armors/Black/Chest/Backwear/Backpacks/Backpack T1"
     },
     {
       "name": "BlackBackpack2",
@@ -1015,7 +967,7 @@
           "src/main/java/net/mcreator/mm/client/renderer/BlackBackpack2Renderer.java"
         ]
       },
-      "path": "~/Armors/Black/Chest/Backpacks/Backpack T2"
+      "path": "~/Armors/Black/Chest/Backwear/Backpacks/Backpack T2"
     },
     {
       "name": "BlackBackpack3",
@@ -1031,7 +983,7 @@
           "src/main/resources/assets/mm/models/item/black_backpack_3.json"
         ]
       },
-      "path": "~/Armors/Black/Chest/Backpacks/Backpack T3"
+      "path": "~/Armors/Black/Chest/Backwear/Backpacks/Backpack T3"
     },
     {
       "name": "BlackPlateCarrier",
@@ -1046,7 +998,7 @@
           "src/main/java/net/mcreator/mm/item/BlackPlateCarrierItem.java"
         ]
       },
-      "path": "~/Armors/Black/Chest/Plate Carriers/Normal"
+      "path": "~/Armors/Black/Chest/Bodywear/Plate Carriers/Normal"
     },
     {
       "name": "BlackPlateCarrierAmmo",
@@ -1062,7 +1014,7 @@
           "src/main/java/net/mcreator/mm/item/BlackPlateCarrierAmmoItem.java"
         ]
       },
-      "path": "~/Armors/Black/Chest/Plate Carriers/AmmoPouches"
+      "path": "~/Armors/Black/Chest/Bodywear/Plate Carriers/AmmoPouches"
     },
     {
       "name": "BlackPlateCarrierPouches",
@@ -1078,7 +1030,7 @@
           "src/main/resources/assets/mm/models/item/black_plate_carrier_pouches.json"
         ]
       },
-      "path": "~/Armors/Black/Chest/Plate Carriers/Pouches"
+      "path": "~/Armors/Black/Chest/Bodywear/Plate Carriers/Pouches"
     },
     {
       "name": "BlackCombatHelmet",
@@ -1094,7 +1046,7 @@
           "src/main/java/net/mcreator/mm/client/renderer/BlackCombatHelmetArmorRenderer.java"
         ]
       },
-      "path": "~/Armors/Black/Head/Helmets"
+      "path": "~/Armors/Black/Head/Helmet Armor/Kevlar Helmet"
     },
     {
       "name": "BlackKevlarBody",
@@ -1110,7 +1062,7 @@
           "src/main/resources/assets/mm/models/item/black_kevlar_body_chestplate.json"
         ]
       },
-      "path": "~/Armors/Black/Chest/Kevlar Body"
+      "path": "~/Armors/Black/Chest/Chest Armor/Kevlar Body"
     },
     {
       "name": "BlackKevlarPants",
@@ -1126,7 +1078,7 @@
           "src/main/resources/assets/mm/models/item/black_kevlar_pants_leggings.json"
         ]
       },
-      "path": "~/Armors/Black/Legs/Kevlar Pants"
+      "path": "~/Armors/Black/Legs/Legs Armor/Kevlar Pants"
     },
     {
       "name": "BlackKevlarBoots",
@@ -1142,7 +1094,7 @@
           "src/main/java/net/mcreator/mm/item/model/BlackKevlarBootsModel.java"
         ]
       },
-      "path": "~/Armors/Black/Feet/Kevlar Boots"
+      "path": "~/Armors/Black/Feet/Boots Armor/Kevlar Boots"
     },
     {
       "name": "GrenadeFrag",
@@ -1236,7 +1188,7 @@
           "src/main/java/net/mcreator/mm/world/inventory/AmmoGUIMenu.java"
         ]
       },
-      "path": "~/Armors/Black/Chest/Plate Carriers"
+      "path": "~/Inv/Rigs"
     },
     {
       "name": "Ronin",
@@ -1252,7 +1204,7 @@
           "src/main/java/net/mcreator/mm/client/renderer/RoninArmorRenderer.java"
         ]
       },
-      "path": "~/Armors/Other/Head/Helmets/Ronin"
+      "path": "~/Armors/Black/Head/Helmet Armor/Ronin"
     },
     {
       "name": "HeadMount",
@@ -1268,7 +1220,7 @@
           "src/main/resources/assets/mm/models/item/head_mount_helmet.json"
         ]
       },
-      "path": "~/Armors/Other/Head/Helmets/Head Mount"
+      "path": "~/Armors/Black/Head/Helmet Armor/Head Mount"
     },
     {
       "name": "Bandoleer",
@@ -1284,7 +1236,7 @@
           "src/main/java/net/mcreator/mm/item/BandoleerItem.java"
         ]
       },
-      "path": "~/Armors/Other/Chest/Bandoleer"
+      "path": "~/Armors/Tan/Body/Bodywear/Bandoleer"
     },
     {
       "name": "Recon",
@@ -1300,7 +1252,7 @@
           "src/main/java/net/mcreator/mm/item/inventory/ReconInventoryCapability.java"
         ]
       },
-      "path": "~/Armors/Other/Chest/Recon"
+      "path": "~/Armors/Green/Body/Bodywear/Recon"
     },
     {
       "name": "BlackVisor",
@@ -1315,7 +1267,7 @@
           "src/main/java/net/mcreator/mm/item/BlackVisorItem.java"
         ]
       },
-      "path": "~/Armors/Black/Head/Visor"
+      "path": "~/Armors/Black/Head/Facewear/Visor"
     },
     {
       "name": "VisorCheck",
@@ -1338,7 +1290,7 @@
           }
         ]
       },
-      "path": "~/Armors/Black/Head/Helmets"
+      "path": "~/Armors/Black/Head/Facewear/Visor"
     },
     {
       "name": "BandoleerGUI",
@@ -1352,7 +1304,7 @@
           "src/main/java/net/mcreator/mm/client/gui/BandoleerGUIScreen.java"
         ]
       },
-      "path": "~/Armors/Other/Chest/Bandoleer"
+      "path": "~/Inv/Rigs"
     },
     {
       "name": "ReconGUI",
@@ -1366,363 +1318,544 @@
           "src/main/java/net/mcreator/mm/client/gui/ReconGUIScreen.java"
         ]
       },
-      "path": "~/Armors/Other/Chest/Recon"
+      "path": "~/Inv/Rigs"
+    },
+    {
+      "name": "OpenBackpack",
+      "type": "keybind",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "open_backpack",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/network/OpenBackpackMessage.java"
+        ]
+      },
+      "path": "~/Inv/Backpacks"
+    },
+    {
+      "name": "RoninOverlayDisplayOverlayIngame",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "ronin_overlay_display_overlay_ingame",
+      "metadata": {
+        "return_type": "logic",
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/RoninOverlayDisplayOverlayIngameProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/Armors/Black/Head/Helmet Armor/Ronin"
+    },
+    {
+      "name": "RoninOverlay",
+      "type": "overlay",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "ronin_overlay",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/client/screens/RoninOverlayOverlay.java"
+        ]
+      },
+      "path": "~/Armors/Black/Head/Helmet Armor/Ronin"
+    },
+    {
+      "name": "Tier2BackpackGUI",
+      "type": "gui",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tier_2_backpack_gui",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/world/inventory/Tier2BackpackGUIMenu.java",
+          "src/main/java/net/mcreator/mm/client/gui/Tier2BackpackGUIScreen.java"
+        ]
+      },
+      "path": "~/Inv/Backpacks"
+    },
+    {
+      "name": "OpenBackpackOnKeyPressed",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "open_backpack_on_key_pressed",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/OpenBackpackOnKeyPressedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Inv/Backpacks"
+    },
+    {
+      "name": "Tier1BackpackGUI2",
+      "type": "gui",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tier_1_backpack_gui_2",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/world/inventory/Tier1BackpackGUI2Menu.java",
+          "src/main/java/net/mcreator/mm/client/gui/Tier1BackpackGUI2Screen.java"
+        ]
+      },
+      "path": "~/Inv/Backpacks"
+    },
+    {
+      "name": "Tier2BackpackGUI2",
+      "type": "gui",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tier_2_backpack_gui_2",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/world/inventory/Tier2BackpackGUI2Menu.java",
+          "src/main/java/net/mcreator/mm/client/gui/Tier2BackpackGUI2Screen.java"
+        ]
+      },
+      "path": "~/Inv/Backpacks"
+    },
+    {
+      "name": "Tier3BackpackGUI2",
+      "type": "gui",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tier_3_backpack_gui_2",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/client/gui/Tier3BackpackGUI2Screen.java",
+          "src/main/java/net/mcreator/mm/world/inventory/Tier3BackpackGUI2Menu.java"
+        ]
+      },
+      "path": "~/Inv/Backpacks"
+    },
+    {
+      "name": "Tier1BackpackGUI2ThisGUIIsClosed",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tier_1_backpack_gui_2_this_gui_is_closed",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/Tier1BackpackGUI2ThisGUIIsClosedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Inv/Backpacks"
+    },
+    {
+      "name": "Tier2BackpackGUI2ThisGUIIsClosed",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tier_2_backpack_gui_2_this_gui_is_closed",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/Tier2BackpackGUI2ThisGUIIsClosedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Inv/Backpacks"
+    },
+    {
+      "name": "Tier3BackpackGUI2ThisGUIIsClosed",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tier_3_backpack_gui_2_this_gui_is_closed",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/Tier3BackpackGUI2ThisGUIIsClosedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Inv/Backpacks"
+    },
+    {
+      "name": "OpenRig",
+      "type": "keybind",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "open_rig",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/network/OpenRigMessage.java"
+        ]
+      },
+      "path": "~/Inv/Rigs"
+    },
+    {
+      "name": "AmmoGUI2",
+      "type": "gui",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "ammo_gui_2",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/world/inventory/AmmoGUI2Menu.java",
+          "src/main/java/net/mcreator/mm/client/gui/AmmoGUI2Screen.java"
+        ]
+      },
+      "path": "~/Inv/Rigs"
+    },
+    {
+      "name": "BandoleerGUI2",
+      "type": "gui",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "bandoleer_gui_2",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/client/gui/BandoleerGUI2Screen.java",
+          "src/main/java/net/mcreator/mm/world/inventory/BandoleerGUI2Menu.java"
+        ]
+      },
+      "path": "~/Inv/Rigs"
+    },
+    {
+      "name": "ReconGUI2",
+      "type": "gui",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "recon_gui_2",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/world/inventory/ReconGUI2Menu.java",
+          "src/main/java/net/mcreator/mm/client/gui/ReconGUI2Screen.java"
+        ]
+      },
+      "path": "~/Inv/Rigs"
+    },
+    {
+      "name": "RigGUI2",
+      "type": "gui",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "rig_gui_2",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/world/inventory/RigGUI2Menu.java",
+          "src/main/java/net/mcreator/mm/client/gui/RigGUI2Screen.java"
+        ]
+      },
+      "path": "~/Inv/Rigs"
+    },
+    {
+      "name": "OpenRigOnKeyPressed",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "open_rig_on_key_pressed",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/OpenRigOnKeyPressedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Inv/Rigs"
+    },
+    {
+      "name": "AmmoGUI2ThisGUIIsClosed",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "ammo_gui_2_this_gui_is_closed",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/AmmoGUI2ThisGUIIsClosedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Inv/Rigs"
+    },
+    {
+      "name": "BandoleerGUI2ThisGUIIsClosed",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "bandoleer_gui_2_this_gui_is_closed",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/BandoleerGUI2ThisGUIIsClosedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Inv/Rigs"
+    },
+    {
+      "name": "ReconGUI2ThisGUIIsClosed",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "recon_gui_2_this_gui_is_closed",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/ReconGUI2ThisGUIIsClosedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Inv/Rigs"
+    },
+    {
+      "name": "RigGUI2ThisGUIIsClosed",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "rig_gui_2_this_gui_is_closed",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/RigGUI2ThisGUIIsClosedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Inv/Rigs"
+    },
+    {
+      "name": "GPNVGOverlayDisplayOverlayIngame",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "gpnvg_overlay_display_overlay_ingame",
+      "metadata": {
+        "return_type": "logic",
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/GPNVGOverlayDisplayOverlayIngameProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/Armors/Black/Head/Facewear/Special Goggles"
+    },
+    {
+      "name": "GPNVGOverlay",
+      "type": "overlay",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "gpnvg_overlay",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/client/screens/GPNVGOverlayOverlay.java"
+        ]
+      },
+      "path": "~/Armors/Black/Head/Facewear/Special Goggles"
+    },
+    {
+      "name": "TubeGainChange",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tube_gain_change",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/TubeGainChangeProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Armors/Black/Head/Facewear/Special Goggles"
+    },
+    {
+      "name": "BlackNVG21",
+      "type": "curiosbauble",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "black_nvg_21",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/client/renderer/BlackNVG21Renderer.java",
+          "src/main/java/net/mcreator/mm/item/BlackNVG21Item.java",
+          "src/main/resources/assets/mm/models/item/black_nvg_21.json"
+        ]
+      },
+      "path": "~/Armors/Black/Head/Facewear/Special Goggles/NVG21"
+    },
+    {
+      "name": "BlackGPNVG",
+      "type": "curiosbauble",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "black_gpnvg",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/BlackGPNVGItem.java",
+          "src/main/resources/assets/mm/models/item/black_gpnvg.json",
+          "src/main/java/net/mcreator/mm/client/renderer/BlackGPNVGRenderer.java"
+        ]
+      },
+      "path": "~/Armors/Black/Head/Facewear/Special Goggles/GPNVG"
+    },
+    {
+      "name": "GogglesShader",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "goggles_shader",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/procedures/GogglesShaderProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Armors/Black/Head/Facewear/Special Goggles"
     }
   ],
   "variable_elements": [
     {
-      "name": "bp1_save",
+      "name": "Black_GPNVG_Check",
       "type": "logic",
       "scope": "player_persistent",
       "value": "false"
     },
     {
-      "name": "bp1_slot0",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp1_slot1",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp1_slot2",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp1_slot3",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp1_slot4",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp1_slot5",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp1_slot6",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp1_slot7",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp1_slot8",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp2_save",
-      "type": "logic",
-      "scope": "player_persistent",
-      "value": "true"
-    },
-    {
-      "name": "bp2_slot0",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp2_slot1",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp2_slot10",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp2_slot11",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp2_slot12",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp2_slot13",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp2_slot14",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp2_slot2",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp2_slot3",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp2_slot4",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp2_slot5",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp2_slot6",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp2_slot7",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp2_slot8",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp2_slot9",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_save",
-      "type": "logic",
-      "scope": "player_persistent",
-      "value": "true"
-    },
-    {
-      "name": "bp3_slot0",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot1",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot10",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot11",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot12",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot13",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot14",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot15",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot16",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot17",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot18",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot19",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot2",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot20",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot4",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot5",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot6",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot7",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot8",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot9",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "NGV_Black_Shader",
-      "type": "logic",
-      "scope": "player_persistent",
-      "value": "false"
-    },
-    {
-      "name": "NVG_Black_Check",
-      "type": "logic",
-      "scope": "player_persistent",
-      "value": "false"
-    },
-    {
-      "name": "rig_save",
-      "type": "logic",
-      "scope": "player_persistent",
-      "value": "true"
-    },
-    {
-      "name": "rig_slot0",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "rig_slot1",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "rig_slot2",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "rig_slot3",
-      "type": "itemstack",
-      "scope": "player_lifetime",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "bp3_slot3",
-      "type": "itemstack",
-      "scope": "player_persistent",
-      "value": "ItemStack.EMPTY"
-    },
-    {
-      "name": "NVG_Black_Tube_Gain",
+      "name": "Black_GPNVG_Tube_Gain",
       "type": "number",
       "scope": "player_persistent",
       "value": "0"
     },
     {
-      "name": "Helmet_Using",
-      "type": "logic",
-      "scope": "player_lifetime",
-      "value": "false"
-    },
-    {
-      "name": "TVG_Check",
+      "name": "Black_NVG21_Check",
       "type": "logic",
       "scope": "player_persistent",
       "value": "false"
     },
     {
-      "name": "TVG_Shader",
-      "type": "logic",
+      "name": "Black_NVG21_Tube_Gain",
+      "type": "number",
       "scope": "player_persistent",
-      "value": "false"
+      "value": "0"
     }
   ],
   "sound_elements": [
@@ -1802,7 +1935,6 @@
       "HeadMount",
       "Balaclava",
       "MilitaryBalaclava",
-      "NVG",
       "BlackVisor",
       "MilitaryGlasses",
       "MilitaryGoggles",
@@ -1814,7 +1946,9 @@
       "BlackPlateCarrierPouches",
       "BlackBackpack1",
       "BlackBackpack2",
-      "BlackBackpack3"
+      "BlackBackpack3",
+      "BlackNVG21",
+      "BlackGPNVG"
     ],
     "CUSTOM:GMSItems": [
       "Duffelbag",
@@ -1828,91 +1962,105 @@
   "language_map": {
     "en_us": {
       "item.gms.military_headset": "Military Headset",
-      "key.gms.decrease_tube_gain": "Decrease NVG Tube Gain",
       "item.mm.military_goggles": "Military Goggles",
       "item.gms.black_military_helmet_leggings": "Black Military Helmet Leggings",
-      "subtitles.ear-ringing": "",
-      "item.mm.black_kevlar_boots_boots": "Black Kevlar Boots",
-      "item_group.gms.gms": "GMS",
       "item.mm.bandoleer": "Bandoleer",
       "item.mm.black_kevlar_pants_chestplate": "",
       "item.mm.duffelbag": "Duffelbag",
-      "item.mm.grenade_impact": "Impact Grenade",
-      "item.gms.duffelbag": "Duffelbag",
       "item.gms.menu_item": "menu item (you shoudn\u0027t be seen this)",
       "item.mm.black_kevlar_boots_chestplate": "",
       "item.mm.grenade_molotov": "Molotov",
-      "item.gms.black_military_helmet_helmet": "Black Military Helmet",
-      "key.gms.toggle_nvg": "Toggle NVG",
-      "item.mm.menu_item": "menu item (you shoudn\u0027t be seen this)",
-      "item.mm.black_plate_carrier": "Black Plate Carrier",
-      "item.mm.black_plate_carrier_pouches": "Black Plate Carrier - Pouches",
-      "item.mm.grenade_smoke": "Smoke Grenade",
+      "gui.mm.tier_1_backpack_gui_2.label_small_black_backpack": "Small Black Backpack",
+      "item.mm.black_nvg_21": "Black NVG-21",
       "item.mm.head_mount_leggings": "Head Mount Leggings",
-      "item.mm.black_kevlar_body_helmet": "",
-      "key.mm.toggle_nvg": "Toggle NVG",
+      "key.mm.toggle_nvg": "Toggle Head Equipment",
       "item.mm.grenade_flashbang": "Flashbang Grenade",
       "item.mm.ronin_boots": "Ronin Boots",
-      "item.mm.black_kevlar_pants_leggings": "Black Kevlar Pants",
       "subtitles.knob_turn": "NVG Gain Change",
       "item.mm.balaclava": "Balaclava",
+      "gui.mm.ammo_gui.label_ammo_pouches": "Plate Carrier Ammo Pouches",
+      "subtitles.nade-landing": "",
+      "item_group.mm.gms": "MM Armors",
+      "key.categories.mm": "Modern Mayhem",
+      "item.gms.tvg": "TVG",
+      "gui.mm.ammo_gui_2.label_ammo_pouches": "Plate Carrier Ammo Pouches",
+      "item_group.mm.gms_items": "MM Items",
+      "item.mm.military_balaclava": "Military Balaclava",
+      "item.mm.grenade_frag": "Frag Grenade",
+      "subtitles.flashbang-boom": "Flashbang Explosion",
+      "key.mm.increase_tube_gain": "Increase NVG Tube Gain",
+      "gui.mm.tier_2_backpack_gui.label_medium_black_backpack": "Medium Black Backpack",
+      "item.gms.military_balaclava": "Military Balaclava",
+      "item.mm.ronin_chestplate": "Ronin Chestplate",
+      "subtitles.nvon": "NVG On",
+      "item.mm.black_plate_carrier_ammo": "Black Plate Carrier - Ammo Pouches",
+      "key.mm.open_backpack": "Open Backpack",
+      "item.mm.military_headset": "Military Headset",
+      "item.mm.black_combat_helmet_leggings": "",
+      "gui.mm.recon_gui_2.label_recon_rig": "Recon Pouches",
+      "block.mm.duffelbag_block": "Duffelbag Block",
+      "gui.mm.tier_1_backpack_gui.label_small_black_backpack": "Small Black Backpack",
+      "item.mm.black_kevlar_boots_helmet": "",
+      "item.mm.ronin_leggings": "Ronin Leggings",
+      "gui.mm.recon_gui.label_recon_rig": "Recon Pouches",
+      "key.gms.decrease_tube_gain": "Decrease NVG Tube Gain",
+      "subtitles.ear-ringing": "",
+      "item.mm.black_kevlar_boots_boots": "Black Kevlar Boots",
+      "item.mm.grenade_impact": "Impact Grenade",
+      "item.gms.duffelbag": "Duffelbag",
+      "item.gms.black_military_helmet_helmet": "Black Military Helmet",
+      "key.gms.toggle_nvg": "Toggle NVG",
+      "gui.mm.bandoleer_gui_2.label_bandoleer_rig": "Bandoleer Pouches",
+      "gui.mm.tier_2_backpack_gui_2.label_medium_black_backpack": "Medium Black Backpack",
+      "item.mm.menu_item": "menu item (you shoudn\u0027t be seen this)",
+      "item.mm.black_plate_carrier": "Black Plate Carrier",
+      "gui.mm.tier_3_backpack_gui_2.label_large_black_backpack": "Large Black Backpack",
+      "item.mm.black_plate_carrier_pouches": "Black Plate Carrier - Pouches",
+      "item.mm.grenade_smoke": "Smoke Grenade",
+      "item.mm.black_kevlar_body_helmet": "",
+      "item.mm.black_kevlar_pants_leggings": "Black Kevlar Pants",
+      "gui.mm.rig_gui_2.label_plate_carrier_pouches": "Plate Carrier Pouches",
       "item.mm.ronin_helmet": "Ronin Combat Helmet",
       "item.gms.military_glasses": "Military Glasses",
       "effect.mm.flash": "Flashbang",
       "subtitles.ear-ringing-fade": "",
+      "item.mm.black_gpnvg": "Black GPNVG",
       "subtitles.fb-explosion": "Flashbang Explosion",
       "subtitles.nvgturnknob": "NVG Gain Change",
-      "subtitles.nade-landing": "",
       "key.gms.increase_tube_gain": "Increase NVG Tube Gain",
-      "gui.gms.tac_inv.label_empty": "Inventory",
       "item.mm.black_kevlar_body_leggings": "",
       "item.mm.black_combat_helmet_chestplate": "",
-      "item_group.mm.gms": "MM Armors",
-      "item.gms.tvg": "TVG",
+      "gui.mm.rig_gui.label_plate_carrier_pouches": "Plate Carrier Pouches",
       "item.mm.black_kevlar_boots_leggings": "",
-      "item_group.mm.gms_items": "MM Items",
       "curios.identifier.facewear": "Facewear",
-      "item.mm.military_balaclava": "Military Balaclava",
-      "item.mm.grenade_frag": "Frag Grenade",
       "item.gms.nvg": "NVG",
-      "subtitles.flashbang-boom": "Flashbang Explosion",
       "curios.identifier.earwear": "Earwear",
       "item.mm.military_glasses": "Military Glasses",
-      "key.mm.increase_tube_gain": "Increase NVG Tube Gain",
       "subtitles.nvoff": "NVG Off",
-      "gui.gms.tac_inv.label_inventory": "Inventory",
       "effect.mm.vignette": "Vignette",
-      "item.gms.military_balaclava": "Military Balaclava",
-      "item.mm.ronin_chestplate": "Ronin Chestplate",
-      "subtitles.nvon": "NVG On",
       "item.mm.black_combat_helmet_helmet": "Black Combat Helmet",
-      "item.mm.black_plate_carrier_ammo": "Black Plate Carrier - Ammo Pouches",
       "item.gms.military_goggles": "Military Goggles",
       "item.mm.black_kevlar_body_chestplate": "Black Kevlar Body",
       "effect.mm.ear_ring": "Ear Ringing",
-      "item.mm.military_headset": "Military Headset",
-      "item.mm.black_combat_helmet_leggings": "",
-      "item.mm.black_backpack_1": "Black Backpack Tier 1",
-      "item.mm.black_backpack_3": "Black Backpack Tier 3",
-      "item.mm.black_backpack_2": "Black Backpack Tier 2",
+      "item.mm.black_backpack_1": "Small Black Backpack",
+      "item.mm.black_backpack_3": "Large Black Backpack",
+      "item.mm.black_backpack_2": "Medium Black Backpack",
       "item.mm.head_mount_chestplate": "Head Mount Chestplate",
       "subtitles.smokesoundeffect": "Smoke Grenade Explode",
-      "block.mm.duffelbag_block": "Duffelbag Block",
-      "gui.gms.tac_inv.label_character": "Character",
       "item.gms.black_military_helmet_chestplate": "Black Military Helmet Chestplate",
       "item.mm.black_kevlar_pants_boots": "",
-      "item.mm.nvg": "NVG",
       "item.mm.head_mount_helmet": "Head Mount",
-      "item.mm.black_kevlar_boots_helmet": "",
+      "key.mm.open_rig": "Open Rig",
       "item.mm.head_mount_boots": "Head Mount Boots",
       "item.mm.black_kevlar_body_boots": "",
       "item.gms.balaclava": "Balaclava",
       "item.mm.black_visor": "Black Visor",
       "item.mm.black_kevlar_pants_helmet": "",
+      "gui.mm.tier_3_backpack_gui.label_large_black_backpack": "Large Black Backpack",
       "item.gms.black_military_helmet_boots": "Black Military Helmet Boots",
       "key.mm.decrease_tube_gain": "Decrease NVG Tube Gain",
-      "item.mm.ronin_leggings": "Ronin Leggings",
       "item.mm.recon": "Recon Rig",
+      "gui.mm.bandoleer_gui.label_bandoleer_rig": "Bandoleer Pouches",
       "item.mm.black_combat_helmet_boots": ""
     }
   },
@@ -1921,7 +2069,16 @@
     "children": [
       {
         "name": "Inv",
-        "children": []
+        "children": [
+          {
+            "name": "Backpacks",
+            "children": []
+          },
+          {
+            "name": "Rigs",
+            "children": []
+          }
+        ]
       },
       {
         "name": "Armors",
@@ -1933,33 +2090,65 @@
                 "name": "Head",
                 "children": [
                   {
-                    "name": "Military Balaclava",
-                    "children": []
-                  },
-                  {
-                    "name": "Headset",
-                    "children": []
-                  },
-                  {
-                    "name": "Special Goggles",
+                    "name": "Facewear",
                     "children": [
                       {
-                        "name": "NVGs",
+                        "name": "Goggles and Glasses",
+                        "children": []
+                      },
+                      {
+                        "name": "Special Goggles",
+                        "children": [
+                          {
+                            "name": "GPNVG",
+                            "children": []
+                          },
+                          {
+                            "name": "NVG21",
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Visor",
                         "children": []
                       }
                     ]
                   },
                   {
-                    "name": "Goggles and Glasses",
-                    "children": []
+                    "name": "Helmet Armor",
+                    "children": [
+                      {
+                        "name": "Head Mount",
+                        "children": []
+                      },
+                      {
+                        "name": "Kevlar Helmet",
+                        "children": []
+                      },
+                      {
+                        "name": "Ronin",
+                        "children": []
+                      }
+                    ]
                   },
                   {
-                    "name": "Helmets",
-                    "children": []
+                    "name": "Earwear",
+                    "children": [
+                      {
+                        "name": "Headset",
+                        "children": []
+                      }
+                    ]
                   },
                   {
-                    "name": "Visor",
-                    "children": []
+                    "name": "Headwear",
+                    "children": [
+                      {
+                        "name": "Military Balaclava",
+                        "children": []
+                      }
+                    ]
                   }
                 ]
               },
@@ -1967,42 +2156,57 @@
                 "name": "Chest",
                 "children": [
                   {
-                    "name": "Backpacks",
+                    "name": "Backwear",
                     "children": [
                       {
-                        "name": "Backpack T1",
-                        "children": []
-                      },
-                      {
-                        "name": "Backpack T2",
-                        "children": []
-                      },
-                      {
-                        "name": "Backpack T3",
-                        "children": []
+                        "name": "Backpacks",
+                        "children": [
+                          {
+                            "name": "Backpack T1",
+                            "children": []
+                          },
+                          {
+                            "name": "Backpack T2",
+                            "children": []
+                          },
+                          {
+                            "name": "Backpack T3",
+                            "children": []
+                          }
+                        ]
                       }
                     ]
                   },
                   {
-                    "name": "Plate Carriers",
+                    "name": "Bodywear",
                     "children": [
                       {
-                        "name": "Normal",
-                        "children": []
-                      },
-                      {
-                        "name": "AmmoPouches",
-                        "children": []
-                      },
-                      {
-                        "name": "Pouches",
-                        "children": []
+                        "name": "Plate Carriers",
+                        "children": [
+                          {
+                            "name": "Normal",
+                            "children": []
+                          },
+                          {
+                            "name": "AmmoPouches",
+                            "children": []
+                          },
+                          {
+                            "name": "Pouches",
+                            "children": []
+                          }
+                        ]
                       }
                     ]
                   },
                   {
-                    "name": "Kevlar Body",
-                    "children": []
+                    "name": "Chest Armor",
+                    "children": [
+                      {
+                        "name": "Kevlar Body",
+                        "children": []
+                      }
+                    ]
                   }
                 ]
               },
@@ -2010,12 +2214,22 @@
                 "name": "Legs",
                 "children": [
                   {
-                    "name": "Kneepads",
-                    "children": []
+                    "name": "Knees",
+                    "children": [
+                      {
+                        "name": "Kneepads",
+                        "children": []
+                      }
+                    ]
                   },
                   {
-                    "name": "Kevlar Pants",
-                    "children": []
+                    "name": "Legs Armor",
+                    "children": [
+                      {
+                        "name": "Kevlar Pants",
+                        "children": []
+                      }
+                    ]
                   }
                 ]
               },
@@ -2023,8 +2237,13 @@
                 "name": "Feet",
                 "children": [
                   {
-                    "name": "Kevlar Boots",
-                    "children": []
+                    "name": "Boots Armor",
+                    "children": [
+                      {
+                        "name": "Kevlar Boots",
+                        "children": []
+                      }
+                    ]
                   }
                 ]
               }
@@ -2037,34 +2256,94 @@
                 "name": "Head",
                 "children": [
                   {
-                    "name": "Balaclava",
-                    "children": []
-                  },
-                  {
-                    "name": "Helmets",
+                    "name": "Headwear",
                     "children": [
                       {
-                        "name": "Ronin",
-                        "children": []
-                      },
-                      {
-                        "name": "Head Mount",
+                        "name": "Balaclava",
                         "children": []
                       }
                     ]
                   }
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "name": "Tan",
+            "children": [
               {
-                "name": "Chest",
+                "name": "Head",
                 "children": [
                   {
-                    "name": "Bandoleer",
+                    "name": "Facewear",
                     "children": []
                   },
                   {
-                    "name": "Recon",
+                    "name": "Helmet Armor",
                     "children": []
+                  },
+                  {
+                    "name": "Headwear",
+                    "children": []
+                  },
+                  {
+                    "name": "Earwear",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "Body",
+                "children": [
+                  {
+                    "name": "Bodywear",
+                    "children": [
+                      {
+                        "name": "Bandoleer",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Backwear",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "Legs",
+                "children": [
+                  {
+                    "name": "Legs Armor",
+                    "children": []
+                  },
+                  {
+                    "name": "Knees",
+                    "children": [
+                      {
+                        "name": "Kneepads",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Green",
+            "children": [
+              {
+                "name": "Body",
+                "children": [
+                  {
+                    "name": "Bodywear",
+                    "children": [
+                      {
+                        "name": "Recon",
+                        "children": []
+                      }
+                    ]
                   }
                 ]
               }

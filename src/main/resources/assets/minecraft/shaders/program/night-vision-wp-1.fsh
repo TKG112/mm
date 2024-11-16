@@ -43,7 +43,7 @@ void main() {
         vec2 scaledCoord = (texCoord.xy - center) * vec2(InSize.x / InSize.y, 1.0);
         float dist = length(scaledCoord);
         
-        if (dist <= 2) {  // Adjust this value to change the radius of the circle
+        if(dist <= 2) {
             const vec3 lumvec = vec3(0.30, 0.59, 0.11);
             float intensity = dot(lumvec, texColor.rgb);
             intensity = clamp(contrast * (intensity - 0.5) + 0.5, 0.0, 1.0);

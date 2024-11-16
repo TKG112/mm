@@ -3,8 +3,8 @@
   "_type": "keybind",
   "definition": {
     "triggerKey": "N",
-    "keyBindingName": "Toggle NVG",
-    "keyBindingCategoryKey": "misc",
+    "keyBindingName": "Toggle Head Equipment",
+    "keyBindingCategoryKey": "mm",
     "onKeyPressed": {
       "name": "ToggleNVGOnKeyPressed"
     }

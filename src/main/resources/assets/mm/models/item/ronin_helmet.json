@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "mm:item/ronin_item"
+    "layer0": "mm:item/black_ronin_item"
   }
 }

@@ -7,6 +7,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.event.TickEvent;
 
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.client.Minecraft;
@@ -21,44 +23,45 @@ public class GogglesShaderProcedure {
 	@SubscribeEvent
 	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.phase == TickEvent.Phase.END) {
-			execute(event, event.player);
+			execute(event, event.player.level(), event.player);
 		}
 	}
 
-	public static void execute(Entity entity) {
-		execute(null, entity);
+	public static void execute(LevelAccessor world, Entity entity) {
+		execute(null, world, entity);
 	}
 
-	private static void execute(@Nullable Event event, Entity entity) {
+	private static void execute(@Nullable Event event, LevelAccessor world, Entity entity) {
 		if (entity == null)
 			return;
-		if (Minecraft.getInstance().options.getCameraType().isFirstPerson()
-				&& ((entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MmModVariables.PlayerVariables())).NVG_Black_Check == true && entity instanceof LivingEntity lv
-						? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.NVG.get(), lv).isPresent()
-						: false)) {
-			{
-				boolean _setval = true;
-				entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-					capability.NGV_Black_Shader = _setval;
-					capability.syncPlayerVariables(entity);
+		if (Minecraft.getInstance().options.getCameraType().isFirstPerson() && entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.BLACK_GPNVG.get(), lv).isPresent() : false) {
+			if (entity instanceof LivingEntity lv) {
+				CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.BLACK_GPNVG.get()).forEach(item -> {
+					ItemStack itemstackiterator = item.stack();
+					if (itemstackiterator.getOrCreateTag().getBoolean("NvgCheck") == true) {
+						{
+							boolean _setval = true;
+							entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+								capability.Black_GPNVG_Check = _setval;
+								capability.syncPlayerVariables(entity);
+							});
+						}
+					} else if (itemstackiterator.getOrCreateTag().getBoolean("NvgCheck") == false) {
+						{
+							boolean _setval = false;
+							entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+								capability.Black_GPNVG_Check = _setval;
+								capability.syncPlayerVariables(entity);
+							});
+						}
+					}
 				});
 			}
-		} else if (Minecraft.getInstance().options.getCameraType().isFirstPerson()
-				&& ((entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MmModVariables.PlayerVariables())).NVG_Black_Check == false && entity instanceof LivingEntity lv
-						? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.NVG.get(), lv).isPresent()
-						: false)) {
+		} else if (!(entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.BLACK_GPNVG.get(), lv).isPresent() : false)) {
 			{
 				boolean _setval = false;
 				entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-					capability.NGV_Black_Shader = _setval;
-					capability.syncPlayerVariables(entity);
-				});
-			}
-		} else if (!(entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.NVG.get(), lv).isPresent() : false)) {
-			{
-				boolean _setval = false;
-				entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-					capability.NGV_Black_Shader = _setval;
+					capability.Black_GPNVG_Check = _setval;
 					capability.syncPlayerVariables(entity);
 				});
 			}
@@ -66,24 +69,39 @@ public class GogglesShaderProcedure {
 			{
 				boolean _setval = false;
 				entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-					capability.NGV_Black_Shader = _setval;
+					capability.Black_GPNVG_Check = _setval;
 					capability.syncPlayerVariables(entity);
 				});
 			}
 		}
-		if ((entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MmModVariables.PlayerVariables())).TVG_Check == true) {
-			{
-				boolean _setval = true;
-				entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-					capability.TVG_Shader = _setval;
-					capability.syncPlayerVariables(entity);
+		if (Minecraft.getInstance().options.getCameraType().isFirstPerson() && entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.BLACK_NVG_21.get(), lv).isPresent() : false) {
+			if (entity instanceof LivingEntity lv) {
+				CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.BLACK_NVG_21.get()).forEach(item -> {
+					ItemStack itemstackiterator = item.stack();
+					if (itemstackiterator.getOrCreateTag().getBoolean("NvgCheck") == true) {
+						{
+							boolean _setval = true;
+							entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+								capability.Black_NVG21_Check = _setval;
+								capability.syncPlayerVariables(entity);
+							});
+						}
+					} else if (itemstackiterator.getOrCreateTag().getBoolean("NvgCheck") == false) {
+						{
+							boolean _setval = false;
+							entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+								capability.Black_NVG21_Check = _setval;
+								capability.syncPlayerVariables(entity);
+							});
+						}
+					}
 				});
 			}
-		} else if ((entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MmModVariables.PlayerVariables())).TVG_Check == false) {
+		} else if (!(entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.BLACK_NVG_21.get(), lv).isPresent() : false)) {
 			{
 				boolean _setval = false;
 				entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-					capability.TVG_Shader = _setval;
+					capability.Black_NVG21_Check = _setval;
 					capability.syncPlayerVariables(entity);
 				});
 			}
@@ -91,7 +109,7 @@ public class GogglesShaderProcedure {
 			{
 				boolean _setval = false;
 				entity.getCapability(MmModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-					capability.TVG_Shader = _setval;
+					capability.Black_NVG21_Check = _setval;
 					capability.syncPlayerVariables(entity);
 				});
 			}

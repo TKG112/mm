@@ -13,7 +13,6 @@
     ],
     "uniforms": [
         { "name": "NightVisionEnabled", "type": "float",     "count": 1,  "values": [1.0] },
-		{ "name": "NightVisionRadius",  "type": "float",     "count": 1,  "values": [0.55] },
         { "name": "VignetteEnabled",    "type": "float",     "count": 1,  "values": [0.0] },
         { "name": "VignetteRadius",     "type": "float",     "count": 1,  "values": [0.55] },
         { "name": "Brightness",         "type": "float",     "count": 1,  "values": [1.0] },
@@ -26,6 +25,5 @@
         { "name": "Time",               "type": "float",     "count": 1,  "values": [1.0] },
         { "name": "NoiseAmplification", "type": "float",     "count": 1,  "values": [2.0] },
         { "name": "IntensityAdjust",    "type": "float",     "count": 1,  "values": [40.0] }
-
     ]
 }

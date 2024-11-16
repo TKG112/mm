@@ -4,9 +4,9 @@
   "definition": {
     "type": 1,
     "width": 176,
-    "height": 134,
+    "height": 149,
     "inventoryOffsetX": 0,
-    "inventoryOffsetY": -16,
+    "inventoryOffsetY": -8,
     "renderBgLayer": true,
     "doesPauseGame": false,
     "components": [
@@ -23,9 +23,9 @@
           "disablePickup": {
             "fixedValue": false
           },
-          "dropItemsWhenNotBound": true,
+          "dropItemsWhenNotBound": false,
           "x": 178,
-          "y": 62
+          "y": 68
         }
       },
       {
@@ -41,9 +41,9 @@
           "disablePickup": {
             "fixedValue": false
           },
-          "dropItemsWhenNotBound": true,
+          "dropItemsWhenNotBound": false,
           "x": 214,
-          "y": 62
+          "y": 68
         }
       },
       {
@@ -59,9 +59,9 @@
           "disablePickup": {
             "fixedValue": false
           },
-          "dropItemsWhenNotBound": true,
+          "dropItemsWhenNotBound": false,
           "x": 196,
-          "y": 62
+          "y": 68
         }
       },
       {
@@ -77,9 +77,9 @@
           "disablePickup": {
             "fixedValue": false
           },
-          "dropItemsWhenNotBound": true,
+          "dropItemsWhenNotBound": false,
           "x": 232,
-          "y": 62
+          "y": 68
         }
       },
       {
@@ -95,9 +95,9 @@
           "disablePickup": {
             "fixedValue": false
           },
-          "dropItemsWhenNotBound": true,
+          "dropItemsWhenNotBound": false,
           "x": 178,
-          "y": 80
+          "y": 86
         }
       },
       {
@@ -113,9 +113,9 @@
           "disablePickup": {
             "fixedValue": false
           },
-          "dropItemsWhenNotBound": true,
+          "dropItemsWhenNotBound": false,
           "x": 196,
-          "y": 80
+          "y": 86
         }
       },
       {
@@ -131,9 +131,9 @@
           "disablePickup": {
             "fixedValue": false
           },
-          "dropItemsWhenNotBound": true,
+          "dropItemsWhenNotBound": false,
           "x": 214,
-          "y": 80
+          "y": 86
         }
       },
       {
@@ -149,9 +149,24 @@
           "disablePickup": {
             "fixedValue": false
           },
-          "dropItemsWhenNotBound": true,
+          "dropItemsWhenNotBound": false,
           "x": 232,
-          "y": 80
+          "y": 86
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "name": "label_plate_carrier_pouches",
+          "text": {
+            "fixedValue": "Plate Carrier Pouches"
+          },
+          "color": {
+            "value": -12829636,
+            "falpha": 0.0
+          },
+          "x": 131,
+          "y": 51
         }
       }
     ],

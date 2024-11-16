@@ -60,6 +60,7 @@ public class Tier3BackpackGUIScreen extends AbstractContainerScreen<Tier3Backpac
 
 	@Override
 	protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+		guiGraphics.drawString(this.font, Component.translatable("gui.mm.tier_3_backpack_gui.label_large_black_backpack"), 5, 5, -12829636, false);
 	}
 
 	@Override

@@ -4,9 +4,9 @@
   "definition": {
     "type": 1,
     "width": 176,
-    "height": 131,
+    "height": 148,
     "inventoryOffsetX": 0,
-    "inventoryOffsetY": -16,
+    "inventoryOffsetY": -10,
     "renderBgLayer": true,
     "doesPauseGame": false,
     "components": [
@@ -25,7 +25,7 @@
           },
           "dropItemsWhenNotBound": true,
           "x": 187,
-          "y": 63
+          "y": 67
         }
       },
       {
@@ -43,7 +43,7 @@
           },
           "dropItemsWhenNotBound": true,
           "x": 205,
-          "y": 63
+          "y": 67
         }
       },
       {
@@ -61,7 +61,7 @@
           },
           "dropItemsWhenNotBound": true,
           "x": 223,
-          "y": 63
+          "y": 67
         }
       },
       {
@@ -79,7 +79,7 @@
           },
           "dropItemsWhenNotBound": true,
           "x": 187,
-          "y": 81
+          "y": 85
         }
       },
       {
@@ -97,7 +97,7 @@
           },
           "dropItemsWhenNotBound": true,
           "x": 205,
-          "y": 81
+          "y": 85
         }
       },
       {
@@ -115,7 +115,22 @@
           },
           "dropItemsWhenNotBound": true,
           "x": 223,
-          "y": 81
+          "y": 85
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "name": "label_bandoleer_rig",
+          "text": {
+            "fixedValue": "Bandoleer Pouches"
+          },
+          "color": {
+            "value": -12829636,
+            "falpha": 0.0
+          },
+          "x": 131,
+          "y": 51
         }
       }
     ],

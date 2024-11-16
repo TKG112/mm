@@ -77,31 +77,31 @@ public class Tier1BackpackGUIMenu extends AbstractContainerMenu implements Suppl
 					});
 			}
 		}
-		this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 62, 18) {
+		this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 62, 20) {
 			private final int slot = 0;
 		}));
-		this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 80, 18) {
+		this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 80, 20) {
 			private final int slot = 1;
 		}));
-		this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 98, 18) {
+		this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 98, 20) {
 			private final int slot = 2;
 		}));
-		this.customSlots.put(3, this.addSlot(new SlotItemHandler(internal, 3, 62, 36) {
+		this.customSlots.put(3, this.addSlot(new SlotItemHandler(internal, 3, 62, 38) {
 			private final int slot = 3;
 		}));
-		this.customSlots.put(4, this.addSlot(new SlotItemHandler(internal, 4, 80, 36) {
+		this.customSlots.put(4, this.addSlot(new SlotItemHandler(internal, 4, 80, 38) {
 			private final int slot = 4;
 		}));
-		this.customSlots.put(5, this.addSlot(new SlotItemHandler(internal, 5, 98, 36) {
+		this.customSlots.put(5, this.addSlot(new SlotItemHandler(internal, 5, 98, 38) {
 			private final int slot = 5;
 		}));
-		this.customSlots.put(6, this.addSlot(new SlotItemHandler(internal, 6, 62, 54) {
+		this.customSlots.put(6, this.addSlot(new SlotItemHandler(internal, 6, 62, 56) {
 			private final int slot = 6;
 		}));
-		this.customSlots.put(7, this.addSlot(new SlotItemHandler(internal, 7, 80, 54) {
+		this.customSlots.put(7, this.addSlot(new SlotItemHandler(internal, 7, 80, 56) {
 			private final int slot = 7;
 		}));
-		this.customSlots.put(8, this.addSlot(new SlotItemHandler(internal, 8, 98, 54) {
+		this.customSlots.put(8, this.addSlot(new SlotItemHandler(internal, 8, 98, 56) {
 			private final int slot = 8;
 		}));
 		for (int si = 0; si < 3; ++si)

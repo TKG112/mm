@@ -42,7 +42,7 @@ public class ReconGUIMenu extends AbstractContainerMenu implements Supplier<Map<
 		super(MmModMenus.RECON_GUI.get(), id);
 		this.entity = inv.player;
 		this.world = inv.player.level();
-		this.internal = new ItemStackHandler(3);
+		this.internal = new ItemStackHandler(12);
 		BlockPos pos = null;
 		if (extraData != null) {
 			pos = extraData.readBlockPos();
@@ -77,20 +77,47 @@ public class ReconGUIMenu extends AbstractContainerMenu implements Supplier<Map<
 					});
 			}
 		}
-		this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 62, 10) {
+		this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 35, 21) {
 			private final int slot = 0;
 		}));
-		this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 80, 10) {
+		this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 53, 21) {
 			private final int slot = 1;
 		}));
-		this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 98, 10) {
+		this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 71, 21) {
 			private final int slot = 2;
+		}));
+		this.customSlots.put(3, this.addSlot(new SlotItemHandler(internal, 3, 89, 21) {
+			private final int slot = 3;
+		}));
+		this.customSlots.put(4, this.addSlot(new SlotItemHandler(internal, 4, 107, 21) {
+			private final int slot = 4;
+		}));
+		this.customSlots.put(5, this.addSlot(new SlotItemHandler(internal, 5, 125, 21) {
+			private final int slot = 5;
+		}));
+		this.customSlots.put(6, this.addSlot(new SlotItemHandler(internal, 6, 35, 39) {
+			private final int slot = 6;
+		}));
+		this.customSlots.put(7, this.addSlot(new SlotItemHandler(internal, 7, 53, 39) {
+			private final int slot = 7;
+		}));
+		this.customSlots.put(8, this.addSlot(new SlotItemHandler(internal, 8, 71, 39) {
+			private final int slot = 8;
+		}));
+		this.customSlots.put(9, this.addSlot(new SlotItemHandler(internal, 9, 89, 39) {
+			private final int slot = 9;
+		}));
+		this.customSlots.put(10, this.addSlot(new SlotItemHandler(internal, 10, 107, 39) {
+			private final int slot = 10;
+		}));
+		this.customSlots.put(11, this.addSlot(new SlotItemHandler(internal, 11, 125, 39) {
+			private final int slot = 11;
 		}));
 		for (int si = 0; si < 3; ++si)
 			for (int sj = 0; sj < 9; ++sj)
-				this.addSlot(new Slot(inv, sj + (si + 1) * 9, 0 + 8 + sj * 18, -51 + 84 + si * 18));
+				this.addSlot(new Slot(inv, sj + (si + 1) * 9, 0 + 8 + sj * 18, -20 + 84 + si * 18));
 		for (int si = 0; si < 9; ++si)
-			this.addSlot(new Slot(inv, si, 0 + 8 + si * 18, -51 + 142));
+			this.addSlot(new Slot(inv, si, 0 + 8 + si * 18, -20 + 142));
 	}
 
 	@Override
@@ -113,16 +140,16 @@ public class ReconGUIMenu extends AbstractContainerMenu implements Supplier<Map<
 		if (slot != null && slot.hasItem()) {
 			ItemStack itemstack1 = slot.getItem();
 			itemstack = itemstack1.copy();
-			if (index < 3) {
-				if (!this.moveItemStackTo(itemstack1, 3, this.slots.size(), true))
+			if (index < 12) {
+				if (!this.moveItemStackTo(itemstack1, 12, this.slots.size(), true))
 					return ItemStack.EMPTY;
 				slot.onQuickCraft(itemstack1, itemstack);
-			} else if (!this.moveItemStackTo(itemstack1, 0, 3, false)) {
-				if (index < 3 + 27) {
-					if (!this.moveItemStackTo(itemstack1, 3 + 27, this.slots.size(), true))
+			} else if (!this.moveItemStackTo(itemstack1, 0, 12, false)) {
+				if (index < 12 + 27) {
+					if (!this.moveItemStackTo(itemstack1, 12 + 27, this.slots.size(), true))
 						return ItemStack.EMPTY;
 				} else {
-					if (!this.moveItemStackTo(itemstack1, 3, 3 + 27, false))
+					if (!this.moveItemStackTo(itemstack1, 12, 12 + 27, false))
 						return ItemStack.EMPTY;
 				}
 				return ItemStack.EMPTY;
@@ -220,10 +247,38 @@ public class ReconGUIMenu extends AbstractContainerMenu implements Supplier<Map<
 		if (!bound && playerIn instanceof ServerPlayer serverPlayer) {
 			if (!serverPlayer.isAlive() || serverPlayer.hasDisconnected()) {
 				for (int j = 0; j < internal.getSlots(); ++j) {
+					if (j == 0)
+						continue;
+					if (j == 1)
+						continue;
+					if (j == 2)
+						continue;
+					if (j == 3)
+						continue;
+					if (j == 6)
+						continue;
+					if (j == 7)
+						continue;
+					if (j == 9)
+						continue;
 					playerIn.drop(internal.extractItem(j, internal.getStackInSlot(j).getCount(), false), false);
 				}
 			} else {
 				for (int i = 0; i < internal.getSlots(); ++i) {
+					if (i == 0)
+						continue;
+					if (i == 1)
+						continue;
+					if (i == 2)
+						continue;
+					if (i == 3)
+						continue;
+					if (i == 6)
+						continue;
+					if (i == 7)
+						continue;
+					if (i == 9)
+						continue;
 					playerIn.getInventory().placeItemBackInInventory(internal.extractItem(i, internal.getStackInSlot(i).getCount(), false));
 				}
 			}

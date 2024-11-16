@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "mm:item/recon_item"
+    "layer0": "mm:item/green_recon_item"
   }
 }

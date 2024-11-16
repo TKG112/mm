@@ -39,7 +39,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.client.model.HumanoidModel;
 
-import net.mcreator.mm.world.inventory.Tier2BackpackMenu;
+import net.mcreator.mm.world.inventory.Tier2BackpackGUIMenu;
 import net.mcreator.mm.item.inventory.BlackBackpack2InventoryCapability;
 import net.mcreator.mm.client.renderer.BlackBackpack2Renderer;
 
@@ -124,7 +124,7 @@ public class BlackBackpack2Item extends Item implements GeoItem, ICurioItem {
 					FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
 					packetBuffer.writeBlockPos(entity.blockPosition());
 					packetBuffer.writeByte(hand == InteractionHand.MAIN_HAND ? 0 : 1);
-					return new Tier2BackpackMenu(id, inventory, packetBuffer);
+					return new Tier2BackpackGUIMenu(id, inventory, packetBuffer);
 				}
 			}, buf -> {
 				buf.writeBlockPos(entity.blockPosition());

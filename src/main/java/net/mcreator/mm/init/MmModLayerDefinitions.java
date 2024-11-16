@@ -4,7 +4,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 
 public class MmModLayerDefinitions {
-	public static final ModelLayerLocation NVG = new ModelLayerLocation(new ResourceLocation("mm", "nvg"), "nvg");
 	public static final ModelLayerLocation BALACLAVA = new ModelLayerLocation(new ResourceLocation("mm", "balaclava"), "balaclava");
 	public static final ModelLayerLocation MILITARY_BALACLAVA = new ModelLayerLocation(new ResourceLocation("mm", "military_balaclava"), "military_balaclava");
 	public static final ModelLayerLocation MILITARY_GLASSES = new ModelLayerLocation(new ResourceLocation("mm", "military_glasses"), "military_glasses");
@@ -19,4 +18,6 @@ public class MmModLayerDefinitions {
 	public static final ModelLayerLocation BANDOLEER = new ModelLayerLocation(new ResourceLocation("mm", "bandoleer"), "bandoleer");
 	public static final ModelLayerLocation RECON = new ModelLayerLocation(new ResourceLocation("mm", "recon"), "recon");
 	public static final ModelLayerLocation BLACK_VISOR = new ModelLayerLocation(new ResourceLocation("mm", "black_visor"), "black_visor");
+	public static final ModelLayerLocation BLACK_NVG_21 = new ModelLayerLocation(new ResourceLocation("mm", "black_nvg_21"), "black_nvg_21");
+	public static final ModelLayerLocation BLACK_GPNVG = new ModelLayerLocation(new ResourceLocation("mm", "black_gpnvg"), "black_gpnvg");
 }

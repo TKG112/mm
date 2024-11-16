@@ -22,7 +22,7 @@ const vec3 SEPIA = vec3(1.2, 1.0, 0.8);
 void main() {
     vec4 texColor = texture2D(DiffuseSampler, texCoord.xy);
     texColor.rgb *= Brightness;
-    
+
     if(NightVisionEnabled > 0) {
         vec2 uv;
         uv.x = 0.35 * sin(Time * 10);
@@ -43,7 +43,7 @@ void main() {
         vec2 scaledCoord = (texCoord.xy - center) * vec2(InSize.x / InSize.y, 1.0);
         float dist = length(scaledCoord);
         
-        if (dist <= 2) {  // Adjust this value to change the radius of the circle
+        if(dist <= 2) {
             const vec3 lumvec = vec3(0.30, 0.59, 0.11);
             float intensity = dot(lumvec, texColor.rgb);
             intensity = clamp(contrast * (intensity - 0.5) + 0.5, 0.0, 1.0);
@@ -55,7 +55,7 @@ void main() {
         }
     }
 
-    if(SepiaRatio > 0) {
+    if(SepiaRatio > 2) {
         float gray = dot(texColor.rgb, vec3(0.299, 0.587, 0.114));
         vec4 sepiaColor = vec4(vec3(gray) * SEPIA, 1.0);
         texColor = mix(texColor, sepiaColor, SepiaRatio);

@@ -18,7 +18,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.client.Minecraft;
 
 import net.mcreator.mm.init.MmModItems;
-import net.mcreator.mm.client.gui.Tier2BackpackScreen;
+import net.mcreator.mm.client.gui.Tier2BackpackGUIScreen;
 
 import javax.annotation.Nullable;
 import javax.annotation.Nonnull;
@@ -29,7 +29,7 @@ public class BlackBackpack2InventoryCapability implements ICapabilitySerializabl
 	@OnlyIn(Dist.CLIENT)
 	public static void onItemDropped(ItemTossEvent event) {
 		if (event.getEntity().getItem().getItem() == MmModItems.BLACK_BACKPACK_2.get()) {
-			if (Minecraft.getInstance().screen instanceof Tier2BackpackScreen) {
+			if (Minecraft.getInstance().screen instanceof Tier2BackpackGUIScreen) {
 				Minecraft.getInstance().player.closeContainer();
 			}
 		}

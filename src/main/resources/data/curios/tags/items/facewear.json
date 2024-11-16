@@ -1,9 +1,10 @@
 {
   "replace": false,
   "values": [
-    "mm:nvg",
     "mm:military_glasses",
     "mm:military_goggles",
-    "mm:black_visor"
+    "mm:black_visor",
+    "mm:black_nvg_21",
+    "mm:black_gpnvg"
   ]
 }

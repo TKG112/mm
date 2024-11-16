@@ -77,23 +77,23 @@ public class AmmoGUIMenu extends AbstractContainerMenu implements Supplier<Map<I
 					});
 			}
 		}
-		this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 53, 9) {
+		this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 53, 23) {
 			private final int slot = 0;
 		}));
-		this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 89, 9) {
+		this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 89, 23) {
 			private final int slot = 1;
 		}));
-		this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 71, 9) {
+		this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 71, 23) {
 			private final int slot = 2;
 		}));
-		this.customSlots.put(3, this.addSlot(new SlotItemHandler(internal, 3, 107, 9) {
+		this.customSlots.put(3, this.addSlot(new SlotItemHandler(internal, 3, 107, 23) {
 			private final int slot = 3;
 		}));
 		for (int si = 0; si < 3; ++si)
 			for (int sj = 0; sj < 9; ++sj)
-				this.addSlot(new Slot(inv, sj + (si + 1) * 9, 0 + 8 + sj * 18, -52 + 84 + si * 18));
+				this.addSlot(new Slot(inv, sj + (si + 1) * 9, 0 + 8 + sj * 18, -33 + 84 + si * 18));
 		for (int si = 0; si < 9; ++si)
-			this.addSlot(new Slot(inv, si, 0 + 8 + si * 18, -52 + 142));
+			this.addSlot(new Slot(inv, si, 0 + 8 + si * 18, -33 + 142));
 	}
 
 	@Override

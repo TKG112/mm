@@ -4,9 +4,9 @@
   "definition": {
     "type": 1,
     "width": 176,
-    "height": 115,
+    "height": 133,
     "inventoryOffsetX": 0,
-    "inventoryOffsetY": -26,
+    "inventoryOffsetY": -16,
     "renderBgLayer": true,
     "doesPauseGame": false,
     "components": [
@@ -25,7 +25,7 @@
           },
           "dropItemsWhenNotBound": true,
           "x": 178,
-          "y": 71
+          "y": 76
         }
       },
       {
@@ -43,7 +43,7 @@
           },
           "dropItemsWhenNotBound": true,
           "x": 214,
-          "y": 71
+          "y": 76
         }
       },
       {
@@ -61,7 +61,7 @@
           },
           "dropItemsWhenNotBound": true,
           "x": 196,
-          "y": 71
+          "y": 76
         }
       },
       {
@@ -79,7 +79,22 @@
           },
           "dropItemsWhenNotBound": true,
           "x": 232,
-          "y": 71
+          "y": 76
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "name": "label_ammo_pouches",
+          "text": {
+            "fixedValue": "Plate Carrier Ammo Pouches"
+          },
+          "color": {
+            "value": -12829636,
+            "falpha": 0.0
+          },
+          "x": 131,
+          "y": 59
         }
       }
     ],

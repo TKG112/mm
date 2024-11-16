@@ -28,7 +28,7 @@ public class BandoleerGUIScreen extends AbstractContainerScreen<BandoleerGUIMenu
 		this.z = container.z;
 		this.entity = container.entity;
 		this.imageWidth = 176;
-		this.imageHeight = 131;
+		this.imageHeight = 148;
 	}
 
 	private static final ResourceLocation texture = new ResourceLocation("mm:textures/screens/bandoleer_gui.png");
@@ -60,6 +60,7 @@ public class BandoleerGUIScreen extends AbstractContainerScreen<BandoleerGUIMenu
 
 	@Override
 	protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+		guiGraphics.drawString(this.font, Component.translatable("gui.mm.bandoleer_gui.label_bandoleer_rig"), 5, 5, -12829636, false);
 	}
 
 	@Override

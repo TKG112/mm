@@ -9,16 +9,16 @@ import net.mcreator.mm.item.BandoleerItem;
 public class BandoleerModel extends GeoModel<BandoleerItem> {
 	@Override
 	public ResourceLocation getAnimationResource(BandoleerItem object) {
-		return new ResourceLocation("mm", "animations/bandoleer.animation.json");
+		return new ResourceLocation("mm", "animations/tan_bandoleer.animation.json");
 	}
 
 	@Override
 	public ResourceLocation getModelResource(BandoleerItem object) {
-		return new ResourceLocation("mm", "geo/bandoleer.geo.json");
+		return new ResourceLocation("mm", "geo/tan_bandoleer.geo.json");
 	}
 
 	@Override
 	public ResourceLocation getTextureResource(BandoleerItem object) {
-		return new ResourceLocation("mm", "textures/item/bandoleer.png");
+		return new ResourceLocation("mm", "textures/item/tan_bandoleer.png");
 	}
 }

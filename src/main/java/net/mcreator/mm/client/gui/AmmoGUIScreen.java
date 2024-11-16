@@ -28,7 +28,7 @@ public class AmmoGUIScreen extends AbstractContainerScreen<AmmoGUIMenu> {
 		this.z = container.z;
 		this.entity = container.entity;
 		this.imageWidth = 176;
-		this.imageHeight = 115;
+		this.imageHeight = 133;
 	}
 
 	private static final ResourceLocation texture = new ResourceLocation("mm:textures/screens/ammo_gui.png");
@@ -60,6 +60,7 @@ public class AmmoGUIScreen extends AbstractContainerScreen<AmmoGUIMenu> {
 
 	@Override
 	protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+		guiGraphics.drawString(this.font, Component.translatable("gui.mm.ammo_gui.label_ammo_pouches"), 5, 5, -12829636, false);
 	}
 
 	@Override

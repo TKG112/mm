@@ -15,7 +15,6 @@ import net.minecraft.world.item.ArmorItem;
 
 import net.mcreator.mm.item.RoninItem;
 import net.mcreator.mm.item.ReconItem;
-import net.mcreator.mm.item.NVGItem;
 import net.mcreator.mm.item.MilitaryHeadsetItem;
 import net.mcreator.mm.item.MilitaryGogglesItem;
 import net.mcreator.mm.item.MilitaryGlassesItem;
@@ -32,9 +31,11 @@ import net.mcreator.mm.item.BlackVisorItem;
 import net.mcreator.mm.item.BlackPlateCarrierPouchesItem;
 import net.mcreator.mm.item.BlackPlateCarrierItem;
 import net.mcreator.mm.item.BlackPlateCarrierAmmoItem;
+import net.mcreator.mm.item.BlackNVG21Item;
 import net.mcreator.mm.item.BlackKevlarPantsItem;
 import net.mcreator.mm.item.BlackKevlarBootsItem;
 import net.mcreator.mm.item.BlackKevlarBodyItem;
+import net.mcreator.mm.item.BlackGPNVGItem;
 import net.mcreator.mm.item.BlackCombatHelmetItem;
 import net.mcreator.mm.item.BlackBackpack3Item;
 import net.mcreator.mm.item.BlackBackpack2Item;
@@ -45,7 +46,6 @@ import net.mcreator.mm.MmMod;
 
 public class MmModItems {
 	public static final DeferredRegister<Item> REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, MmMod.MODID);
-	public static final RegistryObject<Item> NVG = REGISTRY.register("nvg", () -> new NVGItem());
 	public static final RegistryObject<Item> MENU_ITEM = REGISTRY.register("menu_item", () -> new MenuItemItem());
 	public static final RegistryObject<Item> BALACLAVA = REGISTRY.register("balaclava", () -> new BalaclavaItem());
 	public static final RegistryObject<Item> MILITARY_BALACLAVA = REGISTRY.register("military_balaclava", () -> new MilitaryBalaclavaItem());
@@ -74,6 +74,8 @@ public class MmModItems {
 	public static final RegistryObject<Item> BANDOLEER = REGISTRY.register("bandoleer", () -> new BandoleerItem());
 	public static final RegistryObject<Item> RECON = REGISTRY.register("recon", () -> new ReconItem());
 	public static final RegistryObject<Item> BLACK_VISOR = REGISTRY.register("black_visor", () -> new BlackVisorItem());
+	public static final RegistryObject<Item> BLACK_NVG_21 = REGISTRY.register("black_nvg_21", () -> new BlackNVG21Item());
+	public static final RegistryObject<Item> BLACK_GPNVG = REGISTRY.register("black_gpnvg", () -> new BlackGPNVGItem());
 
 	// Start of user code block custom items
 	// End of user code block custom items

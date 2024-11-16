@@ -77,35 +77,35 @@ public class RigGUIMenu extends AbstractContainerMenu implements Supplier<Map<In
 					});
 			}
 		}
-		this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 53, 10) {
+		this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 53, 23) {
 			private final int slot = 0;
 		}));
-		this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 89, 10) {
+		this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 89, 23) {
 			private final int slot = 1;
 		}));
-		this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 71, 10) {
+		this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 71, 23) {
 			private final int slot = 2;
 		}));
-		this.customSlots.put(3, this.addSlot(new SlotItemHandler(internal, 3, 107, 10) {
+		this.customSlots.put(3, this.addSlot(new SlotItemHandler(internal, 3, 107, 23) {
 			private final int slot = 3;
 		}));
-		this.customSlots.put(4, this.addSlot(new SlotItemHandler(internal, 4, 53, 28) {
+		this.customSlots.put(4, this.addSlot(new SlotItemHandler(internal, 4, 53, 41) {
 			private final int slot = 4;
 		}));
-		this.customSlots.put(5, this.addSlot(new SlotItemHandler(internal, 5, 71, 28) {
+		this.customSlots.put(5, this.addSlot(new SlotItemHandler(internal, 5, 71, 41) {
 			private final int slot = 5;
 		}));
-		this.customSlots.put(6, this.addSlot(new SlotItemHandler(internal, 6, 89, 28) {
+		this.customSlots.put(6, this.addSlot(new SlotItemHandler(internal, 6, 89, 41) {
 			private final int slot = 6;
 		}));
-		this.customSlots.put(7, this.addSlot(new SlotItemHandler(internal, 7, 107, 28) {
+		this.customSlots.put(7, this.addSlot(new SlotItemHandler(internal, 7, 107, 41) {
 			private final int slot = 7;
 		}));
 		for (int si = 0; si < 3; ++si)
 			for (int sj = 0; sj < 9; ++sj)
-				this.addSlot(new Slot(inv, sj + (si + 1) * 9, 0 + 8 + sj * 18, -32 + 84 + si * 18));
+				this.addSlot(new Slot(inv, sj + (si + 1) * 9, 0 + 8 + sj * 18, -17 + 84 + si * 18));
 		for (int si = 0; si < 9; ++si)
-			this.addSlot(new Slot(inv, si, 0 + 8 + si * 18, -32 + 142));
+			this.addSlot(new Slot(inv, si, 0 + 8 + si * 18, -17 + 142));
 	}
 
 	@Override
@@ -235,10 +235,42 @@ public class RigGUIMenu extends AbstractContainerMenu implements Supplier<Map<In
 		if (!bound && playerIn instanceof ServerPlayer serverPlayer) {
 			if (!serverPlayer.isAlive() || serverPlayer.hasDisconnected()) {
 				for (int j = 0; j < internal.getSlots(); ++j) {
+					if (j == 0)
+						continue;
+					if (j == 1)
+						continue;
+					if (j == 2)
+						continue;
+					if (j == 3)
+						continue;
+					if (j == 4)
+						continue;
+					if (j == 5)
+						continue;
+					if (j == 6)
+						continue;
+					if (j == 7)
+						continue;
 					playerIn.drop(internal.extractItem(j, internal.getStackInSlot(j).getCount(), false), false);
 				}
 			} else {
 				for (int i = 0; i < internal.getSlots(); ++i) {
+					if (i == 0)
+						continue;
+					if (i == 1)
+						continue;
+					if (i == 2)
+						continue;
+					if (i == 3)
+						continue;
+					if (i == 4)
+						continue;
+					if (i == 5)
+						continue;
+					if (i == 6)
+						continue;
+					if (i == 7)
+						continue;
 					playerIn.getInventory().placeItemBackInInventory(internal.extractItem(i, internal.getStackInSlot(i).getCount(), false));
 				}
 			}

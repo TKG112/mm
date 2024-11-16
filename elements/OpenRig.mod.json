@@ -1,0 +1,12 @@
+{
+  "_fv": 66,
+  "_type": "keybind",
+  "definition": {
+    "triggerKey": "0",
+    "keyBindingName": "Open Rig",
+    "keyBindingCategoryKey": "mm",
+    "onKeyPressed": {
+      "name": "OpenRigOnKeyPressed"
+    }
+  }
+}

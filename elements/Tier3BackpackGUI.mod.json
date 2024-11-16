@@ -25,7 +25,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 151,
-          "y": 54
+          "y": 56
         }
       },
       {
@@ -43,7 +43,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 169,
-          "y": 54
+          "y": 56
         }
       },
       {
@@ -61,7 +61,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 187,
-          "y": 54
+          "y": 56
         }
       },
       {
@@ -79,7 +79,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 205,
-          "y": 54
+          "y": 56
         }
       },
       {
@@ -97,7 +97,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 223,
-          "y": 54
+          "y": 56
         }
       },
       {
@@ -115,7 +115,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 241,
-          "y": 54
+          "y": 56
         }
       },
       {
@@ -133,7 +133,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 259,
-          "y": 54
+          "y": 56
         }
       },
       {
@@ -151,7 +151,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 151,
-          "y": 72
+          "y": 74
         }
       },
       {
@@ -169,7 +169,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 169,
-          "y": 72
+          "y": 74
         }
       },
       {
@@ -187,7 +187,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 187,
-          "y": 72
+          "y": 74
         }
       },
       {
@@ -205,7 +205,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 205,
-          "y": 72
+          "y": 74
         }
       },
       {
@@ -223,7 +223,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 223,
-          "y": 72
+          "y": 74
         }
       },
       {
@@ -241,7 +241,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 241,
-          "y": 72
+          "y": 74
         }
       },
       {
@@ -259,7 +259,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 259,
-          "y": 72
+          "y": 74
         }
       },
       {
@@ -277,7 +277,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 151,
-          "y": 90
+          "y": 92
         }
       },
       {
@@ -295,7 +295,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 169,
-          "y": 90
+          "y": 92
         }
       },
       {
@@ -313,7 +313,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 187,
-          "y": 90
+          "y": 92
         }
       },
       {
@@ -331,7 +331,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 205,
-          "y": 90
+          "y": 92
         }
       },
       {
@@ -349,7 +349,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 223,
-          "y": 90
+          "y": 92
         }
       },
       {
@@ -367,7 +367,7 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 241,
-          "y": 90
+          "y": 92
         }
       },
       {
@@ -385,7 +385,22 @@
           },
           "dropItemsWhenNotBound": false,
           "x": 259,
-          "y": 90
+          "y": 92
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "name": "label_large_black_backpack",
+          "text": {
+            "fixedValue": "Large Black Backpack"
+          },
+          "color": {
+            "value": -12829636,
+            "falpha": 0.0
+          },
+          "x": 131,
+          "y": 42
         }
       }
     ],

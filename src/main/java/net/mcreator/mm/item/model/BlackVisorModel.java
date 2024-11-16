@@ -9,12 +9,12 @@ import net.mcreator.mm.item.BlackVisorItem;
 public class BlackVisorModel extends GeoModel<BlackVisorItem> {
 	@Override
 	public ResourceLocation getAnimationResource(BlackVisorItem object) {
-		return new ResourceLocation("mm", "animations/visor.animation.json");
+		return new ResourceLocation("mm", "animations/black_visor.animation.json");
 	}
 
 	@Override
 	public ResourceLocation getModelResource(BlackVisorItem object) {
-		return new ResourceLocation("mm", "geo/visor.geo.json");
+		return new ResourceLocation("mm", "geo/black_visor.geo.json");
 	}
 
 	@Override

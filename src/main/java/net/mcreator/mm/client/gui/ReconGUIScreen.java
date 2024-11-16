@@ -28,7 +28,7 @@ public class ReconGUIScreen extends AbstractContainerScreen<ReconGUIMenu> {
 		this.z = container.z;
 		this.entity = container.entity;
 		this.imageWidth = 176;
-		this.imageHeight = 115;
+		this.imageHeight = 146;
 	}
 
 	private static final ResourceLocation texture = new ResourceLocation("mm:textures/screens/recon_gui.png");
@@ -60,6 +60,7 @@ public class ReconGUIScreen extends AbstractContainerScreen<ReconGUIMenu> {
 
 	@Override
 	protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+		guiGraphics.drawString(this.font, Component.translatable("gui.mm.recon_gui.label_recon_rig"), 5, 5, -12829636, false);
 	}
 
 	@Override

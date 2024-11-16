@@ -28,7 +28,7 @@ public class RigGUIScreen extends AbstractContainerScreen<RigGUIMenu> {
 		this.z = container.z;
 		this.entity = container.entity;
 		this.imageWidth = 176;
-		this.imageHeight = 134;
+		this.imageHeight = 149;
 	}
 
 	private static final ResourceLocation texture = new ResourceLocation("mm:textures/screens/rig_gui.png");
@@ -60,6 +60,7 @@ public class RigGUIScreen extends AbstractContainerScreen<RigGUIMenu> {
 
 	@Override
 	protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+		guiGraphics.drawString(this.font, Component.translatable("gui.mm.rig_gui.label_plate_carrier_pouches"), 5, 5, -12829636, false);
 	}
 
 	@Override

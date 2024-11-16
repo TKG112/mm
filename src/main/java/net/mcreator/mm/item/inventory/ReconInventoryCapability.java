@@ -53,7 +53,7 @@ public class ReconInventoryCapability implements ICapabilitySerializable<Compoun
 	}
 
 	private ItemStackHandler createItemHandler() {
-		return new ItemStackHandler(3) {
+		return new ItemStackHandler(12) {
 			@Override
 			public int getSlotLimit(int slot) {
 				return 64;
