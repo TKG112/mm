@@ -4,7 +4,7 @@
     ],
     "passes": [
         {
-            "name": "night-vision-wp-0",
+            "name": "night-vision",
             "intarget": "minecraft:main",
             "outtarget": "swap",
             "auxtargets": [
