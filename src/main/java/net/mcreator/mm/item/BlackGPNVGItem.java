@@ -28,7 +28,13 @@ import java.util.function.Consumer;
 
 public class BlackGPNVGItem extends Item implements GeoItem, ICurioItem {
 	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-	public String animationprocedure = "empty";
+	public String animationprocedure = "Idle";
+
+	// Animations
+	private static final RawAnimation ANIM_IDLE = RawAnimation.begin().thenLoop("animation.black_gpnvgs.idle");
+	private static final RawAnimation ANIM_OPEN = RawAnimation.begin().thenPlayAndHold("animation.black_gpnvgs.opening").thenLoop("animation.black_gpnvgs.opened");
+	private static final RawAnimation ANIM_CLOSE = RawAnimation.begin().thenPlayAndHold("animation.black_gpnvgs.closing").thenLoop("animation.black_gpnvgs.closed");
+
 
 	public BlackGPNVGItem() {
 		super(new Item.Properties().stacksTo(1).durability(0));
@@ -40,12 +46,14 @@ public class BlackGPNVGItem extends Item implements GeoItem, ICurioItem {
 		if (entity instanceof LivingEntity livingEntity) {
 			if (stack.hasTag() && stack.getTag().contains("NvgCheck")) {
 				boolean isNvgCheck = stack.getTag().getBoolean("NvgCheck");
-				if (isNvgCheck && !this.animationprocedure.equals("closing") && !this.animationprocedure.equals("closed")) {
-					this.animationprocedure = "closing";
-				} else if (!isNvgCheck && !this.animationprocedure.equals("opening") && !this.animationprocedure.equals("opened")) {
-					this.animationprocedure = "opening";
+				if (isNvgCheck && !this.animationprocedure.equals("Close")) {
+					this.animationprocedure = "Close";
+				} else if (!isNvgCheck && !this.animationprocedure.equals("Open")) {
+					this.animationprocedure = "Open";
 				}
 			}
+		} else {
+			this.animationprocedure = "Idle";
 		}
 	}
 
@@ -64,36 +72,25 @@ public class BlackGPNVGItem extends Item implements GeoItem, ICurioItem {
 		});
 	}
 
-	private PlayState predicate(AnimationState event) {
-		if (this.animationprocedure.equals("empty")) {
-			event.getController().setAnimation(RawAnimation.begin().thenLoop("idle"));
-			return PlayState.CONTINUE;
-		}
-		return PlayState.STOP;
-	}
-
-	private PlayState procedurePredicate(AnimationState event) {
-		if (!this.animationprocedure.equals("empty")) {
-			if (event.getController().getAnimationState() == AnimationController.State.STOPPED) {
-				event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));
-				if (this.animationprocedure.equals("closing")) {
-					this.animationprocedure = "closed";
-				} else if (this.animationprocedure.equals("opening")) {
-					this.animationprocedure = "opened";
-				} else {
-					this.animationprocedure = "empty";
-					event.getController().forceAnimationReset();
-				}
-			}
-			return PlayState.CONTINUE;
-		}
-		return PlayState.CONTINUE;
-	}
 
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar data) {
-		data.add(new AnimationController(this, "controller", 5, this::predicate));
-		data.add(new AnimationController(this, "procedureController", 5, this::procedurePredicate));
+		data.add(new AnimationController<>(this, "procedureController", 5,state -> {
+			if (!this.animationprocedure.equals("Idle")) {
+				if (this.animationprocedure.equals("Close")) {
+					// If the animation is not the current animation, set the animation to close
+					if (!state.isCurrentAnimation(ANIM_CLOSE)) {state.getController().setAnimation(ANIM_CLOSE);}
+				} else if (this.animationprocedure.equals("Open")) {
+					// If the animation is not the current animation, set the animation to open
+					if (!state.isCurrentAnimation(ANIM_OPEN)) {state.getController().setAnimation(ANIM_OPEN);}
+				} else {
+					// If the animation is neither close nor open, set the animation to idle
+					state.getController().setAnimation(ANIM_IDLE);
+
+				}
+			}
+			return PlayState.CONTINUE;
+		} ));
 	}
 
 	@Override

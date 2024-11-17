@@ -21,9 +21,9 @@
 					"pivot": [0, 24, 0]
 				},
 				{
-					"name": "black_nvg",
+					"name": "black_nvg21",
 					"parent": "armorHead",
-					"pivot": [-14.55, 27.5, -6.15],
+					"pivot": [0, 24, 0],
 					"cubes": [
 						{
 							"origin": [-1, 30, -5.5],
@@ -41,8 +41,8 @@
 				},
 				{
 					"name": "bone",
-					"parent": "black_nvg",
-					"pivot": [1.64109, 30.4936, -5.33149],
+					"parent": "black_nvg21",
+					"pivot": [0, 30.62172, -5.21176],
 					"cubes": [
 						{
 							"origin": [-0.9998, 29.08954, -6.35335],

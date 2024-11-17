@@ -24,22 +24,23 @@ public class MmModTabs {
 				tabData.accept(MmModItems.BLACK_KEVLAR_BOOTS_BOOTS.get());
 				tabData.accept(MmModItems.RONIN_HELMET.get());
 				tabData.accept(MmModItems.HEAD_MOUNT_HELMET.get());
+				tabData.accept(MmModItems.BLACK_IOLA_LEGGINGS.get());
 				tabData.accept(MmModItems.BALACLAVA.get());
 				tabData.accept(MmModItems.MILITARY_BALACLAVA.get());
-				tabData.accept(MmModItems.BLACK_VISOR.get());
 				tabData.accept(MmModItems.MILITARY_GLASSES.get());
 				tabData.accept(MmModItems.MILITARY_GOGGLES.get());
+				tabData.accept(MmModItems.BLACK_NVG_21.get());
+				tabData.accept(MmModItems.BLACK_GPNVG.get());
+				tabData.accept(MmModItems.BLACK_VISOR.get());
 				tabData.accept(MmModItems.MILITARY_HEADSET.get());
-				tabData.accept(MmModItems.BANDOLEER.get());
-				tabData.accept(MmModItems.RECON.get());
 				tabData.accept(MmModItems.BLACK_PLATE_CARRIER.get());
 				tabData.accept(MmModItems.BLACK_PLATE_CARRIER_AMMO.get());
 				tabData.accept(MmModItems.BLACK_PLATE_CARRIER_POUCHES.get());
 				tabData.accept(MmModItems.BLACK_BACKPACK_1.get());
 				tabData.accept(MmModItems.BLACK_BACKPACK_2.get());
 				tabData.accept(MmModItems.BLACK_BACKPACK_3.get());
-				tabData.accept(MmModItems.BLACK_NVG_21.get());
-				tabData.accept(MmModItems.BLACK_GPNVG.get());
+				tabData.accept(MmModItems.RECON.get());
+				tabData.accept(MmModItems.BANDOLEER.get());
 			})
 
 					.build());

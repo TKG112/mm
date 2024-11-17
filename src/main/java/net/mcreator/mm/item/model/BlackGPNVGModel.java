@@ -19,6 +19,6 @@ public class BlackGPNVGModel extends GeoModel<BlackGPNVGItem> {
 
 	@Override
 	public ResourceLocation getTextureResource(BlackGPNVGItem object) {
-		return new ResourceLocation("mm", "textures/item/black_gpnvg.png");
+		return new ResourceLocation("mm", "textures/item/black_gpnvgs.png");
 	}
 }

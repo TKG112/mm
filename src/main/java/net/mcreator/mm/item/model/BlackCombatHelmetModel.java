@@ -9,16 +9,16 @@ import net.mcreator.mm.item.BlackCombatHelmetItem;
 public class BlackCombatHelmetModel extends GeoModel<BlackCombatHelmetItem> {
 	@Override
 	public ResourceLocation getAnimationResource(BlackCombatHelmetItem object) {
-		return new ResourceLocation("mm", "animations/black_kevlar_armor.animation.json");
+		return new ResourceLocation("mm", "animations/black_combat_helmet.animation.json");
 	}
 
 	@Override
 	public ResourceLocation getModelResource(BlackCombatHelmetItem object) {
-		return new ResourceLocation("mm", "geo/black_kevlar_armor.geo.json");
+		return new ResourceLocation("mm", "geo/black_combat_helmet.geo.json");
 	}
 
 	@Override
 	public ResourceLocation getTextureResource(BlackCombatHelmetItem object) {
-		return new ResourceLocation("mm", "textures/item/black_combat_armor.png");
+		return new ResourceLocation("mm", "textures/item/black_combat_helmet.png");
 	}
 }

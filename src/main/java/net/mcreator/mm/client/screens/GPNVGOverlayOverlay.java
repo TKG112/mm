@@ -43,7 +43,7 @@ public class GPNVGOverlayOverlay {
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		RenderSystem.setShaderColor(1, 1, 1, 1);
-		if (GPNVGOverlayDisplayOverlayIngameProcedure.execute(entity)) {
+		if (GPNVGOverlayDisplayOverlayIngameProcedure.execute(world, entity)) {
 			event.getGuiGraphics().blit(new ResourceLocation("mm:textures/screens/overlay.png"), 0, 0, 0, 0, w, h, w, h);
 		}
 		RenderSystem.depthMask(true);

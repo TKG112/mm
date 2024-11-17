@@ -31,12 +31,30 @@ public class BlackNVG21Item extends Item implements GeoItem, ICurioItem {
 	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 	public String animationprocedure = "empty";
 
+	// Animations
+	private static final RawAnimation ANIM_IDLE = RawAnimation.begin().thenLoop("animation.black_nvg21.idle");
+	private static final RawAnimation ANIM_OPEN = RawAnimation.begin().thenPlayAndHold("animation.black_nvg21.opening").thenLoop("animation.black_nvg21.opened");
+	private static final RawAnimation ANIM_CLOSE = RawAnimation.begin().thenPlayAndHold("animation.black_nvg21.closing").thenLoop("animation.black_nvg21.closed");
+
 	public BlackNVG21Item() {
 		super(new Item.Properties().stacksTo(1).durability(0));
 	}
 
-	public void curioTick(SlotContext slotContext, ItemStack itemstack, Entity entity) {
-
+	@Override
+	public void curioTick(SlotContext slotContext, ItemStack stack) {
+		Entity entity = slotContext.entity();
+		if (entity instanceof LivingEntity livingEntity) {
+			if (stack.hasTag() && stack.getTag().contains("NvgCheck")) {
+				boolean isNvgCheck = stack.getTag().getBoolean("NvgCheck");
+				if (isNvgCheck && !this.animationprocedure.equals("Close")) {
+					this.animationprocedure = "Close";
+				} else if (!isNvgCheck && !this.animationprocedure.equals("Open")) {
+					this.animationprocedure = "Open";
+				}
+			}
+		} else {
+			this.animationprocedure = "Idle";
+		}
 	}
 
 	@Override
@@ -54,32 +72,25 @@ public class BlackNVG21Item extends Item implements GeoItem, ICurioItem {
 		});
 	}
 
-	private PlayState predicate(AnimationState event) {
-		if (this.animationprocedure.equals("empty")) {
-			event.getController().setAnimation(RawAnimation.begin().thenLoop("idle"));
-			Entity entity = (Entity) event.getData(DataTickets.ENTITY);
-			return PlayState.CONTINUE;
-		}
-		return PlayState.STOP;
-	}
-
-	private PlayState procedurePredicate(AnimationState event) {
-		if (!this.animationprocedure.equals("empty") && event.getController().getAnimationState() == AnimationController.State.STOPPED) {
-			event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));
-			if (event.getController().getAnimationState() == AnimationController.State.STOPPED) {
-				this.animationprocedure = "empty";
-				event.getController().forceAnimationReset();
-			}
-			Entity entity = (Entity) event.getData(DataTickets.ENTITY);
-			return PlayState.CONTINUE;
-		}
-		return PlayState.CONTINUE;
-	}
 
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar data) {
-		data.add(new AnimationController(this, "controller", 5, this::predicate));
-		data.add(new AnimationController(this, "procedureController", 5, this::procedurePredicate));
+		data.add(new AnimationController<>(this, "procedureController", 5,state -> {
+			if (!this.animationprocedure.equals("Idle")) {
+				if (this.animationprocedure.equals("Close")) {
+					// If the animation is not the current animation, set the animation to close
+					if (!state.isCurrentAnimation(ANIM_CLOSE)) {state.getController().setAnimation(ANIM_CLOSE);}
+				} else if (this.animationprocedure.equals("Open")) {
+					// If the animation is not the current animation, set the animation to open
+					if (!state.isCurrentAnimation(ANIM_OPEN)) {state.getController().setAnimation(ANIM_OPEN);}
+				} else {
+					// If the animation is neither close nor open, set the animation to idle
+					state.getController().setAnimation(ANIM_IDLE);
+
+				}
+			}
+			return PlayState.CONTINUE;
+		} ));
 	}
 
 	@Override
