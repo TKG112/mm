@@ -41,6 +41,10 @@ public class MmModTabs {
 				tabData.accept(MmModItems.BLACK_BACKPACK_3.get());
 				tabData.accept(MmModItems.RECON.get());
 				tabData.accept(MmModItems.BANDOLEER.get());
+				tabData.accept(MmModItems.GREEN_NVG_21.get());
+				tabData.accept(MmModItems.TAN_GPNVG.get());
+				tabData.accept(MmModItems.TAN_NVG_21.get());
+				tabData.accept(MmModItems.TAN_VISOR.get());
 			})
 
 					.build());

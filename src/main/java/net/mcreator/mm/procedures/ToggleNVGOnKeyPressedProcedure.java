@@ -94,6 +94,106 @@ public class ToggleNVGOnKeyPressedProcedure {
 					}
 				});
 			}
+		} else if (entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.TAN_GPNVG.get(), lv).isPresent() : false) {
+			if (entity instanceof LivingEntity lv) {
+				CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.TAN_GPNVG.get()).forEach(item -> {
+					ItemStack itemstackiterator = item.stack();
+					if (itemstackiterator.getOrCreateTag().getBoolean("NvgCheck") == false) {
+						itemstackiterator.getOrCreateTag().putBoolean("NvgCheck", true);
+						if (world instanceof Level _level) {
+							if (!_level.isClientSide()) {
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvon")), SoundSource.NEUTRAL, 1, 1);
+							} else {
+								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvon")), SoundSource.NEUTRAL, 1, 1, false);
+							}
+						}
+					} else if (itemstackiterator.getOrCreateTag().getBoolean("NvgCheck") == true) {
+						itemstackiterator.getOrCreateTag().putBoolean("NvgCheck", false);
+						if (world instanceof Level _level) {
+							if (!_level.isClientSide()) {
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvoff")), SoundSource.NEUTRAL, 1, 1);
+							} else {
+								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvoff")), SoundSource.NEUTRAL, 1, 1, false);
+							}
+						}
+					}
+				});
+			}
+		} else if (entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.TAN_NVG_21.get(), lv).isPresent() : false) {
+			if (entity instanceof LivingEntity lv) {
+				CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.TAN_NVG_21.get()).forEach(item -> {
+					ItemStack itemstackiterator = item.stack();
+					if (itemstackiterator.getOrCreateTag().getBoolean("NvgCheck") == false) {
+						itemstackiterator.getOrCreateTag().putBoolean("NvgCheck", true);
+						if (world instanceof Level _level) {
+							if (!_level.isClientSide()) {
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvon")), SoundSource.NEUTRAL, 1, 1);
+							} else {
+								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvon")), SoundSource.NEUTRAL, 1, 1, false);
+							}
+						}
+					} else if (itemstackiterator.getOrCreateTag().getBoolean("NvgCheck") == true) {
+						itemstackiterator.getOrCreateTag().putBoolean("NvgCheck", false);
+						if (world instanceof Level _level) {
+							if (!_level.isClientSide()) {
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvoff")), SoundSource.NEUTRAL, 1, 1);
+							} else {
+								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvoff")), SoundSource.NEUTRAL, 1, 1, false);
+							}
+						}
+					}
+				});
+			}
+		} else if (entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.TAN_VISOR.get(), lv).isPresent() : false) {
+			if (entity instanceof LivingEntity lv) {
+				CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.TAN_VISOR.get()).forEach(item -> {
+					ItemStack itemstackiterator = item.stack();
+					if (itemstackiterator.getOrCreateTag().getBoolean("VisorDown") == false) {
+						itemstackiterator.getOrCreateTag().putBoolean("VisorDown", true);
+						if (world instanceof Level _level) {
+							if (!_level.isClientSide()) {
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, 1, 1);
+							} else {
+								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, 1, 1, false);
+							}
+						}
+					} else if (itemstackiterator.getOrCreateTag().getBoolean("VisorDown") == true) {
+						itemstackiterator.getOrCreateTag().putBoolean("VisorDown", false);
+						if (world instanceof Level _level) {
+							if (!_level.isClientSide()) {
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, 1, 1);
+							} else {
+								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, 1, 1, false);
+							}
+						}
+					}
+				});
+			}
+		} else if (entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.GREEN_NVG_21.get(), lv).isPresent() : false) {
+			if (entity instanceof LivingEntity lv) {
+				CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.GREEN_NVG_21.get()).forEach(item -> {
+					ItemStack itemstackiterator = item.stack();
+					if (itemstackiterator.getOrCreateTag().getBoolean("NvgCheck") == false) {
+						itemstackiterator.getOrCreateTag().putBoolean("NvgCheck", true);
+						if (world instanceof Level _level) {
+							if (!_level.isClientSide()) {
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvon")), SoundSource.NEUTRAL, 1, 1);
+							} else {
+								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvon")), SoundSource.NEUTRAL, 1, 1, false);
+							}
+						}
+					} else if (itemstackiterator.getOrCreateTag().getBoolean("NvgCheck") == true) {
+						itemstackiterator.getOrCreateTag().putBoolean("NvgCheck", false);
+						if (world instanceof Level _level) {
+							if (!_level.isClientSide()) {
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvoff")), SoundSource.NEUTRAL, 1, 1);
+							} else {
+								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvoff")), SoundSource.NEUTRAL, 1, 1, false);
+							}
+						}
+					}
+				});
+			}
 		}
 	}
 }

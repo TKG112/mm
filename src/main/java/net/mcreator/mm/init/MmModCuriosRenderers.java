@@ -7,11 +7,15 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 
+import net.mcreator.mm.client.renderer.TanVisorRenderer;
+import net.mcreator.mm.client.renderer.TanNVG21Renderer;
+import net.mcreator.mm.client.renderer.TanGPNVGRenderer;
 import net.mcreator.mm.client.renderer.ReconRenderer;
 import net.mcreator.mm.client.renderer.MilitaryHeadsetRenderer;
 import net.mcreator.mm.client.renderer.MilitaryGogglesRenderer;
 import net.mcreator.mm.client.renderer.MilitaryGlassesRenderer;
 import net.mcreator.mm.client.renderer.MilitaryBalaclavaRenderer;
+import net.mcreator.mm.client.renderer.GreenNVG21Renderer;
 import net.mcreator.mm.client.renderer.BlackVisorRenderer;
 import net.mcreator.mm.client.renderer.BlackPlateCarrierRenderer;
 import net.mcreator.mm.client.renderer.BlackPlateCarrierPouchesRenderer;
@@ -45,6 +49,10 @@ public class MmModCuriosRenderers {
 		evt.registerLayerDefinition(MmModLayerDefinitions.BLACK_VISOR, Modelplaceholder::createBodyLayer);
 		evt.registerLayerDefinition(MmModLayerDefinitions.BLACK_NVG_21, Modelplaceholder::createBodyLayer);
 		evt.registerLayerDefinition(MmModLayerDefinitions.BLACK_GPNVG, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.GREEN_NVG_21, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.TAN_GPNVG, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.TAN_NVG_21, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.TAN_VISOR, Modelplaceholder::createBodyLayer);
 	}
 
 	@SubscribeEvent
@@ -65,5 +73,9 @@ public class MmModCuriosRenderers {
 		CuriosRendererRegistry.register(MmModItems.BLACK_VISOR.get(), BlackVisorRenderer::new);
 		CuriosRendererRegistry.register(MmModItems.BLACK_NVG_21.get(), BlackNVG21Renderer::new);
 		CuriosRendererRegistry.register(MmModItems.BLACK_GPNVG.get(), BlackGPNVGRenderer::new);
+		CuriosRendererRegistry.register(MmModItems.GREEN_NVG_21.get(), GreenNVG21Renderer::new);
+		CuriosRendererRegistry.register(MmModItems.TAN_GPNVG.get(), TanGPNVGRenderer::new);
+		CuriosRendererRegistry.register(MmModItems.TAN_NVG_21.get(), TanNVG21Renderer::new);
+		CuriosRendererRegistry.register(MmModItems.TAN_VISOR.get(), TanVisorRenderer::new);
 	}
 }

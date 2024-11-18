@@ -39,7 +39,7 @@
           "src/main/java/net/mcreator/mm/network/ToggleNVGMessage.java"
         ]
       },
-      "path": "~/Armors/Black/Head/Facewear/Special Goggles/GPNVG"
+      "path": "~/Inv/Head Gear"
     },
     {
       "name": "ToggleNVGOnKeyPressed",
@@ -62,7 +62,7 @@
           }
         ]
       },
-      "path": "~/Armors/Black/Head/Facewear/Special Goggles/GPNVG"
+      "path": "~/Inv/Head Gear"
     },
     {
       "name": "RigGUI",
@@ -89,7 +89,7 @@
           "src/main/java/net/mcreator/mm/network/IncreaseTubeGainMessage.java"
         ]
       },
-      "path": "~/Armors/Black/Head/Facewear/Special Goggles/GPNVG"
+      "path": "~/Inv/Head Gear"
     },
     {
       "name": "DecreaseTubeGain",
@@ -102,7 +102,7 @@
           "src/main/java/net/mcreator/mm/network/DecreaseTubeGainMessage.java"
         ]
       },
-      "path": "~/Armors/Black/Head/Facewear/Special Goggles/GPNVG"
+      "path": "~/Inv/Head Gear"
     },
     {
       "name": "IncreaseTubeGainOnKeyPressed",
@@ -125,7 +125,7 @@
           }
         ]
       },
-      "path": "~/Armors/Black/Head/Facewear/Special Goggles/GPNVG"
+      "path": "~/Inv/Head Gear"
     },
     {
       "name": "DecreaseTubeGainOnKeyPressed",
@@ -148,7 +148,7 @@
           }
         ]
       },
-      "path": "~/Armors/Black/Head/Facewear/Special Goggles/GPNVG"
+      "path": "~/Inv/Head Gear"
     },
     {
       "name": "GMS",
@@ -244,7 +244,7 @@
           "src/main/resources/assets/mm/models/item/military_glasses.json"
         ]
       },
-      "path": "~/Armors/Black/Head/Facewear/Goggles and Glasses"
+      "path": "~/Armors/Black/Head/Facewear/Black Glasses"
     },
     {
       "name": "MilitaryGoggles",
@@ -259,7 +259,7 @@
           "src/main/resources/assets/mm/models/item/military_goggles.json"
         ]
       },
-      "path": "~/Armors/Black/Head/Facewear/Goggles and Glasses"
+      "path": "~/Armors/Black/Head/Facewear/Black Goggles"
     },
     {
       "name": "MilitaryHeadset",
@@ -1581,7 +1581,7 @@
           }
         ]
       },
-      "path": "~/Armors/Black/Head/Facewear/Special Goggles"
+      "path": "~/Armors/Black/Head/Facewear/GPNVG"
     },
     {
       "name": "GPNVGOverlay",
@@ -1594,7 +1594,7 @@
           "src/main/java/net/mcreator/mm/client/screens/GPNVGOverlayOverlay.java"
         ]
       },
-      "path": "~/Armors/Black/Head/Facewear/Special Goggles"
+      "path": "~/Armors/Black/Head/Facewear/GPNVG"
     },
     {
       "name": "BlackNVG21",
@@ -1609,7 +1609,7 @@
           "src/main/resources/assets/mm/models/item/black_nvg_21.json"
         ]
       },
-      "path": "~/Armors/Black/Head/Facewear/Special Goggles/NVG21"
+      "path": "~/Armors/Black/Head/Facewear/NVG21"
     },
     {
       "name": "BlackGPNVG",
@@ -1624,7 +1624,7 @@
           "src/main/java/net/mcreator/mm/client/renderer/BlackGPNVGRenderer.java"
         ]
       },
-      "path": "~/Armors/Black/Head/Facewear/Special Goggles/GPNVG"
+      "path": "~/Armors/Black/Head/Facewear/GPNVG"
     },
     {
       "name": "GreenKevlarBody",
@@ -1728,6 +1728,66 @@
         ]
       },
       "path": "~/Armors/Black/Legs/Legs Armor/Kevlar Pants"
+    },
+    {
+      "name": "GreenNVG21",
+      "type": "curiosbauble",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "green_nvg_21",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/client/renderer/GreenNVG21Renderer.java",
+          "src/main/java/net/mcreator/mm/item/GreenNVG21Item.java",
+          "src/main/resources/assets/mm/models/item/green_nvg_21.json"
+        ]
+      },
+      "path": "~/Armors/Green/Head/Facewear/NVG21"
+    },
+    {
+      "name": "TanGPNVG",
+      "type": "curiosbauble",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "tan_gpnvg",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/TanGPNVGItem.java",
+          "src/main/resources/assets/mm/models/item/tan_gpnvg.json",
+          "src/main/java/net/mcreator/mm/client/renderer/TanGPNVGRenderer.java"
+        ]
+      },
+      "path": "~/Armors/Tan/Head/Facewear/GPNVG"
+    },
+    {
+      "name": "TanNVG21",
+      "type": "curiosbauble",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "tan_nvg_21",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/TanNVG21Item.java",
+          "src/main/java/net/mcreator/mm/client/renderer/TanNVG21Renderer.java",
+          "src/main/resources/assets/mm/models/item/tan_nvg_21.json"
+        ]
+      },
+      "path": "~/Armors/Tan/Head/Facewear/NVG21"
+    },
+    {
+      "name": "TanVisor",
+      "type": "curiosbauble",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "tan_visor",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/client/renderer/TanVisorRenderer.java",
+          "src/main/resources/assets/mm/models/item/tan_visor.json",
+          "src/main/java/net/mcreator/mm/item/TanVisorItem.java"
+        ]
+      },
+      "path": "~/Armors/Tan/Head/Facewear/Visor"
     }
   ],
   "variable_elements": [],
@@ -1822,7 +1882,11 @@
       "BlackBackpack2",
       "BlackBackpack3",
       "Recon",
-      "Bandoleer"
+      "Bandoleer",
+      "GreenNVG21",
+      "TanGPNVG",
+      "TanNVG21",
+      "TanVisor"
     ],
     "CUSTOM:GMSItems": [
       "Duffelbag",
@@ -1836,8 +1900,8 @@
   "language_map": {
     "en_us": {
       "item.gms.military_headset": "Military Headset",
-      "item.mm.military_goggles": "Military Goggles",
       "item.gms.black_military_helmet_leggings": "Black Military Helmet Leggings",
+      "item.mm.military_goggles": "Military Goggles",
       "item.mm.bandoleer": "Bandoleer",
       "item.mm.black_kevlar_pants_chestplate": "Black Kevlar Pants Chestplate",
       "item.mm.duffelbag": "Duffelbag",
@@ -1852,21 +1916,22 @@
       "item.mm.grenade_flashbang": "Flashbang Grenade",
       "item.mm.ronin_boots": "Ronin Boots",
       "subtitles.knob_turn": "NVG Gain Change",
-      "item.mm.balaclava": "Balaclava",
       "gui.mm.ammo_gui.label_ammo_pouches": "Plate Carrier Ammo Pouches",
-      "item.mm.black_iola_boots": "Black IOLA Boots",
+      "item.mm.balaclava": "Balaclava",
       "item.mm.black_iola_helmet": "Black IOLA Helmet",
+      "item.mm.black_iola_boots": "Black IOLA Boots",
       "subtitles.nade-landing": "",
       "item.mm.green_kevlar_body_boots": "Green Kevlar Body Boots",
       "item_group.mm.gms": "MM Armors",
-      "key.categories.mm": "Modern Mayhem",
       "item.gms.tvg": "TVG",
+      "key.categories.mm": "Modern Mayhem",
       "gui.mm.ammo_gui_2.label_ammo_pouches": "Plate Carrier Ammo Pouches",
       "item_group.mm.gms_items": "MM Items",
       "item.mm.military_balaclava": "Military Balaclava",
       "item.mm.grenade_frag": "Frag Grenade",
       "subtitles.flashbang-boom": "Flashbang Explosion",
       "item.mm.black_iola_leggings": "Black IOLA",
+      "item.mm.tan_nvg_21": "Tan NVG-21",
       "key.mm.increase_tube_gain": "Increase NVG Tube Gain",
       "gui.mm.tier_2_backpack_gui.label_medium_black_backpack": "Medium Backpack",
       "item.gms.military_balaclava": "Military Balaclava",
@@ -1883,6 +1948,7 @@
       "item.mm.ronin_leggings": "Ronin Leggings",
       "gui.mm.recon_gui.label_recon_rig": "Recon Pouches",
       "item.mm.green_kevlar_body_helmet": "Green Kevlar Body Helmet",
+      "item.mm.tan_visor": "Tan Visor",
       "key.gms.decrease_tube_gain": "Decrease NVG Tube Gain",
       "subtitles.ear-ringing": "",
       "item.mm.black_kevlar_boots_boots": "Black Kevlar Boots",
@@ -1915,6 +1981,7 @@
       "gui.mm.rig_gui.label_plate_carrier_pouches": "Plate Carrier Pouches",
       "item.mm.black_kevlar_boots_leggings": "",
       "curios.identifier.facewear": "Facewear",
+      "item.mm.green_nvg_21": "Green NVG-21",
       "item.gms.nvg": "NVG",
       "curios.identifier.earwear": "Earwear",
       "item.mm.military_glasses": "Military Glasses",
@@ -1931,6 +1998,7 @@
       "subtitles.smokesoundeffect": "Smoke Grenade Explode",
       "item.gms.black_military_helmet_chestplate": "Black Military Helmet Chestplate",
       "item.mm.black_kevlar_pants_boots": "Black Kevlar Pants Boots",
+      "item.mm.tan_gpnvg": "Tan GPNVG",
       "item.mm.head_mount_helmet": "Head Mount",
       "key.mm.open_rig": "Open Rig",
       "item.mm.head_mount_boots": "Head Mount Boots",
@@ -1959,6 +2027,10 @@
           {
             "name": "Rigs",
             "children": []
+          },
+          {
+            "name": "Head Gear",
+            "children": []
           }
         ]
       },
@@ -1975,24 +2047,23 @@
                     "name": "Facewear",
                     "children": [
                       {
-                        "name": "Goggles and Glasses",
+                        "name": "Visor",
                         "children": []
                       },
                       {
-                        "name": "Special Goggles",
-                        "children": [
-                          {
-                            "name": "GPNVG",
-                            "children": []
-                          },
-                          {
-                            "name": "NVG21",
-                            "children": []
-                          }
-                        ]
+                        "name": "NVG21",
+                        "children": []
                       },
                       {
-                        "name": "Visor",
+                        "name": "GPNVG",
+                        "children": []
+                      },
+                      {
+                        "name": "Black Glasses",
+                        "children": []
+                      },
+                      {
+                        "name": "Black Goggles",
                         "children": []
                       }
                     ]
@@ -2162,7 +2233,20 @@
                 "children": [
                   {
                     "name": "Facewear",
-                    "children": []
+                    "children": [
+                      {
+                        "name": "GPNVG",
+                        "children": []
+                      },
+                      {
+                        "name": "NVG21",
+                        "children": []
+                      },
+                      {
+                        "name": "Visor",
+                        "children": []
+                      }
+                    ]
                   },
                   {
                     "name": "Helmet Armor",
@@ -2283,7 +2367,17 @@
               },
               {
                 "name": "Head",
-                "children": []
+                "children": [
+                  {
+                    "name": "Facewear",
+                    "children": [
+                      {
+                        "name": "NVG21",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "name": "Legs",

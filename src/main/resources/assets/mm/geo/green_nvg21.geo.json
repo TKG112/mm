@@ -18,11 +18,6 @@
 				{
 					"name": "armorHead",
 					"parent": "bipedHead",
-					"pivot": [0, 24, 0]
-				},
-				{
-					"name": "tan_nvg21",
-					"parent": "armorHead",
 					"pivot": [0, 24, 0],
 					"cubes": [
 						{
@@ -36,7 +31,14 @@
 								"up": {"uv": [6, 10], "uv_size": [2, 1]},
 								"down": {"uv": [10, 7], "uv_size": [2, -1]}
 							}
-						},
+						}
+					]
+				},
+				{
+					"name": "bone",
+					"parent": "armorHead",
+					"pivot": [0, 30.62172, -5.21176],
+					"cubes": [
 						{
 							"origin": [-0.9998, 29.08954, -6.35335],
 							"size": [1.9996, 1.9996, 1.2496],

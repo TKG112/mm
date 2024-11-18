@@ -1,10 +1,10 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"closed": {
+		"animation.tan_gpnvgs.closed": {
 			"loop": true
 		},
-		"opening": {
+		"animation.tan_gpnvgs.opening": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 0.25,
 			"bones": {
@@ -16,7 +16,7 @@
 				}
 			}
 		},
-		"opened": {
+		"animation.tan_gpnvgs.opened": {
 			"loop": true,
 			"bones": {
 				"bone": {
@@ -24,7 +24,7 @@
 				}
 			}
 		},
-		"closing": {
+		"animation.tan_gpnvgs.closing": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 0.25,
 			"bones": {
@@ -36,7 +36,7 @@
 				}
 			}
 		},
-		"idle": {
+		"animation.tan_gpnvgs.idle": {
 			"loop": true
 		}
 	}

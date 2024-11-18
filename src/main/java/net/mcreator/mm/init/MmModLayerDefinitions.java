@@ -20,4 +20,8 @@ public class MmModLayerDefinitions {
 	public static final ModelLayerLocation BLACK_VISOR = new ModelLayerLocation(new ResourceLocation("mm", "black_visor"), "black_visor");
 	public static final ModelLayerLocation BLACK_NVG_21 = new ModelLayerLocation(new ResourceLocation("mm", "black_nvg_21"), "black_nvg_21");
 	public static final ModelLayerLocation BLACK_GPNVG = new ModelLayerLocation(new ResourceLocation("mm", "black_gpnvg"), "black_gpnvg");
+	public static final ModelLayerLocation GREEN_NVG_21 = new ModelLayerLocation(new ResourceLocation("mm", "green_nvg_21"), "green_nvg_21");
+	public static final ModelLayerLocation TAN_GPNVG = new ModelLayerLocation(new ResourceLocation("mm", "tan_gpnvg"), "tan_gpnvg");
+	public static final ModelLayerLocation TAN_NVG_21 = new ModelLayerLocation(new ResourceLocation("mm", "tan_nvg_21"), "tan_nvg_21");
+	public static final ModelLayerLocation TAN_VISOR = new ModelLayerLocation(new ResourceLocation("mm", "tan_visor"), "tan_visor");
 }

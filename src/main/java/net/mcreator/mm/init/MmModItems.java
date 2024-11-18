@@ -13,6 +13,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ArmorItem;
 
+import net.mcreator.mm.item.TanVisorItem;
+import net.mcreator.mm.item.TanNVG21Item;
+import net.mcreator.mm.item.TanGPNVGItem;
 import net.mcreator.mm.item.RoninItem;
 import net.mcreator.mm.item.ReconItem;
 import net.mcreator.mm.item.MilitaryHeadsetItem;
@@ -26,6 +29,7 @@ import net.mcreator.mm.item.GrenadeMolotovItem;
 import net.mcreator.mm.item.GrenadeImpactItem;
 import net.mcreator.mm.item.GrenadeFragItem;
 import net.mcreator.mm.item.GrenadeFlashbangItem;
+import net.mcreator.mm.item.GreenNVG21Item;
 import net.mcreator.mm.item.GreenKevlarBodyItem;
 import net.mcreator.mm.item.DuffelbagItem;
 import net.mcreator.mm.item.BlackVisorItem;
@@ -80,6 +84,10 @@ public class MmModItems {
 	public static final RegistryObject<BlackCombatHelmetItem> BLACK_COMBAT_HELMET_HELMET = REGISTRY.register("black_combat_helmet_helmet", () -> new BlackCombatHelmetItem(ArmorItem.Type.HELMET, new Item.Properties()));
 	public static final RegistryObject<BlackKevlarBodyItem> BLACK_KEVLAR_BODY_CHESTPLATE = REGISTRY.register("black_kevlar_body_chestplate", () -> new BlackKevlarBodyItem(ArmorItem.Type.CHESTPLATE, new Item.Properties()));
 	public static final RegistryObject<BlackKevlarPantsItem> BLACK_KEVLAR_PANTS_LEGGINGS = REGISTRY.register("black_kevlar_pants_leggings", () -> new BlackKevlarPantsItem(ArmorItem.Type.LEGGINGS, new Item.Properties()));
+	public static final RegistryObject<Item> GREEN_NVG_21 = REGISTRY.register("green_nvg_21", () -> new GreenNVG21Item());
+	public static final RegistryObject<Item> TAN_GPNVG = REGISTRY.register("tan_gpnvg", () -> new TanGPNVGItem());
+	public static final RegistryObject<Item> TAN_NVG_21 = REGISTRY.register("tan_nvg_21", () -> new TanNVG21Item());
+	public static final RegistryObject<Item> TAN_VISOR = REGISTRY.register("tan_visor", () -> new TanVisorItem());
 
 	// Start of user code block custom items
 	// End of user code block custom items

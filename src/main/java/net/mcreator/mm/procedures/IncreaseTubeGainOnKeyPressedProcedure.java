@@ -79,6 +79,93 @@ public class IncreaseTubeGainOnKeyPressedProcedure {
 					}
 				});
 			}
+		} else if (entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.TAN_GPNVG.get(), lv).isPresent() : false) {
+			if (entity instanceof LivingEntity lv) {
+				CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.TAN_GPNVG.get()).forEach(item -> {
+					ItemStack itemstackiterator = item.stack();
+					if (itemstackiterator.getOrCreateTag().getDouble("TubeGain") == 0) {
+						itemstackiterator.getOrCreateTag().putDouble("TubeGain", 1);
+						if (world instanceof Level _level) {
+							if (!_level.isClientSide()) {
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
+										(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1));
+							} else {
+								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
+										(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1), false);
+							}
+						}
+					} else if (itemstackiterator.getOrCreateTag().getDouble("TubeGain") == 1) {
+						itemstackiterator.getOrCreateTag().putDouble("TubeGain", 2);
+						if (world instanceof Level _level) {
+							if (!_level.isClientSide()) {
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
+										(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1));
+							} else {
+								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
+										(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1), false);
+							}
+						}
+					}
+				});
+			}
+		} else if (entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.TAN_NVG_21.get(), lv).isPresent() : false) {
+			if (entity instanceof LivingEntity lv) {
+				CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.TAN_NVG_21.get()).forEach(item -> {
+					ItemStack itemstackiterator = item.stack();
+					if (itemstackiterator.getOrCreateTag().getDouble("TubeGain") == 0) {
+						itemstackiterator.getOrCreateTag().putDouble("TubeGain", 1);
+						if (world instanceof Level _level) {
+							if (!_level.isClientSide()) {
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
+										(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1));
+							} else {
+								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
+										(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1), false);
+							}
+						}
+					} else if (itemstackiterator.getOrCreateTag().getDouble("TubeGain") == 1) {
+						itemstackiterator.getOrCreateTag().putDouble("TubeGain", 2);
+						if (world instanceof Level _level) {
+							if (!_level.isClientSide()) {
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
+										(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1));
+							} else {
+								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
+										(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1), false);
+							}
+						}
+					}
+				});
+			}
+		} else if (entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.GREEN_NVG_21.get(), lv).isPresent() : false) {
+			if (entity instanceof LivingEntity lv) {
+				CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.GREEN_NVG_21.get()).forEach(item -> {
+					ItemStack itemstackiterator = item.stack();
+					if (itemstackiterator.getOrCreateTag().getDouble("TubeGain") == 0) {
+						itemstackiterator.getOrCreateTag().putDouble("TubeGain", 1);
+						if (world instanceof Level _level) {
+							if (!_level.isClientSide()) {
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
+										(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1));
+							} else {
+								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
+										(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1), false);
+							}
+						}
+					} else if (itemstackiterator.getOrCreateTag().getDouble("TubeGain") == 1) {
+						itemstackiterator.getOrCreateTag().putDouble("TubeGain", 2);
+						if (world instanceof Level _level) {
+							if (!_level.isClientSide()) {
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
+										(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1));
+							} else {
+								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("mm:nvgturnknob")), SoundSource.NEUTRAL, (float) 0.05,
+										(float) (Mth.nextDouble(RandomSource.create(), 8, 12) * 0.1), false);
+							}
+						}
+					}
+				});
+			}
 		}
 	}
 }
