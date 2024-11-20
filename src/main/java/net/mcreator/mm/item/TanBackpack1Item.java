@@ -116,7 +116,7 @@ public class TanBackpack1Item extends Item implements GeoItem, ICurioItem {
 			NetworkHooks.openScreen(serverPlayer, new MenuProvider() {
 				@Override
 				public Component getDisplayName() {
-					return Component.literal("Black Backpack Tier 1");
+					return Component.literal("Tan Small Backpack");
 				}
 
 				@Override

@@ -922,7 +922,7 @@
           "src/main/java/net/mcreator/mm/item/BlackPlateCarrierAmmoItem.java"
         ]
       },
-      "path": "~/Armors/Black/Chest/Bodywear/Plate Carriers/AmmoPouches"
+      "path": "~/Armors/Black/Chest/Bodywear/Plate Carriers/Ammo"
     },
     {
       "name": "BlackPlateCarrierPouches",
@@ -1921,7 +1921,7 @@
       "name": "TanBackpack2",
       "type": "curiosbauble",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "tan_backpack_2",
       "metadata": {
         "files": [
@@ -1937,7 +1937,7 @@
       "name": "TanBackpack3",
       "type": "curiosbauble",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "tan_backpack_3",
       "metadata": {
         "files": [
@@ -1948,6 +1948,53 @@
         ]
       },
       "path": "~/Armors/Tan/Body/Backwear/Backpacks/BackpackT3"
+    },
+    {
+      "name": "TanPlateCarrierAmmo",
+      "type": "curiosbauble",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tan_plate_carrier_ammo",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/inventory/TanPlateCarrierAmmoInventoryCapability.java",
+          "src/main/java/net/mcreator/mm/client/renderer/TanPlateCarrierAmmoRenderer.java",
+          "src/main/resources/assets/mm/models/item/tan_plate_carrier_ammo.json",
+          "src/main/java/net/mcreator/mm/item/TanPlateCarrierAmmoItem.java"
+        ]
+      },
+      "path": "~/Armors/Tan/Body/Bodywear/Plate Carriers/Ammo"
+    },
+    {
+      "name": "TanPlateCarrier",
+      "type": "curiosbauble",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tan_plate_carrier",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/mm/models/item/tan_plate_carrier.json",
+          "src/main/java/net/mcreator/mm/client/renderer/TanPlateCarrierRenderer.java",
+          "src/main/java/net/mcreator/mm/item/TanPlateCarrierItem.java"
+        ]
+      },
+      "path": "~/Armors/Tan/Body/Bodywear/Plate Carriers/Normal"
+    },
+    {
+      "name": "TanPlateCarrierPouches",
+      "type": "curiosbauble",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tan_plate_carrier_pouches",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/TanPlateCarrierPouchesItem.java",
+          "src/main/java/net/mcreator/mm/client/renderer/TanPlateCarrierPouchesRenderer.java",
+          "src/main/java/net/mcreator/mm/item/inventory/TanPlateCarrierPouchesInventoryCapability.java",
+          "src/main/resources/assets/mm/models/item/tan_plate_carrier_pouches.json"
+        ]
+      },
+      "path": "~/Armors/Tan/Body/Bodywear/Plate Carriers/Pouches"
     }
   ],
   "variable_elements": [
@@ -2064,7 +2111,10 @@
       "GreenBackpack3",
       "TanBackpack1",
       "TanBackpack2",
-      "TanBackpack3"
+      "TanBackpack3",
+      "TanPlateCarrierAmmo",
+      "TanPlateCarrier",
+      "TanPlateCarrierPouches"
     ],
     "CUSTOM:GMSItems": [
       "Duffelbag",
@@ -2079,33 +2129,35 @@
     "en_us": {
       "item.mm.green_kevlar_pants_chestplate": "Green Kevlar Pants Chestplate",
       "item.gms.military_headset": "Military Headset",
-      "item.gms.black_military_helmet_leggings": "Black Military Helmet Leggings",
       "item.mm.military_goggles": "Military Goggles",
+      "item.gms.black_military_helmet_leggings": "Black Military Helmet Leggings",
       "item.mm.bandoleer": "Bandoleer",
       "item.mm.black_kevlar_pants_chestplate": "Black Kevlar Pants Chestplate",
       "item.mm.duffelbag": "Duffelbag",
       "item.gms.menu_item": "menu item (you shoudn\u0027t be seen this)",
       "item.mm.black_kevlar_boots_chestplate": "",
+      "item.mm.tan_plate_carrier": "Tan Plate Carrier",
       "item.mm.grenade_molotov": "Molotov",
       "item.mm.black_iola_chestplate": "Black IOLA Chestplate",
       "gui.mm.tier_1_backpack_gui_2.label_small_black_backpack": "Small Backpack",
-      "item.mm.green_kevlar_pants_helmet": "Green Kevlar Pants Helmet",
       "item.mm.black_nvg_21": "Black NVG-21",
+      "item.mm.green_kevlar_pants_helmet": "Green Kevlar Pants Helmet",
       "item.mm.head_mount_leggings": "Head Mount Leggings",
-      "item.mm.grenade_flashbang": "Flashbang Grenade",
       "key.mm.toggle_nvg": "Toggle Head Equipment",
+      "item.mm.grenade_flashbang": "Flashbang Grenade",
       "item.mm.ronin_boots": "Ronin Boots",
       "item.mm.green_kevlar_boots_chestplate": "Green Kevlar Boots Chestplate",
       "subtitles.knob_turn": "NVG Gain Change",
-      "item.mm.green_ssh_68_chestplate": "Green SSH 6 8 Chestplate",
-      "gui.mm.ammo_gui.label_ammo_pouches": "Plate Carrier Ammo Pouches",
       "item.mm.balaclava": "Balaclava",
-      "item.mm.black_iola_helmet": "Black IOLA Helmet",
+      "gui.mm.ammo_gui.label_ammo_pouches": "Plate Carrier Ammo Pouches",
+      "item.mm.green_ssh_68_chestplate": "Green SSH 6 8 Chestplate",
       "item.mm.black_iola_boots": "Black IOLA Boots",
+      "item.mm.black_iola_helmet": "Black IOLA Helmet",
       "item.mm.green_backpack_1": "Green Small Backpack",
       "item.mm.green_backpack_3": "Green Large Backpack",
       "item.mm.green_backpack_2": "Green Medium Backpack",
       "subtitles.nade-landing": "",
+      "item.mm.tan_plate_carrier_pouches": "Tan Plate Carrier Pouches",
       "item.mm.green_kevlar_body_boots": "Green Kevlar Body Boots",
       "item_group.mm.gms": "MM Armors",
       "key.categories.mm": "Modern Mayhem",
@@ -2206,6 +2258,7 @@
       "item.gms.balaclava": "Balaclava",
       "item.mm.black_visor": "Black Visor",
       "item.mm.black_kevlar_pants_helmet": "Black Kevlar Pants Helmet",
+      "item.mm.tan_plate_carrier_ammo": "Tan Plate Carrier Ammo",
       "gui.mm.tier_3_backpack_gui.label_large_black_backpack": "Large Backpack",
       "item.gms.black_military_helmet_boots": "Black Military Helmet Boots",
       "key.mm.decrease_tube_gain": "Decrease NVG Tube Gain",
@@ -2341,7 +2394,7 @@
                             "children": []
                           },
                           {
-                            "name": "AmmoPouches",
+                            "name": "Ammo",
                             "children": []
                           },
                           {
@@ -2471,6 +2524,23 @@
                       {
                         "name": "Bandoleer",
                         "children": []
+                      },
+                      {
+                        "name": "Plate Carriers",
+                        "children": [
+                          {
+                            "name": "Ammo",
+                            "children": []
+                          },
+                          {
+                            "name": "Normal",
+                            "children": []
+                          },
+                          {
+                            "name": "Pouches",
+                            "children": []
+                          }
+                        ]
                       }
                     ]
                   },

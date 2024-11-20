@@ -30,4 +30,7 @@ public class MmModLayerDefinitions {
 	public static final ModelLayerLocation TAN_BACKPACK_1 = new ModelLayerLocation(new ResourceLocation("mm", "tan_backpack_1"), "tan_backpack_1");
 	public static final ModelLayerLocation TAN_BACKPACK_2 = new ModelLayerLocation(new ResourceLocation("mm", "tan_backpack_2"), "tan_backpack_2");
 	public static final ModelLayerLocation TAN_BACKPACK_3 = new ModelLayerLocation(new ResourceLocation("mm", "tan_backpack_3"), "tan_backpack_3");
+	public static final ModelLayerLocation TAN_PLATE_CARRIER_AMMO = new ModelLayerLocation(new ResourceLocation("mm", "tan_plate_carrier_ammo"), "tan_plate_carrier_ammo");
+	public static final ModelLayerLocation TAN_PLATE_CARRIER = new ModelLayerLocation(new ResourceLocation("mm", "tan_plate_carrier"), "tan_plate_carrier");
+	public static final ModelLayerLocation TAN_PLATE_CARRIER_POUCHES = new ModelLayerLocation(new ResourceLocation("mm", "tan_plate_carrier_pouches"), "tan_plate_carrier_pouches");
 }

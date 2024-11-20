@@ -14,6 +14,9 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ArmorItem;
 
 import net.mcreator.mm.item.TanVisorItem;
+import net.mcreator.mm.item.TanPlateCarrierPouchesItem;
+import net.mcreator.mm.item.TanPlateCarrierItem;
+import net.mcreator.mm.item.TanPlateCarrierAmmoItem;
 import net.mcreator.mm.item.TanNVG21Item;
 import net.mcreator.mm.item.TanGPNVGItem;
 import net.mcreator.mm.item.TanBackpack3Item;
@@ -108,6 +111,9 @@ public class MmModItems {
 	public static final RegistryObject<Item> TAN_BACKPACK_1 = REGISTRY.register("tan_backpack_1", () -> new TanBackpack1Item());
 	public static final RegistryObject<Item> TAN_BACKPACK_2 = REGISTRY.register("tan_backpack_2", () -> new TanBackpack2Item());
 	public static final RegistryObject<Item> TAN_BACKPACK_3 = REGISTRY.register("tan_backpack_3", () -> new TanBackpack3Item());
+	public static final RegistryObject<Item> TAN_PLATE_CARRIER_AMMO = REGISTRY.register("tan_plate_carrier_ammo", () -> new TanPlateCarrierAmmoItem());
+	public static final RegistryObject<Item> TAN_PLATE_CARRIER = REGISTRY.register("tan_plate_carrier", () -> new TanPlateCarrierItem());
+	public static final RegistryObject<Item> TAN_PLATE_CARRIER_POUCHES = REGISTRY.register("tan_plate_carrier_pouches", () -> new TanPlateCarrierPouchesItem());
 
 	// Start of user code block custom items
 	// End of user code block custom items

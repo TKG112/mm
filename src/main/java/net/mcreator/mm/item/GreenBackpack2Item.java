@@ -116,7 +116,7 @@ public class GreenBackpack2Item extends Item implements GeoItem, ICurioItem {
 			NetworkHooks.openScreen(serverPlayer, new MenuProvider() {
 				@Override
 				public Component getDisplayName() {
-					return Component.literal("Black Backpack Tier 1");
+					return Component.literal("Green Medium Backpack");
 				}
 
 				@Override

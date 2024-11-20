@@ -56,6 +56,9 @@ public class MmModTabs {
 				tabData.accept(MmModItems.TAN_BACKPACK_1.get());
 				tabData.accept(MmModItems.TAN_BACKPACK_2.get());
 				tabData.accept(MmModItems.TAN_BACKPACK_3.get());
+				tabData.accept(MmModItems.TAN_PLATE_CARRIER_AMMO.get());
+				tabData.accept(MmModItems.TAN_PLATE_CARRIER.get());
+				tabData.accept(MmModItems.TAN_PLATE_CARRIER_POUCHES.get());
 			})
 
 					.build());

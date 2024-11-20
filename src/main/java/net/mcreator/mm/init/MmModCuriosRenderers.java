@@ -8,6 +8,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 
 import net.mcreator.mm.client.renderer.TanVisorRenderer;
+import net.mcreator.mm.client.renderer.TanPlateCarrierRenderer;
+import net.mcreator.mm.client.renderer.TanPlateCarrierPouchesRenderer;
+import net.mcreator.mm.client.renderer.TanPlateCarrierAmmoRenderer;
 import net.mcreator.mm.client.renderer.TanNVG21Renderer;
 import net.mcreator.mm.client.renderer.TanGPNVGRenderer;
 import net.mcreator.mm.client.renderer.TanBackpack3Renderer;
@@ -65,6 +68,9 @@ public class MmModCuriosRenderers {
 		evt.registerLayerDefinition(MmModLayerDefinitions.TAN_BACKPACK_1, Modelplaceholder::createBodyLayer);
 		evt.registerLayerDefinition(MmModLayerDefinitions.TAN_BACKPACK_2, Modelplaceholder::createBodyLayer);
 		evt.registerLayerDefinition(MmModLayerDefinitions.TAN_BACKPACK_3, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.TAN_PLATE_CARRIER_AMMO, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.TAN_PLATE_CARRIER, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.TAN_PLATE_CARRIER_POUCHES, Modelplaceholder::createBodyLayer);
 	}
 
 	@SubscribeEvent
@@ -95,5 +101,8 @@ public class MmModCuriosRenderers {
 		CuriosRendererRegistry.register(MmModItems.TAN_BACKPACK_1.get(), TanBackpack1Renderer::new);
 		CuriosRendererRegistry.register(MmModItems.TAN_BACKPACK_2.get(), TanBackpack2Renderer::new);
 		CuriosRendererRegistry.register(MmModItems.TAN_BACKPACK_3.get(), TanBackpack3Renderer::new);
+		CuriosRendererRegistry.register(MmModItems.TAN_PLATE_CARRIER_AMMO.get(), TanPlateCarrierAmmoRenderer::new);
+		CuriosRendererRegistry.register(MmModItems.TAN_PLATE_CARRIER.get(), TanPlateCarrierRenderer::new);
+		CuriosRendererRegistry.register(MmModItems.TAN_PLATE_CARRIER_POUCHES.get(), TanPlateCarrierPouchesRenderer::new);
 	}
 }
