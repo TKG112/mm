@@ -27,4 +27,7 @@ public class MmModLayerDefinitions {
 	public static final ModelLayerLocation GREEN_BACKPACK_1 = new ModelLayerLocation(new ResourceLocation("mm", "green_backpack_1"), "green_backpack_1");
 	public static final ModelLayerLocation GREEN_BACKPACK_2 = new ModelLayerLocation(new ResourceLocation("mm", "green_backpack_2"), "green_backpack_2");
 	public static final ModelLayerLocation GREEN_BACKPACK_3 = new ModelLayerLocation(new ResourceLocation("mm", "green_backpack_3"), "green_backpack_3");
+	public static final ModelLayerLocation TAN_BACKPACK_1 = new ModelLayerLocation(new ResourceLocation("mm", "tan_backpack_1"), "tan_backpack_1");
+	public static final ModelLayerLocation TAN_BACKPACK_2 = new ModelLayerLocation(new ResourceLocation("mm", "tan_backpack_2"), "tan_backpack_2");
+	public static final ModelLayerLocation TAN_BACKPACK_3 = new ModelLayerLocation(new ResourceLocation("mm", "tan_backpack_3"), "tan_backpack_3");
 }

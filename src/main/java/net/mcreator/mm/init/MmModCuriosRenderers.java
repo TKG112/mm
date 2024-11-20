@@ -10,6 +10,9 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.mcreator.mm.client.renderer.TanVisorRenderer;
 import net.mcreator.mm.client.renderer.TanNVG21Renderer;
 import net.mcreator.mm.client.renderer.TanGPNVGRenderer;
+import net.mcreator.mm.client.renderer.TanBackpack3Renderer;
+import net.mcreator.mm.client.renderer.TanBackpack2Renderer;
+import net.mcreator.mm.client.renderer.TanBackpack1Renderer;
 import net.mcreator.mm.client.renderer.ReconRenderer;
 import net.mcreator.mm.client.renderer.MilitaryHeadsetRenderer;
 import net.mcreator.mm.client.renderer.MilitaryGogglesRenderer;
@@ -59,6 +62,9 @@ public class MmModCuriosRenderers {
 		evt.registerLayerDefinition(MmModLayerDefinitions.GREEN_BACKPACK_1, Modelplaceholder::createBodyLayer);
 		evt.registerLayerDefinition(MmModLayerDefinitions.GREEN_BACKPACK_2, Modelplaceholder::createBodyLayer);
 		evt.registerLayerDefinition(MmModLayerDefinitions.GREEN_BACKPACK_3, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.TAN_BACKPACK_1, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.TAN_BACKPACK_2, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.TAN_BACKPACK_3, Modelplaceholder::createBodyLayer);
 	}
 
 	@SubscribeEvent
@@ -86,5 +92,8 @@ public class MmModCuriosRenderers {
 		CuriosRendererRegistry.register(MmModItems.GREEN_BACKPACK_1.get(), GreenBackpack1Renderer::new);
 		CuriosRendererRegistry.register(MmModItems.GREEN_BACKPACK_2.get(), GreenBackpack2Renderer::new);
 		CuriosRendererRegistry.register(MmModItems.GREEN_BACKPACK_3.get(), GreenBackpack3Renderer::new);
+		CuriosRendererRegistry.register(MmModItems.TAN_BACKPACK_1.get(), TanBackpack1Renderer::new);
+		CuriosRendererRegistry.register(MmModItems.TAN_BACKPACK_2.get(), TanBackpack2Renderer::new);
+		CuriosRendererRegistry.register(MmModItems.TAN_BACKPACK_3.get(), TanBackpack3Renderer::new);
 	}
 }

@@ -16,6 +16,9 @@ import net.minecraft.world.item.ArmorItem;
 import net.mcreator.mm.item.TanVisorItem;
 import net.mcreator.mm.item.TanNVG21Item;
 import net.mcreator.mm.item.TanGPNVGItem;
+import net.mcreator.mm.item.TanBackpack3Item;
+import net.mcreator.mm.item.TanBackpack2Item;
+import net.mcreator.mm.item.TanBackpack1Item;
 import net.mcreator.mm.item.RoninItem;
 import net.mcreator.mm.item.ReconItem;
 import net.mcreator.mm.item.MilitaryHeadsetItem;
@@ -102,6 +105,9 @@ public class MmModItems {
 	public static final RegistryObject<Item> GREEN_BACKPACK_1 = REGISTRY.register("green_backpack_1", () -> new GreenBackpack1Item());
 	public static final RegistryObject<Item> GREEN_BACKPACK_2 = REGISTRY.register("green_backpack_2", () -> new GreenBackpack2Item());
 	public static final RegistryObject<Item> GREEN_BACKPACK_3 = REGISTRY.register("green_backpack_3", () -> new GreenBackpack3Item());
+	public static final RegistryObject<Item> TAN_BACKPACK_1 = REGISTRY.register("tan_backpack_1", () -> new TanBackpack1Item());
+	public static final RegistryObject<Item> TAN_BACKPACK_2 = REGISTRY.register("tan_backpack_2", () -> new TanBackpack2Item());
+	public static final RegistryObject<Item> TAN_BACKPACK_3 = REGISTRY.register("tan_backpack_3", () -> new TanBackpack3Item());
 
 	// Start of user code block custom items
 	// End of user code block custom items

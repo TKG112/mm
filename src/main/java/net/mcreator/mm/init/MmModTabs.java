@@ -53,6 +53,9 @@ public class MmModTabs {
 				tabData.accept(MmModItems.GREEN_BACKPACK_1.get());
 				tabData.accept(MmModItems.GREEN_BACKPACK_2.get());
 				tabData.accept(MmModItems.GREEN_BACKPACK_3.get());
+				tabData.accept(MmModItems.TAN_BACKPACK_1.get());
+				tabData.accept(MmModItems.TAN_BACKPACK_2.get());
+				tabData.accept(MmModItems.TAN_BACKPACK_3.get());
 			})
 
 					.build());

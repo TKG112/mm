@@ -3,38 +3,51 @@ package net.mcreator.mm.client.renderer;
 import top.theillusivec4.curios.api.client.ICurioRenderer;
 import top.theillusivec4.curios.api.SlotContext;
 
+import software.bernie.geckolib.renderer.GeoArmorRenderer;
+import software.bernie.geckolib.cache.object.GeoBone;
+
+import org.jetbrains.annotations.NotNull;
+
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.Minecraft;
 
-import net.mcreator.mm.init.MmModLayerDefinitions;
-import net.mcreator.mm.client.model.Modelplaceholder;
+import net.mcreator.mm.item.model.GreenBackpack2Model;
+import net.mcreator.mm.item.GreenBackpack2Item;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-public class GreenBackpack2Renderer implements ICurioRenderer {
-	private static final ResourceLocation TEXTURE = new ResourceLocation("mm", "textures/entities/empty.png");
-	private final Modelplaceholder model;
-
+public class GreenBackpack2Renderer extends GeoArmorRenderer<GreenBackpack2Item> implements ICurioRenderer {
 	public GreenBackpack2Renderer() {
-		this.model = new Modelplaceholder(Minecraft.getInstance().getEntityModels().bakeLayer(MmModLayerDefinitions.GREEN_BACKPACK_2));
+		super(new GreenBackpack2Model());
+		this.head = new GeoBone(null, "armorHead", false, (double) 0, false, false);
+		this.body = new GeoBone(null, "armorBody", false, (double) 0, false, false);
+		this.rightArm = new GeoBone(null, "armorRightArm", false, (double) 0, false, false);
+		this.leftArm = new GeoBone(null, "armorLeftArm", false, (double) 0, false, false);
+		this.rightLeg = new GeoBone(null, "armorRightLeg", false, (double) 0, false, false);
+		this.leftLeg = new GeoBone(null, "armorLeftLeg", false, (double) 0, false, false);
+		this.rightBoot = new GeoBone(null, "armorRightBoot", false, (double) 0, false, false);
+		this.leftBoot = new GeoBone(null, "armorLeftBoot", false, (double) 0, false, false);
 	}
 
 	@Override
 	public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack matrixStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing,
 			float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		LivingEntity entity = slotContext.entity();
-		this.model.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTicks);
-		this.model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-		VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, RenderType.armorCutoutNoCull(TEXTURE), false, stack.hasFoil());
-		this.model.renderToBuffer(matrixStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+		this.prepForRender(slotContext.entity(), stack, EquipmentSlot.CHEST, (HumanoidModel<?>) renderLayerParent.getModel());
+		VertexConsumer consumer = renderTypeBuffer.getBuffer(RenderType.armorCutoutNoCull(this.getTextureLocation((GreenBackpack2Item) stack.getItem())));
+		this.renderToBuffer(matrixStack, consumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+	}
+
+	@Override
+	public void setupAnim(@NotNull Entity entity, float pLimbswing, float pLimbswingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
 	}
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "mm:item/tan_backpack_t3_item"
+  }
+}
