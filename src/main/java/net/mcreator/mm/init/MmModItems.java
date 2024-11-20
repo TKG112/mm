@@ -29,8 +29,15 @@ import net.mcreator.mm.item.GrenadeMolotovItem;
 import net.mcreator.mm.item.GrenadeImpactItem;
 import net.mcreator.mm.item.GrenadeFragItem;
 import net.mcreator.mm.item.GrenadeFlashbangItem;
+import net.mcreator.mm.item.GreenSSH68Item;
 import net.mcreator.mm.item.GreenNVG21Item;
+import net.mcreator.mm.item.GreenKevlarPantsItem;
+import net.mcreator.mm.item.GreenKevlarBootsItem;
 import net.mcreator.mm.item.GreenKevlarBodyItem;
+import net.mcreator.mm.item.GreenIOLAItem;
+import net.mcreator.mm.item.GreenBackpack3Item;
+import net.mcreator.mm.item.GreenBackpack2Item;
+import net.mcreator.mm.item.GreenBackpack1Item;
 import net.mcreator.mm.item.DuffelbagItem;
 import net.mcreator.mm.item.BlackVisorItem;
 import net.mcreator.mm.item.BlackPlateCarrierPouchesItem;
@@ -79,7 +86,6 @@ public class MmModItems {
 	public static final RegistryObject<Item> BLACK_VISOR = REGISTRY.register("black_visor", () -> new BlackVisorItem());
 	public static final RegistryObject<Item> BLACK_NVG_21 = REGISTRY.register("black_nvg_21", () -> new BlackNVG21Item());
 	public static final RegistryObject<Item> BLACK_GPNVG = REGISTRY.register("black_gpnvg", () -> new BlackGPNVGItem());
-	public static final RegistryObject<GreenKevlarBodyItem> GREEN_KEVLAR_BODY_CHESTPLATE = REGISTRY.register("green_kevlar_body_chestplate", () -> new GreenKevlarBodyItem(ArmorItem.Type.CHESTPLATE, new Item.Properties()));
 	public static final RegistryObject<BlackIOLAItem> BLACK_IOLA_LEGGINGS = REGISTRY.register("black_iola_leggings", () -> new BlackIOLAItem(ArmorItem.Type.LEGGINGS, new Item.Properties()));
 	public static final RegistryObject<BlackCombatHelmetItem> BLACK_COMBAT_HELMET_HELMET = REGISTRY.register("black_combat_helmet_helmet", () -> new BlackCombatHelmetItem(ArmorItem.Type.HELMET, new Item.Properties()));
 	public static final RegistryObject<BlackKevlarBodyItem> BLACK_KEVLAR_BODY_CHESTPLATE = REGISTRY.register("black_kevlar_body_chestplate", () -> new BlackKevlarBodyItem(ArmorItem.Type.CHESTPLATE, new Item.Properties()));
@@ -88,6 +94,14 @@ public class MmModItems {
 	public static final RegistryObject<Item> TAN_GPNVG = REGISTRY.register("tan_gpnvg", () -> new TanGPNVGItem());
 	public static final RegistryObject<Item> TAN_NVG_21 = REGISTRY.register("tan_nvg_21", () -> new TanNVG21Item());
 	public static final RegistryObject<Item> TAN_VISOR = REGISTRY.register("tan_visor", () -> new TanVisorItem());
+	public static final RegistryObject<GreenKevlarBodyItem> GREEN_KEVLAR_BODY_CHESTPLATE = REGISTRY.register("green_kevlar_body_chestplate", () -> new GreenKevlarBodyItem(ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+	public static final RegistryObject<GreenKevlarBootsItem> GREEN_KEVLAR_BOOTS_BOOTS = REGISTRY.register("green_kevlar_boots_boots", () -> new GreenKevlarBootsItem(ArmorItem.Type.BOOTS, new Item.Properties()));
+	public static final RegistryObject<GreenKevlarPantsItem> GREEN_KEVLAR_PANTS_LEGGINGS = REGISTRY.register("green_kevlar_pants_leggings", () -> new GreenKevlarPantsItem(ArmorItem.Type.LEGGINGS, new Item.Properties()));
+	public static final RegistryObject<GreenIOLAItem> GREEN_IOLA_LEGGINGS = REGISTRY.register("green_iola_leggings", () -> new GreenIOLAItem(ArmorItem.Type.LEGGINGS, new Item.Properties()));
+	public static final RegistryObject<GreenSSH68Item> GREEN_SSH_68_HELMET = REGISTRY.register("green_ssh_68_helmet", () -> new GreenSSH68Item(ArmorItem.Type.HELMET, new Item.Properties()));
+	public static final RegistryObject<Item> GREEN_BACKPACK_1 = REGISTRY.register("green_backpack_1", () -> new GreenBackpack1Item());
+	public static final RegistryObject<Item> GREEN_BACKPACK_2 = REGISTRY.register("green_backpack_2", () -> new GreenBackpack2Item());
+	public static final RegistryObject<Item> GREEN_BACKPACK_3 = REGISTRY.register("green_backpack_3", () -> new GreenBackpack3Item());
 
 	// Start of user code block custom items
 	// End of user code block custom items

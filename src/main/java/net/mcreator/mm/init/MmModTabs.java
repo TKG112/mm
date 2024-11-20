@@ -39,12 +39,20 @@ public class MmModTabs {
 				tabData.accept(MmModItems.BLACK_BACKPACK_1.get());
 				tabData.accept(MmModItems.BLACK_BACKPACK_2.get());
 				tabData.accept(MmModItems.BLACK_BACKPACK_3.get());
-				tabData.accept(MmModItems.RECON.get());
-				tabData.accept(MmModItems.BANDOLEER.get());
+				tabData.accept(MmModItems.GREEN_SSH_68_HELMET.get());
+				tabData.accept(MmModItems.GREEN_KEVLAR_BODY_CHESTPLATE.get());
+				tabData.accept(MmModItems.GREEN_KEVLAR_PANTS_LEGGINGS.get());
+				tabData.accept(MmModItems.GREEN_KEVLAR_BOOTS_BOOTS.get());
+				tabData.accept(MmModItems.GREEN_IOLA_LEGGINGS.get());
 				tabData.accept(MmModItems.GREEN_NVG_21.get());
-				tabData.accept(MmModItems.TAN_GPNVG.get());
+				tabData.accept(MmModItems.RECON.get());
 				tabData.accept(MmModItems.TAN_NVG_21.get());
+				tabData.accept(MmModItems.TAN_GPNVG.get());
 				tabData.accept(MmModItems.TAN_VISOR.get());
+				tabData.accept(MmModItems.BANDOLEER.get());
+				tabData.accept(MmModItems.GREEN_BACKPACK_1.get());
+				tabData.accept(MmModItems.GREEN_BACKPACK_2.get());
+				tabData.accept(MmModItems.GREEN_BACKPACK_3.get());
 			})
 
 					.build());

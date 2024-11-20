@@ -16,6 +16,9 @@ import net.mcreator.mm.client.renderer.MilitaryGogglesRenderer;
 import net.mcreator.mm.client.renderer.MilitaryGlassesRenderer;
 import net.mcreator.mm.client.renderer.MilitaryBalaclavaRenderer;
 import net.mcreator.mm.client.renderer.GreenNVG21Renderer;
+import net.mcreator.mm.client.renderer.GreenBackpack3Renderer;
+import net.mcreator.mm.client.renderer.GreenBackpack2Renderer;
+import net.mcreator.mm.client.renderer.GreenBackpack1Renderer;
 import net.mcreator.mm.client.renderer.BlackVisorRenderer;
 import net.mcreator.mm.client.renderer.BlackPlateCarrierRenderer;
 import net.mcreator.mm.client.renderer.BlackPlateCarrierPouchesRenderer;
@@ -53,6 +56,9 @@ public class MmModCuriosRenderers {
 		evt.registerLayerDefinition(MmModLayerDefinitions.TAN_GPNVG, Modelplaceholder::createBodyLayer);
 		evt.registerLayerDefinition(MmModLayerDefinitions.TAN_NVG_21, Modelplaceholder::createBodyLayer);
 		evt.registerLayerDefinition(MmModLayerDefinitions.TAN_VISOR, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.GREEN_BACKPACK_1, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.GREEN_BACKPACK_2, Modelplaceholder::createBodyLayer);
+		evt.registerLayerDefinition(MmModLayerDefinitions.GREEN_BACKPACK_3, Modelplaceholder::createBodyLayer);
 	}
 
 	@SubscribeEvent
@@ -77,5 +83,8 @@ public class MmModCuriosRenderers {
 		CuriosRendererRegistry.register(MmModItems.TAN_GPNVG.get(), TanGPNVGRenderer::new);
 		CuriosRendererRegistry.register(MmModItems.TAN_NVG_21.get(), TanNVG21Renderer::new);
 		CuriosRendererRegistry.register(MmModItems.TAN_VISOR.get(), TanVisorRenderer::new);
+		CuriosRendererRegistry.register(MmModItems.GREEN_BACKPACK_1.get(), GreenBackpack1Renderer::new);
+		CuriosRendererRegistry.register(MmModItems.GREEN_BACKPACK_2.get(), GreenBackpack2Renderer::new);
+		CuriosRendererRegistry.register(MmModItems.GREEN_BACKPACK_3.get(), GreenBackpack3Renderer::new);
 	}
 }

@@ -19,7 +19,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.EntityModel;
 
-import net.mcreator.mm.item.model.BlackBackpackT3Model;
+import net.mcreator.mm.item.model.BlackBackpack3Model;
 import net.mcreator.mm.item.BlackBackpack3Item;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -27,7 +27,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 public class BlackBackpack3Renderer extends GeoArmorRenderer<BlackBackpack3Item> implements ICurioRenderer {
 	public BlackBackpack3Renderer() {
-		super(new BlackBackpackT3Model());
+		super(new BlackBackpack3Model());
 		this.head = new GeoBone(null, "armorHead", false, (double) 0, false, false);
 		this.body = new GeoBone(null, "armorBody", false, (double) 0, false, false);
 		this.rightArm = new GeoBone(null, "armorRightArm", false, (double) 0, false, false);

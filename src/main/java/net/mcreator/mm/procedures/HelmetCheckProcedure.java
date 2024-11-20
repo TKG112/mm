@@ -37,45 +37,117 @@ public class HelmetCheckProcedure {
 			return;
 		if (!((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.BLACK_COMBAT_HELMET_HELMET.get()
 				|| (entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.HEAD_MOUNT_HELMET.get()
-				|| (entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.RONIN_HELMET.get())) {
-			if (entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.BLACK_NVG_21.get(), lv).isPresent() : false) {
-				if (entity instanceof LivingEntity lv) {
-					CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.BLACK_NVG_21.get()).forEach(item -> {
-						ItemStack itemstackiterator = item.stack();
-						itemstackiterator.shrink(1);
-					});
-				}
-				if (entity instanceof Player _player) {
-					ItemStack _setstack = new ItemStack(MmModItems.BLACK_NVG_21.get()).copy();
-					_setstack.setCount(1);
-					ItemHandlerHelper.giveItemToPlayer(_player, _setstack);
-				}
-			} else if (entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.BLACK_GPNVG.get(), lv).isPresent() : false) {
-				if (entity instanceof LivingEntity lv) {
-					CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.BLACK_GPNVG.get()).forEach(item -> {
-						ItemStack itemstackiterator = item.stack();
-						itemstackiterator.shrink(1);
-					});
-				}
-				if (entity instanceof Player _player) {
-					ItemStack _setstack = new ItemStack(MmModItems.BLACK_GPNVG.get()).copy();
-					_setstack.setCount(1);
-					ItemHandlerHelper.giveItemToPlayer(_player, _setstack);
-				}
+				|| (entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.RONIN_HELMET.get()) && entity instanceof LivingEntity lv
+						? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.BLACK_NVG_21.get(), lv).isPresent()
+						: false) {
+			if (entity instanceof LivingEntity lv) {
+				CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.BLACK_NVG_21.get()).forEach(item -> {
+					ItemStack itemstackiterator = item.stack();
+					itemstackiterator.shrink(1);
+				});
 			}
-		} else if (!((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.BLACK_COMBAT_HELMET_HELMET.get())) {
-			if (entity instanceof LivingEntity lv ? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.BLACK_VISOR.get(), lv).isPresent() : false) {
-				if (entity instanceof LivingEntity lv) {
-					CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.BLACK_VISOR.get()).forEach(item -> {
-						ItemStack itemstackiterator = item.stack();
-						itemstackiterator.shrink(1);
-					});
-				}
-				if (entity instanceof Player _player) {
-					ItemStack _setstack = new ItemStack(MmModItems.BLACK_VISOR.get()).copy();
-					_setstack.setCount(1);
-					ItemHandlerHelper.giveItemToPlayer(_player, _setstack);
-				}
+			if (entity instanceof Player _player) {
+				ItemStack _setstack = new ItemStack(MmModItems.BLACK_NVG_21.get()).copy();
+				_setstack.setCount(1);
+				ItemHandlerHelper.giveItemToPlayer(_player, _setstack);
+			}
+		}
+		if (!((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.BLACK_COMBAT_HELMET_HELMET.get()
+				|| (entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.HEAD_MOUNT_HELMET.get()
+				|| (entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.RONIN_HELMET.get()) && entity instanceof LivingEntity lv
+						? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.BLACK_GPNVG.get(), lv).isPresent()
+						: false) {
+			if (entity instanceof LivingEntity lv) {
+				CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.BLACK_GPNVG.get()).forEach(item -> {
+					ItemStack itemstackiterator = item.stack();
+					itemstackiterator.shrink(1);
+				});
+			}
+			if (entity instanceof Player _player) {
+				ItemStack _setstack = new ItemStack(MmModItems.BLACK_GPNVG.get()).copy();
+				_setstack.setCount(1);
+				ItemHandlerHelper.giveItemToPlayer(_player, _setstack);
+			}
+		}
+		if (!((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.BLACK_COMBAT_HELMET_HELMET.get()) && entity instanceof LivingEntity lv
+				? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.BLACK_VISOR.get(), lv).isPresent()
+				: false) {
+			if (entity instanceof LivingEntity lv) {
+				CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.BLACK_VISOR.get()).forEach(item -> {
+					ItemStack itemstackiterator = item.stack();
+					itemstackiterator.shrink(1);
+				});
+			}
+			if (entity instanceof Player _player) {
+				ItemStack _setstack = new ItemStack(MmModItems.BLACK_VISOR.get()).copy();
+				_setstack.setCount(1);
+				ItemHandlerHelper.giveItemToPlayer(_player, _setstack);
+			}
+		}
+		if (!((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.BLACK_COMBAT_HELMET_HELMET.get()
+				|| (entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.HEAD_MOUNT_HELMET.get()
+				|| (entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.RONIN_HELMET.get()) && entity instanceof LivingEntity lv
+						? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.TAN_NVG_21.get(), lv).isPresent()
+						: false) {
+			if (entity instanceof LivingEntity lv) {
+				CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.TAN_NVG_21.get()).forEach(item -> {
+					ItemStack itemstackiterator = item.stack();
+					itemstackiterator.shrink(1);
+				});
+			}
+			if (entity instanceof Player _player) {
+				ItemStack _setstack = new ItemStack(MmModItems.TAN_NVG_21.get()).copy();
+				_setstack.setCount(1);
+				ItemHandlerHelper.giveItemToPlayer(_player, _setstack);
+			}
+		}
+		if (!((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.BLACK_COMBAT_HELMET_HELMET.get()
+				|| (entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.HEAD_MOUNT_HELMET.get()
+				|| (entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.RONIN_HELMET.get()) && entity instanceof LivingEntity lv
+						? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.TAN_GPNVG.get(), lv).isPresent()
+						: false) {
+			if (entity instanceof LivingEntity lv) {
+				CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.TAN_GPNVG.get()).forEach(item -> {
+					ItemStack itemstackiterator = item.stack();
+					itemstackiterator.shrink(1);
+				});
+			}
+			if (entity instanceof Player _player) {
+				ItemStack _setstack = new ItemStack(MmModItems.TAN_GPNVG.get()).copy();
+				_setstack.setCount(1);
+				ItemHandlerHelper.giveItemToPlayer(_player, _setstack);
+			}
+		}
+		if (!((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.BLACK_COMBAT_HELMET_HELMET.get()) && entity instanceof LivingEntity lv
+				? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.TAN_VISOR.get(), lv).isPresent()
+				: false) {
+			if (entity instanceof LivingEntity lv) {
+				CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.TAN_VISOR.get()).forEach(item -> {
+					ItemStack itemstackiterator = item.stack();
+					itemstackiterator.shrink(1);
+				});
+			}
+			if (entity instanceof Player _player) {
+				ItemStack _setstack = new ItemStack(MmModItems.TAN_VISOR.get()).copy();
+				_setstack.setCount(1);
+				ItemHandlerHelper.giveItemToPlayer(_player, _setstack);
+			}
+		}
+		if (!((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.BLACK_COMBAT_HELMET_HELMET.get()
+				|| (entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.HEAD_MOUNT_HELMET.get()
+				|| (entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem() == MmModItems.RONIN_HELMET.get()) && entity instanceof LivingEntity lv
+						? CuriosApi.getCuriosHelper().findEquippedCurio(MmModItems.GREEN_NVG_21.get(), lv).isPresent()
+						: false) {
+			if (entity instanceof LivingEntity lv) {
+				CuriosApi.getCuriosHelper().findCurios(lv, MmModItems.GREEN_NVG_21.get()).forEach(item -> {
+					ItemStack itemstackiterator = item.stack();
+					itemstackiterator.shrink(1);
+				});
+			}
+			if (entity instanceof Player _player) {
+				ItemStack _setstack = new ItemStack(MmModItems.GREEN_NVG_21.get()).copy();
+				_setstack.setCount(1);
+				ItemHandlerHelper.giveItemToPlayer(_player, _setstack);
 			}
 		}
 	}

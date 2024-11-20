@@ -1,0 +1,63 @@
+{
+  "_fv": 66,
+  "_type": "animatedarmor",
+  "definition": {
+    "enableHelmet": false,
+    "textureHelmet": "",
+    "enableBody": false,
+    "textureBody": "",
+    "enableLeggings": false,
+    "textureLeggings": "",
+    "enableBoots": true,
+    "textureBoots": "green_kevlar_boots_item",
+    "creativeTabs": [
+      {
+        "value": "CUSTOM:GMS"
+      }
+    ],
+    "armorTextureFile": "green_kevlar_clothing.png",
+    "model": "green_kevlar_clothing.geo.json",
+    "idle": "idle",
+    "head": "armorHead",
+    "chest": "armorBody",
+    "rightArm": "armorRightArm",
+    "leftArm": "armorLeftArm",
+    "rightLeg": "armorRightLeg",
+    "leftLeg": "armorLeftLeg",
+    "rightBoot": "armorRightBoot",
+    "leftBoot": "armorLeftBoot",
+    "helmetName": "Green Kevlar Boots Helmet",
+    "bodyName": "Green Kevlar Boots Chestplate",
+    "leggingsName": "Green Kevlar Boots Leggings",
+    "bootsName": "Green Kevlar Boots",
+    "helmetSpecialInfo": [],
+    "bodySpecialInfo": [],
+    "leggingsSpecialInfo": [],
+    "bootsSpecialInfo": [],
+    "helmetItemRenderType": 0,
+    "helmetItemCustomModelName": "Normal",
+    "bodyItemRenderType": 0,
+    "bodyItemCustomModelName": "Normal",
+    "leggingsItemRenderType": 0,
+    "leggingsItemCustomModelName": "Normal",
+    "bootsItemRenderType": 0,
+    "bootsItemCustomModelName": "Normal",
+    "helmetImmuneToFire": false,
+    "bodyImmuneToFire": false,
+    "leggingsImmuneToFire": false,
+    "bootsImmuneToFire": false,
+    "fullyEquipped": false,
+    "maxDamage": 25,
+    "damageValueHelmet": 2,
+    "damageValueBody": 6,
+    "damageValueLeggings": 5,
+    "damageValueBoots": 2,
+    "enchantability": 10,
+    "toughness": 2.0,
+    "knockbackResistance": 0.0,
+    "equipSound": {
+      "value": "item.armor.equip_leather"
+    },
+    "repairItems": []
+  }
+}

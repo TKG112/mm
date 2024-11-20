@@ -9,12 +9,12 @@ import net.mcreator.mm.item.GreenKevlarBodyItem;
 public class GreenKevlarBodyModel extends GeoModel<GreenKevlarBodyItem> {
 	@Override
 	public ResourceLocation getAnimationResource(GreenKevlarBodyItem object) {
-		return new ResourceLocation("mm", "animations/green_kevlar_clothing.animation.json");
+		return new ResourceLocation("mm", "animations/black_kevlar_clothing.animation.json");
 	}
 
 	@Override
 	public ResourceLocation getModelResource(GreenKevlarBodyItem object) {
-		return new ResourceLocation("mm", "geo/green_kevlar_clothing.geo.json");
+		return new ResourceLocation("mm", "geo/black_kevlar_clothing.geo.json");
 	}
 
 	@Override

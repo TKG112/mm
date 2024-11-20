@@ -10,9 +10,13 @@
     "textureLeggings": "",
     "enableBoots": false,
     "textureBoots": "",
-    "creativeTabs": [],
+    "creativeTabs": [
+      {
+        "value": "CUSTOM:GMS"
+      }
+    ],
     "armorTextureFile": "green_kevlar_clothing.png",
-    "model": "green_kevlar_clothing.geo.json",
+    "model": "black_kevlar_clothing.geo.json",
     "idle": "idle",
     "head": "armorHead",
     "chest": "armorBody",

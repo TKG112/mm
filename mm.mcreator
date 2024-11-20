@@ -1627,22 +1627,6 @@
       "path": "~/Armors/Black/Head/Facewear/GPNVG"
     },
     {
-      "name": "GreenKevlarBody",
-      "type": "animatedarmor",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "green_kevlar_body",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/mm/client/renderer/GreenKevlarBodyArmorRenderer.java",
-          "src/main/java/net/mcreator/mm/item/model/GreenKevlarBodyModel.java",
-          "src/main/resources/assets/mm/models/item/green_kevlar_body_chestplate.json",
-          "src/main/java/net/mcreator/mm/item/GreenKevlarBodyItem.java"
-        ]
-      },
-      "path": "~/Armors/Green/Body/Chest Slot/Kevlar Body"
-    },
-    {
       "name": "BlackIOLA",
       "type": "animatedarmor",
       "compiles": true,
@@ -1679,7 +1663,7 @@
           }
         ]
       },
-      "path": "~/Inv"
+      "path": "~/Inv/Head Gear"
     },
     {
       "name": "BlackCombatHelmet",
@@ -1788,9 +1772,144 @@
         ]
       },
       "path": "~/Armors/Tan/Head/Facewear/Visor"
+    },
+    {
+      "name": "GreenKevlarBody",
+      "type": "animatedarmor",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "green_kevlar_body",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/client/renderer/GreenKevlarBodyArmorRenderer.java",
+          "src/main/java/net/mcreator/mm/item/model/GreenKevlarBodyModel.java",
+          "src/main/resources/assets/mm/models/item/green_kevlar_body_chestplate.json",
+          "src/main/java/net/mcreator/mm/item/GreenKevlarBodyItem.java"
+        ]
+      },
+      "path": "~/Armors/Green/Body/Chest Slot/Kevlar Body"
+    },
+    {
+      "name": "GreenKevlarBoots",
+      "type": "animatedarmor",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "green_kevlar_boots",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/GreenKevlarBootsItem.java",
+          "src/main/java/net/mcreator/mm/client/renderer/GreenKevlarBootsArmorRenderer.java",
+          "src/main/java/net/mcreator/mm/item/model/GreenKevlarBootsModel.java",
+          "src/main/resources/assets/mm/models/item/green_kevlar_boots_boots.json"
+        ]
+      },
+      "path": "~/Armors/Green/Feet/Kevlar Boots"
+    },
+    {
+      "name": "GreenKevlarPants",
+      "type": "animatedarmor",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "green_kevlar_pants",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/mm/models/item/green_kevlar_pants_leggings.json",
+          "src/main/java/net/mcreator/mm/client/renderer/GreenKevlarPantsArmorRenderer.java",
+          "src/main/java/net/mcreator/mm/item/model/GreenKevlarPantsModel.java",
+          "src/main/java/net/mcreator/mm/item/GreenKevlarPantsItem.java"
+        ]
+      },
+      "path": "~/Armors/Green/Legs/Pants Slot/Kevlar Pants"
+    },
+    {
+      "name": "GreenIOLA",
+      "type": "animatedarmor",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "green_iola",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/client/renderer/GreenIOLAArmorRenderer.java",
+          "src/main/java/net/mcreator/mm/item/GreenIOLAItem.java",
+          "src/main/java/net/mcreator/mm/item/model/GreenIOLAModel.java",
+          "src/main/resources/assets/mm/models/item/green_iola_leggings.json"
+        ]
+      },
+      "path": "~/Armors/Green/Legs/Pants Slot/IOLA"
+    },
+    {
+      "name": "GreenSSH68",
+      "type": "animatedarmor",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "green_ssh_68",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/model/GreenSSH68Model.java",
+          "src/main/java/net/mcreator/mm/client/renderer/GreenSSH68ArmorRenderer.java",
+          "src/main/resources/assets/mm/models/item/green_ssh_68_helmet.json",
+          "src/main/java/net/mcreator/mm/item/GreenSSH68Item.java"
+        ]
+      },
+      "path": "~/Armors/Green/Head/Helmet Slot"
+    },
+    {
+      "name": "GreenBackpack1",
+      "type": "curiosbauble",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "green_backpack_1",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/inventory/GreenBackpack1InventoryCapability.java",
+          "src/main/java/net/mcreator/mm/item/GreenBackpack1Item.java",
+          "src/main/java/net/mcreator/mm/client/renderer/GreenBackpack1Renderer.java",
+          "src/main/resources/assets/mm/models/item/green_backpack_1.json"
+        ]
+      },
+      "path": "~/Armors/Green/Body/Backwear/Backpacks/BackpackT1"
+    },
+    {
+      "name": "GreenBackpack2",
+      "type": "curiosbauble",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "green_backpack_2",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/mm/models/item/green_backpack_2.json",
+          "src/main/java/net/mcreator/mm/item/inventory/GreenBackpack2InventoryCapability.java",
+          "src/main/java/net/mcreator/mm/item/GreenBackpack2Item.java",
+          "src/main/java/net/mcreator/mm/client/renderer/GreenBackpack2Renderer.java"
+        ]
+      },
+      "path": "~/Armors/Green/Body/Backwear/Backpacks/BackpackT2"
+    },
+    {
+      "name": "GreenBackpack3",
+      "type": "curiosbauble",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "green_backpack_3",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/mm/item/GreenBackpack3Item.java",
+          "src/main/resources/assets/mm/models/item/green_backpack_3.json",
+          "src/main/java/net/mcreator/mm/item/inventory/GreenBackpack3InventoryCapability.java",
+          "src/main/java/net/mcreator/mm/client/renderer/GreenBackpack3Renderer.java"
+        ]
+      },
+      "path": "~/Armors/Green/Body/Backwear/Backpacks/BackpackT3"
     }
   ],
-  "variable_elements": [],
+  "variable_elements": [
+    {
+      "name": "NVGCheck",
+      "type": "logic",
+      "scope": "player_persistent",
+      "value": "false"
+    }
+  ],
   "sound_elements": [
     {
       "name": "nvon",
@@ -1881,12 +2000,20 @@
       "BlackBackpack1",
       "BlackBackpack2",
       "BlackBackpack3",
-      "Recon",
-      "Bandoleer",
+      "GreenSSH68",
+      "GreenKevlarBody",
+      "GreenKevlarPants",
+      "GreenKevlarBoots",
+      "GreenIOLA",
       "GreenNVG21",
-      "TanGPNVG",
+      "Recon",
       "TanNVG21",
-      "TanVisor"
+      "TanGPNVG",
+      "TanVisor",
+      "Bandoleer",
+      "GreenBackpack1",
+      "GreenBackpack2",
+      "GreenBackpack3"
     ],
     "CUSTOM:GMSItems": [
       "Duffelbag",
@@ -1899,9 +2026,10 @@
   },
   "language_map": {
     "en_us": {
+      "item.mm.green_kevlar_pants_chestplate": "Green Kevlar Pants Chestplate",
       "item.gms.military_headset": "Military Headset",
-      "item.gms.black_military_helmet_leggings": "Black Military Helmet Leggings",
       "item.mm.military_goggles": "Military Goggles",
+      "item.gms.black_military_helmet_leggings": "Black Military Helmet Leggings",
       "item.mm.bandoleer": "Bandoleer",
       "item.mm.black_kevlar_pants_chestplate": "Black Kevlar Pants Chestplate",
       "item.mm.duffelbag": "Duffelbag",
@@ -1911,20 +2039,26 @@
       "item.mm.black_iola_chestplate": "Black IOLA Chestplate",
       "gui.mm.tier_1_backpack_gui_2.label_small_black_backpack": "Small Backpack",
       "item.mm.black_nvg_21": "Black NVG-21",
+      "item.mm.green_kevlar_pants_helmet": "Green Kevlar Pants Helmet",
       "item.mm.head_mount_leggings": "Head Mount Leggings",
       "key.mm.toggle_nvg": "Toggle Head Equipment",
       "item.mm.grenade_flashbang": "Flashbang Grenade",
       "item.mm.ronin_boots": "Ronin Boots",
+      "item.mm.green_kevlar_boots_chestplate": "Green Kevlar Boots Chestplate",
       "subtitles.knob_turn": "NVG Gain Change",
-      "gui.mm.ammo_gui.label_ammo_pouches": "Plate Carrier Ammo Pouches",
       "item.mm.balaclava": "Balaclava",
-      "item.mm.black_iola_helmet": "Black IOLA Helmet",
+      "gui.mm.ammo_gui.label_ammo_pouches": "Plate Carrier Ammo Pouches",
+      "item.mm.green_ssh_68_chestplate": "Green SSH 6 8 Chestplate",
       "item.mm.black_iola_boots": "Black IOLA Boots",
+      "item.mm.black_iola_helmet": "Black IOLA Helmet",
+      "item.mm.green_backpack_1": "Green Small Backpack",
+      "item.mm.green_backpack_3": "Green Large Backpack",
       "subtitles.nade-landing": "",
+      "item.mm.green_backpack_2": "Green Medium Backpack",
       "item.mm.green_kevlar_body_boots": "Green Kevlar Body Boots",
       "item_group.mm.gms": "MM Armors",
-      "item.gms.tvg": "TVG",
       "key.categories.mm": "Modern Mayhem",
+      "item.gms.tvg": "TVG",
       "gui.mm.ammo_gui_2.label_ammo_pouches": "Plate Carrier Ammo Pouches",
       "item_group.mm.gms_items": "MM Items",
       "item.mm.military_balaclava": "Military Balaclava",
@@ -1934,6 +2068,8 @@
       "item.mm.tan_nvg_21": "Tan NVG-21",
       "key.mm.increase_tube_gain": "Increase NVG Tube Gain",
       "gui.mm.tier_2_backpack_gui.label_medium_black_backpack": "Medium Backpack",
+      "item.mm.green_iola_helmet": "Green IOLA Helmet",
+      "item.mm.green_iola_boots": "Green IOLA Boots",
       "item.gms.military_balaclava": "Military Balaclava",
       "item.mm.ronin_chestplate": "Ronin Chestplate",
       "subtitles.nvon": "NVG On",
@@ -1949,15 +2085,18 @@
       "gui.mm.recon_gui.label_recon_rig": "Recon Pouches",
       "item.mm.green_kevlar_body_helmet": "Green Kevlar Body Helmet",
       "item.mm.tan_visor": "Tan Visor",
+      "item.mm.green_ssh_68_leggings": "Green SSH 6 8 Leggings",
       "key.gms.decrease_tube_gain": "Decrease NVG Tube Gain",
       "subtitles.ear-ringing": "",
       "item.mm.black_kevlar_boots_boots": "Black Kevlar Boots",
       "item.mm.grenade_impact": "Impact Grenade",
       "item.gms.duffelbag": "Duffelbag",
+      "item.mm.green_kevlar_boots_helmet": "Green Kevlar Boots Helmet",
       "item.mm.green_kevlar_body_leggings": "Green Kevlar Body Leggings",
       "item.gms.black_military_helmet_helmet": "Black Military Helmet",
       "key.gms.toggle_nvg": "Toggle NVG",
       "gui.mm.bandoleer_gui_2.label_bandoleer_rig": "Bandoleer Pouches",
+      "item.mm.green_ssh_68_helmet": "Green SSh-68 Helmet",
       "gui.mm.tier_2_backpack_gui_2.label_medium_black_backpack": "Medium Backpack",
       "item.mm.green_kevlar_body_chestplate": "Green Kevlar Body",
       "item.mm.menu_item": "menu item (you shoudn\u0027t be seen this)",
@@ -1966,13 +2105,19 @@
       "item.mm.black_plate_carrier_pouches": "Black Plate Carrier - Pouches",
       "item.mm.grenade_smoke": "Smoke Grenade",
       "item.mm.black_kevlar_body_helmet": "Black Kevlar Body Helmet",
+      "item.mm.green_kevlar_boots_leggings": "Green Kevlar Boots Leggings",
+      "item.mm.green_iola_leggings": "Green IOLA",
       "gui.mm.rig_gui_2.label_plate_carrier_pouches": "Plate Carrier Pouches",
       "item.mm.black_kevlar_pants_leggings": "Black Kevlar Pants",
+      "item.mm.green_iola_chestplate": "Green IOLA Chestplate",
       "item.mm.ronin_helmet": "Ronin Combat Helmet",
+      "item.mm.green_kevlar_boots_boots": "Green Kevlar Boots",
       "item.gms.military_glasses": "Military Glasses",
       "effect.mm.flash": "Flashbang",
+      "item.mm.green_kevlar_pants_leggings": "Green Kevlar Pants",
       "subtitles.ear-ringing-fade": "",
       "item.mm.black_gpnvg": "Black GPNVG",
+      "item.mm.green_ssh_68_boots": "Green SSH 6 8 Boots",
       "subtitles.fb-explosion": "Flashbang Explosion",
       "subtitles.nvgturnknob": "NVG Gain Change",
       "key.gms.increase_tube_gain": "Increase NVG Tube Gain",
@@ -1992,6 +2137,7 @@
       "item.mm.black_kevlar_body_chestplate": "Black Kevlar Body",
       "effect.mm.ear_ring": "Ear Ringing",
       "item.mm.black_backpack_1": "Small Black Backpack",
+      "item.mm.green_kevlar_pants_boots": "Green Kevlar Pants Boots",
       "item.mm.black_backpack_3": "Large Black Backpack",
       "item.mm.black_backpack_2": "Medium Black Backpack",
       "item.mm.head_mount_chestplate": "Head Mount Chestplate",
@@ -2363,7 +2509,12 @@
               },
               {
                 "name": "Feet",
-                "children": []
+                "children": [
+                  {
+                    "name": "Kevlar Boots",
+                    "children": []
+                  }
+                ]
               },
               {
                 "name": "Head",
@@ -2376,12 +2527,34 @@
                         "children": []
                       }
                     ]
+                  },
+                  {
+                    "name": "Helmet Slot",
+                    "children": []
                   }
                 ]
               },
               {
                 "name": "Legs",
-                "children": []
+                "children": [
+                  {
+                    "name": "Knees",
+                    "children": []
+                  },
+                  {
+                    "name": "Pants Slot",
+                    "children": [
+                      {
+                        "name": "IOLA",
+                        "children": []
+                      },
+                      {
+                        "name": "Kevlar Pants",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }

@@ -36,7 +36,7 @@ public class TanNVG21Item extends Item implements GeoItem, ICurioItem {
 	private static final RawAnimation ANIM_OPEN = RawAnimation.begin().thenPlayAndHold("animation.tan_nvg21.opening").thenLoop("animation.tan_nvg21.opened");
 	private static final RawAnimation ANIM_CLOSE = RawAnimation.begin().thenPlayAndHold("animation.tan_nvg21.closing").thenLoop("animation.tan_nvg21.closed");
 
-	public BlackNVG21Item() {
+	public TanNVG21Item() {
 		super(new Item.Properties().stacksTo(1).durability(0));
 	}
 
