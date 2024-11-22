@@ -1,6 +1,0 @@
-{
-  "parent": "mm:displaysettings/grenade_flashbang",
-  "textures": {
-    "layer0": "mm:item/grenade_flashbang"
-  }
-}

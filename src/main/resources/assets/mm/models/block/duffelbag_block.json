@@ -1,9 +1,0 @@
-{
-  "parent": "mm:custom/duffelbag",
-  "textures": {
-    "all": "mm:block/duffelbag",
-    "particle": "mm:block/duffelbag",
-    "0": "mm:block/duffelbag"
-  },
-  "render_type": "cutout"
-}
