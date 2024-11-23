@@ -6,14 +6,17 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.item.BlackGPNVGItem;
-import net.tkg.ModernMayhem.item.BlackNVG21Item;
+import net.tkg.ModernMayhem.item.curios.facewear.*;
 
 public class ItemRegistryMM {
     public static final DeferredRegister<Item> REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, ModernMayhemMod.ID);
 
-    public static final RegistryObject<Item> BLACK_GPNVG = REGISTRY.register("black_gpnvg", () -> new BlackGPNVGItem());
-    public static final RegistryObject<Item> BLACK_NVG21 = REGISTRY.register("black_nvg21", () -> new BlackNVG21Item());
+    public static final RegistryObject<Item> BLACK_GPNVG = REGISTRY.register("black_gpnvg", BlackGPNVGItem::new);
+    public static final RegistryObject<Item> BLACK_NVG21 = REGISTRY.register("black_nvg21", BlackNVG21Item::new);
+    public static final RegistryObject<Item> TAN_GPNVG = REGISTRY.register("tan_gpnvg", TanGPNVGItem::new);
+    public static final RegistryObject<Item> TAN_NVG21 = REGISTRY.register("tan_nvg21", TanNVG21Item::new);
+    public static final RegistryObject<Item> GREEN_NVG21 = REGISTRY.register("green_nvg21", GreenNVG21Item::new);
+    public static final RegistryObject<Item> MENU_ITEM = REGISTRY.register("menu_item", () -> new Item(new Item.Properties().stacksTo(1)));
 
     public static void init(IEventBus modEventBus) {
         REGISTRY.register(modEventBus);

@@ -2,6 +2,9 @@
   "replace": false,
   "values": [
     "mm:black_gpnvg",
-    "mm:black_nvg21"
+    "mm:tan_gpnvg",
+    "mm:black_nvg21",
+    "mm:tan_nvg21",
+    "mm:green_nvg21"
   ]
 }

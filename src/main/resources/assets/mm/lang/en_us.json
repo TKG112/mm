@@ -1,7 +1,12 @@
 {
   "item.mm.black_gpnvg" :  "Black GPNVG",
+  "item.mm.tan_gpnvg" :  "Tan GPNVG",
   "item.mm.black_nvg21" :  "Black NVG21",
+  "item.mm.green_nvg21" :  "Green NVG21",
+  "item.mm.tan_nvg21" :  "Tan NVG21",
 
+
+  "item_group.mm.gms" : "Modern Mayhem",
 
 
   "key.categories.mm" : "Modern Mayhem",
@@ -14,5 +19,10 @@
 
 
   "curios.identifier.facewear" : "Facewear",
-  "curios.identifier.earwear" : "Earwear"
+  "curios.identifier.earwear" : "Earwear",
+
+
+
+  "sounds.mm.nvg_on" : "Night Vision Goggles On",
+  "sounds.mm.nvg_off" : "Night Vision Goggles Off"
 }

@@ -1,4 +1,4 @@
-package net.tkg.ModernMayhem.item;
+package net.tkg.ModernMayhem.item.curios.facewear;
 
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.resources.ResourceLocation;
@@ -8,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.client.renderer.BlackNVG21Renderer;
+import net.tkg.ModernMayhem.item.generic.GenericNVGGogglesItem;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
 import java.util.function.Consumer;
@@ -16,10 +17,10 @@ public class BlackNVG21Item extends GenericNVGGogglesItem {
     public BlackNVG21Item() {
         super(
                 new NVGConfig(
-                        0.2f,
-                        0.8f,
+                        0.5f,
+                        0.7f,
                         1,
-                        0.8f
+                        1
                 ),
                 new ResourceLocation(ModernMayhemMod.ID, "sounds/item/nvg_on"),
                 new ResourceLocation(ModernMayhemMod.ID, "sounds/item/nvg_off")

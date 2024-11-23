@@ -10,7 +10,7 @@ import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.item.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.item.generic.GenericNVGGogglesItem;
 import net.tkg.ModernMayhem.mixinaccessor.PostChainAccess;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
@@ -91,11 +91,16 @@ public class RenderNVG {
             }
             if (passe != null) {
                 if (passe.getEffect().getUniform("NightVisionEnabled") != null) {
-                    passe.getEffect().safeGetUniform("NightVisionEnabled").set(nightVisionEnabled);
-                    passe.getEffect().safeGetUniform("Brightness").set(config.getBrightness());
-                    passe.getEffect().safeGetUniform("RedValue").set(config.getRedValue());
-                    passe.getEffect().safeGetUniform("BlueValue").set(config.getBlueValue());
-                    passe.getEffect().safeGetUniform("GreenValue").set(config.getGreenValue());
+                    if (nightVisionEnabled > 0.0f) {
+                        passe.getEffect().safeGetUniform("NightVisionEnabled").set(nightVisionEnabled);
+                        passe.getEffect().safeGetUniform("Brightness").set(config.getBrightness());
+                        passe.getEffect().safeGetUniform("RedValue").set(config.getRedValue());
+                        passe.getEffect().safeGetUniform("BlueValue").set(config.getBlueValue());
+                        passe.getEffect().safeGetUniform("GreenValue").set(config.getGreenValue());
+                    } else {
+                        passe.getEffect().safeGetUniform("NightVisionEnabled").set(nightVisionEnabled);
+                        passe.getEffect().safeGetUniform("Brightness").set(1.0f);
+                    }
                 }
             }
         } catch (Exception e) {

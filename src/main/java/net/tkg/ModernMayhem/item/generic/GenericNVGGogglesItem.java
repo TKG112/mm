@@ -1,4 +1,4 @@
-package net.tkg.ModernMayhem.item;
+package net.tkg.ModernMayhem.item.generic;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -78,6 +78,14 @@ public class GenericNVGGogglesItem extends Item implements GeoItem, ICurioItem {
             return tag.getInt("nvg_mode");
         }
         return 0;
+    }
+
+    public static boolean getNVGCheck(ItemStack stack) {
+        CompoundTag tag = stack.getTag();
+        if (tag != null && tag.contains("NvgCheck")) {
+            return tag.getBoolean("NvgCheck");
+        }
+        return false;
     }
 
     public static void switchNVGMode(ItemStack stack) {

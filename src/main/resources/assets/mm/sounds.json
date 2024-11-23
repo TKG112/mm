@@ -1,0 +1,10 @@
+{
+  "sound_nvg_on" : {
+    "subtitle" : "sounds.mm.nvg_on",
+    "sounds" : [ "mm:item/nvg_on" ]
+  },
+  "sound_nvg_off" : {
+      "subtitle" : "sounds.mm.nvg_off",
+      "sounds" : [ "mm:item/nvg_off" ]
+  }
+}
