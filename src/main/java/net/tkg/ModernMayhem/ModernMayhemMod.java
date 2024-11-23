@@ -10,6 +10,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.tkg.ModernMayhem.client.renderer.BlackGPNVGRenderer;
+import net.tkg.ModernMayhem.client.renderer.BlackNVG21Renderer;
 import net.tkg.ModernMayhem.registry.ItemRegistryMM;
 import net.tkg.ModernMayhem.registry.PacketsRegistryMM;
 import org.slf4j.Logger;
@@ -39,6 +40,8 @@ public class ModernMayhemMod
         // All client only
         LOGGER.info("HELLO FROM CLIENT SETUP");
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_GPNVG.get(), BlackGPNVGRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_NVG21.get(), BlackNVG21Renderer::new);
+
 
     }
 }

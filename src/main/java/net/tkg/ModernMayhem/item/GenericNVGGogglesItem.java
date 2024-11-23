@@ -50,6 +50,10 @@ public class GenericNVGGogglesItem extends Item implements GeoItem, ICurioItem {
         this.DEACTIVATION_SOUND = pDeactivationSound;
     }
 
+    public NVGConfig getConfig() {
+        return this.config;
+    }
+
     private CompoundTag checkAndGetTag(ItemStack stack) {
         if (!stack.hasTag()) {
             stack.setTag(new CompoundTag());

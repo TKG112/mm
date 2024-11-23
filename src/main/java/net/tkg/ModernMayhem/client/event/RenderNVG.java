@@ -17,6 +17,7 @@ import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Mod.EventBusSubscriber(Dist.CLIENT)
 public class RenderNVG {
@@ -39,15 +40,17 @@ public class RenderNVG {
 
         AtomicBoolean hasNvgItem = new AtomicBoolean(false);
         AtomicBoolean nvgOn = new AtomicBoolean(false);
+        AtomicReference<GenericNVGGogglesItem.NVGConfig> nvgItemConfig = new AtomicReference<>(null);
         // Check if the player has an item inheriting from GenericNVGGooglesItem
         // and if it is turned on
         CuriosApi.getCuriosInventory(player).ifPresent(curiosInventory -> {
             ICurioStacksHandler facewearCurio = curiosInventory.getCurios().get("facewear");
             if (facewearCurio != null) {
-                ItemStack nvgItem = facewearCurio.getStacks().getStackInSlot(0);
-                if (nvgItem.getItem() instanceof GenericNVGGogglesItem) {
+                ItemStack nvgItem = (facewearCurio.getStacks().getStackInSlot(0));
+                if (nvgItem.getItem() instanceof GenericNVGGogglesItem genericNVGGogglesItem) {
                     hasNvgItem.set(true);
                     nvgOn.set(GenericNVGGogglesItem.getNVGMode(nvgItem) == 1);
+                    nvgItemConfig.set(genericNVGGogglesItem.getConfig());
                 }
             }
         });
@@ -60,7 +63,7 @@ public class RenderNVG {
         }
 
         if (mc.gameRenderer.currentEffect() != null && Objects.requireNonNull(mc.gameRenderer.currentEffect()).getName().equals(NVG_SHADER_PATH.toString())) {
-            updateShaderUniforms(nightVisionEnabled);
+            updateShaderUniforms(nightVisionEnabled, nvgItemConfig.get());
         }
     }
 
@@ -76,7 +79,7 @@ public class RenderNVG {
         }
     }
 
-    private static void updateShaderUniforms(float nightVisionEnabled) {
+    private static void updateShaderUniforms(float nightVisionEnabled, GenericNVGGogglesItem.NVGConfig config) {
         Minecraft mc = Minecraft.getInstance();
         try {
             int width = mc.getWindow().getWidth();
@@ -89,9 +92,10 @@ public class RenderNVG {
             if (passe != null) {
                 if (passe.getEffect().getUniform("NightVisionEnabled") != null) {
                     passe.getEffect().safeGetUniform("NightVisionEnabled").set(nightVisionEnabled);
-                    passe.getEffect().safeGetUniform("Brightness").set(0.5f);
-                    passe.getEffect().safeGetUniform("RedValue").set(0.5f);
-                    passe.getEffect().safeGetUniform("BlueValue").set(0.5f);
+                    passe.getEffect().safeGetUniform("Brightness").set(config.getBrightness());
+                    passe.getEffect().safeGetUniform("RedValue").set(config.getRedValue());
+                    passe.getEffect().safeGetUniform("BlueValue").set(config.getBlueValue());
+                    passe.getEffect().safeGetUniform("GreenValue").set(config.getGreenValue());
                 }
             }
         } catch (Exception e) {

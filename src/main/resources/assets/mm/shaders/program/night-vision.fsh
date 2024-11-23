@@ -40,12 +40,12 @@ void main() {
         texColor.rgb *= vignette;
         texColor.a = 1.0;
     }
-    
+
     if(NightVisionEnabled > 0) {
         vec2 center = vec2(0.5, 0.5);
         vec2 scaledCoord = (texCoord.xy - center) * vec2(InSize.x / InSize.y, 1.0);
         float dist = length(scaledCoord);
-        
+
         if (dist <= 2) {  // Adjust this value to change the radius of the circle
             const vec3 lumvec = vec3(0.30, 0.59, 0.11);
             float intensity = dot(lumvec, texColor.rgb);
@@ -63,6 +63,6 @@ void main() {
         vec4 sepiaColor = vec4(vec3(gray) * SEPIA, 1.0);
         texColor = mix(texColor, sepiaColor, SepiaRatio);
     }
-    
+
     gl_FragColor = vec4(texColor.rgb, 1);
 }
