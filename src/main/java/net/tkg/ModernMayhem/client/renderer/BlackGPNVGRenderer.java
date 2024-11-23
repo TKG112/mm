@@ -23,7 +23,7 @@ import top.theillusivec4.curios.api.client.ICurioRenderer;
 
 public class BlackGPNVGRenderer extends GeoArmorRenderer<GeneralNVGGogglesItem> implements ICurioRenderer {
 	public BlackGPNVGRenderer() {
-		super(new DefaultedItemGeoModel<>(new ResourceLocation(ModernMayhemMod.ID, "black_gpnvgs")));
+		super(new DefaultedItemGeoModel<>(new ResourceLocation(ModernMayhemMod.ID, "black_gpnvg")));
 	}
 
 	@Override
