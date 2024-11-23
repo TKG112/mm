@@ -18,7 +18,7 @@ public class TanNVG21Item extends GenericNVGGogglesItem {
     public TanNVG21Item() {
         super(
                 new NVGConfig(
-                        0.5f,
+                        0.3f,
                         0.7f,
                         1,
                         0.7f

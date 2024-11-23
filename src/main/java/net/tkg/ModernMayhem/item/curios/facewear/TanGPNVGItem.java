@@ -18,10 +18,10 @@ public class TanGPNVGItem extends GenericNVGGogglesItem {
     public TanGPNVGItem() {
         super(
                 new NVGConfig(
-                        0.5f,
+                        0.3f,
                         0.7f,
                         1,
-                        1
+                        0.7f
                         ),
                 new ResourceLocation(ModernMayhemMod.ID, "sounds/item/nvg_on"),
                 new ResourceLocation(ModernMayhemMod.ID, "sounds/item/nvg_off")
