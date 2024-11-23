@@ -4,13 +4,13 @@
     ],
     "passes": [
         {
-            "name": "night-vision",
+            "name": "mm:night-vision",
             "intarget": "minecraft:main",
             "outtarget": "swap",
             "auxtargets": [
 				{
                     "name": "NoiseSampler",
-                    "id": "noise",
+                    "id": "mm:noise",
                     "width": 512,
                     "height": 512,
                     "bilinear": false

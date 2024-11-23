@@ -5,7 +5,7 @@
         "dstrgb": "1-srcalpha"
     },
     "vertex": "blit",
-    "fragment": "night-vision",
+    "fragment": "mm:night-vision",
     "attributes": [ "Position" ],
     "samplers": [
         { "name": "DiffuseSampler" },

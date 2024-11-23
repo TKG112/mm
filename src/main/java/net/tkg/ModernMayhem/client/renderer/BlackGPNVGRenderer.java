@@ -14,14 +14,14 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.item.GeneralNVGGogglesItem;
+import net.tkg.ModernMayhem.item.GenericNVGGogglesItem;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.model.DefaultedItemGeoModel;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.client.ICurioRenderer;
 
-public class BlackGPNVGRenderer extends GeoArmorRenderer<GeneralNVGGogglesItem> implements ICurioRenderer {
+public class BlackGPNVGRenderer extends GeoArmorRenderer<GenericNVGGogglesItem> implements ICurioRenderer {
 	public BlackGPNVGRenderer() {
 		super(new DefaultedItemGeoModel<>(new ResourceLocation(ModernMayhemMod.ID, "black_gpnvg")));
 	}
@@ -31,7 +31,7 @@ public class BlackGPNVGRenderer extends GeoArmorRenderer<GeneralNVGGogglesItem> 
 			float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		LivingEntity entity = slotContext.entity();
 		this.prepForRender(slotContext.entity(), stack, EquipmentSlot.HEAD, (HumanoidModel<?>) renderLayerParent.getModel());
-		VertexConsumer consumer = renderTypeBuffer.getBuffer(RenderType.armorCutoutNoCull(this.getTextureLocation((GeneralNVGGogglesItem) stack.getItem())));
+		VertexConsumer consumer = renderTypeBuffer.getBuffer(RenderType.armorCutoutNoCull(this.getTextureLocation((GenericNVGGogglesItem) stack.getItem())));
 		this.renderToBuffer(matrixStack, consumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 	}
 

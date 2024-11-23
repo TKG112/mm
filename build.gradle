@@ -99,6 +99,9 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
+    // Mixin dependencies
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
     // Geckolib dependencies
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${minecraft_version}:${geckolib_version}")
     implementation("com.eliotlash.mclib:mclib:20")
@@ -166,4 +169,12 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+mixin {
+    add sourceSets.main, 'mm.mixins.refmap.json'
+    config 'mm.mixins.json'
+
+    debug.verbose = true
+    debug.export = true
 }

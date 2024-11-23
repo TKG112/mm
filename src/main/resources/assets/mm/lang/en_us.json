@@ -1,0 +1,17 @@
+{
+  "item.mm.black_gpnvg" :  "Black GPNVG",
+
+
+
+  "key.categories.mm" : "Modern Mayhem",
+  "key.mm.toggle_nvg" : "Toggle Night Vision",
+  "key.mm.increase_tube_gain" : "Increase Tube Gain",
+  "key.mm.decrease_tube_gain" : "Decrease Tube Gain",
+  "key.mm.open_backpack" : "Open Backpack",
+  "key.mm.open_rig" : "Open Rig",
+
+
+
+  "curios.identifier.facewear" : "Facewear",
+  "curios.identifier.earwear" : "Earwear"
+}

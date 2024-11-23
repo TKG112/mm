@@ -11,6 +11,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.tkg.ModernMayhem.client.renderer.BlackGPNVGRenderer;
 import net.tkg.ModernMayhem.registry.ItemRegistryMM;
+import net.tkg.ModernMayhem.registry.PacketsRegistryMM;
 import org.slf4j.Logger;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
@@ -21,12 +22,13 @@ public class ModernMayhemMod
     // Define mod id in a common place for everything to reference
     public static final String ID = "mm";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public ModernMayhemMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ItemRegistryMM.init(modEventBus);
+        PacketsRegistryMM.init();
 
         modEventBus.addListener(this::clientSetup);
 
@@ -37,5 +39,6 @@ public class ModernMayhemMod
         // All client only
         LOGGER.info("HELLO FROM CLIENT SETUP");
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_GPNVG.get(), BlackGPNVGRenderer::new);
+
     }
 }

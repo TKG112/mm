@@ -2,6 +2,9 @@ package net.tkg.ModernMayhem.item;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -15,14 +18,17 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import java.util.List;
 
-public class GeneralNVGGogglesItem extends Item implements GeoItem, ICurioItem {
+public class GenericNVGGogglesItem extends Item implements GeoItem, ICurioItem {
     private AnimatableInstanceCache cache = null;
     private NVGConfig config;
     private String animationprocedure = "Idle";
+    public ResourceLocation ACTIVATION_SOUND = null;
+    public ResourceLocation DEACTIVATION_SOUND = null;
 
     // Animations
     private static final RawAnimation ANIM_IDLE = RawAnimation.begin().thenLoop("idle");
@@ -30,10 +36,18 @@ public class GeneralNVGGogglesItem extends Item implements GeoItem, ICurioItem {
     private static final RawAnimation ANIM_CLOSE = RawAnimation.begin().thenPlayAndHold("closing").thenLoop("closed");
 
 
-    public GeneralNVGGogglesItem(NVGConfig pConfig) {
+    public GenericNVGGogglesItem(NVGConfig pConfig) {
         super(new Item.Properties().stacksTo(1).durability(0));
         this.cache = GeckoLibUtil.createInstanceCache(this);
         this.config = pConfig;
+    }
+
+    public GenericNVGGogglesItem(NVGConfig pConfig, ResourceLocation pActivationSound, ResourceLocation pDeactivationSound) {
+        super(new Item.Properties().stacksTo(1).durability(0));
+        this.cache = GeckoLibUtil.createInstanceCache(this);
+        this.config = pConfig;
+        this.ACTIVATION_SOUND = pActivationSound;
+        this.DEACTIVATION_SOUND = pDeactivationSound;
     }
 
     private CompoundTag checkAndGetTag(ItemStack stack) {
@@ -60,6 +74,17 @@ public class GeneralNVGGogglesItem extends Item implements GeoItem, ICurioItem {
             return tag.getInt("nvg_mode");
         }
         return 0;
+    }
+
+    public static void switchNVGMode(ItemStack stack) {
+        CompoundTag tag = stack.getOrCreateTag();
+        if (tag.contains("NvgCheck")) {
+            boolean nvgCheck = tag.getBoolean("NvgCheck");
+            tag.putBoolean("NvgCheck", !nvgCheck);
+        } else {
+            tag.putBoolean("NvgCheck", true);
+        }
+        stack.setTag(tag);
     }
 
     @Override
@@ -120,5 +145,25 @@ public class GeneralNVGGogglesItem extends Item implements GeoItem, ICurioItem {
         public float getRedValue() { return redValue; }
         public float getGreenValue() { return greenValue; }
         public float getBlueValue() { return blueValue; }
+    }
+
+    @Override
+    public void curioTick(SlotContext slotContext, ItemStack stack) {
+        Entity entity = slotContext.entity();
+        if (entity instanceof LivingEntity livingEntity) {
+            if (stack.hasTag() && stack.getTag().contains("NvgCheck")) {
+                boolean isNvgCheck = stack.getTag().getBoolean("NvgCheck");
+                if (isNvgCheck && !this.animationprocedure.equals("Close")) {
+                    this.animationprocedure = "Close";
+                } else if (!isNvgCheck && !this.animationprocedure.equals("Open")) {
+                    this.animationprocedure = "Open";
+                }
+            }
+            if (entity.level().isClientSide()) {
+                updateNVGMode(stack);
+            }
+        } else {
+            this.animationprocedure = "Idle";
+        }
     }
 }
