@@ -21,7 +21,8 @@ public class TanGPNVGItem extends GenericNVGGogglesItem {
                         0.3f,
                         0.7f,
                         1,
-                        0.7f
+                        0.7f,
+                        "textures/screens/overlay_nvg.png"
                         ),
                 new ResourceLocation(ModernMayhemMod.ID, "sounds/item/nvg_on"),
                 new ResourceLocation(ModernMayhemMod.ID, "sounds/item/nvg_off")

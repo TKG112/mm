@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.tkg.ModernMayhem.ModernMayhemMod;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoItem;
@@ -141,6 +142,7 @@ public class GenericNVGGogglesItem extends Item implements GeoItem, ICurioItem {
         private Float redValue = 1.0f;
         private Float greenValue = 1.0f;
         private Float blueValue = 1.0f;
+        private ResourceLocation overlay = null;
 
         public NVGConfig(float pBrightness) {
             brightness = pBrightness;
@@ -153,10 +155,19 @@ public class GenericNVGGogglesItem extends Item implements GeoItem, ICurioItem {
             blueValue = pBlue;
         }
 
+        public NVGConfig(float pBrightness, float pRed, float pGreen, float pBlue, String pOverlay) {
+            brightness = pBrightness;
+            redValue = pRed;
+            greenValue = pGreen;
+            blueValue = pBlue;
+            overlay = new ResourceLocation(ModernMayhemMod.ID, pOverlay);
+        }
+
         public float getBrightness() { return brightness; }
         public float getRedValue() { return redValue; }
         public float getGreenValue() { return greenValue; }
         public float getBlueValue() { return blueValue; }
+        public ResourceLocation getOverlay() { return overlay; }
     }
 
     @Override

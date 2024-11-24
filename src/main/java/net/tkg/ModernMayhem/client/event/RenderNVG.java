@@ -1,12 +1,18 @@
 package net.tkg.ModernMayhem.client.event;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.PostPass;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RenderGuiEvent;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.tkg.ModernMayhem.ModernMayhemMod;
@@ -25,6 +31,43 @@ public class RenderNVG {
     private static int lastWidth = -1;
     private static int lastHeight = -1;
     public static PostPass passe = null;
+
+    @SubscribeEvent(priority = EventPriority.NORMAL)
+    public static void renderNVGOverlay(RenderGuiEvent.Pre event) {
+        int screenWidth = event.getWindow().getGuiScaledWidth();
+        int screenHeight = event.getWindow().getGuiScaledHeight();
+        Player player = Minecraft.getInstance().player;
+
+        if (player != null) {
+            RenderSystem.disableDepthTest();
+            RenderSystem.depthMask(false);
+            RenderSystem.enableBlend();
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+            RenderSystem.setShaderColor(1, 1, 1, 1);
+            AtomicBoolean nvgOn = new AtomicBoolean(false);
+            AtomicReference<ResourceLocation> overlayLocation = new AtomicReference<>(null);
+            CuriosApi.getCuriosInventory(player).ifPresent(curiosInventory -> {
+                ICurioStacksHandler facewearCurio = curiosInventory.getCurios().get("facewear");
+                if (facewearCurio != null) {
+                    ItemStack nvgItem = (facewearCurio.getStacks().getStackInSlot(0));
+                    if (nvgItem.getItem() instanceof GenericNVGGogglesItem genericNVGGogglesItem) {
+                        nvgOn.set(GenericNVGGogglesItem.getNVGMode(nvgItem) == 1);
+                        overlayLocation.set(genericNVGGogglesItem.getConfig().getOverlay());
+                    }
+                }
+            });
+            if (nvgOn.get() && overlayLocation.get() != null) {
+                event.getGuiGraphics().blit(overlayLocation.get(), 0, 0, 0, 0, screenWidth, screenHeight, screenWidth, screenHeight);
+            }
+            RenderSystem.depthMask(true);
+            RenderSystem.defaultBlendFunc();
+            RenderSystem.enableDepthTest();
+            RenderSystem.disableBlend();
+            RenderSystem.setShaderColor(1, 1, 1, 1);
+        }
+    }
+
 
     @SubscribeEvent
     public static void renderNVGEffect(RenderLevelStageEvent event) {

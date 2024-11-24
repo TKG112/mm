@@ -20,7 +20,8 @@ public class BlackGPNVGItem extends GenericNVGGogglesItem {
                         0.5f,
                         0.7f,
                         1,
-                        1
+                        1,
+                        "textures/screens/overlay_nvg.png"
                         ),
                 new ResourceLocation(ModernMayhemMod.ID, "sounds/item/nvg_on"),
                 new ResourceLocation(ModernMayhemMod.ID, "sounds/item/nvg_off")
