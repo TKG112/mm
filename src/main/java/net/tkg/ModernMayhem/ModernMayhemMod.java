@@ -2,13 +2,10 @@ package net.tkg.ModernMayhem;
 
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.tkg.ModernMayhem.client.renderer.*;
 import net.tkg.ModernMayhem.registry.CreativeTabsRegistryMM;
 import net.tkg.ModernMayhem.registry.ItemRegistryMM;
@@ -47,6 +44,7 @@ public class ModernMayhemMod
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_NVG21.get(), BlackNVG21Renderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.TAN_NVG21.get(), TanNVG21Renderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.GREEN_NVG21.get(), GreenNVG21Renderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.ULTRA_GAMER_GPNVG.get(), UltraGamerGPNVGRenderer::new);
 
 
     }

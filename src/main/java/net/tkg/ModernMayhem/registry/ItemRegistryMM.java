@@ -13,6 +13,7 @@ public class ItemRegistryMM {
 
     public static final RegistryObject<Item> BLACK_GPNVG = REGISTRY.register("black_gpnvg", BlackGPNVGItem::new);
     public static final RegistryObject<Item> BLACK_NVG21 = REGISTRY.register("black_nvg21", BlackNVG21Item::new);
+    public static final RegistryObject<Item> ULTRA_GAMER_GPNVG = REGISTRY.register("ultra_gamer_gpnvg", UltraGamerGPNVGItem::new);
     public static final RegistryObject<Item> TAN_GPNVG = REGISTRY.register("tan_gpnvg", TanGPNVGItem::new);
     public static final RegistryObject<Item> TAN_NVG21 = REGISTRY.register("tan_nvg21", TanNVG21Item::new);
     public static final RegistryObject<Item> GREEN_NVG21 = REGISTRY.register("green_nvg21", GreenNVG21Item::new);

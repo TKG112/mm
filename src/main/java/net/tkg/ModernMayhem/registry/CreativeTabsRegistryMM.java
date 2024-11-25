@@ -20,6 +20,7 @@ public class CreativeTabsRegistryMM {
                     .icon(() -> new ItemStack(ItemRegistryMM.MENU_ITEM.get())).displayItems( ((pParameters, pOutput) -> {
                         pOutput.accept(ItemRegistryMM.BLACK_GPNVG.get());
                         pOutput.accept(ItemRegistryMM.TAN_GPNVG.get());
+                        pOutput.accept(ItemRegistryMM.ULTRA_GAMER_GPNVG.get());
                         pOutput.accept(ItemRegistryMM.BLACK_NVG21.get());
                         pOutput.accept(ItemRegistryMM.TAN_NVG21.get());
                         pOutput.accept(ItemRegistryMM.GREEN_NVG21.get());

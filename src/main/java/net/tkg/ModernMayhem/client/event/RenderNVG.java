@@ -1,12 +1,12 @@
 package net.tkg.ModernMayhem.client.event;
 
+import com.eliotlash.mclib.math.functions.limit.Min;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.PostPass;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -16,14 +16,13 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.tkg.ModernMayhem.ModernMayhemMod;
+import net.tkg.ModernMayhem.item.curios.facewear.UltraGamerGPNVGItem;
 import net.tkg.ModernMayhem.item.generic.GenericNVGGogglesItem;
 import net.tkg.ModernMayhem.mixinaccessor.PostChainAccess;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
+import net.tkg.ModernMayhem.util.CuriosUtil;
+import net.tkg.ModernMayhem.util.NVGConfigs;
 
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Mod.EventBusSubscriber(Dist.CLIENT)
 public class RenderNVG {
@@ -45,20 +44,13 @@ public class RenderNVG {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             RenderSystem.setShaderColor(1, 1, 1, 1);
-            AtomicBoolean nvgOn = new AtomicBoolean(false);
-            AtomicReference<ResourceLocation> overlayLocation = new AtomicReference<>(null);
-            CuriosApi.getCuriosInventory(player).ifPresent(curiosInventory -> {
-                ICurioStacksHandler facewearCurio = curiosInventory.getCurios().get("facewear");
-                if (facewearCurio != null) {
-                    ItemStack nvgItem = (facewearCurio.getStacks().getStackInSlot(0));
-                    if (nvgItem.getItem() instanceof GenericNVGGogglesItem genericNVGGogglesItem) {
-                        nvgOn.set(GenericNVGGogglesItem.getNVGMode(nvgItem) == 1);
-                        overlayLocation.set(genericNVGGogglesItem.getConfig().getOverlay());
+            if (CuriosUtil.hasNVGEquipped(player)) {
+                ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
+                if (facewearItem.getItem() instanceof GenericNVGGogglesItem) {
+                    if (GenericNVGGogglesItem.getNVGMode(facewearItem) == 1 && Minecraft.getInstance().options.getCameraType().isFirstPerson() && GenericNVGGogglesItem.getCurrentConfig(facewearItem).getOverlay() != null) {
+                        event.getGuiGraphics().blit(GenericNVGGogglesItem.getCurrentConfig(facewearItem).getOverlay(), 0, 0, 0, 0, screenWidth, screenHeight, screenWidth, screenHeight);
                     }
                 }
-            });
-            if (nvgOn.get() && overlayLocation.get() != null) {
-                event.getGuiGraphics().blit(overlayLocation.get(), 0, 0, 0, 0, screenWidth, screenHeight, screenWidth, screenHeight);
             }
             RenderSystem.depthMask(true);
             RenderSystem.defaultBlendFunc();
@@ -80,25 +72,22 @@ public class RenderNVG {
         if (player == null || mc.level == null) {
             return;
         }
-
-        AtomicBoolean hasNvgItem = new AtomicBoolean(false);
-        AtomicBoolean nvgOn = new AtomicBoolean(false);
-        AtomicReference<GenericNVGGogglesItem.NVGConfig> nvgItemConfig = new AtomicReference<>(null);
+        boolean hasNvgItem = false;
+        boolean nvgOn = false;
+        GenericNVGGogglesItem.NVGConfig nvgItemConfig = null;
+        ItemStack facewearItem = null;
         // Check if the player has an item inheriting from GenericNVGGooglesItem
         // and if it is turned on
-        CuriosApi.getCuriosInventory(player).ifPresent(curiosInventory -> {
-            ICurioStacksHandler facewearCurio = curiosInventory.getCurios().get("facewear");
-            if (facewearCurio != null) {
-                ItemStack nvgItem = (facewearCurio.getStacks().getStackInSlot(0));
-                if (nvgItem.getItem() instanceof GenericNVGGogglesItem genericNVGGogglesItem) {
-                    hasNvgItem.set(true);
-                    nvgOn.set(GenericNVGGogglesItem.getNVGMode(nvgItem) == 1);
-                    nvgItemConfig.set(genericNVGGogglesItem.getConfig());
-                }
+        if (CuriosUtil.hasNVGEquipped(player)) {
+             facewearItem = CuriosUtil.getFaceWearItem(player);
+            if (facewearItem.getItem() instanceof GenericNVGGogglesItem genericNVGGogglesItem) {
+                hasNvgItem = true;
+                nvgOn = GenericNVGGogglesItem.getNVGMode(CuriosUtil.getFaceWearItem(player)) == 1;
+                nvgItemConfig = GenericNVGGogglesItem.getCurrentConfig(facewearItem);
             }
-        });
+        }
 
-        float nightVisionEnabled = (hasNvgItem.get() && nvgOn.get()) ? 1.0f : 0.0f;
+        float nightVisionEnabled = (hasNvgItem && nvgOn) ? 1.0f : 0.0f;
         if (mc.gameRenderer.currentEffect() == null || !Objects.requireNonNull(mc.gameRenderer.currentEffect()).getName().equals(NVG_SHADER_PATH.toString())) {
             if (mc.options.getCameraType().isFirstPerson()) {
                 initializeShader(mc);
@@ -106,7 +95,7 @@ public class RenderNVG {
         }
 
         if (mc.gameRenderer.currentEffect() != null && Objects.requireNonNull(mc.gameRenderer.currentEffect()).getName().equals(NVG_SHADER_PATH.toString())) {
-            updateShaderUniforms(nightVisionEnabled, nvgItemConfig.get());
+            updateShaderUniforms(nightVisionEnabled, nvgItemConfig, (facewearItem != null && facewearItem.getItem() instanceof UltraGamerGPNVGItem));
         }
     }
 
@@ -122,7 +111,7 @@ public class RenderNVG {
         }
     }
 
-    private static void updateShaderUniforms(float nightVisionEnabled, GenericNVGGogglesItem.NVGConfig config) {
+    private static void updateShaderUniforms(float nightVisionEnabled, GenericNVGGogglesItem.NVGConfig config, boolean isUltraGamer) {
         Minecraft mc = Minecraft.getInstance();
         try {
             int width = mc.getWindow().getWidth();
@@ -135,11 +124,19 @@ public class RenderNVG {
             if (passe != null) {
                 if (passe.getEffect().getUniform("NightVisionEnabled") != null) {
                     if (nightVisionEnabled > 0.0f) {
-                        passe.getEffect().safeGetUniform("NightVisionEnabled").set(nightVisionEnabled);
-                        passe.getEffect().safeGetUniform("Brightness").set(config.getBrightness());
-                        passe.getEffect().safeGetUniform("RedValue").set(config.getRedValue());
-                        passe.getEffect().safeGetUniform("BlueValue").set(config.getBlueValue());
-                        passe.getEffect().safeGetUniform("GreenValue").set(config.getGreenValue());
+                        if (!isUltraGamer) {
+                            passe.getEffect().safeGetUniform("NightVisionEnabled").set(nightVisionEnabled);
+                            passe.getEffect().safeGetUniform("Brightness").set(config.getBrightness());
+                            passe.getEffect().safeGetUniform("RedValue").set(config.getRedValue());
+                            passe.getEffect().safeGetUniform("BlueValue").set(config.getBlueValue());
+                            passe.getEffect().safeGetUniform("GreenValue").set(config.getGreenValue());
+                        } else {
+                            passe.getEffect().safeGetUniform("NightVisionEnabled").set(nightVisionEnabled);
+                            passe.getEffect().safeGetUniform("Brightness").set(config.getBrightness());
+                            passe.getEffect().safeGetUniform("RedValue").set(NVGConfigs.getUltraGamerRedValue());
+                            passe.getEffect().safeGetUniform("BlueValue").set(NVGConfigs.getUltraGamerBlueValue());
+                            passe.getEffect().safeGetUniform("GreenValue").set(NVGConfigs.getUltraGamerGreenValue());
+                        }
                     } else {
                         passe.getEffect().safeGetUniform("NightVisionEnabled").set(nightVisionEnabled);
                         passe.getEffect().safeGetUniform("Brightness").set(1.0f);

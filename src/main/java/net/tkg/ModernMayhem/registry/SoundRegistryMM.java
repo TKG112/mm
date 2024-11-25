@@ -8,9 +8,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tkg.ModernMayhem.ModernMayhemMod;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class SoundRegistryMM {
 
     public static final DeferredRegister<SoundEvent> MOD_SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, ModernMayhemMod.ID);

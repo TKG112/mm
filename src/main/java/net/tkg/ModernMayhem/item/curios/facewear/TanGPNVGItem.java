@@ -7,25 +7,27 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.client.renderer.BlackGPNVGRenderer;
 import net.tkg.ModernMayhem.client.renderer.TanGPNVGRenderer;
 import net.tkg.ModernMayhem.item.generic.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.registry.SoundRegistryMM;
+import net.tkg.ModernMayhem.util.NVGConfigs;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Consumer;
 
 public class TanGPNVGItem extends GenericNVGGogglesItem {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
     public TanGPNVGItem() {
         super(
-                new NVGConfig(
-                        0.3f,
-                        0.7f,
-                        1,
-                        0.7f,
-                        "textures/screens/overlay_nvg.png"
-                        ),
-                new ResourceLocation(ModernMayhemMod.ID, "sounds/item/nvg_on"),
-                new ResourceLocation(ModernMayhemMod.ID, "sounds/item/nvg_off")
+                NVGConfigs.GREEN_PHOSPHOR_GPVNG,
+                3,
+                SoundRegistryMM.SOUND_NVG_ON,
+                SoundRegistryMM.SOUND_NVG_OFF
         );
     }
 
@@ -42,5 +44,10 @@ public class TanGPNVGItem extends GenericNVGGogglesItem {
                 return this.lRenderer;
             }
         });
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 }

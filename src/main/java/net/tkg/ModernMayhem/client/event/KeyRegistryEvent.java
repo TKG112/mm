@@ -1,14 +1,11 @@
 package net.tkg.ModernMayhem.client.event;
 
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.network.SwitchNVGStatusPacket;
 import net.tkg.ModernMayhem.registry.KeyMappingRegistryMM;
-import net.tkg.ModernMayhem.registry.PacketsRegistryMM;
 
 @Mod.EventBusSubscriber(modid = ModernMayhemMod.ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class KeyRegistryEvent {
