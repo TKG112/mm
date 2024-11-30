@@ -7,10 +7,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.tkg.ModernMayhem.client.renderer.*;
-import net.tkg.ModernMayhem.registry.CreativeTabsRegistryMM;
-import net.tkg.ModernMayhem.registry.ItemRegistryMM;
-import net.tkg.ModernMayhem.registry.PacketsRegistryMM;
-import net.tkg.ModernMayhem.registry.SoundRegistryMM;
+import net.tkg.ModernMayhem.registry.*;
 import org.slf4j.Logger;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
@@ -30,6 +27,7 @@ public class ModernMayhemMod
         PacketsRegistryMM.init();
         SoundRegistryMM.init(modEventBus);
         CreativeTabsRegistryMM.init(modEventBus);
+        GUIRegistryMM.init(modEventBus);
 
         modEventBus.addListener(this::clientSetup);
 
@@ -45,6 +43,8 @@ public class ModernMayhemMod
         CuriosRendererRegistry.register(ItemRegistryMM.TAN_NVG21.get(), TanNVG21Renderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.GREEN_NVG21.get(), GreenNVG21Renderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.ULTRA_GAMER_GPNVG.get(), UltraGamerGPNVGRenderer::new);
+
+        ScreenRegistryMM.register(event);
 
 
     }

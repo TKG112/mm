@@ -24,6 +24,7 @@ public class CreativeTabsRegistryMM {
                         pOutput.accept(ItemRegistryMM.BLACK_NVG21.get());
                         pOutput.accept(ItemRegistryMM.TAN_NVG21.get());
                         pOutput.accept(ItemRegistryMM.GREEN_NVG21.get());
+                        pOutput.accept(ItemRegistryMM.TEST_BACKPACK.get());
                     })).build()
             );
 

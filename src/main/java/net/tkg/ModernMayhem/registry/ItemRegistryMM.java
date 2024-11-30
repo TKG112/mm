@@ -6,6 +6,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tkg.ModernMayhem.ModernMayhemMod;
+import net.tkg.ModernMayhem.item.curios.back.TestBackpack;
 import net.tkg.ModernMayhem.item.curios.facewear.*;
 
 public class ItemRegistryMM {
@@ -18,6 +19,8 @@ public class ItemRegistryMM {
     public static final RegistryObject<Item> TAN_NVG21 = REGISTRY.register("tan_nvg21", TanNVG21Item::new);
     public static final RegistryObject<Item> GREEN_NVG21 = REGISTRY.register("green_nvg21", GreenNVG21Item::new);
     public static final RegistryObject<Item> MENU_ITEM = REGISTRY.register("menu_item", () -> new Item(new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> TEST_BACKPACK = REGISTRY.register("test_backpack", TestBackpack::new);
 
     public static void init(IEventBus modEventBus) {
         REGISTRY.register(modEventBus);

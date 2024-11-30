@@ -1,21 +1,16 @@
 package net.tkg.ModernMayhem.item.curios.facewear;
 
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.client.renderer.BlackGPNVGRenderer;
 import net.tkg.ModernMayhem.item.generic.GenericNVGGogglesItem;
 import net.tkg.ModernMayhem.registry.SoundRegistryMM;
 import net.tkg.ModernMayhem.util.NVGConfigs;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
@@ -45,6 +40,7 @@ public class BlackGPNVGItem extends GenericNVGGogglesItem {
                 this.lRenderer.prepForRender(livingEntity, itemStack, equipmentSlot, original);
                 return this.lRenderer;
             }
+
         });
     }
 

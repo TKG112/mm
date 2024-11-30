@@ -9,35 +9,35 @@ public class NVGConfigs {
                 0.7f,
                 1,
                 1,
-                "textures/screens/overlay_nvg.png"
+                "textures/screens/gpnvg_overlay.png"
         ),
         new GenericNVGGogglesItem.NVGConfig(
                 0.4f,
                 0.7f,
                 1,
                 1,
-                "textures/screens/overlay_nvg.png"
+                "textures/screens/gpnvg_overlay.png"
         ),
         new GenericNVGGogglesItem.NVGConfig(
                 0.5f,
                 0.7f,
                 1,
                 1,
-                "textures/screens/overlay_nvg.png"
+                "textures/screens/gpnvg_overlay.png"
         ),
         new GenericNVGGogglesItem.NVGConfig(
                 0.6f,
                 0.7f,
                 1,
                 1,
-                "textures/screens/overlay_nvg.png"
+                "textures/screens/gpnvg_overlay.png"
         ),
         new GenericNVGGogglesItem.NVGConfig(
                 0.7f,
                 0.7f,
                 1,
                 1,
-                "textures/screens/overlay_nvg.png"
+                "textures/screens/gpnvg_overlay.png"
         )
     };
 
@@ -47,35 +47,35 @@ public class NVGConfigs {
                 0.7f,
                 1,
                 0.7f,
-                "textures/screens/overlay_nvg.png"
+                "textures/screens/gpnvg_overlay.png"
         ),
         new GenericNVGGogglesItem.NVGConfig(
                 0.2f,
                 0.7f,
                 1,
                 0.7f,
-                "textures/screens/overlay_nvg.png"
+                "textures/screens/gpnvg_overlay.png"
         ),
         new GenericNVGGogglesItem.NVGConfig(
                 0.3f,
                 0.7f,
                 1,
                 0.7f,
-                "textures/screens/overlay_nvg.png"
+                "textures/screens/gpnvg_overlay.png"
         ),
         new GenericNVGGogglesItem.NVGConfig(
                 0.4f,
                 0.7f,
                 1,
                 0.7f,
-                "textures/screens/overlay_nvg.png"
+                "textures/screens/gpnvg_overlay.png"
         ),
         new GenericNVGGogglesItem.NVGConfig(
                 0.5f,
                 0.7f,
                 1,
                 0.7f,
-                "textures/screens/overlay_nvg.png"
+                "textures/screens/gpnvg_overlay.png"
         )
     };
 
@@ -84,19 +84,22 @@ public class NVGConfigs {
                 0.3f,
                 0.7f,
                 1,
-                1
+                1,
+                "textures/screens/nvg21_overlay.png"
         ),
         new GenericNVGGogglesItem.NVGConfig(
                 0.5f,
                 0.7f,
                 1,
-                1
+                1,
+                "textures/screens/nvg21_overlay.png"
         ),
         new GenericNVGGogglesItem.NVGConfig(
                 0.7f,
                 0.7f,
                 1,
-                1
+                1,
+                "textures/screens/nvg21_overlay.png"
         )
     };
 
@@ -106,19 +109,22 @@ public class NVGConfigs {
                 0.1f,
                 0.7f,
                 1,
-                0.7f
+                0.7f,
+                "textures/screens/nvg21_overlay.png"
         ),
         new GenericNVGGogglesItem.NVGConfig(
                 0.3f,
                 0.7f,
                 1,
-                0.7f
+                0.7f,
+                "textures/screens/nvg21_overlay.png"
         ),
         new GenericNVGGogglesItem.NVGConfig(
                 0.5f,
                 0.7f,
                 1,
-                0.7f
+                0.7f,
+                "textures/screens/nvg21_overlay.png"
         )
     };
 

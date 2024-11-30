@@ -2,7 +2,6 @@ package net.tkg.ModernMayhem.client.models;
 
 import net.minecraft.resources.ResourceLocation;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.item.curios.facewear.TanGPNVGItem;
 import net.tkg.ModernMayhem.item.curios.facewear.UltraGamerGPNVGItem;
 import software.bernie.geckolib.model.GeoModel;
 
