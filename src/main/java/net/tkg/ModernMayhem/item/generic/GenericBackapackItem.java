@@ -1,28 +1,32 @@
 package net.tkg.ModernMayhem.item.generic;
 
-import net.minecraft.ChatFormatting;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.tkg.ModernMayhem.item.type.InventoryCapableItem;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import net.tkg.ModernMayhem.capability.item.BackpackInventoryCapability;
+import net.tkg.ModernMayhem.util.IBackpackItem;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-import java.util.List;
-
-public abstract class GenericBackapackItem extends Item implements ICurioItem, InventoryCapableItem {
+public abstract class GenericBackapackItem extends Item implements ICurioItem, IBackpackItem {
     private final int inventorySize;
     private final int inventoryLines;
     private final int inventoryColumns;
@@ -35,71 +39,75 @@ public abstract class GenericBackapackItem extends Item implements ICurioItem, I
     }
 
     @Override
-    public int GetInventorySize() {
-        return this.inventorySize;
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, @NotNull Player pPlayer, @NotNull InteractionHand pUsedHand) {
+        ItemStack stack = pPlayer.getItemInHand(pUsedHand);
+        CompoundTag tag = stack.getOrCreateTag();
+        if (!tag.contains("inventory")) {
+            ItemStackHandler inventory = new ItemStackHandler(inventorySize);
+            inventory.insertItem(0, new ItemStack(Items.GRAVEL), false);
+            tag.put("inventory", inventory.serializeNBT());
+        }
+        if (pPlayer instanceof ServerPlayer && pUsedHand == InteractionHand.MAIN_HAND) {
+            OpenGUI(pPlayer, stack, pPlayer.getMainHandItem());
+        }
+        return super.use(pLevel, pPlayer, pUsedHand);
     }
 
-    public static int add(ItemStack pInventoryCapableItemStack, ItemStack pInsertedStack) {
-        if (!pInsertedStack.isEmpty() && pInsertedStack.getItem().canFitInsideContainerItems()) {
-            CompoundTag compoundtag = pInventoryCapableItemStack.getOrCreateTag();
-            if (!compoundtag.contains("Items")) {
-                compoundtag.put("Items", new ListTag());
+    @Override
+    public boolean overrideStackedOnOther(ItemStack pStack, Slot pSlot, ClickAction pAction, Player pPlayer) {
+        ItemStack slotStack = pSlot.getItem();
+        // Check if the item has an inventory tag if not create one
+        CompoundTag tag = InitInventory(pStack);
+
+        if (pAction == ClickAction.SECONDARY) {
+            ItemStackHandler inventory = new ItemStackHandler(inventorySize);
+            inventory.deserializeNBT(tag.getCompound("inventory"));
+            if (slotStack.isEmpty()) {
+                // If the slot is empty, we can insert the stack
+                for (int i = inventory.getSlots() - 1; i >= 0; i--) {
+                    ItemStack stack = inventory.getStackInSlot(i);
+                    if (!stack.isEmpty()) {
+                        pSlot.set(inventory.extractItem(i, stack.getCount(), false));
+                        tag.put("inventory", inventory.serializeNBT());
+                        return true;
+                    }
+                }
+            } else {
+                // If the slot is not empty, we add the stack to the inventory
+                for (int i = 0; i < inventory.getSlots(); i++) {
+                    ItemStack stack = inventory.getStackInSlot(i);
+                    // If the stack is the same as the slotStack, we can merge the stacks
+                    if (ItemStack.isSameItemSameTags(slotStack, inventory.getStackInSlot(i))) {
+                        ItemStack remaining = inventory.insertItem(i, slotStack, false);
+                        pSlot.set(remaining);
+                        tag.put("inventory", inventory.serializeNBT());
+                        return true;
+                    }
+                    // If the stack is empty, we can insert the slotStack
+                    if (stack.isEmpty()) {
+                        inventory.insertItem(i, slotStack, false);
+                        pSlot.set(ItemStack.EMPTY);
+                        tag.put("inventory", inventory.serializeNBT());
+                        return true;
+                    }
+                }
             }
-            ListTag listtag = compoundtag.getList("Items", 10);
-            ItemStack itemstack1 = pInsertedStack.copy();
-            CompoundTag compoundtag2 = new CompoundTag();
-            itemstack1.save(compoundtag2);
-            listtag.add(0, (Tag)compoundtag2);
-
-            return 1;
         }
-        return 0;
+        return super.overrideStackedOnOther(pStack, pSlot, pAction, pPlayer);
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, Player pPlayer, @NotNull InteractionHand pUsedHand) {
-        ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
-        if (pPlayer.isShiftKeyDown() && pPlayer instanceof ServerPlayer serverPlayer) {
-            openGUI(serverPlayer, pPlayer.getInventory());
+    public boolean overrideOtherStackedOnMe(ItemStack pStack, ItemStack pOther, Slot pSlot, ClickAction pAction, Player pPlayer, SlotAccess pAccess) {
+        return super.overrideOtherStackedOnMe(pStack, pOther, pSlot, pAction, pPlayer, pAccess);
+    }
+
+    private static CompoundTag InitInventory(ItemStack pStack) {
+        CompoundTag tag = pStack.getOrCreateTag();
+        if (!tag.contains("inventory")) {
+            ItemStackHandler inventory = new ItemStackHandler(9);
+            inventory.insertItem(0, new ItemStack(Items.GRAVEL), false);
+            tag.put("inventory", inventory.serializeNBT());
         }
-        else if (dropContents(itemstack, pPlayer)) {
-            return InteractionResultHolder.sidedSuccess(itemstack, pLevel.isClientSide());
-        } else {
-            return InteractionResultHolder.fail(itemstack);
-        }
-        return InteractionResultHolder.success(pPlayer.getItemInHand(pUsedHand));
-    }
-
-    @Override
-    public boolean overrideStackedOnOther(ItemStack pStack, @NotNull Slot pSlot, @NotNull ClickAction pAction, @NotNull Player pPlayer) {
-        if (pStack.getCount() != 1 || pAction != ClickAction.SECONDARY) {
-            return false;
-        } else {
-            ItemStack itemstack = pSlot.getItem();
-            if (itemstack.isEmpty()) {
-                InventoryCapableItem.removeOne(pStack).ifPresent((p_150740_) -> {
-                    add(pStack, pSlot.safeInsert(p_150740_));
-                });
-            } else if (itemstack.getItem().canFitInsideContainerItems()) {
-                int j = add(pStack, pSlot.safeTake(itemstack.getCount(), 1, pPlayer));
-            }
-
-            return true;
-        }
-    }
-
-    @Override
-    public void appendHoverText(ItemStack pStack, Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        pTooltipComponents.add(Component.translatable("item.minecraft.bundle.fullness", null, 64).withStyle(ChatFormatting.GRAY));
-    }
-
-    @Override
-    public boolean canFitInsideContainerItems() {
-        return false;
-    }
-
-    @Override
-    public boolean isBarVisible(ItemStack pStack) {
-        return ShowCapacityBarVisible() && pStack.hasTag() && pStack.getTag().contains("Items");
+        return tag;
     }
 }

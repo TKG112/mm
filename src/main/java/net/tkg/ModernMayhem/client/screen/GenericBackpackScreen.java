@@ -1,13 +1,8 @@
 package net.tkg.ModernMayhem.client.screen;
 
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
-import net.tkg.ModernMayhem.GUI.GenericBackpackGUI;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import org.jetbrains.annotations.NotNull;
 
 public interface GenericBackpackScreen {
 
