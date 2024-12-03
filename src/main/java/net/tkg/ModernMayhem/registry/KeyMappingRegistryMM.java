@@ -2,8 +2,13 @@ package net.tkg.ModernMayhem.registry;
 
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.tkg.ModernMayhem.item.curios.back.*;
+import net.tkg.ModernMayhem.item.generic.GenericBackpackItem;
 import net.tkg.ModernMayhem.network.NVGTubeGainDownPacket;
 import net.tkg.ModernMayhem.network.NVGTubeGainUpPacket;
+import net.tkg.ModernMayhem.network.OpenBackpackFromControlPacket;
 import net.tkg.ModernMayhem.network.SwitchNVGStatusPacket;
 import net.tkg.ModernMayhem.util.CuriosUtil;
 import org.lwjgl.glfw.GLFW;
@@ -59,7 +64,22 @@ public class KeyMappingRegistryMM {
 
     };
 
-    public static final KeyMapping OPEN_BACKPACK_KEY = new KeyMapping("key.mm.open_backpack", GLFW.GLFW_KEY_B, CATEGORY);
+    public static final KeyMapping OPEN_BACKPACK_KEY = new KeyMapping("key.mm.open_backpack", GLFW.GLFW_KEY_B, CATEGORY) {
+        private boolean isDownOld = false;
+
+        @Override
+        public void setDown(boolean isDown) {
+            super.setDown(isDown);
+            if (isDownOld != isDown && isDown) {
+                Player player = Minecraft.getInstance().player;
+                if (CuriosUtil.hasBackpackEquipped(player)) {
+                    PacketsRegistryMM.getChannel().sendToServer(new OpenBackpackFromControlPacket());
+                }
+            }
+            isDownOld = isDown;
+        }
+
+    };
 
     public static final KeyMapping OPEN_RIG_KEY = new KeyMapping("key.mm.open_rig", GLFW.GLFW_KEY_0, CATEGORY);
 }

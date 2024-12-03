@@ -6,7 +6,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.tkg.ModernMayhem.item.generic.GenericBackapackItem;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -17,10 +16,10 @@ public abstract class AbstractContainerMenuUtil extends AbstractContainerMenu im
         super(pMenuType, pContainerId);
     }
 
-    public void createPlayerInventory(Inventory playerInventory, int lockedSlotID) {
+    public void createPlayerInventory(Inventory playerInventory, int lockedSlotID, boolean applyLock) {
         for (int row = 0; row < 3; ++row) {
             for (int column = 0; column < 9; ++column) {
-                addSlot(new Slot(playerInventory, 9 + column + row * 9, 8 + column * 18, 84 + row * 18) {
+                if (applyLock) addSlot(new Slot(playerInventory, 9 + column + row * 9, 8 + column * 18, 84 + row * 18) {
                     @Override
                     public boolean mayPickup(@NotNull Player pPlayer) {
                         if (this.getContainerSlot() == lockedSlotID) {
@@ -37,13 +36,14 @@ public abstract class AbstractContainerMenuUtil extends AbstractContainerMenu im
                         return super.mayPlace(pStack);
                     }
                 });
+                else addSlot(new Slot(playerInventory, 9 + column + row * 9, 8 + column * 18, 84 + row * 18));
             }
         }
     }
 
-    public void createPlayerHotbar(Inventory playerInventory, int lockedSlotID) {
+    public void createPlayerHotbar(Inventory playerInventory, int lockedSlotID, boolean applyLock) {
         for (int column = 0; column < 9; ++column) {
-            addSlot(new Slot(playerInventory, column, 8 + column * 18, 142) {
+            if (applyLock) addSlot(new Slot(playerInventory, column, 8 + column * 18, 142) {
                 @Override
                 public boolean mayPickup(@NotNull Player pPlayer) {
                     if (this.getContainerSlot() == lockedSlotID) {
@@ -60,6 +60,7 @@ public abstract class AbstractContainerMenuUtil extends AbstractContainerMenu im
                     return super.mayPlace(pStack);
                 }
             });
+            else addSlot(new Slot(playerInventory, column, 8 + column * 18, 142));
         }
     }
 

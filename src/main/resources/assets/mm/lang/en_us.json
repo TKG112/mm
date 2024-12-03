@@ -1,10 +1,16 @@
 {
   "item.mm.black_gpnvg" :  "Black GPNVG",
   "item.mm.tan_gpnvg" :  "Tan GPNVG",
-    "item.mm.ultra_gamer_gpnvg" :  "Ultra Gamer GPNVG",
+  "item.mm.ultra_gamer_gpnvg" :  "Ultra Gamer GPNVG",
   "item.mm.black_nvg21" :  "Black NVG21",
   "item.mm.green_nvg21" :  "Green NVG21",
   "item.mm.tan_nvg21" :  "Tan NVG21",
+  "item.mm.black_backpack_t1" : "Small Black Backpack",
+  "item.mm.black_backpack_t2" : "Medium Black Backpack",
+  "item.mm.black_backpack_t3" : "Large Black Backpack",
+  "item.mm.tan_backpack_t1" : "Small Tan Backpack",
+  "item.mm.tan_backpack_t2" : "Medium Tan Backpack",
+  "item.mm.tan_backpack_t3" : "Large Tan Backpack",
 
 
   "item_group.mm.gms" : "Modern Mayhem",

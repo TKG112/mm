@@ -6,7 +6,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.item.curios.back.TestBackpack;
+import net.tkg.ModernMayhem.item.curios.back.*;
 import net.tkg.ModernMayhem.item.curios.facewear.*;
 
 public class ItemRegistryMM {
@@ -21,6 +21,13 @@ public class ItemRegistryMM {
     public static final RegistryObject<Item> MENU_ITEM = REGISTRY.register("menu_item", () -> new Item(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> TEST_BACKPACK = REGISTRY.register("test_backpack", TestBackpack::new);
+    public static final RegistryObject<Item> BLACK_BACKPACK_T1 = REGISTRY.register("black_backpack_t1", BlackBackpackT1Item::new);
+    public static final RegistryObject<Item> BLACK_BACKPACK_T2 = REGISTRY.register("black_backpack_t2", BlackBackpackT2Item::new);
+    public static final RegistryObject<Item> BLACK_BACKPACK_T3 = REGISTRY.register("black_backpack_t3", BlackBackpackT3Item::new);
+    public static final RegistryObject<Item> TAN_BACKPACK_T1 = REGISTRY.register("tan_backpack_t1", TanBackpackT1Item::new);
+    public static final RegistryObject<Item> TAN_BACKPACK_T2 = REGISTRY.register("tan_backpack_t2", TanBackpackT2Item::new);
+    public static final RegistryObject<Item> TAN_BACKPACK_T3 = REGISTRY.register("tan_backpack_t3", TanBackpackT3Item::new);
+
 
     public static void init(IEventBus modEventBus) {
         REGISTRY.register(modEventBus);

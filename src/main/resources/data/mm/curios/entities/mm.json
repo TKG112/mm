@@ -1,4 +1,4 @@
 {
   "entities": ["player", "minecraft:zombie", "minecraft:skeleton"],
-  "slots": ["facewear", "earwear"]
+  "slots": ["facewear", "earwear", "back", "body"]
 }

@@ -9,6 +9,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.network.NVGTubeGainDownPacket;
 import net.tkg.ModernMayhem.network.NVGTubeGainUpPacket;
+import net.tkg.ModernMayhem.network.OpenBackpackFromControlPacket;
 import net.tkg.ModernMayhem.network.SwitchNVGStatusPacket;
 import net.tkg.ModernMayhem.util.PacketBase;
 
@@ -25,7 +26,8 @@ public enum PacketsRegistryMM {
     // Client to Server
     SWITCH_NVG_STATUS(SwitchNVGStatusPacket.class, SwitchNVGStatusPacket::new, PLAY_TO_SERVER),
     NVG_TUBE_GAIN_UP(NVGTubeGainUpPacket.class, NVGTubeGainUpPacket::new, PLAY_TO_SERVER),
-    NVG_TUBE_GAIN_DOWN(NVGTubeGainDownPacket.class, NVGTubeGainDownPacket::new, PLAY_TO_SERVER);
+    NVG_TUBE_GAIN_DOWN(NVGTubeGainDownPacket.class, NVGTubeGainDownPacket::new, PLAY_TO_SERVER),
+    OPEN_BACKPACK_FROM_CONTROL(OpenBackpackFromControlPacket.class, OpenBackpackFromControlPacket::new, PLAY_TO_SERVER),;
 
 
     // Server to Client

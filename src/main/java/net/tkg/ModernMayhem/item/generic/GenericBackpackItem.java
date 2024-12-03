@@ -1,6 +1,5 @@
 package net.tkg.ModernMayhem.item.generic;
 
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -13,25 +12,17 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import net.tkg.ModernMayhem.capability.item.BackpackInventoryCapability;
 import net.tkg.ModernMayhem.util.IBackpackItem;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-public abstract class GenericBackapackItem extends Item implements ICurioItem, IBackpackItem {
+public abstract class GenericBackpackItem extends Item implements ICurioItem, IBackpackItem {
     private final int inventorySize;
     private final int inventoryLines;
     private final int inventoryColumns;
 
-    public GenericBackapackItem(int pInventoryLines, int pInventoryColumns) {
+    public GenericBackpackItem(int pInventoryLines, int pInventoryColumns) {
         super(new Properties().stacksTo(1));
         this.inventorySize = pInventoryLines * pInventoryColumns;
         this.inventoryLines = pInventoryLines;
@@ -41,14 +32,9 @@ public abstract class GenericBackapackItem extends Item implements ICurioItem, I
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, @NotNull Player pPlayer, @NotNull InteractionHand pUsedHand) {
         ItemStack stack = pPlayer.getItemInHand(pUsedHand);
-        CompoundTag tag = stack.getOrCreateTag();
-        if (!tag.contains("inventory")) {
-            ItemStackHandler inventory = new ItemStackHandler(inventorySize);
-            inventory.insertItem(0, new ItemStack(Items.GRAVEL), false);
-            tag.put("inventory", inventory.serializeNBT());
-        }
+        InitInventory(stack, this.inventorySize);
         if (pPlayer instanceof ServerPlayer && pUsedHand == InteractionHand.MAIN_HAND) {
-            OpenGUI(pPlayer, stack, pPlayer.getMainHandItem());
+            OpenGUIFromPlayerInventory(pPlayer, stack);
         }
         return super.use(pLevel, pPlayer, pUsedHand);
     }
@@ -57,7 +43,7 @@ public abstract class GenericBackapackItem extends Item implements ICurioItem, I
     public boolean overrideStackedOnOther(ItemStack pStack, Slot pSlot, ClickAction pAction, Player pPlayer) {
         ItemStack slotStack = pSlot.getItem();
         // Check if the item has an inventory tag if not create one
-        CompoundTag tag = InitInventory(pStack);
+        CompoundTag tag = InitInventory(pStack, this.inventorySize);
 
         if (pAction == ClickAction.SECONDARY) {
             ItemStackHandler inventory = new ItemStackHandler(inventorySize);
@@ -81,7 +67,7 @@ public abstract class GenericBackapackItem extends Item implements ICurioItem, I
                         ItemStack remaining = inventory.insertItem(i, slotStack, false);
                         pSlot.set(remaining);
                         tag.put("inventory", inventory.serializeNBT());
-                        return true;
+                        if (remaining.getCount() <= 0) return true;
                     }
                     // If the stack is empty, we can insert the slotStack
                     if (stack.isEmpty()) {
@@ -101,12 +87,10 @@ public abstract class GenericBackapackItem extends Item implements ICurioItem, I
         return super.overrideOtherStackedOnMe(pStack, pOther, pSlot, pAction, pPlayer, pAccess);
     }
 
-    private static CompoundTag InitInventory(ItemStack pStack) {
+    protected static CompoundTag InitInventory(ItemStack pStack, int pInventorySize) {
         CompoundTag tag = pStack.getOrCreateTag();
         if (!tag.contains("inventory")) {
-            ItemStackHandler inventory = new ItemStackHandler(9);
-            inventory.insertItem(0, new ItemStack(Items.GRAVEL), false);
-            tag.put("inventory", inventory.serializeNBT());
+            tag.put("inventory", new ItemStackHandler(pInventorySize).serializeNBT());
         }
         return tag;
     }
