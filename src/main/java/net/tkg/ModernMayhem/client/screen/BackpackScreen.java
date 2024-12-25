@@ -4,17 +4,19 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.tkg.ModernMayhem.GUI.BackpackT3GUIMenu;
+import net.tkg.ModernMayhem.GUI.GenericBackpackGUI;
 import org.jetbrains.annotations.NotNull;
 
-public class BackpackT3Screen extends AbstractContainerScreen<BackpackT3GUIMenu> implements GenericBackpackScreen{
-    public BackpackT3Screen(BackpackT3GUIMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
+public class BackpackScreen extends AbstractContainerScreen<GenericBackpackGUI> implements GenericBackpackScreen{
+    public BackpackScreen(GenericBackpackGUI pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
 
 
         this.imageWidth = 176;
         this.imageHeight = 166;
     }
+
+
 
     @Override
     protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {

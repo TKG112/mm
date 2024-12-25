@@ -1,24 +1,15 @@
-package net.tkg.ModernMayhem.item.curios.back;
+package net.tkg.ModernMayhem.item.curios.body;
 
-import io.netty.buffer.Unpooled;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.tkg.ModernMayhem.GUI.GenericBackpackGUI;
-import net.tkg.ModernMayhem.client.renderer.TanBackpackT1Renderer;
-import net.tkg.ModernMayhem.item.generic.GenericBackpackItem;
-import net.tkg.ModernMayhem.util.CuriosUtil;
+import net.tkg.ModernMayhem.client.renderer.BlackPlateCarrierRenderer;
+import net.tkg.ModernMayhem.client.renderer.TanBandoleerRenderer;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -26,17 +17,15 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import software.bernie.geckolib.util.GeckoLibUtil;
-import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
-import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 import java.util.function.Consumer;
 
-public class TanBackpackT1Item extends GenericBackpackItem implements GeoItem, ICurioItem {
+public class BlackPlateCarrierItem extends Item implements GeoItem, ICurioItem {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    public TanBackpackT1Item() {
-        super((byte) 3, (byte) 3, (byte) 0);
+    public BlackPlateCarrierItem() {
+        super(new Properties().stacksTo(1).rarity(Rarity.COMMON));
     }
 
     @Override
@@ -47,7 +36,7 @@ public class TanBackpackT1Item extends GenericBackpackItem implements GeoItem, I
             @Override
             public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
                 if (this.lRenderer == null)
-                    this.lRenderer = new TanBackpackT1Renderer();
+                    this.lRenderer = new BlackPlateCarrierRenderer();
                 this.lRenderer.prepForRender(livingEntity, itemStack, equipmentSlot, original);
                 return this.lRenderer;
             }

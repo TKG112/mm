@@ -25,8 +25,18 @@ public class TanNVG21Renderer extends GeoArmorRenderer<TanNVG21Item> implements 
 	}
 
 	@Override
-	public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack matrixStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing,
-			float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public <T extends LivingEntity, M extends EntityModel<T>> void render(
+			ItemStack stack,
+			SlotContext slotContext,
+			PoseStack matrixStack,
+			RenderLayerParent<T, M> renderLayerParent,
+			MultiBufferSource renderTypeBuffer,int light,float limbSwing,
+			float limbSwingAmount,
+			float partialTicks,
+			float ageInTicks,
+			float netHeadYaw,
+			float headPitch
+	) {
 		this.prepForRender(slotContext.entity(), stack, EquipmentSlot.HEAD, (HumanoidModel<?>) renderLayerParent.getModel());
 		VertexConsumer consumer = renderTypeBuffer.getBuffer(RenderType.armorCutoutNoCull(this.getTextureLocation((TanNVG21Item) stack.getItem())));
 		this.renderToBuffer(matrixStack, consumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);

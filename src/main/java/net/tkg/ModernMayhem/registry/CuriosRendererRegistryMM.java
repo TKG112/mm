@@ -25,5 +25,12 @@ public class CuriosRendererRegistryMM {
         CuriosRendererRegistry.register(ItemRegistryMM.TAN_BACKPACK_T2.get(), TanBackpackT2Renderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.TAN_BACKPACK_T3.get(), TanBackpackT3Renderer::new);
 
+        // Body Gear
+        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_PLATE_CARRIER.get(), BlackPlateCarrierRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_PLATE_CARRIER_AMMO.get(), BlackPlateCarrierAmmoRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_PLATE_CARRIER_POUCHES.get(), BlackPlateCarrierPouchesRenderer::new);
+
+        CuriosRendererRegistry.register(ItemRegistryMM.TAN_BANDOLEER.get(), TanBandoleerRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.GREEN_RECON.get(), GreenReconRigRenderer::new);
     }
 }

@@ -24,13 +24,18 @@ public class CreativeTabsRegistryMM {
                         pOutput.accept(ItemRegistryMM.BLACK_NVG21.get());
                         pOutput.accept(ItemRegistryMM.TAN_NVG21.get());
                         pOutput.accept(ItemRegistryMM.GREEN_NVG21.get());
-                        pOutput.accept(ItemRegistryMM.TEST_BACKPACK.get());
                         pOutput.accept(ItemRegistryMM.BLACK_BACKPACK_T1.get());
                         pOutput.accept(ItemRegistryMM.BLACK_BACKPACK_T2.get());
                         pOutput.accept(ItemRegistryMM.BLACK_BACKPACK_T3.get());
                         pOutput.accept(ItemRegistryMM.TAN_BACKPACK_T1.get());
                         pOutput.accept(ItemRegistryMM.TAN_BACKPACK_T2.get());
                         pOutput.accept(ItemRegistryMM.TAN_BACKPACK_T3.get());
+                        pOutput.accept(ItemRegistryMM.BLACK_PLATE_CARRIER.get());
+                        pOutput.accept(ItemRegistryMM.BLACK_PLATE_CARRIER_AMMO.get());
+                        pOutput.accept(ItemRegistryMM.BLACK_PLATE_CARRIER_POUCHES.get());
+                        pOutput.accept(ItemRegistryMM.TAN_BANDOLEER.get());
+                        pOutput.accept(ItemRegistryMM.GREEN_RECON.get());
+
                     })).build()
             );
 

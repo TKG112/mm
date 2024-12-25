@@ -1,34 +1,44 @@
 package net.tkg.ModernMayhem.item.generic;
 
+import io.netty.buffer.Unpooled;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemStackHandler;
-import net.tkg.ModernMayhem.util.IBackpackItem;
+import net.minecraftforge.network.NetworkHooks;
+import net.tkg.ModernMayhem.GUI.GenericBackpackGUI;
+import net.tkg.ModernMayhem.util.CuriosUtil;
 import org.jetbrains.annotations.NotNull;
+import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
-public abstract class GenericBackpackItem extends Item implements ICurioItem, IBackpackItem {
+public class GenericBackpackItem extends Item implements ICurioItem {
     private final int inventorySize;
-    private final int inventoryLines;
-    private final int inventoryColumns;
+    private final byte inventoryLines;
+    private final byte inventoryColumns;
+    private final byte curiosSlotType;
 
-    public GenericBackpackItem(int pInventoryLines, int pInventoryColumns) {
+    public GenericBackpackItem(byte pInventoryLines, byte pInventoryColumns, byte pCuriosSlotType) {
         super(new Properties().stacksTo(1));
         this.inventorySize = pInventoryLines * pInventoryColumns;
         this.inventoryLines = pInventoryLines;
         this.inventoryColumns = pInventoryColumns;
+        this.curiosSlotType = pCuriosSlotType;
     }
 
+
+    // This method is called when the player right clicks the item in game
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, @NotNull Player pPlayer, @NotNull InteractionHand pUsedHand) {
         ItemStack stack = pPlayer.getItemInHand(pUsedHand);
@@ -39,6 +49,7 @@ public abstract class GenericBackpackItem extends Item implements ICurioItem, IB
         return super.use(pLevel, pPlayer, pUsedHand);
     }
 
+    // This method is called when the player click on an item with the backpack on the mouse in the inventory
     @Override
     public boolean overrideStackedOnOther(ItemStack pStack, Slot pSlot, ClickAction pAction, Player pPlayer) {
         ItemStack slotStack = pSlot.getItem();
@@ -82,6 +93,7 @@ public abstract class GenericBackpackItem extends Item implements ICurioItem, IB
         return super.overrideStackedOnOther(pStack, pSlot, pAction, pPlayer);
     }
 
+    // This method is called when the player click on the backpack with an item on the mouse in the inventory
     @Override
     public boolean overrideOtherStackedOnMe(ItemStack pStack, ItemStack pOther, Slot pSlot, ClickAction pAction, Player pPlayer, SlotAccess pAccess) {
         return super.overrideOtherStackedOnMe(pStack, pOther, pSlot, pAction, pPlayer, pAccess);
@@ -93,5 +105,69 @@ public abstract class GenericBackpackItem extends Item implements ICurioItem, IB
             tag.put("inventory", new ItemStackHandler(pInventorySize).serializeNBT());
         }
         return tag;
+    }
+
+    // Used to open the GUI from the player inventory
+    public void OpenGUIFromPlayerInventory(Player pPlayer, ItemStack pStack) {
+        ServerPlayer player = (ServerPlayer) pPlayer;
+        FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
+        CompoundTag tag = pStack.getOrCreateTag();
+        if (tag.contains("inventory")) {
+            data.writeByte(this.inventoryLines);
+            data.writeByte(this.inventoryColumns);
+            data.writeNbt(tag.getCompound("inventory"));
+            data.writeBoolean(false);
+            data.writeItemStack(pStack, false);
+        }
+        NetworkHooks.openScreen(player, new SimpleMenuProvider(((pContainerId, pPlayerInventory, pPlayer1) -> new GenericBackpackGUI(pContainerId, pPlayerInventory, data)), pStack.getDisplayName()), friendlyByteBuf -> {
+            friendlyByteBuf.writeByte(inventoryLines);
+            friendlyByteBuf.writeByte(inventoryColumns);
+            friendlyByteBuf.writeNbt(tag.getCompound("inventory"));
+            friendlyByteBuf.writeBoolean(false);
+            friendlyByteBuf.writeItemStack(pStack, false);
+        });
+    }
+
+    // Used to open the GUI from the curios inventory in the given type of slot
+    public void OpenGUIFromCuriosInventory(Player pPlayer, ItemStack pStack) {
+        ServerPlayer player = (ServerPlayer) pPlayer;
+        FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
+        CompoundTag tag = pStack.getOrCreateTag();
+        boolean resetStackInInv = !tag.contains("inventory");
+        String curiosSlotTypeIdentifer = switch (this.curiosSlotType) {
+            case 0 -> "back";
+            case 1 -> "body";
+            default -> "";
+        };
+        int backpackSlotID = switch (this.curiosSlotType) {
+            case 0 -> CuriosUtil.getBackpackSlotID(pPlayer);
+            case 1 -> CuriosUtil.getRigSlotID(pPlayer);
+            default -> -1;
+        };
+        InitInventory(pStack, inventorySize);
+        ICuriosItemHandler playerCuriosInventory = CuriosApi.getCuriosInventory(pPlayer).resolve().get();
+        if (resetStackInInv) {
+            playerCuriosInventory.getStacksHandler(curiosSlotTypeIdentifer).ifPresent(iCurioStacksHandler -> {
+                iCurioStacksHandler.getStacks().setStackInSlot(backpackSlotID, pStack);
+            });
+            playerCuriosInventory = CuriosApi.getCuriosInventory(pPlayer).resolve().get();
+        }
+        data.writeByte(this.inventoryLines);
+        data.writeByte(this.inventoryColumns);
+        data.writeNbt(tag.getCompound("inventory"));
+        data.writeBoolean(true);
+        data.writeByte(backpackSlotID);
+        data.writeByte(this.curiosSlotType);
+
+
+        ICuriosItemHandler finalPlayerCuriosInventory = playerCuriosInventory; // Final variable for lambda
+        NetworkHooks.openScreen(player, new SimpleMenuProvider(((pContainerId, pPlayerInventory, pPlayer1) -> new GenericBackpackGUI(pContainerId, pPlayerInventory, data, finalPlayerCuriosInventory)), pStack.getDisplayName()), friendlyByteBuf -> {
+            friendlyByteBuf.writeByte(inventoryLines);
+            friendlyByteBuf.writeByte(inventoryColumns);
+            friendlyByteBuf.writeNbt(tag.getCompound("inventory"));
+            friendlyByteBuf.writeBoolean(true);
+            friendlyByteBuf.writeByte(backpackSlotID);
+            friendlyByteBuf.writeByte(this.curiosSlotType);
+        });
     }
 }

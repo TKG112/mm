@@ -29,8 +29,21 @@ public class CuriosUtil {
         AtomicBoolean result = new AtomicBoolean(false);
         CuriosApi.getCuriosInventory(player).ifPresent( curiosInventory -> {
             curiosInventory.getStacksHandler("back").ifPresent( facewearSlot -> {
-                ItemStack facewearItem = facewearSlot.getStacks().getStackInSlot(0);
-                if (facewearItem.getItem() instanceof GenericBackpackItem) {
+                ItemStack backItem = facewearSlot.getStacks().getStackInSlot(0);
+                if (backItem.getItem() instanceof GenericBackpackItem) {
+                    result.set(true);
+                }
+            });
+        });
+        return result.get();
+    }
+
+    public static boolean hasRigEquipped(Player player) {
+        AtomicBoolean result = new AtomicBoolean(false);
+        CuriosApi.getCuriosInventory(player).ifPresent( curiosInventory -> {
+            curiosInventory.getStacksHandler("body").ifPresent( facewearSlot -> {
+                ItemStack chestItem = facewearSlot.getStacks().getStackInSlot(0);
+                if (chestItem.getItem() instanceof GenericBackpackItem) {
                     result.set(true);
                 }
             });
@@ -52,7 +65,6 @@ public class CuriosUtil {
         AtomicReference<ItemStack> backpackItem = new AtomicReference<ItemStack>(null);
         CuriosApi.getCuriosInventory(player).ifPresent( curiosInventory -> {
             curiosInventory.getStacksHandler("back").ifPresent( backpackSlot -> {
-                System.out.println("[[[ HERe ]]]");
                 for (int i = 0; i < backpackSlot.getStacks().getSlots(); i++) {
                     ItemStack stack = backpackSlot.getStacks().getStackInSlot(i);
                     if (stack.getItem() instanceof GenericBackpackItem) {
@@ -63,6 +75,22 @@ public class CuriosUtil {
             });
         });
         return backpackItem.get();
+    }
+
+    public static ItemStack getRigItem(Player player) {
+        AtomicReference<ItemStack> rigItem = new AtomicReference<ItemStack>(null);
+        CuriosApi.getCuriosInventory(player).ifPresent( curiosInventory -> {
+            curiosInventory.getStacksHandler("body").ifPresent( rigSlot -> {
+                for (int i = 0; i < rigSlot.getStacks().getSlots(); i++) {
+                    ItemStack stack = rigSlot.getStacks().getStackInSlot(i);
+                    if (stack.getItem() instanceof GenericBackpackItem) {
+                        rigItem.set(rigSlot.getStacks().getStackInSlot(i));
+                        break;
+                    }
+                }
+            });
+        });
+        return rigItem.get();
     }
 
     public static int getBackpackSlotID(Player player) {
@@ -81,4 +109,19 @@ public class CuriosUtil {
         return backpackSlotID.get();
     }
 
+    public static int getRigSlotID(Player player) {
+        AtomicReference<Integer> rigSlotID = new AtomicReference<Integer>(-1);
+        CuriosApi.getCuriosInventory(player).ifPresent( curiosInventory -> {
+            curiosInventory.getStacksHandler("body").ifPresent( rigSlot -> {
+                for (int i = 0; i < rigSlot.getStacks().getSlots(); i++) {
+                    ItemStack stack = rigSlot.getStacks().getStackInSlot(i);
+                    if (stack.getItem() instanceof GenericBackpackItem) {
+                        rigSlotID.set(i);
+                        break;
+                    }
+                }
+            });
+        });
+        return rigSlotID.get();
+    }
 }

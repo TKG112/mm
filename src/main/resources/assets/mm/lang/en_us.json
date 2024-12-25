@@ -11,6 +11,11 @@
   "item.mm.tan_backpack_t1" : "Small Tan Backpack",
   "item.mm.tan_backpack_t2" : "Medium Tan Backpack",
   "item.mm.tan_backpack_t3" : "Large Tan Backpack",
+  "item.mm.tan_bandoleer" : "Tan Bandoleer",
+  "item.mm.black_plate_carrier" : "Black Plate Carrier",
+  "item.mm.black_plate_carrier_ammo" : "Black Plate Carrier - Ammo Pouches",
+  "item.mm.black_plate_carrier_pouches" : "Black Plate Carrier - Pouches",
+
 
 
   "item_group.mm.gms" : "Modern Mayhem",

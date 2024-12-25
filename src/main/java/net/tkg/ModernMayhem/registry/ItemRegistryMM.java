@@ -7,6 +7,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.item.curios.back.*;
+import net.tkg.ModernMayhem.item.curios.body.*;
 import net.tkg.ModernMayhem.item.curios.facewear.*;
 
 public class ItemRegistryMM {
@@ -20,13 +21,18 @@ public class ItemRegistryMM {
     public static final RegistryObject<Item> GREEN_NVG21 = REGISTRY.register("green_nvg21", GreenNVG21Item::new);
     public static final RegistryObject<Item> MENU_ITEM = REGISTRY.register("menu_item", () -> new Item(new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> TEST_BACKPACK = REGISTRY.register("test_backpack", TestBackpack::new);
     public static final RegistryObject<Item> BLACK_BACKPACK_T1 = REGISTRY.register("black_backpack_t1", BlackBackpackT1Item::new);
     public static final RegistryObject<Item> BLACK_BACKPACK_T2 = REGISTRY.register("black_backpack_t2", BlackBackpackT2Item::new);
     public static final RegistryObject<Item> BLACK_BACKPACK_T3 = REGISTRY.register("black_backpack_t3", BlackBackpackT3Item::new);
     public static final RegistryObject<Item> TAN_BACKPACK_T1 = REGISTRY.register("tan_backpack_t1", TanBackpackT1Item::new);
     public static final RegistryObject<Item> TAN_BACKPACK_T2 = REGISTRY.register("tan_backpack_t2", TanBackpackT2Item::new);
     public static final RegistryObject<Item> TAN_BACKPACK_T3 = REGISTRY.register("tan_backpack_t3", TanBackpackT3Item::new);
+
+    public static final RegistryObject<Item> BLACK_PLATE_CARRIER = REGISTRY.register("black_plate_carrier", BlackPlateCarrierItem::new);
+    public static final RegistryObject<Item> BLACK_PLATE_CARRIER_AMMO = REGISTRY.register("black_plate_carrier_ammo", BlackPlateCarrierAmmoItem::new);
+    public static final RegistryObject<Item> BLACK_PLATE_CARRIER_POUCHES = REGISTRY.register("black_plate_carrier_pouches", BlackPlateCarrierPouchesItem::new);
+    public static final RegistryObject<Item> TAN_BANDOLEER = REGISTRY.register("tan_bandoleer", TanBandoleerItem::new);
+    public static final RegistryObject<Item> GREEN_RECON = REGISTRY.register("green_recon_rig", GreenReconRigItem::new);
 
 
     public static void init(IEventBus modEventBus) {
