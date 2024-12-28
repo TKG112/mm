@@ -13,6 +13,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import net.tkg.ModernMayhem.client.screen.BackpackScreen;
 import net.tkg.ModernMayhem.item.generic.GenericBackpackItem;
 import net.tkg.ModernMayhem.registry.GUIRegistryMM;
 import net.tkg.ModernMayhem.util.AbstractContainerMenuUtil;
@@ -120,8 +121,8 @@ public class GenericBackpackGUI extends AbstractContainerMenuUtil implements Sup
                 this.slots.put(slotID, this.addSlot(new SlotItemHandler(
                         itemHandler,
                         slotID,
-                        8 + collumn * 18,
-                        18 + row * 18) {
+                        getBackpackInventoryLeftPos(this.slotPerLine) + 1 + collumn * 18,
+                        BackpackScreen.cornerNWHeight + 1 + row * 18) {
 
                     @Override
                     public void initialize(ItemStack stack) {}
@@ -137,8 +138,8 @@ public class GenericBackpackGUI extends AbstractContainerMenuUtil implements Sup
                 slotID++;
             }
         }
-        createPlayerHotbar(pPlayerInventory, this.backpackSlotID, !this.isCuriosBackpack);
-        createPlayerInventory(pPlayerInventory, this.backpackSlotID, !this.isCuriosBackpack);
+        createPlayerHotbar(pPlayerInventory, this.backpackSlotID, !this.isCuriosBackpack, this.numberOfLine, this.slotPerLine);
+        createPlayerInventory(pPlayerInventory, this.backpackSlotID, !this.isCuriosBackpack, this.numberOfLine, this.slotPerLine);
     }
 
     @Override
