@@ -8,6 +8,9 @@
   "item.mm.black_backpack_t1" : "Small Black Backpack",
   "item.mm.black_backpack_t2" : "Medium Black Backpack",
   "item.mm.black_backpack_t3" : "Large Black Backpack",
+  "item.mm.green_backpack_t1" : "Small Green Backpack",
+  "item.mm.green_backpack_t2" : "Medium Green Backpack",
+  "item.mm.green_backpack_t3" : "Large Green Backpack",
   "item.mm.tan_backpack_t1" : "Small Tan Backpack",
   "item.mm.tan_backpack_t2" : "Medium Tan Backpack",
   "item.mm.tan_backpack_t3" : "Large Tan Backpack",
@@ -15,6 +18,9 @@
   "item.mm.black_plate_carrier" : "Black Plate Carrier",
   "item.mm.black_plate_carrier_ammo" : "Black Plate Carrier - Ammo Pouches",
   "item.mm.black_plate_carrier_pouches" : "Black Plate Carrier - Pouches",
+  "item.mm.tan_plate_carrier" : "Tan Plate Carrier",
+  "item.mm.tan_plate_carrier_ammo" : "Tan Plate Carrier - Ammo Pouches",
+  "item.mm.tan_plate_carrier_pouches" : "Tan Plate Carrier - Pouches",
 
 
 

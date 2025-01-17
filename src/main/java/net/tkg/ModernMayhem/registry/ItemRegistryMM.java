@@ -24,6 +24,9 @@ public class ItemRegistryMM {
     public static final RegistryObject<Item> BLACK_BACKPACK_T1 = REGISTRY.register("black_backpack_t1", BlackBackpackT1Item::new);
     public static final RegistryObject<Item> BLACK_BACKPACK_T2 = REGISTRY.register("black_backpack_t2", BlackBackpackT2Item::new);
     public static final RegistryObject<Item> BLACK_BACKPACK_T3 = REGISTRY.register("black_backpack_t3", BlackBackpackT3Item::new);
+    public static final RegistryObject<Item> GREEN_BACKPACK_T1 = REGISTRY.register("green_backpack_t1", GreenBackpackT1Item::new);
+    public static final RegistryObject<Item> GREEN_BACKPACK_T2 = REGISTRY.register("green_backpack_t2", GreenBackpackT2Item::new);
+    public static final RegistryObject<Item> GREEN_BACKPACK_T3 = REGISTRY.register("green_backpack_t3", GreenBackpackT3Item::new);
     public static final RegistryObject<Item> TAN_BACKPACK_T1 = REGISTRY.register("tan_backpack_t1", TanBackpackT1Item::new);
     public static final RegistryObject<Item> TAN_BACKPACK_T2 = REGISTRY.register("tan_backpack_t2", TanBackpackT2Item::new);
     public static final RegistryObject<Item> TAN_BACKPACK_T3 = REGISTRY.register("tan_backpack_t3", TanBackpackT3Item::new);
@@ -31,6 +34,9 @@ public class ItemRegistryMM {
     public static final RegistryObject<Item> BLACK_PLATE_CARRIER = REGISTRY.register("black_plate_carrier", BlackPlateCarrierItem::new);
     public static final RegistryObject<Item> BLACK_PLATE_CARRIER_AMMO = REGISTRY.register("black_plate_carrier_ammo", BlackPlateCarrierAmmoItem::new);
     public static final RegistryObject<Item> BLACK_PLATE_CARRIER_POUCHES = REGISTRY.register("black_plate_carrier_pouches", BlackPlateCarrierPouchesItem::new);
+    public static final RegistryObject<Item> TAN_PLATE_CARRIER = REGISTRY.register("tan_plate_carrier", TanPlateCarrierItem::new);
+    public static final RegistryObject<Item> TAN_PLATE_CARRIER_AMMO = REGISTRY.register("tan_plate_carrier_ammo", TanPlateCarrierAmmoItem::new);
+    public static final RegistryObject<Item> TAN_PLATE_CARRIER_POUCHES = REGISTRY.register("tan_plate_carrier_pouches", TanPlateCarrierPouchesItem::new);
     public static final RegistryObject<Item> TAN_BANDOLEER = REGISTRY.register("tan_bandoleer", TanBandoleerItem::new);
     public static final RegistryObject<Item> GREEN_RECON = REGISTRY.register("green_recon_rig", GreenReconRigItem::new);
 

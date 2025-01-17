@@ -21,6 +21,9 @@ public class CuriosRendererRegistryMM {
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_BACKPACK_T1.get(), BlackBackpackT1Renderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_BACKPACK_T2.get(), BlackBackpackT2Renderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_BACKPACK_T3.get(), BlackBackpackT3Renderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.GREEN_BACKPACK_T1.get(), GreenBackpackT1Renderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.GREEN_BACKPACK_T2.get(), GreenBackpackT2Renderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.GREEN_BACKPACK_T3.get(), GreenBackpackT3Renderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.TAN_BACKPACK_T1.get(), TanBackpackT1Renderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.TAN_BACKPACK_T2.get(), TanBackpackT2Renderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.TAN_BACKPACK_T3.get(), TanBackpackT3Renderer::new);
@@ -29,6 +32,10 @@ public class CuriosRendererRegistryMM {
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_PLATE_CARRIER.get(), BlackPlateCarrierRenderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_PLATE_CARRIER_AMMO.get(), BlackPlateCarrierAmmoRenderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_PLATE_CARRIER_POUCHES.get(), BlackPlateCarrierPouchesRenderer::new);
+
+        CuriosRendererRegistry.register(ItemRegistryMM.TAN_PLATE_CARRIER.get(), TanPlateCarrierRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.TAN_PLATE_CARRIER_AMMO.get(), TanPlateCarrierAmmoRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.TAN_PLATE_CARRIER_POUCHES.get(), TanPlateCarrierPouchesRenderer::new);
 
         CuriosRendererRegistry.register(ItemRegistryMM.TAN_BANDOLEER.get(), TanBandoleerRenderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.GREEN_RECON.get(), GreenReconRigRenderer::new);
