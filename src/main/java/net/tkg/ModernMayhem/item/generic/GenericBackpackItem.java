@@ -41,10 +41,12 @@ public class GenericBackpackItem extends Item implements ICurioItem {
     // This method is called when the player right clicks the item in game
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, @NotNull Player pPlayer, @NotNull InteractionHand pUsedHand) {
-        ItemStack stack = pPlayer.getItemInHand(pUsedHand);
-        InitInventory(stack, this.inventorySize);
-        if (pPlayer instanceof ServerPlayer && pUsedHand == InteractionHand.MAIN_HAND) {
-            OpenGUIFromPlayerInventory(pPlayer, stack);
+        if (this.inventorySize != 0) {
+            ItemStack stack = pPlayer.getItemInHand(pUsedHand);
+            InitInventory(stack, this.inventorySize);
+            if (pPlayer instanceof ServerPlayer && pUsedHand == InteractionHand.MAIN_HAND) {
+                OpenGUIFromPlayerInventory(pPlayer, stack);
+            }
         }
         return super.use(pLevel, pPlayer, pUsedHand);
     }
@@ -52,40 +54,42 @@ public class GenericBackpackItem extends Item implements ICurioItem {
     // This method is called when the player click on an item with the backpack on the mouse in the inventory
     @Override
     public boolean overrideStackedOnOther(ItemStack pStack, Slot pSlot, ClickAction pAction, Player pPlayer) {
-        ItemStack slotStack = pSlot.getItem();
-        // Check if the item has an inventory tag if not create one
-        CompoundTag tag = InitInventory(pStack, this.inventorySize);
+        if (this.inventorySize != 0) {
+            ItemStack slotStack = pSlot.getItem();
+            // Check if the item has an inventory tag if not create one
+            CompoundTag tag = InitInventory(pStack, this.inventorySize);
 
-        if (pAction == ClickAction.SECONDARY) {
-            ItemStackHandler inventory = new ItemStackHandler(inventorySize);
-            inventory.deserializeNBT(tag.getCompound("inventory"));
-            if (slotStack.isEmpty()) {
-                // If the slot is empty, we can insert the stack
-                for (int i = inventory.getSlots() - 1; i >= 0; i--) {
-                    ItemStack stack = inventory.getStackInSlot(i);
-                    if (!stack.isEmpty()) {
-                        pSlot.set(inventory.extractItem(i, stack.getCount(), false));
-                        tag.put("inventory", inventory.serializeNBT());
-                        return true;
+            if (pAction == ClickAction.SECONDARY) {
+                ItemStackHandler inventory = new ItemStackHandler(inventorySize);
+                inventory.deserializeNBT(tag.getCompound("inventory"));
+                if (slotStack.isEmpty()) {
+                    // If the slot is empty, we can insert the stack
+                    for (int i = inventory.getSlots() - 1; i >= 0; i--) {
+                        ItemStack stack = inventory.getStackInSlot(i);
+                        if (!stack.isEmpty()) {
+                            pSlot.set(inventory.extractItem(i, stack.getCount(), false));
+                            tag.put("inventory", inventory.serializeNBT());
+                            return true;
+                        }
                     }
-                }
-            } else {
-                // If the slot is not empty, we add the stack to the inventory
-                for (int i = 0; i < inventory.getSlots(); i++) {
-                    ItemStack stack = inventory.getStackInSlot(i);
-                    // If the stack is the same as the slotStack, we can merge the stacks
-                    if (ItemStack.isSameItemSameTags(slotStack, inventory.getStackInSlot(i))) {
-                        ItemStack remaining = inventory.insertItem(i, slotStack, false);
-                        pSlot.set(remaining);
-                        tag.put("inventory", inventory.serializeNBT());
-                        if (remaining.getCount() <= 0) return true;
-                    }
-                    // If the stack is empty, we can insert the slotStack
-                    if (stack.isEmpty()) {
-                        inventory.insertItem(i, slotStack, false);
-                        pSlot.set(ItemStack.EMPTY);
-                        tag.put("inventory", inventory.serializeNBT());
-                        return true;
+                } else {
+                    // If the slot is not empty, we add the stack to the inventory
+                    for (int i = 0; i < inventory.getSlots(); i++) {
+                        ItemStack stack = inventory.getStackInSlot(i);
+                        // If the stack is the same as the slotStack, we can merge the stacks
+                        if (ItemStack.isSameItemSameTags(slotStack, inventory.getStackInSlot(i))) {
+                            ItemStack remaining = inventory.insertItem(i, slotStack, false);
+                            pSlot.set(remaining);
+                            tag.put("inventory", inventory.serializeNBT());
+                            if (remaining.getCount() <= 0) return true;
+                        }
+                        // If the stack is empty, we can insert the slotStack
+                        if (stack.isEmpty()) {
+                            inventory.insertItem(i, slotStack, false);
+                            pSlot.set(ItemStack.EMPTY);
+                            tag.put("inventory", inventory.serializeNBT());
+                            return true;
+                        }
                     }
                 }
             }
@@ -109,65 +113,69 @@ public class GenericBackpackItem extends Item implements ICurioItem {
 
     // Used to open the GUI from the player inventory
     public void OpenGUIFromPlayerInventory(Player pPlayer, ItemStack pStack) {
-        ServerPlayer player = (ServerPlayer) pPlayer;
-        FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
-        CompoundTag tag = pStack.getOrCreateTag();
-        if (tag.contains("inventory")) {
-            data.writeByte(this.inventoryLines);
-            data.writeByte(this.inventoryColumns);
-            data.writeNbt(tag.getCompound("inventory"));
-            data.writeBoolean(false);
-            data.writeItemStack(pStack, false);
+        if (this.inventorySize != 0) {
+            ServerPlayer player = (ServerPlayer) pPlayer;
+            FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
+            CompoundTag tag = pStack.getOrCreateTag();
+            if (tag.contains("inventory")) {
+                data.writeByte(this.inventoryLines);
+                data.writeByte(this.inventoryColumns);
+                data.writeNbt(tag.getCompound("inventory"));
+                data.writeBoolean(false);
+                data.writeItemStack(pStack, false);
+            }
+            NetworkHooks.openScreen(player, new SimpleMenuProvider(((pContainerId, pPlayerInventory, pPlayer1) -> new GenericBackpackGUI(pContainerId, pPlayerInventory, data)), pStack.getDisplayName()), friendlyByteBuf -> {
+                friendlyByteBuf.writeByte(inventoryLines);
+                friendlyByteBuf.writeByte(inventoryColumns);
+                friendlyByteBuf.writeNbt(tag.getCompound("inventory"));
+                friendlyByteBuf.writeBoolean(false);
+                friendlyByteBuf.writeItemStack(pStack, false);
+            });
         }
-        NetworkHooks.openScreen(player, new SimpleMenuProvider(((pContainerId, pPlayerInventory, pPlayer1) -> new GenericBackpackGUI(pContainerId, pPlayerInventory, data)), pStack.getDisplayName()), friendlyByteBuf -> {
-            friendlyByteBuf.writeByte(inventoryLines);
-            friendlyByteBuf.writeByte(inventoryColumns);
-            friendlyByteBuf.writeNbt(tag.getCompound("inventory"));
-            friendlyByteBuf.writeBoolean(false);
-            friendlyByteBuf.writeItemStack(pStack, false);
-        });
     }
 
     // Used to open the GUI from the curios inventory in the given type of slot
     public void OpenGUIFromCuriosInventory(Player pPlayer, ItemStack pStack) {
-        ServerPlayer player = (ServerPlayer) pPlayer;
-        FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
-        CompoundTag tag = pStack.getOrCreateTag();
-        boolean resetStackInInv = !tag.contains("inventory");
-        String curiosSlotTypeIdentifer = switch (this.curiosSlotType) {
-            case 0 -> "back";
-            case 1 -> "body";
-            default -> "";
-        };
-        int backpackSlotID = switch (this.curiosSlotType) {
-            case 0 -> CuriosUtil.getBackpackSlotID(pPlayer);
-            case 1 -> CuriosUtil.getRigSlotID(pPlayer);
-            default -> -1;
-        };
-        InitInventory(pStack, inventorySize);
-        ICuriosItemHandler playerCuriosInventory = CuriosApi.getCuriosInventory(pPlayer).resolve().get();
-        if (resetStackInInv) {
-            playerCuriosInventory.getStacksHandler(curiosSlotTypeIdentifer).ifPresent(iCurioStacksHandler -> {
-                iCurioStacksHandler.getStacks().setStackInSlot(backpackSlotID, pStack);
+        if (this.inventorySize != 0) {
+            ServerPlayer player = (ServerPlayer) pPlayer;
+            FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
+            CompoundTag tag = pStack.getOrCreateTag();
+            boolean resetStackInInv = !tag.contains("inventory");
+            String curiosSlotTypeIdentifer = switch (this.curiosSlotType) {
+                case 0 -> "back";
+                case 1 -> "body";
+                default -> "";
+            };
+            int backpackSlotID = switch (this.curiosSlotType) {
+                case 0 -> CuriosUtil.getBackpackSlotID(pPlayer);
+                case 1 -> CuriosUtil.getRigSlotID(pPlayer);
+                default -> -1;
+            };
+            InitInventory(pStack, inventorySize);
+            ICuriosItemHandler playerCuriosInventory = CuriosApi.getCuriosInventory(pPlayer).resolve().get();
+            if (resetStackInInv) {
+                playerCuriosInventory.getStacksHandler(curiosSlotTypeIdentifer).ifPresent(iCurioStacksHandler -> {
+                    iCurioStacksHandler.getStacks().setStackInSlot(backpackSlotID, pStack);
+                });
+                playerCuriosInventory = CuriosApi.getCuriosInventory(pPlayer).resolve().get();
+            }
+            data.writeByte(this.inventoryLines);
+            data.writeByte(this.inventoryColumns);
+            data.writeNbt(tag.getCompound("inventory"));
+            data.writeBoolean(true);
+            data.writeByte(backpackSlotID);
+            data.writeByte(this.curiosSlotType);
+
+
+            ICuriosItemHandler finalPlayerCuriosInventory = playerCuriosInventory; // Final variable for lambda
+            NetworkHooks.openScreen(player, new SimpleMenuProvider(((pContainerId, pPlayerInventory, pPlayer1) -> new GenericBackpackGUI(pContainerId, pPlayerInventory, data, finalPlayerCuriosInventory)), pStack.getDisplayName()), friendlyByteBuf -> {
+                friendlyByteBuf.writeByte(inventoryLines);
+                friendlyByteBuf.writeByte(inventoryColumns);
+                friendlyByteBuf.writeNbt(tag.getCompound("inventory"));
+                friendlyByteBuf.writeBoolean(true);
+                friendlyByteBuf.writeByte(backpackSlotID);
+                friendlyByteBuf.writeByte(this.curiosSlotType);
             });
-            playerCuriosInventory = CuriosApi.getCuriosInventory(pPlayer).resolve().get();
         }
-        data.writeByte(this.inventoryLines);
-        data.writeByte(this.inventoryColumns);
-        data.writeNbt(tag.getCompound("inventory"));
-        data.writeBoolean(true);
-        data.writeByte(backpackSlotID);
-        data.writeByte(this.curiosSlotType);
-
-
-        ICuriosItemHandler finalPlayerCuriosInventory = playerCuriosInventory; // Final variable for lambda
-        NetworkHooks.openScreen(player, new SimpleMenuProvider(((pContainerId, pPlayerInventory, pPlayer1) -> new GenericBackpackGUI(pContainerId, pPlayerInventory, data, finalPlayerCuriosInventory)), pStack.getDisplayName()), friendlyByteBuf -> {
-            friendlyByteBuf.writeByte(inventoryLines);
-            friendlyByteBuf.writeByte(inventoryColumns);
-            friendlyByteBuf.writeNbt(tag.getCompound("inventory"));
-            friendlyByteBuf.writeBoolean(true);
-            friendlyByteBuf.writeByte(backpackSlotID);
-            friendlyByteBuf.writeByte(this.curiosSlotType);
-        });
     }
 }

@@ -15,7 +15,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.item.curios.facewear.UltraGamerGPNVGItem;
+import net.tkg.ModernMayhem.item.curios.facewear.NVGGogglesItem;
 import net.tkg.ModernMayhem.item.generic.GenericNVGGogglesItem;
 import net.tkg.ModernMayhem.mixinaccessor.PostChainAccess;
 import net.tkg.ModernMayhem.util.CuriosUtil;
@@ -94,7 +94,7 @@ public class RenderNVG {
         }
 
         if (mc.gameRenderer.currentEffect() != null && Objects.requireNonNull(mc.gameRenderer.currentEffect()).getName().equals(NVG_SHADER_PATH.toString())) {
-            updateShaderUniforms(nightVisionEnabled, nvgItemConfig, (facewearItem != null && facewearItem.getItem() instanceof UltraGamerGPNVGItem));
+            updateShaderUniforms(nightVisionEnabled, nvgItemConfig, (facewearItem != null && facewearItem.getItem() instanceof NVGGogglesItem nvgGogglesItem && nvgGogglesItem.isGamerNVG()));
         }
     }
 

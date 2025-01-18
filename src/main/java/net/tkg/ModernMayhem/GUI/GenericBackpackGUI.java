@@ -1,13 +1,9 @@
 package net.tkg.ModernMayhem.GUI;
 
-import com.eliotlash.mclib.math.functions.limit.Min;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -18,7 +14,6 @@ import net.tkg.ModernMayhem.item.generic.GenericBackpackItem;
 import net.tkg.ModernMayhem.registry.GUIRegistryMM;
 import net.tkg.ModernMayhem.util.AbstractContainerMenuUtil;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
@@ -26,7 +21,6 @@ import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.function.Supplier;
 
 // ⚠️ : Was not made for any inventory larger than a simple chest (3 line with 9 item per line)
