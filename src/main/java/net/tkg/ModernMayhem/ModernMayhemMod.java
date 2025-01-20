@@ -5,8 +5,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.tkg.ModernMayhem.registry.*;
+import net.tkg.ModernMayhem.server.registry.*;
+import net.tkg.ModernMayhem.server.util.CustomConfigUtil;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -21,15 +23,24 @@ public class ModernMayhemMod
     public ModernMayhemMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        CustomConfigUtil.init();
+
         ItemRegistryMM.init(modEventBus);
         PacketsRegistryMM.init();
         SoundRegistryMM.init(modEventBus);
         CreativeTabsRegistryMM.init(modEventBus);
         GUIRegistryMM.init(modEventBus);
 
+        modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    private void commonSetup(FMLCommonSetupEvent event) {
+        // Common setup
+        LOGGER.info("HELLO FROM COMMON SETUP");
+
     }
 
     private void clientSetup(FMLClientSetupEvent event) {
@@ -38,7 +49,5 @@ public class ModernMayhemMod
 
         CuriosRendererRegistryMM.register();
         ScreenRegistryMM.register(event);
-
-
     }
 }

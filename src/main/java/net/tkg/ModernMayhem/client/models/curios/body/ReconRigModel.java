@@ -2,7 +2,7 @@ package net.tkg.ModernMayhem.client.models.curios.body;
 
 import net.minecraft.resources.ResourceLocation;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.item.curios.body.ReconRigItem;
+import net.tkg.ModernMayhem.server.item.curios.body.ReconRigItem;
 import software.bernie.geckolib.model.GeoModel;
 
 public class ReconRigModel extends GeoModel<ReconRigItem> {

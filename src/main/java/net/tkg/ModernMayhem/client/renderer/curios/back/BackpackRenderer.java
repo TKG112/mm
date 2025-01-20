@@ -13,7 +13,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.tkg.ModernMayhem.client.models.curios.back.BackpackModels;
-import net.tkg.ModernMayhem.item.curios.back.BackpackItem;
+import net.tkg.ModernMayhem.server.item.curios.back.BackpackItem;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import software.bernie.geckolib.renderer.GeoItemRenderer;
 import top.theillusivec4.curios.api.SlotContext;

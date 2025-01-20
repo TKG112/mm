@@ -5,8 +5,8 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.tkg.ModernMayhem.GUI.GenericBackpackGUI;
 import net.tkg.ModernMayhem.ModernMayhemMod;
+import net.tkg.ModernMayhem.server.GUI.GenericBackpackGUI;
 import org.jetbrains.annotations.NotNull;
 
 import static java.lang.Math.max;

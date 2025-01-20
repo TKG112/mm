@@ -13,7 +13,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.tkg.ModernMayhem.client.models.curios.facewear.NVGGogglesModel;
-import net.tkg.ModernMayhem.item.curios.facewear.NVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import software.bernie.geckolib.renderer.GeoItemRenderer;

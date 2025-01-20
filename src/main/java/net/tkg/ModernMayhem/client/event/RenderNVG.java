@@ -15,11 +15,11 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.item.curios.facewear.NVGGogglesItem;
-import net.tkg.ModernMayhem.item.generic.GenericNVGGogglesItem;
-import net.tkg.ModernMayhem.mixinaccessor.PostChainAccess;
-import net.tkg.ModernMayhem.util.CuriosUtil;
-import net.tkg.ModernMayhem.util.NVGConfigs;
+import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.server.mixinaccessor.PostChainAccess;
+import net.tkg.ModernMayhem.server.util.CuriosUtil;
+import net.tkg.ModernMayhem.server.util.NVGConfigs;
 
 import java.util.Objects;
 

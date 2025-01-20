@@ -2,7 +2,7 @@ package net.tkg.ModernMayhem.client.models.curios.facewear;
 
 import net.minecraft.resources.ResourceLocation;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.item.curios.facewear.NVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
 import software.bernie.geckolib.model.GeoModel;
 
 public class NVGGogglesModel extends GeoModel<NVGGogglesItem> {

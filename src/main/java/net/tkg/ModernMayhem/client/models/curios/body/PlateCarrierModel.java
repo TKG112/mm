@@ -2,7 +2,7 @@ package net.tkg.ModernMayhem.client.models.curios.body;
 
 import net.minecraft.resources.ResourceLocation;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.item.curios.body.PlateCarrierItem;
+import net.tkg.ModernMayhem.server.item.curios.body.PlateCarrierItem;
 import software.bernie.geckolib.model.GeoModel;
 
 public class PlateCarrierModel extends GeoModel<PlateCarrierItem> {
@@ -12,7 +12,7 @@ public class PlateCarrierModel extends GeoModel<PlateCarrierItem> {
             case "default" -> new ResourceLocation(ModernMayhemMod.ID, "geo/item/curios/body/plate_carrier.geo.json");
             case "ammo" -> new ResourceLocation(ModernMayhemMod.ID, "geo/item/curios/body/plate_carrier_ammo.geo.json");
             case "pouches" -> new ResourceLocation(ModernMayhemMod.ID, "geo/item/curios/body/plate_carrier_pouches.geo.json");
-            default -> new ResourceLocation(ModernMayhemMod.ID, "NOT_FOUND");
+            default -> throw new IllegalStateException("Unexpected value: no such type as " + animatable.getType());
         };
     }
 
@@ -21,7 +21,7 @@ public class PlateCarrierModel extends GeoModel<PlateCarrierItem> {
         return switch (animatable.getVariant()) {
             case 0 -> new ResourceLocation(ModernMayhemMod.ID, "textures/item/curios/body/black_plate_carrier.png");
             case 1 -> new ResourceLocation(ModernMayhemMod.ID, "textures/item/curios/body/tan_plate_carrier.png");
-            default -> new ResourceLocation(ModernMayhemMod.ID, "NOT_FOUND");
+            default -> throw new IllegalStateException("Unexpected value: no such variant as " + animatable.getVariant());
         };
     }
 
