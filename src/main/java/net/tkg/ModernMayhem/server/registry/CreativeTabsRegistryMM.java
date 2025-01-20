@@ -41,9 +41,23 @@ public class CreativeTabsRegistryMM {
                         pOutput.accept(ItemRegistryMM.TAN_PLATE_CARRIER_POUCHES.get());
                         pOutput.accept(ItemRegistryMM.TAN_BANDOLEER.get());
                         pOutput.accept(ItemRegistryMM.GREEN_RECON.get());
+                        pOutput.accept(ItemRegistryMM.BLACK_COMBAT_HELMET.get());
                         pOutput.accept(ItemRegistryMM.BLACK_KEVLAR_CHESTPLATE.get());
-//                        pOutput.accept(ItemRegistryMM.BLACK_KEVLAR_LEGGINGS.get());
-//                        pOutput.accept(ItemRegistryMM.BLACK_KEVLAR_BOOTS.get());
+                        pOutput.accept(ItemRegistryMM.BLACK_KEVLAR_LEGGINGS.get());
+                        pOutput.accept(ItemRegistryMM.BLACK_KEVLAR_BOOTS.get());
+                        pOutput.accept(ItemRegistryMM.GREEN_SSH68_HELMET.get());
+                        pOutput.accept(ItemRegistryMM.GREEN_KEVLAR_CHESTPLATE.get());
+                        pOutput.accept(ItemRegistryMM.GREEN_KEVLAR_LEGGINGS.get());
+                        pOutput.accept(ItemRegistryMM.GREEN_KEVLAR_BOOTS.get());
+                        pOutput.accept(ItemRegistryMM.TAN_COMBAT_HELMET.get());
+                        pOutput.accept(ItemRegistryMM.TAN_KEVLAR_CHESTPLATE.get());
+                        pOutput.accept(ItemRegistryMM.TAN_KEVLAR_LEGGINGS.get());
+                        pOutput.accept(ItemRegistryMM.TAN_KEVLAR_BOOTS.get());
+                        pOutput.accept(ItemRegistryMM.BALACLAVA.get());
+                        pOutput.accept(ItemRegistryMM.BLACK_GLASSES.get());
+                        pOutput.accept(ItemRegistryMM.BLACK_GOGGLES.get());
+                        pOutput.accept(ItemRegistryMM.BLACK_HEADSET.get());
+                        pOutput.accept(ItemRegistryMM.BLACK_MILITARY_BALACLAVA.get());
 
 
                     })).build()

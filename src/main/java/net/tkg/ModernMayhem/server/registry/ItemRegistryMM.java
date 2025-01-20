@@ -14,6 +14,7 @@ import net.tkg.ModernMayhem.server.item.curios.body.BandoleerItem;
 import net.tkg.ModernMayhem.server.item.curios.body.PlateCarrierItem;
 import net.tkg.ModernMayhem.server.item.curios.body.ReconRigItem;
 import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.curios.head.HeadGearItems;
 import net.tkg.ModernMayhem.server.util.ArmorProperties;
 
 public class ItemRegistryMM {
@@ -66,8 +67,43 @@ public class ItemRegistryMM {
     public static final RegistryObject<Item> TAN_BANDOLEER = REGISTRY.register("tan_bandoleer", BandoleerItem::new);
     public static final RegistryObject<Item> GREEN_RECON = REGISTRY.register("green_recon_rig", ReconRigItem::new);
 
+    public static final RegistryObject<Item> BLACK_COMBAT_HELMET = REGISTRY.register("black_combat_helmet",
+            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.HELMET,0, true));
     public static final RegistryObject<Item> BLACK_KEVLAR_CHESTPLATE = REGISTRY.register("black_kevlar_chestplate",
             () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.CHESTPLATE,0));
+    public static final RegistryObject<Item> BLACK_KEVLAR_LEGGINGS = REGISTRY.register("black_kevlar_leggings",
+            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.LEGGINGS,0));
+    public static final RegistryObject<Item> BLACK_KEVLAR_BOOTS = REGISTRY.register("black_kevlar_boots",
+            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.BOOTS,0));
+    public static final RegistryObject<Item> GREEN_SSH68_HELMET = REGISTRY.register("green_ssh68_helmet",
+            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.HELMET,1));
+    public static final RegistryObject<Item> GREEN_KEVLAR_CHESTPLATE = REGISTRY.register("green_kevlar_chestplate",
+            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.CHESTPLATE,1));
+    public static final RegistryObject<Item> GREEN_KEVLAR_LEGGINGS = REGISTRY.register("green_kevlar_leggings",
+            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.LEGGINGS,1));
+    public static final RegistryObject<Item> GREEN_KEVLAR_BOOTS = REGISTRY.register("green_kevlar_boots",
+            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.BOOTS,1));
+    public static final RegistryObject<Item> TAN_COMBAT_HELMET = REGISTRY.register("tan_combat_helmet",
+            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.HELMET,2, true));
+    public static final RegistryObject<Item> TAN_KEVLAR_CHESTPLATE = REGISTRY.register("tan_kevlar_chestplate",
+            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.CHESTPLATE,2));
+    public static final RegistryObject<Item> TAN_KEVLAR_LEGGINGS = REGISTRY.register("tan_kevlar_leggings",
+            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.LEGGINGS,2));
+    public static final RegistryObject<Item> TAN_KEVLAR_BOOTS = REGISTRY.register("tan_kevlar_boots",
+            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.BOOTS,2));
+
+    public static final RegistryObject<Item> BALACLAVA = REGISTRY.register("balaclava",
+            () -> new HeadGearItems(0, 0));
+    public static final RegistryObject<Item> BLACK_GLASSES = REGISTRY.register("black_glasses",
+            () -> new HeadGearItems(1, 0));
+    public static final RegistryObject<Item> BLACK_GOGGLES = REGISTRY.register("black_goggles",
+            () -> new HeadGearItems(2, 0));
+    public static final RegistryObject<Item> BLACK_HEADSET = REGISTRY.register("black_headset",
+            () -> new HeadGearItems(3, 0));
+    public static final RegistryObject<Item> BLACK_MILITARY_BALACLAVA = REGISTRY.register("black_military_balaclava",
+            () -> new HeadGearItems(4, 0));
+
+
 
 
     public static final RegistryObject<Item> MENU_ITEM = REGISTRY.register("menu_item",
