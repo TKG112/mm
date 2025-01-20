@@ -14,7 +14,7 @@ import net.tkg.ModernMayhem.server.item.curios.body.BandoleerItem;
 import net.tkg.ModernMayhem.server.item.curios.body.PlateCarrierItem;
 import net.tkg.ModernMayhem.server.item.curios.body.ReconRigItem;
 import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
-import net.tkg.ModernMayhem.server.util.ArmorConfigs;
+import net.tkg.ModernMayhem.server.util.ArmorProperties;
 
 public class ItemRegistryMM {
     public static final DeferredRegister<Item> REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, ModernMayhemMod.ID);
@@ -67,7 +67,7 @@ public class ItemRegistryMM {
     public static final RegistryObject<Item> GREEN_RECON = REGISTRY.register("green_recon_rig", ReconRigItem::new);
 
     public static final RegistryObject<Item> BLACK_KEVLAR_CHESTPLATE = REGISTRY.register("black_kevlar_chestplate",
-            () -> new CustomArmorItem(ArmorConfigs.KEVLAR, ArmorItem.Type.CHESTPLATE,0));
+            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.CHESTPLATE,0));
 
 
     public static final RegistryObject<Item> MENU_ITEM = REGISTRY.register("menu_item",

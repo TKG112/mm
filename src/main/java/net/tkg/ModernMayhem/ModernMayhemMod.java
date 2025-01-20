@@ -3,12 +3,16 @@ package net.tkg.ModernMayhem;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.tkg.ModernMayhem.server.config.ArmorConfigGenerator;
+import net.tkg.ModernMayhem.server.config.TestConfig;
 import net.tkg.ModernMayhem.server.registry.*;
-import net.tkg.ModernMayhem.server.util.CustomConfigUtil;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -19,11 +23,11 @@ public class ModernMayhemMod
     public static final String ID = "mm";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
+    // Check if game initialized
+    private static boolean isGameReady = false;
 
     public ModernMayhemMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-        CustomConfigUtil.init();
 
         ItemRegistryMM.init(modEventBus);
         PacketsRegistryMM.init();
@@ -33,6 +37,10 @@ public class ModernMayhemMod
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
+        modEventBus.addListener(this::onGameReady);
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, TestConfig.CONFIG);
+        ArmorConfigGenerator.init();
 
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -49,5 +57,13 @@ public class ModernMayhemMod
 
         CuriosRendererRegistryMM.register();
         ScreenRegistryMM.register(event);
+    }
+
+    private void onGameReady(FMLLoadCompleteEvent event) {
+        isGameReady = true;
+    }
+
+    public static boolean isGameReady() {
+        return isGameReady;
     }
 }

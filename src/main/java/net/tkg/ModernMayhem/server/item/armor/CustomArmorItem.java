@@ -7,8 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.tkg.ModernMayhem.client.renderer.armor.CustomArmorRenderer;
 import net.tkg.ModernMayhem.server.item.generic.GenericStatConfigurableArmorItem;
-import net.tkg.ModernMayhem.server.util.ArmorConfigs;
-import net.tkg.ModernMayhem.server.util.CustomConfigUtil;
+import net.tkg.ModernMayhem.server.util.ArmorProperties;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -23,13 +22,12 @@ public class CustomArmorItem extends GenericStatConfigurableArmorItem implements
     private final int variant;
 
     public CustomArmorItem(
-        ArmorConfigs pConfig,
+        ArmorProperties pConfig,
         Type pType,
         int pVariant
     ) {
         super(
             pConfig,
-            CustomConfigUtil.GetMaterialConfig(pConfig),
             pType
         );
         this.variant = pVariant;
