@@ -1,6 +1,10 @@
 
 package net.mcreator.mm.item;
 
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import net.minecraftforge.network.NetworkHooks;
@@ -30,7 +34,9 @@ import javax.annotation.Nullable;
 
 import io.netty.buffer.Unpooled;
 
-public class TanPlateCarrierPouchesItem extends Item implements ICurioItem {
+public class TanPlateCarrierPouchesItem extends Item implements ICurioItem, GeoAnimatable {
+	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
 	public TanPlateCarrierPouchesItem() {
 		super(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON));
 	}
@@ -82,5 +88,20 @@ public class TanPlateCarrierPouchesItem extends Item implements ICurioItem {
 		super.readShareTag(stack, nbt);
 		if (nbt != null)
 			stack.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> ((ItemStackHandler) capability).deserializeNBT((CompoundTag) nbt.get("Inventory")));
+	}
+
+	@Override
+	public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+
+	}
+
+	@Override
+	public AnimatableInstanceCache getAnimatableInstanceCache() {
+		return this.cache;
+	}
+
+	@Override
+	public double getTick(Object o) {
+		return 0;
 	}
 }
