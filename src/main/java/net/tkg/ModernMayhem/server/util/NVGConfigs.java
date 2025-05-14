@@ -43,21 +43,7 @@ public class NVGConfigs {
 
     public static GenericNVGGogglesItem.NVGConfig[] GREEN_PHOSPHOR_GPVNG = {
         new GenericNVGGogglesItem.NVGConfig(
-                0.1f,
-                0.7f,
-                1,
-                0.7f,
-                "textures/screens/gpnvg_overlay.png"
-        ),
-        new GenericNVGGogglesItem.NVGConfig(
                 0.2f,
-                0.7f,
-                1,
-                0.7f,
-                "textures/screens/gpnvg_overlay.png"
-        ),
-        new GenericNVGGogglesItem.NVGConfig(
-                0.3f,
                 0.7f,
                 1,
                 0.7f,
@@ -71,7 +57,21 @@ public class NVGConfigs {
                 "textures/screens/gpnvg_overlay.png"
         ),
         new GenericNVGGogglesItem.NVGConfig(
-                0.5f,
+                0.6f,
+                0.7f,
+                1,
+                0.7f,
+                "textures/screens/gpnvg_overlay.png"
+        ),
+        new GenericNVGGogglesItem.NVGConfig(
+                0.8f,
+                0.7f,
+                1,
+                0.7f,
+                "textures/screens/gpnvg_overlay.png"
+        ),
+        new GenericNVGGogglesItem.NVGConfig(
+                1.0f,
                 0.7f,
                 1,
                 0.7f,
@@ -81,7 +81,7 @@ public class NVGConfigs {
 
     public static GenericNVGGogglesItem.NVGConfig[] WHITE_PHOSPHOR_NVG21 = {
         new GenericNVGGogglesItem.NVGConfig(
-                0.3f,
+                0.4f,
                 0.7f,
                 1,
                 1,
@@ -95,7 +95,7 @@ public class NVGConfigs {
                 "textures/screens/nvg21_overlay.png"
         ),
         new GenericNVGGogglesItem.NVGConfig(
-                0.7f,
+                0.6f,
                 0.7f,
                 1,
                 1,
@@ -106,13 +106,6 @@ public class NVGConfigs {
 
     public static GenericNVGGogglesItem.NVGConfig[] GREEN_PHOSPHOR_NVG21 = {
         new GenericNVGGogglesItem.NVGConfig(
-                0.1f,
-                0.7f,
-                1,
-                0.7f,
-                "textures/screens/nvg21_overlay.png"
-        ),
-        new GenericNVGGogglesItem.NVGConfig(
                 0.3f,
                 0.7f,
                 1,
@@ -121,6 +114,13 @@ public class NVGConfigs {
         ),
         new GenericNVGGogglesItem.NVGConfig(
                 0.5f,
+                0.7f,
+                1,
+                0.7f,
+                "textures/screens/nvg21_overlay.png"
+        ),
+        new GenericNVGGogglesItem.NVGConfig(
+                0.7f,
                 0.7f,
                 1,
                 0.7f,

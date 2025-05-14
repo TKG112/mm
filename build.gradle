@@ -120,6 +120,10 @@ dependencies {
 
     //TacZ dependencies
     implementation fg.deobf("curse.maven:timeless-and-classics-zero-1028108:6069384")
+
+    implementation fg.deobf("curse.maven:embeddium-908741:5681725")
+    implementation fg.deobf("curse.maven:embeddiumplus-931925:5436746")
+
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
