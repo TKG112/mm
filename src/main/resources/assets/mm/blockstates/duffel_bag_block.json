@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=west": { "model": "mm:block/duffel_bag_block", "y": 180 },
+    "facing=east": { "model": "mm:block/duffel_bag_block", "y": 0 },
+    "facing=north":  { "model": "mm:block/duffel_bag_block", "y": 270 },
+    "facing=south":  { "model": "mm:block/duffel_bag_block", "y": 90 }
+  }
+}

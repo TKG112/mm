@@ -30,6 +30,8 @@ public class ModernMayhemMod
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ItemRegistryMM.init(modEventBus);
+        BlockRegistryMM.init(modEventBus);
+        BlockEntityRegistryMM.init(modEventBus);
         PacketsRegistryMM.init();
         SoundRegistryMM.init(modEventBus);
         CreativeTabsRegistryMM.init(modEventBus);

@@ -7,6 +7,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tkg.ModernMayhem.ModernMayhemMod;
+import net.tkg.ModernMayhem.server.item.DuffelBagItem;
 import net.tkg.ModernMayhem.server.item.NVGGoggleList;
 import net.tkg.ModernMayhem.server.item.armor.CustomArmorItem;
 import net.tkg.ModernMayhem.server.item.curios.back.BackpackItem;
@@ -102,6 +103,11 @@ public class ItemRegistryMM {
             () -> new HeadGearItems(3, 0));
     public static final RegistryObject<Item> BLACK_MILITARY_BALACLAVA = REGISTRY.register("black_military_balaclava",
             () -> new HeadGearItems(4, 0));
+
+    public static final RegistryObject<Item> DUFFEL_BAG = REGISTRY.register("duffel_bag",
+            () -> new DuffelBagItem(new Item.Properties().stacksTo(1), 512));
+
+
 
 
 

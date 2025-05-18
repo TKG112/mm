@@ -58,6 +58,8 @@ public class CreativeTabsRegistryMM {
                         pOutput.accept(ItemRegistryMM.BLACK_GOGGLES.get());
                         pOutput.accept(ItemRegistryMM.BLACK_HEADSET.get());
                         pOutput.accept(ItemRegistryMM.BLACK_MILITARY_BALACLAVA.get());
+                        pOutput.accept(ItemRegistryMM.DUFFEL_BAG.get());
+
 
 
                     })).build()

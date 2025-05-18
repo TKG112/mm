@@ -39,8 +39,10 @@
   "item.mm.black_headset" : "Black Headset",
   "item.mm.black_military_balaclava" : "Black Military Balaclava",
   "item.mm.balaclava" : "Balaclava",
+  "item.mm.duffel_bag" : "Duffel Bag",
 
 
+  "block.mm.duffel_bag_block" : "Duffel Bag",
 
 
   "item_group.mm.gms" : "Modern Mayhem",

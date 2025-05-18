@@ -1,8 +1,10 @@
 package net.tkg.ModernMayhem.server.network;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkDirection;
@@ -32,16 +34,17 @@ public class SwitchNVGStatusPacket extends PacketBase {
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             Level world = context.getSender().level();
+            Player realPlayer = Minecraft.getInstance().player;
             if (CuriosUtil.hasNVGEquipped(player)) {
                 ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
                 if (facewearItem.getItem() instanceof GenericNVGGogglesItem genericNVGGogglesItem) {
                     GenericNVGGogglesItem.switchNVGMode(facewearItem);
                     if (GenericNVGGogglesItem.getNVGCheck(facewearItem)) {
                         System.out.println("Playing sound on");
-                        world.playSeededSound(player, player.getX(), player.getY(), player.getZ(), genericNVGGogglesItem.ACTIVATION_SOUND.get(), SoundSource.NEUTRAL, 1, 1, 0 );
+                        world.playSeededSound(realPlayer, player.getX(), player.getY(), player.getZ(), genericNVGGogglesItem.ACTIVATION_SOUND.get(), SoundSource.NEUTRAL, 1, 1, 0 );
                     } else {
                         System.out.println("Playing sound off");
-                        world.playSeededSound(player, player.getX(), player.getY(), player.getZ(), genericNVGGogglesItem.DEACTIVATION_SOUND.get(), SoundSource.NEUTRAL, 1, 1, 0 );
+                        world.playSeededSound(realPlayer, player.getX(), player.getY(), player.getZ(), genericNVGGogglesItem.DEACTIVATION_SOUND.get(), SoundSource.NEUTRAL, 1, 1, 0 );
                     }
                 }
             }
