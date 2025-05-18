@@ -55,6 +55,9 @@
   "key.mm.open_backpack" : "Open Backpack",
   "key.mm.open_rig" : "Open Rig",
 
+  "description.mm.nvgs" : "Helmet required",
+  "description.mm.ultra_gamer_gpnvg" : "⚠ Epilepsy Warning ⚠",
+
 
   "curios.identifier.facewear" : "Facewear",
   "curios.identifier.earwear" : "Earwear",

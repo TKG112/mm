@@ -1,5 +1,6 @@
 package net.tkg.ModernMayhem.server.item.curios.facewear;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.chat.Component;
@@ -74,8 +75,9 @@ public class NVGGogglesItem extends GenericNVGGogglesItem {
         super.appendHoverText(stack, level, tooltip, flag);
         if (isGamerNVG) {
             int mode = getNVGMode(stack);
-            tooltip.add(Component.literal("§c§l⚠ Epilepsy Warning ⚠"));
+            tooltip.add(Component.translatable("description.mm.ultra_gamer_gpnvg").withStyle(ChatFormatting.RED));
         }
+        tooltip.add(Component.translatable("description.mm.nvgs").withStyle(ChatFormatting.GRAY));
     }
 
     public boolean isGamerNVG() {
@@ -85,4 +87,5 @@ public class NVGGogglesItem extends GenericNVGGogglesItem {
     public NVGGoggleList getConfig() {
         return config;
     }
+
 }

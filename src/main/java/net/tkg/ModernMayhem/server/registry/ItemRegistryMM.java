@@ -77,7 +77,7 @@ public class ItemRegistryMM {
     public static final RegistryObject<Item> BLACK_KEVLAR_BOOTS = REGISTRY.register("black_kevlar_boots",
             () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.BOOTS,0));
     public static final RegistryObject<Item> GREEN_SSH68_HELMET = REGISTRY.register("green_ssh68_helmet",
-            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.HELMET,1));
+            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.HELMET,1, true));
     public static final RegistryObject<Item> GREEN_KEVLAR_CHESTPLATE = REGISTRY.register("green_kevlar_chestplate",
             () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.CHESTPLATE,1));
     public static final RegistryObject<Item> GREEN_KEVLAR_LEGGINGS = REGISTRY.register("green_kevlar_leggings",
