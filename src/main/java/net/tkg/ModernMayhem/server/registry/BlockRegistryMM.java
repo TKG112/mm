@@ -21,7 +21,7 @@ public class BlockRegistryMM {
 
 
 
-    public static final RegistryObject<Block> DUFFEL_BAG_BLOCK = REGISTRY.register("duffel_bag_block",
+    public static final RegistryObject<Block> DUFFEL_BAG_BLOCK = registerBlock("duffel_bag_block",
             () -> new DuffelBagBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F).noOcclusion()));
 
 
