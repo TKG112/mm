@@ -105,7 +105,7 @@ public class ItemRegistryMM {
             () -> new HeadGearItems(4, 0));
 
     public static final RegistryObject<Item> DUFFEL_BAG = REGISTRY.register("duffel_bag",
-            () -> new DuffelBagItem(new Item.Properties().stacksTo(1), 512));
+            () -> new DuffelBagItem(new Item.Properties().stacksTo(1), 256));
 
 
 

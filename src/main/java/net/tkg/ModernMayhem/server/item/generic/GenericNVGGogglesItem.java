@@ -1,5 +1,7 @@
 package net.tkg.ModernMayhem.server.item.generic;
 
+import net.minecraft.client.CameraType;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -12,6 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.RegistryObject;
 import net.tkg.ModernMayhem.ModernMayhemMod;
+import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.constant.DataTickets;
@@ -19,8 +22,14 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
+import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.SlotResult;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+
+import java.util.List;
+import java.util.Optional;
 
 public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICurioItem {
     private NVGConfig[] configs;
@@ -211,5 +220,25 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
             return false;
         }
         return true;
+    }
+
+    public static boolean isNVGEnabled(Player player) {
+        if (player == null) return false;
+
+        Optional<ICuriosItemHandler> optional = CuriosApi.getCuriosHelper().getCuriosHandler(player).resolve();
+        if (optional.isEmpty()) return false;
+
+        ICuriosItemHandler handler = optional.get();
+
+        List<SlotResult> results = handler.findCurios(stack -> stack.getItem() instanceof NVGGogglesItem);
+
+        for (SlotResult result : results) {
+            ItemStack stack = result.stack();
+            if (GenericNVGGogglesItem.getNVGCheck(stack) && Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

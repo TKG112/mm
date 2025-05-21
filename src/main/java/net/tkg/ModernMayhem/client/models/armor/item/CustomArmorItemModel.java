@@ -19,7 +19,6 @@ public class CustomArmorItemModel extends GeoModel<CustomArmorItem> {
 
     @Override
     public ResourceLocation getAnimationResource(CustomArmorItem item) {
-        // Optional – if you need one animation for all or none
         return new ResourceLocation(ModernMayhemMod.ID, "animations/empty.animation.json");
     }
 
