@@ -17,10 +17,11 @@ public class CuriosRendererRegistryMM {
         // Facewear Gear
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_GPNVG.get(), NVGGogglesRenderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.TAN_GPNVG.get(), NVGGogglesRenderer::new);
-        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_NVG21.get(), NVGGogglesRenderer::new);
-        CuriosRendererRegistry.register(ItemRegistryMM.TAN_NVG21.get(), NVGGogglesRenderer::new);
-        CuriosRendererRegistry.register(ItemRegistryMM.GREEN_NVG21.get(), NVGGogglesRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_PVS14.get(), NVGGogglesRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.TAN_PVS14.get(), NVGGogglesRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.GREEN_PVS14.get(), NVGGogglesRenderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.ULTRA_GAMER_GPNVG.get(), NVGGogglesRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_PVS7.get(), NVGGogglesRenderer::new);
 
         // Head Gear
         CuriosRendererRegistry.register(ItemRegistryMM.BALACLAVA.get(), HeadGearRenderer::new);

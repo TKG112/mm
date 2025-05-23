@@ -14,6 +14,7 @@ public class SoundRegistryMM {
 
     public static RegistryObject<SoundEvent> SOUND_NVG_ON = registerSoundsEvent("sound_nvg_on");
     public static RegistryObject<SoundEvent> SOUND_NVG_OFF = registerSoundsEvent("sound_nvg_off");
+    public static RegistryObject<SoundEvent> SMALL_CLICK = registerSoundsEvent("small_click");
 
     public static void init(IEventBus eventBus) {
         MOD_SOUNDS.register(eventBus);

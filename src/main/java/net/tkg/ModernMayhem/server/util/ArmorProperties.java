@@ -14,6 +14,22 @@ public enum ArmorProperties {
             new float[]{2, 4, 6, 2},
             new float[]{4, 8, 12, 1}
             ),
+    NOTHING(
+            "nothing",
+            new int[]{25, 25, 25, 25},
+            SoundEvents.ARMOR_EQUIP_LEATHER,
+            new float[]{0, 0, 0, 0},
+            new float[]{0, 0, 0, 0},
+            new float[]{0, 0, 0, 0}
+    ),
+    RONIN(
+            "ronin",
+            new int[]{25, 25, 25, 25},
+            SoundEvents.ARMOR_EQUIP_LEATHER,
+            new float[]{2, 3, 4, 2},
+            new float[]{3, 5, 7, 3},
+            new float[]{5, 9, 13, 2}
+    ),
     ;
 
     private final String name;

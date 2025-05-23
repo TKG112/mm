@@ -2,9 +2,9 @@
   "item.mm.black_gpnvg" :  "Black GPNVG",
   "item.mm.tan_gpnvg" :  "Tan GPNVG",
   "item.mm.ultra_gamer_gpnvg" :  "Ultra Gamer GPNVG",
-  "item.mm.black_nvg21" :  "Black NVG21",
-  "item.mm.green_nvg21" :  "Green NVG21",
-  "item.mm.tan_nvg21" :  "Tan NVG21",
+  "item.mm.black_pvs14" :  "Black PVS-14",
+  "item.mm.green_pvs14" :  "Green PVS-14",
+  "item.mm.tan_pvs14" :  "Tan PVS-14",
   "item.mm.black_backpack_t1" : "Small Black Backpack",
   "item.mm.black_backpack_t2" : "Medium Black Backpack",
   "item.mm.black_backpack_t3" : "Large Black Backpack",
@@ -40,12 +40,21 @@
   "item.mm.black_military_balaclava" : "Black Military Balaclava",
   "item.mm.balaclava" : "Balaclava",
   "item.mm.duffel_bag" : "Duffel Bag",
+  "item.mm.black_ronin" : "Ronin Helmet",
+  "item.mm.black_head_mount" : "Head Mount",
+  "item.mm.black_visor" : "Black Visor",
+  "item.mm.tan_visor" : "Tan Visor",
+  "item.mm.white_phosphor" : "White Phosphor",
+  "item.mm.green_phosphor" : "Green Phosphor",
+  "item.mm.red_phosphor" : "Red Phosphor",
+  "item.mm.black_pvs7" : "Black PVS-7",
+
 
 
   "block.mm.duffel_bag_block" : "Duffel Bag",
 
 
-  "item_group.mm.gms" : "Modern Mayhem",
+  "item_group.mm" : "Modern Mayhem",
 
 
   "key.categories.mm" : "Modern Mayhem",
@@ -54,6 +63,7 @@
   "key.mm.decrease_tube_gain" : "Decrease Tube Gain",
   "key.mm.open_backpack" : "Open Backpack",
   "key.mm.open_rig" : "Open Rig",
+
 
   "description.mm.nvgs" : "Helmet required",
   "description.mm.ultra_gamer_gpnvg" : "⚠ Epilepsy Warning ⚠",
@@ -64,5 +74,6 @@
 
 
   "sounds.mm.nvg_on" : "Night Vision Goggles On",
-  "sounds.mm.nvg_off" : "Night Vision Goggles Off"
+  "sounds.mm.nvg_off" : "Night Vision Goggles Off",
+  "sounds.mm.small_click" : "Night Vision Goggles Gain Change"
 }

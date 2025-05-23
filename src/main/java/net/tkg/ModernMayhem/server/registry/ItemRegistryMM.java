@@ -1,6 +1,7 @@
 package net.tkg.ModernMayhem.server.registry;
 
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -23,16 +24,19 @@ public class ItemRegistryMM {
 
     public static final RegistryObject<Item> BLACK_GPNVG = REGISTRY.register("black_gpnvg",
             () -> new NVGGogglesItem(NVGGoggleList.BLACK_GPNVG));
-    public static final RegistryObject<Item> BLACK_NVG21 = REGISTRY.register("black_nvg21",
-            () -> new NVGGogglesItem(NVGGoggleList.BLACK_NVG21));
+    public static final RegistryObject<Item> BLACK_PVS14 = REGISTRY.register("black_pvs14",
+            () -> new NVGGogglesItem(NVGGoggleList.BLACK_PVS14));
     public static final RegistryObject<Item> ULTRA_GAMER_GPNVG = REGISTRY.register("ultra_gamer_gpnvg",
             () -> new NVGGogglesItem(NVGGoggleList.GAMER_GPNVG));
     public static final RegistryObject<Item> TAN_GPNVG = REGISTRY.register("tan_gpnvg",
             () -> new NVGGogglesItem(NVGGoggleList.TAN_GPNVG));
-    public static final RegistryObject<Item> TAN_NVG21 = REGISTRY.register("tan_nvg21",
-            () -> new NVGGogglesItem(NVGGoggleList.TAN_NVG21));
-    public static final RegistryObject<Item> GREEN_NVG21 = REGISTRY.register("green_nvg21",
-            () -> new NVGGogglesItem(NVGGoggleList.GREEN_NVG21));
+    public static final RegistryObject<Item> TAN_PVS14 = REGISTRY.register("tan_pvs14",
+            () -> new NVGGogglesItem(NVGGoggleList.TAN_PVS14));
+    public static final RegistryObject<Item> GREEN_PVS14 = REGISTRY.register("green_pvs14",
+            () -> new NVGGogglesItem(NVGGoggleList.GREEN_PVS14));
+    public static final RegistryObject<Item> BLACK_PVS7 = REGISTRY.register("black_pvs7",
+            () -> new NVGGogglesItem(NVGGoggleList.BLACK_PVS7));
+
 
     public static final RegistryObject<Item> BLACK_BACKPACK_T1 = REGISTRY.register("black_backpack_t1",
             () -> new BackpackItem(0, 1));
@@ -92,6 +96,11 @@ public class ItemRegistryMM {
             () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.LEGGINGS,2));
     public static final RegistryObject<Item> TAN_KEVLAR_BOOTS = REGISTRY.register("tan_kevlar_boots",
             () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.BOOTS,2));
+    public static final RegistryObject<Item> BLACK_HEAD_MOUNT = REGISTRY.register("black_head_mount",
+            () -> new CustomArmorItem(ArmorProperties.NOTHING, ArmorItem.Type.HELMET,0, true));
+    public static final RegistryObject<Item> BLACK_RONIN = REGISTRY.register("black_ronin",
+            () -> new CustomArmorItem(ArmorProperties.RONIN, ArmorItem.Type.HELMET,0, true));
+
 
     public static final RegistryObject<Item> BALACLAVA = REGISTRY.register("balaclava",
             () -> new HeadGearItems(0, 0));
@@ -104,11 +113,17 @@ public class ItemRegistryMM {
     public static final RegistryObject<Item> BLACK_MILITARY_BALACLAVA = REGISTRY.register("black_military_balaclava",
             () -> new HeadGearItems(4, 0));
 
+
     public static final RegistryObject<Item> DUFFEL_BAG = REGISTRY.register("duffel_bag",
             () -> new DuffelBagItem(new Item.Properties().stacksTo(1), 256));
 
 
-
+    public static final RegistryObject<Item> WHITE_PHOSPHOR = REGISTRY.register("white_phosphor",
+            () -> new Item(new Item.Properties().stacksTo(64)));
+    public static final RegistryObject<Item> GREEN_PHOSPHOR = REGISTRY.register("green_phosphor",
+            () -> new Item(new Item.Properties().stacksTo(64)));
+    public static final RegistryObject<Item> RED_PHOSPHOR = REGISTRY.register("red_phosphor",
+            () -> new Item(new Item.Properties().stacksTo(64)));
 
 
 

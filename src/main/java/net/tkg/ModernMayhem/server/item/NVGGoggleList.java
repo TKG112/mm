@@ -32,30 +32,40 @@ public enum NVGGoggleList {
             0,
             99
     ),
-    BLACK_NVG21(
-            NVGConfigs.WHITE_PHOSPHOR_NVG21,
+    BLACK_PVS14(
+            NVGConfigs.WHITE_PHOSPHOR_PVS14,
             1,
             SoundRegistryMM.SOUND_NVG_ON,
             SoundRegistryMM.SOUND_NVG_OFF,
             1,
             0
     ),
-    TAN_NVG21(
-            NVGConfigs.GREEN_PHOSPHOR_NVG21,
+    TAN_PVS14(
+            NVGConfigs.GREEN_PHOSPHOR_PVS14,
             1,
             SoundRegistryMM.SOUND_NVG_ON,
             SoundRegistryMM.SOUND_NVG_OFF,
             1,
             1
     ),
-    GREEN_NVG21(
-            NVGConfigs.GREEN_PHOSPHOR_NVG21,
+    GREEN_PVS14(
+            NVGConfigs.GREEN_PHOSPHOR_PVS14,
             1,
             SoundRegistryMM.SOUND_NVG_ON,
             SoundRegistryMM.SOUND_NVG_OFF,
             1,
             2
-    );
+    ),
+    BLACK_PVS7(
+            NVGConfigs.WHITE_PHOSPHOR_PVS7,
+            1,
+            SoundRegistryMM.SOUND_NVG_ON,
+            SoundRegistryMM.SOUND_NVG_OFF,
+            2,
+            0
+    ),
+
+    ;
 
     private final GenericNVGGogglesItem.NVGConfig[] configs;
     private final int configIndex;

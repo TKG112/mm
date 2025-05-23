@@ -10,7 +10,8 @@ public class NVGGogglesModel extends GeoModel<NVGGogglesItem> {
     public ResourceLocation getModelResource(NVGGogglesItem animatable) {
         return switch (animatable.getConfig().getType()) {
             case 0 -> new ResourceLocation(ModernMayhemMod.ID, "geo/item/curios/facewear/gpnvg.geo.json");
-            case 1 -> new ResourceLocation(ModernMayhemMod.ID, "geo/item/curios/facewear/nvg21.geo.json");
+            case 1 -> new ResourceLocation(ModernMayhemMod.ID, "geo/item/curios/facewear/pvs14.geo.json");
+            case 2 -> new ResourceLocation(ModernMayhemMod.ID, "geo/item/curios/facewear/pvs7.geo.json");
             default -> new ResourceLocation(ModernMayhemMod.ID, "NOT_FOUND");
         };
     }
@@ -29,12 +30,18 @@ public class NVGGogglesModel extends GeoModel<NVGGogglesItem> {
             }
             case 1 -> {
                 return switch (animatable.getConfig().getVariant()) {
-                    case 0 -> new ResourceLocation(ModernMayhemMod.ID, "textures/item/curios/facewear/black_nvg21.png");
-                    case 1 -> new ResourceLocation(ModernMayhemMod.ID, "textures/item/curios/facewear/tan_nvg21.png");
-                    case 2 -> new ResourceLocation(ModernMayhemMod.ID, "textures/item/curios/facewear/green_nvg21.png");
+                    case 0 -> new ResourceLocation(ModernMayhemMod.ID, "textures/item/curios/facewear/black_pvs14.png");
+                    case 1 -> new ResourceLocation(ModernMayhemMod.ID, "textures/item/curios/facewear/tan_pvs14.png");
+                    case 2 -> new ResourceLocation(ModernMayhemMod.ID, "textures/item/curios/facewear/green_pvs14.png");
                     default -> new ResourceLocation(ModernMayhemMod.ID, "NOT_FOUND");
                 };
             }
+             case 2 -> {
+                 return switch (animatable.getConfig().getVariant()) {
+                     case 0 -> new ResourceLocation(ModernMayhemMod.ID, "textures/item/curios/facewear/black_pvs7.png");
+                     default -> new ResourceLocation(ModernMayhemMod.ID, "NOT_FOUND");
+                 };
+             }
         };
         return new ResourceLocation(ModernMayhemMod.ID, "NOT_FOUND");
     }
@@ -43,7 +50,8 @@ public class NVGGogglesModel extends GeoModel<NVGGogglesItem> {
     public ResourceLocation getAnimationResource(NVGGogglesItem animatable) {
         return switch (animatable.getConfig().getType()) {
             case 0 -> new ResourceLocation(ModernMayhemMod.ID, "animations/item/curios/facewear/gpnvg.animation.json");
-            case 1 -> new ResourceLocation(ModernMayhemMod.ID, "animations/item/curios/facewear/nvg21.animation.json");
+            case 1 -> new ResourceLocation(ModernMayhemMod.ID, "animations/item/curios/facewear/pvs14.animation.json");
+            case 2 -> new ResourceLocation(ModernMayhemMod.ID, "animations/item/curios/facewear/pvs7.animation.json");
             default -> new ResourceLocation(ModernMayhemMod.ID, "NOT_FOUND");
         };
     }

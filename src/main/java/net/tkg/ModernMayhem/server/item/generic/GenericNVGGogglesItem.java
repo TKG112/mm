@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,8 +29,8 @@ import top.theillusivec4.curios.api.SlotResult;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.logging.Level;
 
 public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICurioItem {
     private NVGConfig[] configs;
@@ -42,6 +43,8 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
     public static final RawAnimation ANIM_IDLE = RawAnimation.begin().thenLoop("opened");
     public static final RawAnimation ANIM_OPEN = RawAnimation.begin().thenPlayAndHold("opening").thenLoop("opened");
     public static final RawAnimation ANIM_CLOSE = RawAnimation.begin().thenPlayAndHold("closing").thenLoop("closed");
+
+    private static final Map<UUID, Integer> lastConfigIndexMap = new HashMap<>();
 
 
     public GenericNVGGogglesItem(NVGConfig pConfig) {
@@ -222,23 +225,17 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
         return true;
     }
 
-    public static boolean isNVGEnabled(Player player) {
-        if (player == null) return false;
-
-        Optional<ICuriosItemHandler> optional = CuriosApi.getCuriosHelper().getCuriosHandler(player).resolve();
-        if (optional.isEmpty()) return false;
-
-        ICuriosItemHandler handler = optional.get();
-
-        List<SlotResult> results = handler.findCurios(stack -> stack.getItem() instanceof NVGGogglesItem);
-
-        for (SlotResult result : results) {
-            ItemStack stack = result.stack();
-            if (GenericNVGGogglesItem.getNVGCheck(stack) && Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON) {
-                return true;
-            }
+    public static boolean hasConfigIndexChanged(Player player, ItemStack stack) {
+        if (!(stack.getItem() instanceof GenericNVGGogglesItem)) return false;
+        CompoundTag tag = stack.getTag();
+        if (tag == null || !tag.contains("configIndex")) return false;
+        int currentIndex = tag.getInt("configIndex");
+        UUID playerId = player.getUUID();
+        int lastIndex = lastConfigIndexMap.getOrDefault(playerId, -1);
+        if (currentIndex != lastIndex) {
+            lastConfigIndexMap.put(playerId, currentIndex);
+            return true;
         }
-
         return false;
     }
 }

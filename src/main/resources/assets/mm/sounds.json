@@ -6,5 +6,9 @@
   "sound_nvg_off" : {
       "subtitle" : "sounds.mm.nvg_off",
       "sounds" : [ "mm:item/nvg_off" ]
+  },
+  "small_click" : {
+    "subtitle" : "sounds.mm.small_click",
+    "sounds" : [ "mm:switch_button_click_small" ]
   }
 }

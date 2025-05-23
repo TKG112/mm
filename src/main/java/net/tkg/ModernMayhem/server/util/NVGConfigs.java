@@ -79,53 +79,77 @@ public class NVGConfigs {
         )
     };
 
-    public static GenericNVGGogglesItem.NVGConfig[] WHITE_PHOSPHOR_NVG21 = {
+    public static GenericNVGGogglesItem.NVGConfig[] WHITE_PHOSPHOR_PVS14 = {
         new GenericNVGGogglesItem.NVGConfig(
                 0.4f,
                 0.7f,
                 1,
                 1,
-                "textures/screens/nvg21_overlay.png"
+                "textures/screens/pvs7_overlay.png"
         ),
         new GenericNVGGogglesItem.NVGConfig(
                 0.5f,
                 0.7f,
                 1,
                 1,
-                "textures/screens/nvg21_overlay.png"
+                "textures/screens/pvs7_overlay.png"
         ),
         new GenericNVGGogglesItem.NVGConfig(
                 0.6f,
                 0.7f,
                 1,
                 1,
-                "textures/screens/nvg21_overlay.png"
+                "textures/screens/pvs7_overlay.png"
         )
     };
 
 
-    public static GenericNVGGogglesItem.NVGConfig[] GREEN_PHOSPHOR_NVG21 = {
+    public static GenericNVGGogglesItem.NVGConfig[] GREEN_PHOSPHOR_PVS14 = {
         new GenericNVGGogglesItem.NVGConfig(
                 0.3f,
                 0.7f,
                 1,
                 0.7f,
-                "textures/screens/nvg21_overlay.png"
+                "textures/screens/pvs7_overlay.png"
         ),
         new GenericNVGGogglesItem.NVGConfig(
                 0.5f,
                 0.7f,
                 1,
                 0.7f,
-                "textures/screens/nvg21_overlay.png"
+                "textures/screens/pvs7_overlay.png"
         ),
         new GenericNVGGogglesItem.NVGConfig(
                 0.7f,
                 0.7f,
                 1,
                 0.7f,
-                "textures/screens/nvg21_overlay.png"
+                "textures/screens/pvs7_overlay.png"
         )
+    };
+
+    public static GenericNVGGogglesItem.NVGConfig[] WHITE_PHOSPHOR_PVS7 = {
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.4f,
+                    0.7f,
+                    1,
+                    1,
+                    "textures/screens/pvs7_overlay.png"
+            ),
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.5f,
+                    0.7f,
+                    1,
+                    1,
+                    "textures/screens/pvs7_overlay.png"
+            ),
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.6f,
+                    0.7f,
+                    1,
+                    1,
+                    "textures/screens/pvs7_overlay.png"
+            )
     };
 
     private static int redValue = 100;

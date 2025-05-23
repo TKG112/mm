@@ -3,9 +3,10 @@
   "values": [
     "mm:black_gpnvg",
     "mm:tan_gpnvg",
-    "mm:black_nvg21",
-    "mm:tan_nvg21",
-    "mm:green_nvg21",
+    "mm:black_pvs14",
+    "mm:tan_pvs14",
+    "mm:green_pvs14",
+    "mm:black_pvs7",
     "mm:ultra_gamer_gpnvg",
     "mm:black_glasses",
     "mm:black_goggles"

@@ -34,17 +34,17 @@ public class SwitchNVGStatusPacket extends PacketBase {
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             Level world = context.getSender().level();
-            Player realPlayer = Minecraft.getInstance().player;
+            Player clientPlayer = Minecraft.getInstance().player;
             if (CuriosUtil.hasNVGEquipped(player)) {
                 ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
                 if (facewearItem.getItem() instanceof GenericNVGGogglesItem genericNVGGogglesItem) {
                     GenericNVGGogglesItem.switchNVGMode(facewearItem);
                     if (GenericNVGGogglesItem.getNVGCheck(facewearItem)) {
                         System.out.println("Playing sound on");
-                        world.playSeededSound(realPlayer, player.getX(), player.getY(), player.getZ(), genericNVGGogglesItem.ACTIVATION_SOUND.get(), SoundSource.NEUTRAL, 1, 1, 0 );
+                        world.playSeededSound(clientPlayer, clientPlayer.getX(), clientPlayer.getY(), clientPlayer.getZ(), genericNVGGogglesItem.ACTIVATION_SOUND.get(), SoundSource.NEUTRAL, 1, 1, 0 );
                     } else {
                         System.out.println("Playing sound off");
-                        world.playSeededSound(realPlayer, player.getX(), player.getY(), player.getZ(), genericNVGGogglesItem.DEACTIVATION_SOUND.get(), SoundSource.NEUTRAL, 1, 1, 0 );
+                        world.playSeededSound(clientPlayer, clientPlayer.getX(), clientPlayer.getY(), clientPlayer.getZ(), genericNVGGogglesItem.DEACTIVATION_SOUND.get(), SoundSource.NEUTRAL, 1, 1, 0 );
                     }
                 }
             }

@@ -1,8 +1,10 @@
 package net.tkg.ModernMayhem.server.item.generic;
 
 import io.netty.buffer.Unpooled;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -13,15 +15,19 @@ import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.network.NetworkHooks;
 import net.tkg.ModernMayhem.server.GUI.GenericBackpackGUI;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+
+import java.util.List;
 
 public class GenericBackpackItem extends Item implements ICurioItem {
     private final int inventorySize;
@@ -176,6 +182,38 @@ public class GenericBackpackItem extends Item implements ICurioItem {
                 friendlyByteBuf.writeByte(backpackSlotID);
                 friendlyByteBuf.writeByte(this.curiosSlotType);
             });
+        }
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(stack, level, tooltip, flag);
+
+        CompoundTag tag = stack.getTag();
+        if (tag != null && tag.contains("inventory")) {
+            ItemStackHandler inventory = new ItemStackHandler(inventorySize);
+            inventory.deserializeNBT(tag.getCompound("inventory"));
+
+            int shownItems = 0;
+            for (int i = 0; i < inventory.getSlots(); i++) {
+                ItemStack item = inventory.getStackInSlot(i);
+                if (!item.isEmpty()) {
+                    tooltip.add(Component.literal("• " + item.getDisplayName().getString() + " x" + item.getCount())
+                            .withStyle(ChatFormatting.GRAY));
+                    shownItems++;
+                    if (shownItems >= 5) break;
+                }
+            }
+
+            int totalItems = (int) java.util.stream.IntStream.range(0, inventory.getSlots())
+                    .mapToObj(inventory::getStackInSlot)
+                    .filter(s -> !s.isEmpty())
+                    .count();
+
+            if (shownItems < totalItems) {
+                tooltip.add(Component.literal("...and " + (totalItems - shownItems) + " more")
+                        .withStyle(ChatFormatting.DARK_GRAY));
+            }
         }
     }
 }

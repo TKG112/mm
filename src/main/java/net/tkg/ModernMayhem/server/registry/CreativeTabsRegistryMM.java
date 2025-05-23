@@ -13,17 +13,18 @@ public class CreativeTabsRegistryMM {
 
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ModernMayhemMod.ID);
 
-    public static final RegistryObject<CreativeModeTab> GMS = TABS.register(
-            "gms",
+    public static final RegistryObject<CreativeModeTab> MM = TABS.register(
+            "mm",
             () -> CreativeModeTab.builder().
-                    title(Component.translatable("item_group."+ModernMayhemMod.ID+".gms"))
+                    title(Component.translatable("item_group."+ModernMayhemMod.ID))
                     .icon(() -> new ItemStack(ItemRegistryMM.MENU_ITEM.get())).displayItems( ((pParameters, pOutput) -> {
                         pOutput.accept(ItemRegistryMM.BLACK_GPNVG.get());
                         pOutput.accept(ItemRegistryMM.TAN_GPNVG.get());
                         pOutput.accept(ItemRegistryMM.ULTRA_GAMER_GPNVG.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_NVG21.get());
-                        pOutput.accept(ItemRegistryMM.TAN_NVG21.get());
-                        pOutput.accept(ItemRegistryMM.GREEN_NVG21.get());
+                        pOutput.accept(ItemRegistryMM.BLACK_PVS14.get());
+                        pOutput.accept(ItemRegistryMM.TAN_PVS14.get());
+                        pOutput.accept(ItemRegistryMM.GREEN_PVS14.get());
+                        pOutput.accept(ItemRegistryMM.BLACK_PVS7.get());
                         pOutput.accept(ItemRegistryMM.BLACK_BACKPACK_T1.get());
                         pOutput.accept(ItemRegistryMM.BLACK_BACKPACK_T2.get());
                         pOutput.accept(ItemRegistryMM.BLACK_BACKPACK_T3.get());
@@ -53,13 +54,17 @@ public class CreativeTabsRegistryMM {
                         pOutput.accept(ItemRegistryMM.TAN_KEVLAR_CHESTPLATE.get());
                         pOutput.accept(ItemRegistryMM.TAN_KEVLAR_LEGGINGS.get());
                         pOutput.accept(ItemRegistryMM.TAN_KEVLAR_BOOTS.get());
+                        pOutput.accept(ItemRegistryMM.BLACK_HEAD_MOUNT.get());
+                        pOutput.accept(ItemRegistryMM.BLACK_RONIN.get());
                         pOutput.accept(ItemRegistryMM.BALACLAVA.get());
                         pOutput.accept(ItemRegistryMM.BLACK_GLASSES.get());
                         pOutput.accept(ItemRegistryMM.BLACK_GOGGLES.get());
                         pOutput.accept(ItemRegistryMM.BLACK_HEADSET.get());
                         pOutput.accept(ItemRegistryMM.BLACK_MILITARY_BALACLAVA.get());
                         pOutput.accept(ItemRegistryMM.DUFFEL_BAG.get());
-
+                        pOutput.accept(ItemRegistryMM.WHITE_PHOSPHOR.get());
+                        pOutput.accept(ItemRegistryMM.GREEN_PHOSPHOR.get());
+                        pOutput.accept(ItemRegistryMM.RED_PHOSPHOR.get());
 
 
                     })).build()
