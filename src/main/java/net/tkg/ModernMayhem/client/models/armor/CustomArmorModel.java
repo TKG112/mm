@@ -20,6 +20,12 @@ public class CustomArmorModel extends GeoModel<CustomArmorItem> {
                             default -> throw new IllegalStateException("Unexpected value: no such armor type as " + customArmorItem.getMaterial().getName());
                         };
                     }
+                     case LEGGINGS -> {
+                         return switch (customArmorItem.getVariant()) {
+                             case 3, 4, 5 -> new ResourceLocation(ModernMayhemMod.ID, "geo/armor/iola.geo.json");
+                             default -> throw new IllegalStateException("Unexpected value: no such armor type as " + customArmorItem.getMaterial().getName());
+                         };
+                     }
                      default -> {
                          return new ResourceLocation(ModernMayhemMod.ID, "geo/armor/kevlar_clothing.geo.json");
                      }
@@ -36,7 +42,7 @@ public class CustomArmorModel extends GeoModel<CustomArmorItem> {
                         };
                     }
                     default -> {
-                        return new ResourceLocation(ModernMayhemMod.ID, "geo/armor/kevlar_clothing.geo.json");
+                        throw new IllegalStateException("Unexpected value: no such armor type as " + customArmorItem.getMaterial().getName());
                     }
                 }
             }
@@ -51,9 +57,13 @@ public class CustomArmorModel extends GeoModel<CustomArmorItem> {
                         };
                     }
                     default -> {
-                        return new ResourceLocation(ModernMayhemMod.ID, "geo/armor/kevlar_clothing.geo.json");
+                        throw new IllegalStateException("Unexpected value: no such armor type as " + customArmorItem.getMaterial().getName());
                     }
                 }
+            }
+
+            case "hazmat" -> {
+                return new ResourceLocation(ModernMayhemMod.ID, "geo/armor/hazmat_suit.geo.json");
             }
 
             default -> throw new IllegalStateException("Unexpected value: no such armor type as " + customArmorItem.getMaterial().getName());
@@ -83,6 +93,15 @@ public class CustomArmorModel extends GeoModel<CustomArmorItem> {
                         }
                         return new ResourceLocation(ModernMayhemMod.ID, "textures/armor/tan_kevlar_clothing.png");
                     }
+                    case 3 -> {
+                        return new ResourceLocation(ModernMayhemMod.ID, "textures/armor/black_iola.png");
+                    }
+                    case 4 -> {
+                        return new ResourceLocation(ModernMayhemMod.ID, "textures/armor/green_iola.png");
+                    }
+                    case 5 -> {
+                        return new ResourceLocation(ModernMayhemMod.ID, "textures/armor/tan_iola.png");
+                    }
                     default -> throw new IllegalStateException("Unexpected value: No such variant with id " + customArmorItem.getVariant());
                 }
             }
@@ -90,10 +109,7 @@ public class CustomArmorModel extends GeoModel<CustomArmorItem> {
             case "nothing" -> {
                 switch (customArmorItem.getVariant()) {
                     case 0 -> {
-                        if (customArmorItem.getType() == ArmorItem.Type.HELMET) {
-                            return new ResourceLocation(ModernMayhemMod.ID, "textures/armor/black_head_mount.png");
-                        }
-                        return new ResourceLocation(ModernMayhemMod.ID, "textures/armor/black_kevlar_clothing.png"); //No armor, but gonna keep this
+                        return new ResourceLocation(ModernMayhemMod.ID, "textures/armor/black_head_mount.png"); //No armor, but gonna keep this
                     }
                     default -> throw new IllegalStateException("Unexpected value: No such variant with id " + customArmorItem.getVariant());
                 }
@@ -102,14 +118,25 @@ public class CustomArmorModel extends GeoModel<CustomArmorItem> {
             case "ronin" -> {
                 switch (customArmorItem.getVariant()) {
                     case 0 -> {
-                        if (customArmorItem.getType() == ArmorItem.Type.HELMET) {
-                            return new ResourceLocation(ModernMayhemMod.ID, "textures/armor/black_ronin.png");
-                        }
-                        return new ResourceLocation(ModernMayhemMod.ID, "textures/armor/black_kevlar_clothing.png"); //No armor, but gonna keep this
+                        return new ResourceLocation(ModernMayhemMod.ID, "textures/armor/black_ronin.png"); //No armor, but gonna keep this
                     }
                     default -> throw new IllegalStateException("Unexpected value: No such variant with id " + customArmorItem.getVariant());
                 }
             }
+
+            case "hazmat" -> {
+                switch (customArmorItem.getVariant()) {
+                    case 0 -> {
+                        return new ResourceLocation(ModernMayhemMod.ID, "textures/armor/yellow_hazmat_suit.png");
+                    }
+                    case 1 -> {
+                        return new ResourceLocation(ModernMayhemMod.ID, "textures/armor/orange_hazmat_suit.png");
+                    }
+                    default -> throw new IllegalStateException("Unexpected value: No such variant with id " + customArmorItem.getVariant());
+                }
+            }
+
+
 
             default -> throw new IllegalStateException("Unexpected value: no such armor type as " + customArmorItem.getMaterial().getName());
         }

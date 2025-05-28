@@ -1,21 +1,18 @@
 package net.tkg.ModernMayhem.server.item.generic;
 
-import net.minecraft.client.CameraType;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.RegistryObject;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.constant.DataTickets;
@@ -25,12 +22,9 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.SlotResult;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
-import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 import java.util.*;
-import java.util.logging.Level;
 
 public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICurioItem {
     private NVGConfig[] configs;
@@ -45,6 +39,8 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
     public static final RawAnimation ANIM_CLOSE = RawAnimation.begin().thenPlayAndHold("closing").thenLoop("closed");
 
     private static final Map<UUID, Integer> lastConfigIndexMap = new HashMap<>();
+
+    private static final TagKey<Item> HAS_HEAD_MOUNT_TAG = ItemTags.create(new ResourceLocation(ModernMayhemMod.ID, "has_head_mount"));
 
 
     public GenericNVGGogglesItem(NVGConfig pConfig) {
@@ -199,31 +195,45 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         Entity entity = slotContext.entity();
-        if (entity instanceof LivingEntity livingEntity) {
-            if (entity.level().isClientSide()) {
-                updateNVGMode(stack);
+        if (!(entity instanceof LivingEntity)) return;
+
+        if (entity.level().isClientSide()) {
+            updateNVGMode(stack);
+        }
+
+        if (entity instanceof Player player && !player.level().isClientSide()) {
+            ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
+
+            if (helmet.isEmpty() || !helmet.is(HAS_HEAD_MOUNT_TAG)) {
+                CuriosApi.getCuriosInventory(player).ifPresent(curios -> {
+                    curios.getStacksHandler(slotContext.identifier()).ifPresent(handler -> {
+                        ItemStack removedStack = handler.getStacks().getStackInSlot(slotContext.index()).copy();
+                        handler.getStacks().setStackInSlot(slotContext.index(), ItemStack.EMPTY);
+
+                        boolean added = player.getInventory().add(removedStack);
+                        if (!added) {
+                            player.drop(removedStack, false);
+                        }
+                    });
+                });
             }
         }
     }
+
 
     // Used to check if it can be equipped (In this case, if the player has a helmet with the tag 'mm:hasHeadMount' equipped)
     @Override
     public boolean canEquip(SlotContext slotContext, ItemStack stack) {
         LivingEntity entity = slotContext.entity();
-        System.out.println("TESTING EQUIP HERE !");
-        if (entity instanceof Player player) {
-            Iterable<ItemStack> armorList = player.getArmorSlots();
-            for(ItemStack itemStack : armorList) {
-                if (itemStack.getItem() instanceof ArmorItem armorItem) {
-                    if (armorItem.getEquipmentSlot() == EquipmentSlot.HEAD) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-        return true;
+        if (!(entity instanceof Player player)) return false;
+
+        // If player data is not fully available yet (e.g., during login), allow equip
+        if (!player.isAddedToWorld()) return true;
+
+        ItemStack headItem = player.getItemBySlot(EquipmentSlot.HEAD);
+        return !headItem.isEmpty() && headItem.is(HAS_HEAD_MOUNT_TAG);
     }
+
 
     public static boolean hasConfigIndexChanged(Player player, ItemStack stack) {
         if (!(stack.getItem() instanceof GenericNVGGogglesItem)) return false;

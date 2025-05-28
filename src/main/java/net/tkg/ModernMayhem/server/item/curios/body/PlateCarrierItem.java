@@ -92,7 +92,7 @@ public class PlateCarrierItem extends GenericBackpackItem implements GeoItem, IC
         return this.variant;
     }
 
-    private static int getNumberofLinesPlateCarrier(String type) {
+    public static int getNumberofLinesPlateCarrier(String type) {
         switch (type) {
             case "default":
                 return 0;
@@ -105,7 +105,7 @@ public class PlateCarrierItem extends GenericBackpackItem implements GeoItem, IC
         }
     }
 
-    private static int getNumberofCollumnsPlateCarrier(String type) {
+    public static int getNumberofCollumnsPlateCarrier(String type) {
         switch (type) {
             case "default":
                 return 0;

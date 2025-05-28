@@ -5,7 +5,9 @@
   "target": "@env(DEFAULT)",
   "client": [
     "client.PostChainMixin",
-    "client.DarknessMixin"
+    "client.DarknessMixin",
+    "client.GunHudOverlayAccessor",
+    "client.GunHudOverlayMixin"
   ],
   "injectors": {
     "defaultRequire": 1

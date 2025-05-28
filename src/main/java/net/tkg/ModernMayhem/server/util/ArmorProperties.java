@@ -30,6 +30,14 @@ public enum ArmorProperties {
             new float[]{3, 5, 7, 3},
             new float[]{5, 9, 13, 2}
     ),
+    HAZMAT(
+            "hazmat",
+            new int[]{25, 25, 25, 25},
+            SoundEvents.ARMOR_EQUIP_LEATHER,
+            new float[]{1, 2, 3, 1},
+            new float[]{2, 4, 6, 2},
+            new float[]{4, 8, 12, 1}
+    ),
     ;
 
     private final String name;
