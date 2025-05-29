@@ -22,6 +22,7 @@ public class CustomArmorModel extends GeoModel<CustomArmorItem> {
                     }
                      case LEGGINGS -> {
                          return switch (customArmorItem.getVariant()) {
+                             case 0, 1, 2 -> new ResourceLocation(ModernMayhemMod.ID, "geo/armor/kevlar_clothing.geo.json");
                              case 3, 4, 5 -> new ResourceLocation(ModernMayhemMod.ID, "geo/armor/iola.geo.json");
                              default -> throw new IllegalStateException("Unexpected value: no such armor type as " + customArmorItem.getMaterial().getName());
                          };
