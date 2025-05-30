@@ -14,7 +14,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.tkg.ModernMayhem.server.item.curios.body.BandoleerItem;
 import net.tkg.ModernMayhem.server.item.curios.body.PlateCarrierItem;
+import net.tkg.ModernMayhem.server.item.curios.body.ReconRigItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import net.tkg.ModernMayhem.server.util.MutableInt;
 import org.spongepowered.asm.mixin.Mixin;
@@ -39,17 +41,12 @@ public class AbstractGunItemMixin {
     }
 
     @Inject(method = "canReload", at = @At("RETURN"), cancellable = true, remap = false)
-    private void checkPlateCarrierForAmmo(LivingEntity shooter, ItemStack gunItem, CallbackInfoReturnable<Boolean> cir) {
-        if (cir.getReturnValue()) {
-            return;
-        }
+    private void checkRigForAmmo(LivingEntity shooter, ItemStack gunItem, CallbackInfoReturnable<Boolean> cir) {
+        if (cir.getReturnValue()) return;
 
-        // Properly retrieve gunIndex and max ammo count
         ResourceLocation gunId = ((AbstractGunItem)(Object)this).getGunId(gunItem);
         Optional<CommonGunIndex> optionalIndex = TimelessAPI.getCommonGunIndex(gunId);
-        if (optionalIndex.isEmpty()) {
-            return;
-        }
+        if (optionalIndex.isEmpty()) return;
 
         CommonGunIndex gunIndex = optionalIndex.get();
         int currentAmmoCount = ((AbstractGunItem)(Object)this).getCurrentAmmoCount(gunItem);
@@ -63,25 +60,19 @@ public class AbstractGunItemMixin {
         if (!(shooter instanceof Player player)) return;
 
         ItemStack rigItem = CuriosUtil.getRigItem(player);
-        if (rigItem == null || rigItem.isEmpty() || !(rigItem.getItem() instanceof PlateCarrierItem carrier)) {
-            return;
-        }
+        if (rigItem == null || rigItem.isEmpty()) return;
 
-        if (!"ammo".equals(carrier.getType())) {
-            return;
-        }
+        int size = getRigInventorySize(rigItem);
+        if (size <= 0) return;
 
         CompoundTag tag = rigItem.getTag();
         if (tag == null || !tag.contains("inventory")) return;
 
-        int size = PlateCarrierItem.getNumberofLinesPlateCarrier(carrier.getType()) *
-                PlateCarrierItem.getNumberofCollumnsPlateCarrier(carrier.getType());
         ItemStackHandler inventory = new ItemStackHandler(size);
         inventory.deserializeNBT(tag.getCompound("inventory"));
 
         for (int i = 0; i < inventory.getSlots(); i++) {
             ItemStack stack = inventory.getStackInSlot(i);
-
             if (stack.isEmpty()) continue;
 
             if (stack.getItem() instanceof IAmmo iAmmo && iAmmo.isAmmoOfGun(gunItem, stack)) {
@@ -94,14 +85,12 @@ public class AbstractGunItemMixin {
                 return;
             }
         }
-
     }
 
     @Inject(method = "findAndExtractInventoryAmmo", at = @At("RETURN"), cancellable = true, remap = false)
-    private void extractAmmoFromPlateCarrier(IItemHandler itemHandler, ItemStack gunItem, int needAmmoCount, CallbackInfoReturnable<Integer> cir) {
+    private void extractAmmoFromRig(IItemHandler itemHandler, ItemStack gunItem, int needAmmoCount, CallbackInfoReturnable<Integer> cir) {
         int alreadyFound = cir.getReturnValue();
         int remainingToFind = needAmmoCount - alreadyFound;
-
         if (remainingToFind <= 0) {
             RELOADING_PLAYER.remove();
             return;
@@ -112,19 +101,14 @@ public class AbstractGunItemMixin {
         if (player == null) return;
 
         ItemStack rigItem = CuriosUtil.getRigItem(player);
-        if (rigItem == null || rigItem.isEmpty() || !(rigItem.getItem() instanceof PlateCarrierItem carrier)) {
-            return;
-        }
+        if (rigItem == null || rigItem.isEmpty()) return;
 
-        if (!"ammo".equals(carrier.getType())) {
-            return;
-        }
+        int size = getRigInventorySize(rigItem);
+        if (size <= 0) return;
 
         CompoundTag tag = rigItem.getOrCreateTag();
         if (!tag.contains("inventory")) return;
 
-        int size = PlateCarrierItem.getNumberofLinesPlateCarrier(carrier.getType()) *
-                PlateCarrierItem.getNumberofCollumnsPlateCarrier(carrier.getType());
         ItemStackHandler inventory = new ItemStackHandler(size);
         inventory.deserializeNBT(tag.getCompound("inventory"));
 
@@ -140,9 +124,7 @@ public class AbstractGunItemMixin {
                 ItemStack extracted = inventory.extractItem(i, toExtract, false);
                 found += extracted.getCount();
                 remaining.value -= extracted.getCount();
-            }
-
-            else if (stack.getItem() instanceof IAmmoBox iBox && iBox.isAmmoBoxOfGun(gunItem, stack)) {
+            } else if (stack.getItem() instanceof IAmmoBox iBox && iBox.isAmmoBoxOfGun(gunItem, stack)) {
                 int boxAmmo = iBox.getAmmoCount(stack);
                 int extractCount = Math.min(boxAmmo, remaining.value);
                 iBox.setAmmoCount(stack, boxAmmo - extractCount);
@@ -158,5 +140,24 @@ public class AbstractGunItemMixin {
         rigItem.setTag(tag);
 
         cir.setReturnValue(alreadyFound + found);
+    }
+
+    @Unique
+    private int getRigInventorySize(ItemStack rigItem) {
+        if (rigItem.getItem() instanceof PlateCarrierItem plate) {
+            if (!"ammo".equals(plate.getType())) return -1;
+            return PlateCarrierItem.getNumberofLinesPlateCarrier(plate.getType())
+                    * PlateCarrierItem.getNumberofCollumnsPlateCarrier(plate.getType());
+        }
+
+        if (rigItem.getItem() instanceof BandoleerItem) {
+            return 6;
+        }
+
+        if (rigItem.getItem() instanceof ReconRigItem) {
+            return 12;
+        }
+
+        return -1;
     }
 }
