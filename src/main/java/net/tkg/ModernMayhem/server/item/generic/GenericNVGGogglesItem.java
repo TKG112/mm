@@ -26,6 +26,8 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import java.util.*;
 
+import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
+
 public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICurioItem {
     private NVGConfig[] configs;
     private int configIndex = 0;
@@ -40,7 +42,7 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
 
     private static final Map<UUID, Integer> lastConfigIndexMap = new HashMap<>();
 
-    private static final TagKey<Item> HAS_HEAD_MOUNT_TAG = ItemTags.create(new ResourceLocation(ModernMayhemMod.ID, "has_head_mount"));
+    private static final TagKey<Item> HAS_HEAD_MOUNT_TAG = ItemTags.create(fromNamespaceAndPath(ModernMayhemMod.ID, "has_head_mount"));
 
 
     public GenericNVGGogglesItem(NVGConfig pConfig) {
@@ -139,6 +141,9 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, 1, state -> {
             Entity entity = state.getData(DataTickets.ENTITY);
+            if (entity == null || !entity.level().isClientSide()) {
+                return PlayState.STOP;
+            }
             if (entity instanceof Player player) {
                 if (CuriosUtil.hasNVGEquipped(player)) {
                     ItemStack stack = CuriosUtil.getFaceWearItem(player);
@@ -182,7 +187,7 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
             redValue = pRed;
             greenValue = pGreen;
             blueValue = pBlue;
-            overlay = new ResourceLocation(ModernMayhemMod.ID, pOverlay);
+            overlay = fromNamespaceAndPath(ModernMayhemMod.ID, pOverlay);
         }
 
         public float getBrightness() { return brightness; }

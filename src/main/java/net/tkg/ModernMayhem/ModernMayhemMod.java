@@ -36,6 +36,7 @@ public class ModernMayhemMod
         SoundRegistryMM.init(modEventBus);
         CreativeTabsRegistryMM.init(modEventBus);
         GUIRegistryMM.init(modEventBus);
+        EntityRegistryMM.init(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);

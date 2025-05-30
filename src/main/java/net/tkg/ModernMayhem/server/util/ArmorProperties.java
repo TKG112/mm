@@ -113,23 +113,23 @@ public enum ArmorProperties {
 
     public static class ArmorConfigFile {
 
-        public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
-        public static ForgeConfigSpec CONFIG = null;
+        public final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+        public ForgeConfigSpec CONFIG = null;
 
-        public static ForgeConfigSpec.DoubleValue PROTECTION_AMOUNT_HEAD = null;
-        public static ForgeConfigSpec.DoubleValue PROTECTION_AMOUNT_CHESTPLATE = null;
-        public static ForgeConfigSpec.DoubleValue PROTECTION_AMOUNT_LEGGINGS = null;
-        public static ForgeConfigSpec.DoubleValue PROTECTION_AMOUNT_BOOTS = null;
+        public ForgeConfigSpec.DoubleValue PROTECTION_AMOUNT_HEAD = null;
+        public ForgeConfigSpec.DoubleValue PROTECTION_AMOUNT_CHESTPLATE = null;
+        public ForgeConfigSpec.DoubleValue PROTECTION_AMOUNT_LEGGINGS = null;
+        public ForgeConfigSpec.DoubleValue PROTECTION_AMOUNT_BOOTS = null;
 
-        public static ForgeConfigSpec.DoubleValue TOUGHNESS_AMOUNT_HEAD = null;
-        public static ForgeConfigSpec.DoubleValue TOUGHNESS_AMOUNT_CHESTPLATE = null;
-        public static ForgeConfigSpec.DoubleValue TOUGHNESS_AMOUNT_LEGGINGS = null;
-        public static ForgeConfigSpec.DoubleValue TOUGHNESS_AMOUNT_BOOTS = null;
+        public ForgeConfigSpec.DoubleValue TOUGHNESS_AMOUNT_HEAD = null;
+        public ForgeConfigSpec.DoubleValue TOUGHNESS_AMOUNT_CHESTPLATE = null;
+        public ForgeConfigSpec.DoubleValue TOUGHNESS_AMOUNT_LEGGINGS = null;
+        public ForgeConfigSpec.DoubleValue TOUGHNESS_AMOUNT_BOOTS = null;
 
-        public static ForgeConfigSpec.DoubleValue KNOCKBACK_RESISTANCE_HEAD = null;
-        public static ForgeConfigSpec.DoubleValue KNOCKBACK_RESISTANCE_CHESTPLATE = null;
-        public static ForgeConfigSpec.DoubleValue KNOCKBACK_RESISTANCE_LEGGINGS = null;
-        public static ForgeConfigSpec.DoubleValue KNOCKBACK_RESISTANCE_BOOTS = null;
+        public ForgeConfigSpec.DoubleValue KNOCKBACK_RESISTANCE_HEAD = null;
+        public ForgeConfigSpec.DoubleValue KNOCKBACK_RESISTANCE_CHESTPLATE = null;
+        public ForgeConfigSpec.DoubleValue KNOCKBACK_RESISTANCE_LEGGINGS = null;
+        public ForgeConfigSpec.DoubleValue KNOCKBACK_RESISTANCE_BOOTS = null;
 
         public ArmorConfigFile(
                 String name,

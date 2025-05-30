@@ -5,6 +5,8 @@ import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.server.item.armor.CustomArmorItem;
 import software.bernie.geckolib.model.GeoModel;
 
+import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
+
 public class CustomArmorItemModel extends GeoModel<CustomArmorItem> {
 
     @Override
@@ -19,7 +21,7 @@ public class CustomArmorItemModel extends GeoModel<CustomArmorItem> {
 
     @Override
     public ResourceLocation getAnimationResource(CustomArmorItem item) {
-        return new ResourceLocation(ModernMayhemMod.ID, "animations/empty.animation.json");
+        return fromNamespaceAndPath(ModernMayhemMod.ID, "animations/empty.animation.json");
     }
 
     private ResourceLocation getDynamicPath(CustomArmorItem item, String folder, String extension) {
@@ -28,7 +30,7 @@ public class CustomArmorItemModel extends GeoModel<CustomArmorItem> {
             throw new IllegalStateException("Item does not have a registry name: " + item);
         }
 
-        return new ResourceLocation(
+        return fromNamespaceAndPath(
                 registryId.getNamespace(),
                 String.format("%s/%s.%s", folder, registryId.getPath(), extension)
         );

@@ -8,6 +8,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tkg.ModernMayhem.ModernMayhemMod;
 
+import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
+
 public class SoundRegistryMM {
 
     public static final DeferredRegister<SoundEvent> MOD_SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, ModernMayhemMod.ID);
@@ -21,7 +23,7 @@ public class SoundRegistryMM {
     }
 
     private static RegistryObject<SoundEvent> registerSoundsEvent(String name) {
-        return MOD_SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent((new ResourceLocation(ModernMayhemMod.ID, name))));
+        return MOD_SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent((fromNamespaceAndPath(ModernMayhemMod.ID, name))));
 
     }
 }

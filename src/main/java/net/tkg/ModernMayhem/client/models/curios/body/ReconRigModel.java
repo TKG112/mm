@@ -5,19 +5,21 @@ import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.server.item.curios.body.ReconRigItem;
 import software.bernie.geckolib.model.GeoModel;
 
+import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
+
 public class ReconRigModel extends GeoModel<ReconRigItem> {
     @Override
     public ResourceLocation getModelResource(ReconRigItem animatable) {
-        return new ResourceLocation(ModernMayhemMod.ID, "geo/item/curios/body/recon_rig.geo.json");
+        return fromNamespaceAndPath(ModernMayhemMod.ID, "geo/item/curios/body/recon_rig.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(ReconRigItem animatable) {
-        return new ResourceLocation(ModernMayhemMod.ID, "textures/item/curios/body/green_recon_rig.png");
+        return fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/body/green_recon_rig.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(ReconRigItem animatable) {
-        return new ResourceLocation(ModernMayhemMod.ID, "animation/empty.animation.json");
+        return fromNamespaceAndPath(ModernMayhemMod.ID, "animation/empty.animation.json");
     }
 }

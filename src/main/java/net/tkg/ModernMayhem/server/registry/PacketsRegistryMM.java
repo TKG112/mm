@@ -14,6 +14,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
 import static net.minecraftforge.network.NetworkDirection.PLAY_TO_SERVER;
 
 /*
@@ -31,7 +32,7 @@ public enum PacketsRegistryMM {
     // Server to Client
     // There is no Server to Client packets at the moment
 
-    public static final ResourceLocation CHANNEL_NAME = new ResourceLocation(ModernMayhemMod.ID, "main");
+    public static final ResourceLocation CHANNEL_NAME = fromNamespaceAndPath(ModernMayhemMod.ID, "main");
     private static SimpleChannel channel;
     public static final int NETWORK_VERSION = 1;
     public static final String NETWORK_VERSION_STRING = String.valueOf(NETWORK_VERSION);
