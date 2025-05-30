@@ -1,70 +1,14 @@
 {
-  "nvon": {
-    "subtitle": "subtitles.nvon",
-    "sounds": [
-      {
-        "name": "mm:nvon",
-        "stream": false
-      }
-    ]
+  "sound_nvg_on" : {
+    "subtitle" : "sounds.mm.nvg_on",
+    "sounds" : [ "mm:item/nvg_on" ]
   },
-  "nvoff": {
-    "subtitle": "subtitles.nvoff",
-    "sounds": [
-      {
-        "name": "mm:nvoff",
-        "stream": false
-      }
-    ]
+  "sound_nvg_off" : {
+      "subtitle" : "sounds.mm.nvg_off",
+      "sounds" : [ "mm:item/nvg_off" ]
   },
-  "nvgturnknob": {
-    "subtitle": "subtitles.nvgturnknob",
-    "sounds": [
-      {
-        "name": "mm:switch_button_click_small",
-        "stream": false
-      }
-    ]
-  },
-  "fb-explosion": {
-    "subtitle": "subtitles.fb-explosion",
-    "sounds": [
-      {
-        "name": "mm:explode",
-        "stream": false
-      }
-    ]
-  },
-  "nade-landing": {
-    "sounds": [
-      {
-        "name": "mm:land",
-        "stream": false
-      }
-    ]
-  },
-  "bullet-fly-by": {
-    "sounds": [
-      {
-        "name": "mm:bullet_flyby",
-        "stream": false
-      }
-    ]
-  },
-  "ear-ringing": {
-    "sounds": [
-      {
-        "name": "mm:ear-ringing",
-        "stream": false
-      }
-    ]
-  },
-  "ear-ringing-fade": {
-    "sounds": [
-      {
-        "name": "mm:ear-ringing-fade",
-        "stream": false
-      }
-    ]
+  "small_click" : {
+    "subtitle" : "sounds.mm.small_click",
+    "sounds" : [ "mm:switch_button_click_small" ]
   }
 }

@@ -1,9 +1,0 @@
-{
-  "_fv": 66,
-  "_type": "curiosslot",
-  "definition": {
-    "texture": "empty_armor_slot_headset.png",
-    "name": "Earwear",
-    "amount": 1
-  }
-}

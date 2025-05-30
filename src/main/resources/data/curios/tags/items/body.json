@@ -4,10 +4,10 @@
     "mm:black_plate_carrier",
     "mm:black_plate_carrier_ammo",
     "mm:black_plate_carrier_pouches",
-    "mm:bandoleer",
-    "mm:recon",
-    "mm:tan_plate_carrier_ammo",
     "mm:tan_plate_carrier",
-    "mm:tan_plate_carrier_pouches"
+    "mm:tan_plate_carrier_ammo",
+    "mm:tan_plate_carrier_pouches",
+    "mm:tan_bandoleer",
+    "mm:green_recon_rig"
   ]
 }

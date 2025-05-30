@@ -1,0 +1,95 @@
+{
+  "credit": "Made with Blockbench",
+  "parent": "builtin/entity",
+  "textures": {
+    "layer0": "mm:item/curios/earwear/black_headset"
+  },
+  "texture_size": [
+    32,
+    32
+  ],
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        90,
+        90,
+        0
+      ],
+      "translation": [
+        0,
+        -2,
+        -16
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+	"thirdperson_lefthand": {
+      "rotation": [
+        90,
+        90,
+        0
+      ],
+      "translation": [
+        0,
+        -2,
+        -16
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+	"firstperson_righthand": {
+      "rotation": [
+        0,
+        142,
+        0
+      ],
+      "translation": [
+        0,
+        -24,
+        0
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        142,
+        0
+      ],
+      "translation": [
+        0,
+        -24,
+        0
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        -12,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "gui": {
+      "rotation": [
+        30,
+        150,
+        0
+      ],
+      "translation": [
+        0,
+        -24,
+        0
+      ]
+    }
+  }
+}

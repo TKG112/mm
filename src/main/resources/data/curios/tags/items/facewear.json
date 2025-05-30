@@ -1,14 +1,14 @@
 {
   "replace": false,
   "values": [
-    "mm:military_glasses",
-    "mm:military_goggles",
-    "mm:black_visor",
-    "mm:black_nvg_21",
     "mm:black_gpnvg",
-    "mm:green_nvg_21",
     "mm:tan_gpnvg",
-    "mm:tan_nvg_21",
-    "mm:tan_visor"
+    "mm:black_pvs14",
+    "mm:tan_pvs14",
+    "mm:green_pvs14",
+    "mm:black_pvs7",
+    "mm:ultra_gamer_gpnvg",
+    "mm:black_glasses",
+    "mm:black_goggles"
   ]
 }
