@@ -23,6 +23,8 @@ public class DarknessMixin {
         if (player == null) return;
 
         ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
+        if (facewearItem == null) return;
+
         if (facewearItem.getItem() instanceof GenericNVGGogglesItem) {
             if (GenericNVGGogglesItem.getNVGCheck(facewearItem) && Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON) {
                 Darkness.enabled = false;
