@@ -3,11 +3,14 @@ package net.tkg.ModernMayhem.server.registry;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tkg.ModernMayhem.ModernMayhemMod;
+import net.tkg.ModernMayhem.client.item.NVGFirstPersonFakeItem;
 import net.tkg.ModernMayhem.server.item.DuffelBagItem;
 import net.tkg.ModernMayhem.server.item.NVGGoggleList;
 import net.tkg.ModernMayhem.server.item.armor.CustomArmorItem;
@@ -147,6 +150,11 @@ public class ItemRegistryMM {
 
     public static final RegistryObject<Item> MENU_ITEM = REGISTRY.register("menu_item",
             () -> new Item(new Item.Properties().stacksTo(1)));
+
+    // Check if on the client side
+    @OnlyIn(Dist.CLIENT)
+    public static final RegistryObject<Item> FIRST_PERSON_NVG = REGISTRY.register("first_person_nvg",
+            NVGFirstPersonFakeItem::new);
 
     public static void init(IEventBus modEventBus) {
         REGISTRY.register(modEventBus);

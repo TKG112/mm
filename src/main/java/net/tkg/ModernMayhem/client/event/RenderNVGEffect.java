@@ -26,7 +26,7 @@ import java.util.Objects;
 import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
 
 @Mod.EventBusSubscriber(Dist.CLIENT)
-public class RenderNVG {
+public class RenderNVGEffect {
     private static final ResourceLocation NVG_SHADER_PATH = fromNamespaceAndPath(ModernMayhemMod.ID, "shaders/post/night-vision.json");
     private static int lastWidth = -1;
     private static int lastHeight = -1;

@@ -469,7 +469,7 @@
 [19janv.2025 22:36:04.684] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for mm
 [19janv.2025 22:36:04.684] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing net.tkg.ModernMayhem.client.event.KeyRegistryEvent to MOD
 [19janv.2025 22:36:04.691] [modloading-worker-0/INFO] [mixin/]: Mixing AbstractGunItemMixin from mm.mixins.json into com.tacz.guns.api.item.gun.AbstractGunItem
-[19janv.2025 22:36:04.699] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing net.tkg.ModernMayhem.client.event.RenderNVG to FORGE
+[19janv.2025 22:36:04.699] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing net.tkg.ModernMayhem.client.event.RenderNVGEffect to FORGE
 [19janv.2025 22:36:04.762] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing net.tkg.ModernMayhem.server.datagen.DataGenerators to MOD
 [19janv.2025 22:36:04.782] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: -Dio.netty.noUnsafe: false
 [19janv.2025 22:36:04.782] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: Java version: 17
