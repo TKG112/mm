@@ -1,0 +1,76 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"closed": {
+			"loop": true,
+			"bones": {
+				"bipedHead": {
+					"position": [0, 16, 0]
+				}
+			}
+		},
+		"closing": {
+			"animation_length": 0.75,
+			"bones": {
+				"bone": {
+					"rotation": {
+						"0.1667": [-90, 0, 0],
+						"0.4167": [0, 0, 0]
+					}
+				}
+			},
+			"sound_effects": {
+				"0.1667": {
+					"effect": "nvg_equip"
+				},
+				"0.6667": {
+					"effect": "nvg_on"
+				}
+			},
+			"timeline": {
+				"0.6667": "enableNVGEffect;"
+			}
+		},
+		"opened": {
+			"loop": true,
+			"bones": {
+				"bone": {
+					"rotation": [-90, 0, 0]
+				},
+				"bipedHead": {
+					"position": [0, 16, 0]
+				}
+			}
+		},
+		"opening": {
+			"animation_length": 0.75,
+			"bones": {
+				"bone": {
+					"rotation": {
+						"0.4167": [0, 0, 0],
+						"0.6667": [-90, 0, 0]
+					}
+				}
+			},
+			"sound_effects": {
+				"0.1667": {
+					"effect": "nvg_off"
+				},
+				"0.4167": {
+					"effect": "nvg_unequip"
+				}
+			},
+			"timeline": {
+				"0.1667": "disableNVGEffect;"
+			}
+		},
+		"idle": {
+			"loop": true,
+			"bones": {
+				"bipedHead": {
+					"position": [0, 16, 0]
+				}
+			}
+		}
+	}
+}

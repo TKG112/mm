@@ -21,6 +21,6 @@ public class NVGFirstPersonModel extends GeoModel<NVGFirstPersonFakeItem> {
 
     @Override
     public ResourceLocation getAnimationResource(NVGFirstPersonFakeItem animatable) {
-        return fromNamespaceAndPath(ModernMayhemMod.ID, "animations/item/curios/facewear/gpnvg.animation.json");
+        return fromNamespaceAndPath(ModernMayhemMod.ID, "animations/item/fpa/facewear/gpnvg_fpa.animation.json");
     }
 }

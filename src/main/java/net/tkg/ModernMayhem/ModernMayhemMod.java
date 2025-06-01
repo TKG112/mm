@@ -26,8 +26,11 @@ public class ModernMayhemMod
     // Check if game initialized
     private static boolean isGameReady = false;
 
-    public ModernMayhemMod() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    private static FMLJavaModLoadingContext modLoadingContext = null;
+
+    public ModernMayhemMod(FMLJavaModLoadingContext context) {
+        modLoadingContext = context;
+        IEventBus modEventBus = context.getModEventBus();
 
         ItemRegistryMM.init(modEventBus);
         BlockRegistryMM.init(modEventBus);
@@ -42,7 +45,7 @@ public class ModernMayhemMod
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::onGameReady);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, TestConfig.CONFIG);
+        context.registerConfig(ModConfig.Type.COMMON, TestConfig.CONFIG);
         ArmorConfigGenerator.init();
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -69,4 +72,6 @@ public class ModernMayhemMod
     public static boolean isGameReady() {
         return isGameReady;
     }
+
+    public static FMLJavaModLoadingContext getModLoadingContext() { return modLoadingContext; }
 }

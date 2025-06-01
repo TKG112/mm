@@ -33,19 +33,10 @@ public class SwitchNVGStatusPacket extends PacketBase {
         // This section switch the NVG status on the player's facewear slot and play the sound accordingly
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
-            Level world = context.getSender().level();
-            Player clientPlayer = Minecraft.getInstance().player;
             if (CuriosUtil.hasNVGEquipped(player)) {
                 ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
-                if (facewearItem.getItem() instanceof GenericNVGGogglesItem genericNVGGogglesItem) {
-                    GenericNVGGogglesItem.switchNVGMode(facewearItem);
-                    if (GenericNVGGogglesItem.getNVGCheck(facewearItem)) {
-                        System.out.println("Playing sound on");
-                        world.playSeededSound(clientPlayer, clientPlayer.getX(), clientPlayer.getY(), clientPlayer.getZ(), genericNVGGogglesItem.ACTIVATION_SOUND.get(), SoundSource.NEUTRAL, 1, 1, 0 );
-                    } else {
-                        System.out.println("Playing sound off");
-                        world.playSeededSound(clientPlayer, clientPlayer.getX(), clientPlayer.getY(), clientPlayer.getZ(), genericNVGGogglesItem.DEACTIVATION_SOUND.get(), SoundSource.NEUTRAL, 1, 1, 0 );
-                    }
+                if (facewearItem.getItem() instanceof GenericNVGGogglesItem) {
+                    GenericNVGGogglesItem.switchEquipState(facewearItem);
                 }
             }
         });
