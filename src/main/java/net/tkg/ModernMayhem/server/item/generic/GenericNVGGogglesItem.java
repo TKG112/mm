@@ -24,7 +24,9 @@ import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
 
@@ -114,12 +116,14 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
     }
 
     public static void switchOnNVGMode(ItemStack item) {
+        System.out.println("[ModernMayhem] Switching on NVG mode for item: " + item);
         CompoundTag tag = item.getOrCreateTag();
         tag.putBoolean("NvgCheck", true);
         item.setTag(tag);
     }
 
     public static void switchOffNVGMode(ItemStack item) {
+        System.out.println("[ModernMayhem] Switching off NVG mode for item: " + item);
         CompoundTag tag = item.getOrCreateTag();
         tag.putBoolean("NvgCheck", false);
         item.setTag(tag);

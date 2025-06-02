@@ -8,7 +8,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.tkg.ModernMayhem.client.renderer.curios.facewear.NVGGogglesRenderer;
 import net.tkg.ModernMayhem.client.renderer.curios.head.HeadGearRenderer;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoItem;

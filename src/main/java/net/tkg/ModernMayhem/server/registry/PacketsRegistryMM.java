@@ -26,7 +26,9 @@ public enum PacketsRegistryMM {
     NVG_TUBE_GAIN_UP(NVGTubeGainUpPacket.class, NVGTubeGainUpPacket::new, PLAY_TO_SERVER),
     NVG_TUBE_GAIN_DOWN(NVGTubeGainDownPacket.class, NVGTubeGainDownPacket::new, PLAY_TO_SERVER),
     OPEN_BACK_BACKPACK_FROM_CONTROL(OpenBackpackKeyPacket.class, OpenBackpackKeyPacket::new, PLAY_TO_SERVER),
-    OPEN_CHEST_BACKPACK_FROM_CONTROL(OpenRigKeyPacket.class, OpenRigKeyPacket::new, PLAY_TO_SERVER),;
+    OPEN_CHEST_BACKPACK_FROM_CONTROL(OpenRigKeyPacket.class, OpenRigKeyPacket::new, PLAY_TO_SERVER),
+    NVG_SYNC_SWITCH_ON(NVGSyncSwitchOnPacket.class, NVGSyncSwitchOnPacket::new, PLAY_TO_SERVER),
+    NVG_SYNC_SWITCH_OFF(NVGSyncSwitchOffPacket.class, NVGSyncSwitchOffPacket::new, PLAY_TO_SERVER),;
 
 
     // Server to Client

@@ -3,13 +3,13 @@ package net.tkg.ModernMayhem;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.tkg.ModernMayhem.client.event.RenderNVGFirstPerson;
 import net.tkg.ModernMayhem.server.config.ArmorConfigGenerator;
 import net.tkg.ModernMayhem.server.config.TestConfig;
 import net.tkg.ModernMayhem.server.registry.*;
@@ -63,6 +63,7 @@ public class ModernMayhemMod
 
         CuriosRendererRegistryMM.register();
         ScreenRegistryMM.register(event);
+        RenderNVGFirstPerson.initialiseFirstPersonRenderer();
     }
 
     private void onGameReady(FMLLoadCompleteEvent event) {

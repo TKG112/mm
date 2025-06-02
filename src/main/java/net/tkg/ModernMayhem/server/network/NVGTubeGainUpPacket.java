@@ -27,10 +27,7 @@ public class NVGTubeGainUpPacket extends PacketBase {
 
     @Override
     public boolean handle(NetworkEvent.Context context) {
-        if (context.getDirection() != NetworkDirection.PLAY_TO_SERVER || context.getSender() == null) {
-            // Just checking if the packet is being sent to the server and the sender is not null
-            return false;
-        }
+        if (!isCtS(context)) return false;
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             Level world = context.getSender().level();

@@ -1,102 +1,94 @@
 package net.tkg.ModernMayhem.client.event;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
+import net.minecraftforge.client.event.RenderArmEvent;
+import net.minecraftforge.client.event.RenderHandEvent;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.client.models.custom.NVGFirstPersonModel;
 import net.tkg.ModernMayhem.client.item.NVGFirstPersonFakeItem;
 import net.tkg.ModernMayhem.client.renderer.custom.NVGFirstPersonRenderer;
 import net.tkg.ModernMayhem.server.registry.ItemRegistryMM;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import org.joml.Quaternionf;
-import software.bernie.geckolib.renderer.GeoItemRenderer;
 
 @Mod.EventBusSubscriber(modid = ModernMayhemMod.ID, value = Dist.CLIENT)
 public class RenderNVGFirstPerson {
 
-    private static final Minecraft mc = Minecraft.getInstance();
+    private static final Minecraft MC = Minecraft.getInstance();
+    private static NVGFirstPersonFakeItem DUMMY_ITEM = null;
+    private static final NVGFirstPersonRenderer RENDERER = new NVGFirstPersonRenderer();
+    private static boolean initialized = false;
 
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT) // Just to be safe, this event is only fired on the client side (even if it's only a client event)
-    public static void onRenderOverlay(RenderGuiOverlayEvent.Pre event) {
-        if( event.getOverlay().id().equals(VanillaGuiOverlay.SPYGLASS.id())) {
-            // We want to renter the NVG goggles early so that the player GUI is rendered on top of the NVG goggles
-            renderNVGFirstPerson(event);
-        }
-
+    // We use RenderHandEvent because it allows us to render the NVG goggles in first-person view in front of the player's hand.
+    public static void onRenderOverlay(RenderHandEvent event) {
+        // Don't render anything if the item is not registered yet (prevents null pointer exceptions)
+        if (!initialized) return;
+        if (!shouldRender()) return;
+        renderNVGFirstPersonModel(event);
     }
 
-    private static void renderNVGFirstPerson(RenderGuiOverlayEvent.Pre event) {
-        if (mc.player == null || !shouldRender()) return;
-        ItemStack stack = new ItemStack(ItemRegistryMM.FIRST_PERSON_NVG.get());
+    private static void renderNVGFirstPersonModel(RenderHandEvent event) {
+        LocalPlayer player = MC.player;
+        PoseStack poseStack = new PoseStack(); // Don't use the event's pose stack or we will get the head bobbing effect
+        MultiBufferSource.BufferSource buffer = MC.renderBuffers().bufferSource();
+        float partialTicks = event.getPartialTick();
 
-        // Get the renderer from IClientItemExtensions
-        IClientItemExtensions extensions = IClientItemExtensions.of(stack);
-        BlockEntityWithoutLevelRenderer renderer = extensions.getCustomRenderer();
+        poseStack.pushPose();
 
-        if (renderer instanceof NVGFirstPersonRenderer realRenderer) {
-            PoseStack poseStack = event.getGuiGraphics().pose();
-            poseStack.pushPose();
-            LocalPlayer player = mc.player;
-            int screenWidth = mc.getWindow().getGuiScaledWidth();
-            int screenHeight = mc.getWindow().getGuiScaledHeight();
+        var model = RENDERER.getGeoModel();
+        var bakedModel = model.getBakedModel(model.getModelResource(DUMMY_ITEM));
+        var texture = RENDERER.getTextureLocation(DUMMY_ITEM);
+        var renderType = RenderType.entityTranslucent(texture);
 
-            // Move the model to the center of the screen and behind every other GUI elements
-            poseStack.translate(screenWidth / 2f, screenHeight / 2f, -1_000.0f);
-            // Resize the model to fit the screen
-            poseStack.scale(750f, 750f, 750f);
-
-            // Just leaving this here for reference, it was used to try and position the model at the player's eye position (we can use this later if we need to with an other model)
-            // System.out.println(player.getEyePosition().x * screenWidth * 0.001 + " " + player.getEyePosition().z * screenHeight * 0.001);
-            // poseStack.translate(player.getEyePosition().x * screenWidth * 0.001, player.getEyePosition().z * screenHeight * 0.001, 0);
-
-
-            // Move the model to the correct position in the player's view
-            poseStack.translate(-0.5, -0.75, 0);
-
-            MultiBufferSource.BufferSource bufferSource = mc.renderBuffers().bufferSource();
-            realRenderer.renderByItem(
-                    stack,
-                    ItemDisplayContext.FIRST_PERSON_RIGHT_HAND,
-                    poseStack,
-                    bufferSource,
-                    LightTexture.FULL_BRIGHT,
-                    OverlayTexture.NO_OVERLAY
-            );
-
-            bufferSource.endBatch();
-            poseStack.popPose();
-        } else System.err.println("No NVG First Person Renderer found for item: " + stack.getItem().getDescriptionId());
+        RENDERER.actuallyRender(
+                poseStack,
+                DUMMY_ITEM,
+                bakedModel,
+                renderType,
+                buffer,
+                buffer.getBuffer(renderType),
+                false,
+                MC.getFrameTime(),
+                LightTexture.FULL_BRIGHT,
+                OverlayTexture.NO_OVERLAY,
+                1f, 1f, 1f, 1f
+        );
+        buffer.endBatch();
+        poseStack.popPose();
     }
 
     private static boolean shouldRender() {
         // Check if the player is wearing NVG goggles and if they are in first-person view
-        if (mc.player == null) {
-            return false;
-        }
-        if (!mc.options.getCameraType().isFirstPerson()) {
-            return false;
-        }
-        if (!CuriosUtil.hasNVGEquipped(mc.player)) {
-            return false;
-        }
+        LocalPlayer player = MC.player;
+        if (player == null) return false;
+//        if (!MC.options.getCameraType().isFirstPerson()) return false;
+        if (!CuriosUtil.hasNVGEquipped(player)) return false;
         return true;
     }
 
+    public static void initialiseFirstPersonRenderer() {
+        ModernMayhemMod.LOGGER.info("["+ ModernMayhemMod.ID + "] Initializing NVG First Person Renderer");
+        if (initialized) return;
+        // This is just to ensure that the renderer is initialized
+        DUMMY_ITEM = (NVGFirstPersonFakeItem) ItemRegistryMM.FIRST_PERSON_NVG.get();
+        RENDERER.initCurrentItemStack(DUMMY_ITEM);
+        initialized = true;
+    }
 }

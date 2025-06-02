@@ -5,9 +5,6 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -16,9 +13,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.tkg.ModernMayhem.client.renderer.custom.NVGFirstPersonRenderer;
 import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.server.network.NVGSyncSwitchOffPacket;
+import net.tkg.ModernMayhem.server.network.NVGSyncSwitchOnPacket;
+import net.tkg.ModernMayhem.server.network.SwitchNVGStatusPacket;
+import net.tkg.ModernMayhem.server.registry.PacketsRegistryMM;
 import net.tkg.ModernMayhem.server.registry.SoundRegistryMM;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
-import software.bernie.geckolib.constant.DataTickets;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -27,25 +28,35 @@ import software.bernie.geckolib.core.animation.AnimationProcessor;
 import software.bernie.geckolib.core.keyframe.event.data.CustomInstructionKeyframeData;
 import software.bernie.geckolib.core.keyframe.event.data.SoundKeyframeData;
 import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.renderer.GeoItemRenderer;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Consumer;
 
+/**
+ * This item is used to render the NVG goggles in first person view.
+ * It is a fake item that is not actually used in the game, but it is used to render the NVG goggles in first person view.
+ * It uses the {@link NVGFirstPersonRenderer} to render the goggles in first person view.
+ * Combined with the event {@link net.tkg.ModernMayhem.client.event.RenderNVGFirstPerson} to handle the rendering of the goggles in first person view.
+ */
 public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    public static final NVGFirstPersonRenderer NVG_FIRST_PERSON_RENDERER = new NVGFirstPersonRenderer();
 
     public NVGFirstPersonFakeItem() {
         super(new Properties());
     }
 
     @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+    public void initializeClient(@NotNull Consumer<IClientItemExtensions> consumer) {
+        super.initializeClient(consumer);
         consumer.accept(new IClientItemExtensions() {
-            private final NVGFirstPersonRenderer renderer = new NVGFirstPersonRenderer();
+            private NVGFirstPersonRenderer renderer = null;
 
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                if (this.renderer == null) {
+                    this.renderer = new NVGFirstPersonRenderer();
+                }
                 return renderer;
             }
         });
@@ -62,8 +73,6 @@ public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
             if (currentAnim == null) {
                 state.setAnimation(GenericNVGGogglesItem.ANIM_IDLE);
                 return PlayState.CONTINUE;
-            } else {
-                System.out.println(currentAnim.animation().name());
             }
             if (state.isCurrentAnimationStage("opened") || state.isCurrentAnimationStage("closed") || state.isCurrentAnimationStage("idle") || state.isCurrentAnimationStage("")) {
                 ItemStack stack = CuriosUtil.getFaceWearItem(player);
@@ -87,18 +96,18 @@ public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
             CustomInstructionKeyframeData keyframeData = event.getKeyframeData();
             String key = keyframeData.getInstructions();
             LocalPlayer player = Minecraft.getInstance().player;
-            System.out.println("Keyframe instruction: \"" + key + "\"");
             ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
             if (player != null) {
                 if (facewearItem.getItem() instanceof GenericNVGGogglesItem) {
+                    // We switch on the NVG mode on the client side and then on the server side.
+                    // This is done to avoid the delay of the server response.
+                    // Since the server will synchronize the state later.
                     if (key.equals("enableNVGEffect;")) {
-                        System.out.println("Enabling NVG effect");
-                        player.displayClientMessage(Component.literal("NVG Effect Enabled"), true);
                         GenericNVGGogglesItem.switchOnNVGMode(facewearItem);
+                        PacketsRegistryMM.getChannel().sendToServer(new NVGSyncSwitchOnPacket());
                     } else if (key.equals("disableNVGEffect;")) {
-                        System.out.println("Disabling NVG effect");
-                        player.displayClientMessage(Component.literal("NVG Effect Disabled"), true);
                         GenericNVGGogglesItem.switchOffNVGMode(facewearItem);
+                        PacketsRegistryMM.getChannel().sendToServer(new NVGSyncSwitchOffPacket());
                     }
                 }
             }
@@ -116,7 +125,6 @@ public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
                 if (facewearItem.getItem() instanceof GenericNVGGogglesItem genericNVGGogglesItem) {
                     switch (soundKey) {
                         case "nvg_on" -> {
-                            System.out.println("Playing sound on");
                             player.displayClientMessage(Component.literal("NVG Activated"), true);
                             world.playSeededSound(
                                     player,
@@ -131,7 +139,6 @@ public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
                             );
                         }
                         case "nvg_off" -> {
-                            System.out.println("Playing sound off");
                             player.displayClientMessage(Component.literal("NVG Deactivated"), true);
                             world.playSeededSound(
                                     player,
@@ -146,7 +153,6 @@ public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
                             );
                         }
                         case "nvg_equip" -> {
-                            System.out.println("Playing equip sound");
                             world.playSeededSound(
                                     player,
                                     player.getX(),
@@ -160,7 +166,6 @@ public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
                             );
                         }
                         case "nvg_unequip" -> {
-                            System.out.println("Playing unequip sound");
                             world.playSeededSound(
                                     player,
                                     player.getX(),
