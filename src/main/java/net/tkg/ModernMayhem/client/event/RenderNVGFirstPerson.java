@@ -1,22 +1,14 @@
 package net.tkg.ModernMayhem.client.event;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
-import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderArmEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
-import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.tkg.ModernMayhem.ModernMayhemMod;
@@ -24,7 +16,8 @@ import net.tkg.ModernMayhem.client.item.NVGFirstPersonFakeItem;
 import net.tkg.ModernMayhem.client.renderer.custom.NVGFirstPersonRenderer;
 import net.tkg.ModernMayhem.server.registry.ItemRegistryMM;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
-import org.joml.Quaternionf;
+
+import static net.tkg.ModernMayhem.server.util.RenderingUtil.getPackedLightAt;
 
 @Mod.EventBusSubscriber(modid = ModernMayhemMod.ID, value = Dist.CLIENT)
 public class RenderNVGFirstPerson {
@@ -56,6 +49,11 @@ public class RenderNVGFirstPerson {
         var bakedModel = model.getBakedModel(model.getModelResource(DUMMY_ITEM));
         var texture = RENDERER.getTextureLocation(DUMMY_ITEM);
         var renderType = RenderType.entityTranslucent(texture);
+        var packedLight = getPackedLightAt(
+                (int) player.getX(),
+                (int) player.getEyePosition(partialTicks).y,
+                (int) player.getZ()
+        );
 
         RENDERER.actuallyRender(
                 poseStack,
@@ -66,7 +64,7 @@ public class RenderNVGFirstPerson {
                 buffer.getBuffer(renderType),
                 false,
                 MC.getFrameTime(),
-                LightTexture.FULL_BRIGHT,
+                packedLight,
                 OverlayTexture.NO_OVERLAY,
                 1f, 1f, 1f, 1f
         );

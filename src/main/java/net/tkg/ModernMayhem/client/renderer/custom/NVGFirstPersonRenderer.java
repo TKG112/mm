@@ -42,16 +42,59 @@ public class NVGFirstPersonRenderer extends GeoItemRenderer<NVGFirstPersonFakeIt
     }
 
     @Override
-    public void actuallyRender(PoseStack poseStack, NVGFirstPersonFakeItem animatable, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void actuallyRender(
+            PoseStack poseStack,
+            NVGFirstPersonFakeItem animatable,
+            BakedGeoModel model,
+            RenderType renderType,
+            MultiBufferSource bufferSource,
+            VertexConsumer buffer,
+            boolean isReRender,
+            float partialTick,
+            int packedLight,
+            int packedOverlay,
+            float red,
+            float green,
+            float blue,
+            float alpha
+    ) {
+        LocalPlayer player = Minecraft.getInstance().player;
         this.currentBuffer = bufferSource;
         this.renderType = renderType;
-        super.actuallyRender(poseStack, animatable, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+        super.actuallyRender(
+                poseStack,
+                animatable,
+                model,
+                renderType,
+                bufferSource,
+                buffer,
+                isReRender,
+                partialTick,
+                packedLight,
+                packedOverlay,
+                red, green, blue, alpha
+        );
         if (!this.renderArms) return;
         this.renderArms = false;
     }
 
     @Override
-    public void renderRecursively(PoseStack poseStack, NVGFirstPersonFakeItem animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderRecursively(
+            PoseStack poseStack,
+            NVGFirstPersonFakeItem animatable,
+            GeoBone bone,
+            RenderType renderType,
+            MultiBufferSource bufferSource,
+            VertexConsumer buffer,
+            boolean isReRender,
+            float partialTick,
+            int packedLight,
+            int packedOverlay,
+            float red,
+            float green,
+            float blue,
+            float alpha
+    ) {
         Minecraft mc = Minecraft.getInstance();
         LocalPlayer player = mc.player;
         if (player != null) {
@@ -88,6 +131,18 @@ public class NVGFirstPersonRenderer extends GeoItemRenderer<NVGFirstPersonFakeIt
                 poseStack.popPose();
             }
         }
-        super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+        super.renderRecursively(
+                poseStack,
+                animatable,
+                bone,
+                renderType,
+                bufferSource,
+                buffer,
+                isReRender,
+                partialTick,
+                packedLight,
+                packedOverlay,
+                red, green, blue, alpha
+        );
     }
 }
