@@ -5,18 +5,20 @@ import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.shaders.Uniform;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.EffectInstance;
 import net.minecraft.client.renderer.PostChain;
 import net.minecraft.client.renderer.PostPass;
-import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.tkg.ModernMayhem.ModernMayhemMod;
 import org.jetbrains.annotations.NotNull;
+import oshi.util.tuples.Pair;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 
 /**
  * ShaderRenderer is responsible for managing and rendering a specific shader in Minecraft.
@@ -36,7 +38,7 @@ public class ShaderRenderer {
 
     /**
      * Constructs a ShaderRenderer for a specific shader.
-     * @param shaderLocation The ResourceLocation of the shader to be rendered.
+     * @param shaderLocation - The ResourceLocation of the shader to be rendered.
      */
     public ShaderRenderer(@NotNull ResourceLocation shaderLocation) {
         this.shaderLocation = shaderLocation;
@@ -106,6 +108,7 @@ public class ShaderRenderer {
     /**
      * Renders the shader effect.
      * This method should be called in the rendering loop, typically in the render method of your mod's client-side event handler.
+     * Note: If the window size has changed since the last frame, the shader will be deactivated.
      * @param partialTicks - The partial ticks for smooth rendering.
      */
     public void render(float partialTicks) {
@@ -118,13 +121,8 @@ public class ShaderRenderer {
         int currentScreenHeight = mc.getWindow().getGuiScaledHeight();
 
         if (lastFrameScreenWidth != currentScreenWidth || lastFrameScreenHeight != currentScreenHeight) {
-            System.out.println("Resizing shader " + getShaderName() + " to " + currentScreenWidth + "x" + currentScreenHeight);
-            try {
-                this.initShader();
-            } catch (IOException e) {
-                ModernMayhemMod.LOGGER.error("Failed to reinitialize shader: {}", shaderLocation, e);
-                return;
-            }
+            this.deactivate();
+            return;
         }
         postChain.process(partialTicks);
 
@@ -135,6 +133,12 @@ public class ShaderRenderer {
         RenderSystem.enableBlend();
     }
 
+    /**
+     * Gets a specific uniform from the shader.
+     * This method searches through the PostChain's passes to find the uniform by name.
+     * @param name - The name of the uniform to retrieve.
+     * @return The Uniform object if found, or null if not found or if postChain is null.
+     */
     public Uniform getUniform(String name) {
         if (postChain == null) {
             ModernMayhemMod.LOGGER.warn("Cannot get uniform {} because postChain is null", name);
@@ -146,7 +150,6 @@ public class ShaderRenderer {
             List<PostPass> passes = (List<PostPass>) passesField.get(postChain);
 
             for (PostPass pass : passes) {
-                System.out.println("Checking pass: " + pass.getName() + " for shader: " + getShaderName());
                 if (pass.getName().equals(getShaderName())) {
                     Uniform uniform = pass.getEffect().getUniform(name);
                     if (uniform != null) {
@@ -161,6 +164,13 @@ public class ShaderRenderer {
         return null;
     }
 
+    /**
+     * Sets a float uniform in the shader.
+     * This method retrieves the uniform by name and sets its value.
+     * If the uniform is not found, it logs a warning.
+     * @param name - The name of the uniform to set.
+     * @param value - The float value to set the uniform to.
+     */
     public void setFloatUniform(String name, float value) {
         Uniform uniform = getUniform(name);
         if (uniform != null) {
@@ -170,6 +180,13 @@ public class ShaderRenderer {
         }
     }
 
+    /**
+     * Sets an integer uniform in the shader.
+     * This method retrieves the uniform by name and sets its value.
+     * If the uniform is not found, it logs a warning.
+     * @param name - The name of the uniform to set.
+     * @param value - The int value to set the uniform to.
+     */
     public void setIntUniform(String name, int value) {
         Uniform uniform = getUniform(name);
         if (uniform != null) {
@@ -179,6 +196,13 @@ public class ShaderRenderer {
         }
     }
 
+    /**
+     * Sets a boolean uniform in the shader.
+     * This method retrieves the uniform by name and sets its value.
+     * If the uniform is not found, it logs a warning.
+     * @param name - The name of the uniform to set.
+     * @param value - The boolean value to set the uniform to.
+     */
     public void setBooleanUniform(String name, boolean value) {
         Uniform uniform = getUniform(name);
         if (uniform != null) {
@@ -188,6 +212,14 @@ public class ShaderRenderer {
         }
     }
 
+    /**
+     * Sets a vec2 uniform in the shader.
+     * This method retrieves the uniform by name and sets its value.
+     * If the uniform is not found, it logs a warning.
+     * @param name - The name of the uniform to set.
+     * @param x - The x component of the vec2.
+     * @param y - The y component of the vec2.
+     */
     public void setVec2Uniform(String name, float x, float y) {
         Uniform uniform = getUniform(name);
         if (uniform != null) {
@@ -197,6 +229,15 @@ public class ShaderRenderer {
         }
     }
 
+    /**
+     * Sets a vec3 uniform in the shader.
+     * This method retrieves the uniform by name and sets its value.
+     * If the uniform is not found, it logs a warning.
+     * @param name - The name of the uniform to set.
+     * @param x - The x component of the vec3.
+     * @param y - The y component of the vec3.
+     * @param z - The z component of the vec3.
+     */
     public void setVec3Uniform(String name, float x, float y, float z) {
         Uniform uniform = getUniform(name);
         if (uniform != null) {
@@ -206,6 +247,16 @@ public class ShaderRenderer {
         }
     }
 
+    /**
+     * Sets a vec4 uniform in the shader.
+     * This method retrieves the uniform by name and sets its value.
+     * If the uniform is not found, it logs a warning.
+     * @param name - The name of the uniform to set.
+     * @param x - The x component of the vec4.
+     * @param y - The y component of the vec4.
+     * @param z - The z component of the vec4.
+     * @param w - The w component of the vec4.
+     */
     public void setVec4Uniform(String name, float x, float y, float z, float w) {
         Uniform uniform = getUniform(name);
         if (uniform != null) {
@@ -215,6 +266,11 @@ public class ShaderRenderer {
         }
     }
 
+    /**
+     * Returns a string representation of the ShaderRenderer.
+     * This includes the shader location and whether the shader is active.
+     * @return A string representation of the ShaderRenderer.
+     */
     @Override
     public String toString() {
         return "ShaderRenderer{" +
@@ -223,6 +279,12 @@ public class ShaderRenderer {
                 '}';
     }
 
+    /**
+     * Checks if this ShaderRenderer is equal to another object.
+     * Two ShaderRenderers are considered equal if they have the same shader location.
+     * @param o - The object to compare with.
+     * @return true if the objects are equal, false otherwise.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

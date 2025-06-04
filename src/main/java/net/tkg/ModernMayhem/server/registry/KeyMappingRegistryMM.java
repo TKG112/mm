@@ -3,7 +3,6 @@ package net.tkg.ModernMayhem.server.registry;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
-import net.tkg.ModernMayhem.client.event.TestRenderShader;
 import net.tkg.ModernMayhem.server.network.*;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import org.lwjgl.glfw.GLFW;
@@ -87,19 +86,6 @@ public class KeyMappingRegistryMM {
                 if (CuriosUtil.hasRigEquipped(player)) {
                     PacketsRegistryMM.getChannel().sendToServer(new OpenRigKeyPacket());
                 }
-            }
-            isDownOld = isDown;
-        }
-    };
-
-    public static final KeyMapping TEST_KEY = new KeyMapping("key.mm.test_key", GLFW.GLFW_KEY_X, CATEGORY) {
-        private boolean isDownOld = false;
-
-        @Override
-        public void setDown(boolean isDown) {
-            super.setDown(isDown);
-            if (isDownOld != isDown && isDown) {
-                TestRenderShader.NVG_SHADER_RENDERER.toggleActive();
             }
             isDownOld = isDown;
         }
