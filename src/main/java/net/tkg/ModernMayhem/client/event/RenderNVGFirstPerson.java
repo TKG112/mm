@@ -17,8 +17,6 @@ import net.tkg.ModernMayhem.client.renderer.custom.NVGFirstPersonRenderer;
 import net.tkg.ModernMayhem.server.registry.ItemRegistryMM;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 
-import static net.tkg.ModernMayhem.server.util.RenderingUtil.getPackedLightAt;
-
 @Mod.EventBusSubscriber(modid = ModernMayhemMod.ID, value = Dist.CLIENT)
 public class RenderNVGFirstPerson {
 
@@ -49,11 +47,6 @@ public class RenderNVGFirstPerson {
         var bakedModel = model.getBakedModel(model.getModelResource(DUMMY_ITEM));
         var texture = RENDERER.getTextureLocation(DUMMY_ITEM);
         var renderType = RenderType.entityTranslucent(texture);
-        var packedLight = getPackedLightAt(
-                (int) player.getX(),
-                (int) player.getEyePosition(partialTicks).y,
-                (int) player.getZ()
-        );
 
         RENDERER.actuallyRender(
                 poseStack,
@@ -64,7 +57,7 @@ public class RenderNVGFirstPerson {
                 buffer.getBuffer(renderType),
                 false,
                 MC.getFrameTime(),
-                packedLight,
+                event.getPackedLight(),
                 OverlayTexture.NO_OVERLAY,
                 1f, 1f, 1f, 1f
         );

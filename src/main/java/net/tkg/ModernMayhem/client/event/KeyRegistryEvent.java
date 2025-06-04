@@ -17,5 +17,6 @@ public class KeyRegistryEvent {
         event.register(KeyMappingRegistryMM.DECREASE_TUBE_GAIN_KEY);
         event.register(KeyMappingRegistryMM.OPEN_BACKPACK_KEY);
         event.register(KeyMappingRegistryMM.OPEN_RIG_KEY);
+        event.register(KeyMappingRegistryMM.TEST_KEY);
     }
 }
