@@ -22,6 +22,7 @@ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.AnimationProcessor;
+import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.keyframe.event.data.CustomInstructionKeyframeData;
 import software.bernie.geckolib.core.keyframe.event.data.SoundKeyframeData;
 import software.bernie.geckolib.core.object.PlayState;
@@ -38,6 +39,10 @@ import java.util.function.Consumer;
 public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public static final NVGFirstPersonRenderer NVG_FIRST_PERSON_RENDERER = new NVGFirstPersonRenderer();
+
+    // Complementary animations for the NVG goggles
+    public static final RawAnimation ANIM_OPENED = RawAnimation.begin().thenLoop("opened");
+    public static final RawAnimation ANIM_CLOSED = RawAnimation.begin().thenLoop("closed");
 
     public NVGFirstPersonFakeItem() {
         super(new Properties());
@@ -68,7 +73,22 @@ public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
             // This add a cooldown to the animation so it doesn't spam
             AnimationProcessor.QueuedAnimation currentAnim = state.getController().getCurrentAnimation();
             if (currentAnim == null) {
-                state.setAnimation(GenericNVGGogglesItem.ANIM_IDLE);
+                // if the current animation is null
+                // we check if the player has NVG goggles equipped and set the animation accordingly
+                if (CuriosUtil.hasNVGEquipped(player)) {
+                    ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
+                    if (facewearItem.getItem() instanceof GenericNVGGogglesItem) {
+                        if (GenericNVGGogglesItem.isNVGOnFace(facewearItem)) {
+                            state.setAnimation(ANIM_CLOSED);
+                        } else {
+                            state.setAnimation(ANIM_OPENED);
+                        }
+                    } else {
+                        state.setAnimation(GenericNVGGogglesItem.ANIM_IDLE);
+                    }
+                } else {
+                    state.setAnimation(GenericNVGGogglesItem.ANIM_IDLE);
+                }
                 return PlayState.CONTINUE;
             }
             if (state.isCurrentAnimationStage("opened") || state.isCurrentAnimationStage("closed") || state.isCurrentAnimationStage("idle") || state.isCurrentAnimationStage("")) {

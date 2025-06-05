@@ -25,7 +25,7 @@ import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
 @Mod.EventBusSubscriber(modid = ModernMayhemMod.ID, value = Dist.CLIENT)
 public class RenderNVGShader {
 
-    public static final ShaderRenderer NVG_SHADER_RENDERER = new ShaderRenderer(fromNamespaceAndPath(ModernMayhemMod.ID, "shaders/post/night-vision.json"));
+    private static final ShaderRenderer NVG_SHADER_RENDERER = new ShaderRenderer(fromNamespaceAndPath(ModernMayhemMod.ID, "shaders/post/night-vision.json"));
 
     private static final Minecraft mc = Minecraft.getInstance();
 
@@ -66,30 +66,31 @@ public class RenderNVGShader {
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void renderNVGOverlay(RenderGuiEvent.Pre event) {
+        Player player = Minecraft.getInstance().player;
+        if (player == null) return; // No player, no overlay
+        if (!NVG_SHADER_RENDERER.isActive()) return; // Only render overlay if NVG shader is active
         int screenWidth = event.getWindow().getGuiScaledWidth();
         int screenHeight = event.getWindow().getGuiScaledHeight();
-        Player player = Minecraft.getInstance().player;
 
-        if (player != null) {
-            RenderSystem.disableDepthTest();
-            RenderSystem.depthMask(false);
-            RenderSystem.enableBlend();
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-            RenderSystem.setShaderColor(1, 1, 1, 1);
-            if (CuriosUtil.hasNVGEquipped(player)) {
-                ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
-                if (facewearItem.getItem() instanceof GenericNVGGogglesItem) {
-                    if (GenericNVGGogglesItem.getNVGMode(facewearItem) == 1 && Minecraft.getInstance().options.getCameraType().isFirstPerson() && GenericNVGGogglesItem.getCurrentConfig(facewearItem).getOverlay() != null) {
-                        event.getGuiGraphics().blit(GenericNVGGogglesItem.getCurrentConfig(facewearItem).getOverlay(), 0, 0, 0, 0, screenWidth, screenHeight, screenWidth, screenHeight);
-                    }
-                }
+        RenderSystem.disableDepthTest();
+        RenderSystem.depthMask(false);
+        RenderSystem.enableBlend();
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        RenderSystem.setShaderColor(1, 1, 1, 1);
+
+        ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
+        if (facewearItem.getItem() instanceof GenericNVGGogglesItem) {
+            if (GenericNVGGogglesItem.getNVGMode(facewearItem) == 1 && Minecraft.getInstance().options.getCameraType().isFirstPerson() && GenericNVGGogglesItem.getCurrentConfig(facewearItem).getOverlay() != null) {
+                event.getGuiGraphics().blit(GenericNVGGogglesItem.getCurrentConfig(facewearItem).getOverlay(), 0, 0, 0, 0, screenWidth, screenHeight, screenWidth, screenHeight);
             }
-            RenderSystem.depthMask(true);
-            RenderSystem.defaultBlendFunc();
-            RenderSystem.enableDepthTest();
-            RenderSystem.disableBlend();
-            RenderSystem.setShaderColor(1, 1, 1, 1);
         }
+
+        RenderSystem.depthMask(true);
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.enableDepthTest();
+        RenderSystem.disableBlend();
+        RenderSystem.setShaderColor(1, 1, 1, 1);
+
     }
 }
