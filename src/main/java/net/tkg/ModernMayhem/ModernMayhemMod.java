@@ -1,15 +1,21 @@
 package net.tkg.ModernMayhem;
 
 import com.mojang.logging.LogUtils;
+import com.tacz.guns.compat.oculus.legacy.OculusCompatLegacy;
+import net.irisshaders.iris.api.v0.IrisApi;
+import net.irisshaders.iris.apiimpl.IrisApiV0Impl;
+import net.minecraftforge.client.model.ElementsModel;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.tkg.ModernMayhem.client.event.RenderNVGFirstPerson;
+import net.tkg.ModernMayhem.server.compat.OculusCompat;
 import net.tkg.ModernMayhem.server.config.ArmorConfigGenerator;
 import net.tkg.ModernMayhem.server.config.TestConfig;
 import net.tkg.ModernMayhem.server.registry.*;
@@ -26,8 +32,11 @@ public class ModernMayhemMod
     // Check if game initialized
     private static boolean isGameReady = false;
 
-    public ModernMayhemMod() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    private static FMLJavaModLoadingContext modLoadingContext = null;
+
+    public ModernMayhemMod(FMLJavaModLoadingContext context) {
+        modLoadingContext = context;
+        IEventBus modEventBus = context.getModEventBus();
 
         ItemRegistryMM.init(modEventBus);
         BlockRegistryMM.init(modEventBus);
@@ -36,12 +45,13 @@ public class ModernMayhemMod
         SoundRegistryMM.init(modEventBus);
         CreativeTabsRegistryMM.init(modEventBus);
         GUIRegistryMM.init(modEventBus);
+        EntityRegistryMM.init(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::onGameReady);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, TestConfig.CONFIG);
+        context.registerConfig(ModConfig.Type.COMMON, TestConfig.CONFIG);
         ArmorConfigGenerator.init();
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -51,6 +61,12 @@ public class ModernMayhemMod
         // Common setup
         LOGGER.info("HELLO FROM COMMON SETUP");
 
+        // Check soft dependencies
+        if (ModList.get().isLoaded("oculus")) {
+            LOGGER.info("Oculus is loaded, enabling Oculus compatibility");
+            OculusCompat.init(modLoadingContext.getModEventBus());
+        }
+
     }
 
     private void clientSetup(FMLClientSetupEvent event) {
@@ -59,6 +75,7 @@ public class ModernMayhemMod
 
         CuriosRendererRegistryMM.register();
         ScreenRegistryMM.register(event);
+        RenderNVGFirstPerson.initialiseFirstPersonRenderer();
     }
 
     private void onGameReady(FMLLoadCompleteEvent event) {
@@ -68,4 +85,6 @@ public class ModernMayhemMod
     public static boolean isGameReady() {
         return isGameReady;
     }
+
+    public static FMLJavaModLoadingContext getModLoadingContext() { return modLoadingContext; }
 }

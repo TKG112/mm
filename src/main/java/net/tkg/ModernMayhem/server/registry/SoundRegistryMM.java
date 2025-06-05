@@ -1,12 +1,13 @@
 package net.tkg.ModernMayhem.server.registry;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tkg.ModernMayhem.ModernMayhemMod;
+
+import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
 
 public class SoundRegistryMM {
 
@@ -15,13 +16,15 @@ public class SoundRegistryMM {
     public static RegistryObject<SoundEvent> SOUND_NVG_ON = registerSoundsEvent("sound_nvg_on");
     public static RegistryObject<SoundEvent> SOUND_NVG_OFF = registerSoundsEvent("sound_nvg_off");
     public static RegistryObject<SoundEvent> SMALL_CLICK = registerSoundsEvent("small_click");
+    public static RegistryObject<SoundEvent> SOUND_NVG_PUT_ON = registerSoundsEvent("sound_nvg_put_on");
+    public static RegistryObject<SoundEvent> SOUND_NVG_PUT_OFF = registerSoundsEvent("sound_nvg_put_off");
 
     public static void init(IEventBus eventBus) {
         MOD_SOUNDS.register(eventBus);
     }
 
     private static RegistryObject<SoundEvent> registerSoundsEvent(String name) {
-        return MOD_SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent((new ResourceLocation(ModernMayhemMod.ID, name))));
+        return MOD_SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent((fromNamespaceAndPath(ModernMayhemMod.ID, name))));
 
     }
 }

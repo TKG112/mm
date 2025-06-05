@@ -10,9 +10,10 @@ import net.tkg.ModernMayhem.server.GUI.GenericBackpackGUI;
 import org.jetbrains.annotations.NotNull;
 
 import static java.lang.Math.max;
+import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
 
 public class BackpackScreen extends AbstractContainerScreen<GenericBackpackGUI> {
-    ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(ModernMayhemMod.ID, "textures/gui/container/generic_backpack_inventory.png");
+    ResourceLocation BACKGROUND_TEXTURE = fromNamespaceAndPath(ModernMayhemMod.ID, "textures/gui/container/generic_backpack_inventory.png");
 
     // Making variables to store some values
     public static final int playerInventoryLeftPos = 0;

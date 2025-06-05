@@ -14,6 +14,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
 import static net.minecraftforge.network.NetworkDirection.PLAY_TO_SERVER;
 
 /*
@@ -25,13 +26,15 @@ public enum PacketsRegistryMM {
     NVG_TUBE_GAIN_UP(NVGTubeGainUpPacket.class, NVGTubeGainUpPacket::new, PLAY_TO_SERVER),
     NVG_TUBE_GAIN_DOWN(NVGTubeGainDownPacket.class, NVGTubeGainDownPacket::new, PLAY_TO_SERVER),
     OPEN_BACK_BACKPACK_FROM_CONTROL(OpenBackpackKeyPacket.class, OpenBackpackKeyPacket::new, PLAY_TO_SERVER),
-    OPEN_CHEST_BACKPACK_FROM_CONTROL(OpenRigKeyPacket.class, OpenRigKeyPacket::new, PLAY_TO_SERVER),;
+    OPEN_CHEST_BACKPACK_FROM_CONTROL(OpenRigKeyPacket.class, OpenRigKeyPacket::new, PLAY_TO_SERVER),
+    NVG_SYNC_SWITCH_ON(NVGSyncSwitchOnPacket.class, NVGSyncSwitchOnPacket::new, PLAY_TO_SERVER),
+    NVG_SYNC_SWITCH_OFF(NVGSyncSwitchOffPacket.class, NVGSyncSwitchOffPacket::new, PLAY_TO_SERVER),;
 
 
     // Server to Client
     // There is no Server to Client packets at the moment
 
-    public static final ResourceLocation CHANNEL_NAME = new ResourceLocation(ModernMayhemMod.ID, "main");
+    public static final ResourceLocation CHANNEL_NAME = fromNamespaceAndPath(ModernMayhemMod.ID, "main");
     private static SimpleChannel channel;
     public static final int NETWORK_VERSION = 1;
     public static final String NETWORK_VERSION_STRING = String.valueOf(NETWORK_VERSION);
