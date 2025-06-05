@@ -1,8 +1,13 @@
 package net.tkg.ModernMayhem;
 
 import com.mojang.logging.LogUtils;
+import com.tacz.guns.compat.oculus.legacy.OculusCompatLegacy;
+import net.irisshaders.iris.api.v0.IrisApi;
+import net.irisshaders.iris.apiimpl.IrisApiV0Impl;
+import net.minecraftforge.client.model.ElementsModel;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -10,6 +15,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.tkg.ModernMayhem.client.event.RenderNVGFirstPerson;
+import net.tkg.ModernMayhem.server.compat.OculusCompat;
 import net.tkg.ModernMayhem.server.config.ArmorConfigGenerator;
 import net.tkg.ModernMayhem.server.config.TestConfig;
 import net.tkg.ModernMayhem.server.registry.*;
@@ -54,6 +60,12 @@ public class ModernMayhemMod
     private void commonSetup(FMLCommonSetupEvent event) {
         // Common setup
         LOGGER.info("HELLO FROM COMMON SETUP");
+
+        // Check soft dependencies
+        if (ModList.get().isLoaded("oculus")) {
+            LOGGER.info("Oculus is loaded, enabling Oculus compatibility");
+            OculusCompat.init(modLoadingContext.getModEventBus());
+        }
 
     }
 

@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.tkg.ModernMayhem.ModernMayhemMod;
+import net.tkg.ModernMayhem.server.mixinaccessor.PostChainAccess;
 import org.jetbrains.annotations.NotNull;
 import oshi.util.tuples.Pair;
 
@@ -20,6 +21,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * ShaderRenderer is responsible for managing and rendering a specific shader in Minecraft.
@@ -131,13 +133,21 @@ public class ShaderRenderer {
                 return;
             }
         }
-        postChain.process(partialTicks);
+        RenderSystem.disableDepthTest();
+        RenderSystem.depthMask(false);
+        RenderSystem.disableCull();
+        RenderSystem.disableBlend();
+
+        postChain.process(partialTicks); // Process the shader effect with the current partial ticks
+
+        RenderSystem.setShaderColor(1, 1, 1, 1);
+        RenderSystem.enableBlend();
+        RenderSystem.enableCull();
+        RenderSystem.depthMask(true);
+        RenderSystem.enableDepthTest();
 
         RenderSystem.setShader(() -> null);
         mc.getMainRenderTarget().bindWrite(false);
-
-        RenderSystem.enableDepthTest();
-        RenderSystem.enableBlend();
     }
 
     /**
@@ -151,22 +161,15 @@ public class ShaderRenderer {
             ModernMayhemMod.LOGGER.warn("Cannot get uniform {} because postChain is null", name);
             return null;
         }
-        try {
-            Field passesField = PostChain.class.getDeclaredField("passes");
-            passesField.setAccessible(true);
-            List<PostPass> passes = (List<PostPass>) passesField.get(postChain);
+        List<PostPass> passes = ((PostChainAccess) postChain).test_master$getPasses();
 
-            for (PostPass pass : passes) {
-                if (pass.getName().equals(getShaderName())) {
-                    Uniform uniform = pass.getEffect().getUniform(name);
-                    if (uniform != null) {
-                        return uniform;
-                    }
+        for (PostPass pass : passes) {
+            if (pass.getName().equals(getShaderName())) {
+                Uniform uniform = pass.getEffect().getUniform(name);
+                if (uniform != null) {
+                    return uniform;
                 }
             }
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            ModernMayhemMod.LOGGER.error("Failed to access passes field in PostChain", e);
-            return null;
         }
         return null;
     }
