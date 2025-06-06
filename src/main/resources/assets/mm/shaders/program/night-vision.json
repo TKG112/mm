@@ -23,9 +23,12 @@
         { "name": "Time",               "type": "float",     "count": 1,  "values": [1.0] },
         { "name": "NoiseAmplification", "type": "float",     "count": 1,  "values": [2.0] },
         { "name": "IntensityAdjust",    "type": "float",     "count": 1,  "values": [40.0] },
-		{ "name": "RedValue",           "type": "float",     "count": 1,  "values": [1.0] },
+        { "name": "RedValue",           "type": "float",     "count": 1,  "values": [1.0] },
         { "name": "GreenValue",         "type": "float",     "count": 1,  "values": [1.0] },
-        { "name": "BlueValue",          "type": "float",     "count": 1,  "values": [1.0] }
- 
+        { "name": "BlueValue",          "type": "float",     "count": 1,  "values": [1.0] },
+        { "name": "XOffset",            "type": "float",     "count": 1,  "values": [0.2] },
+        { "name": "GPNVGMode",          "type": "float",     "count": 1,  "values": [0.0] },
+        { "name": "PVS14Mode",          "type": "float",     "count": 1,  "values": [0.0] },
+        { "name": "PVS7Mode",           "type": "float",     "count": 1,  "values": [0.0] }
     ]
 }
