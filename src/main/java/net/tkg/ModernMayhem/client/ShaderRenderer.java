@@ -1,23 +1,18 @@
 package net.tkg.ModernMayhem.client;
 
 
-import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.shaders.Uniform;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.EffectInstance;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.PostChain;
 import net.minecraft.client.renderer.PostPass;
-import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
 import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.server.mixinaccessor.PostChainAccess;
 import org.jetbrains.annotations.NotNull;
 import oshi.util.tuples.Pair;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,86 +63,57 @@ public class ShaderRenderer {
         return shaderLocation.getNamespace() + ResourceLocation.NAMESPACE_SEPARATOR + shaderLocation.getPath().substring(shaderLocation.getPath().lastIndexOf('/') + 1, shaderLocation.getPath().lastIndexOf('.'));
     }
 
+    public String getFullShaderName() {
+        // Could have used shaderLocation.toString() but they somehow don't use their own global value NAMESPACE_SEPARATOR
+        return shaderLocation.getNamespace() + ResourceLocation.NAMESPACE_SEPARATOR + shaderLocation.getPath();
+    }
+
     /**
      * Activate the shader, allowing it to be rendered.
      * Note: You still need to call render() in your rendering loop to see the shader effect.
      */
-    public void activate() {
-        // We initialize the PostChain here to ensure it is ready when the shader is activated.
-        try {
-            this.initShader();
-            lastFrameScreenWidth = mc.getWindow().getGuiScaledWidth();
-            lastFrameScreenHeight = mc.getWindow().getGuiScaledHeight();
-            isActive = true;
-        } catch (Exception e) {
-            ModernMayhemMod.LOGGER.error("Failed to load shader: {}", shaderLocation, e);
-        }
-    }
+    public void activate() { isActive = true; }
 
     /**
      * Deactivate the shader, preventing it from being rendered.
      * This is useful for performance optimization when the shader is not needed.
      */
-    public void deactivate() {
-        isActive = false;
-        if (postChain != null) {
-            postChain.close();
-            postChain = null;
-        }
-    }
+    public void deactivate() { isActive = false; }
 
     /**
      * Toggles the active state of the shader.
      * If the shader is currently active, it will be deactivated, and vice versa.
      * Note: You still need to call render() in your rendering loop to see the shader effect.
      */
-    public void toggleActive() {
-        if (isActive) {
-            deactivate();
-        } else {
-            activate();
-        }
-    }
+    public void toggleActive() { isActive = !isActive; }
 
     /**
      * Renders the shader effect.
      * This method should be called in the rendering loop, typically in the render method of your mod's client-side event handler.
-     * @param partialTicks - The partial ticks for smooth rendering.
      */
-    public void render(float partialTicks) {
-        if (!isActive) return;
-        if (postChain == null) {
-            ModernMayhemMod.LOGGER.warn("Cannot render shader {} because postChain is null", getShaderName());
+    public void render() {
+        GameRenderer gameRenderer = mc.gameRenderer;
+
+        // If the shader is not active and is currently loaded, we need to unload it
+        if (!isActive && isCurrentEffect()) {
+            gameRenderer.shutdownEffect();
             return;
         }
-        int currentScreenWidth = mc.getWindow().getGuiScaledWidth();
-        int currentScreenHeight = mc.getWindow().getGuiScaledHeight();
 
-        if (lastFrameScreenWidth != currentScreenWidth || lastFrameScreenHeight != currentScreenHeight) {
-            try {
-                this.initShader();
-                lastFrameScreenWidth = currentScreenWidth;
-                lastFrameScreenHeight = currentScreenHeight;
-            } catch (IOException e) {
-                ModernMayhemMod.LOGGER.error("Failed to reinitialize shader due to screen size change", e);
-                return;
-            }
+        // If the shader is not active or is already the current effect, we do not need to load it again
+        if (!isActive || isCurrentEffect()) {
+            return;
         }
-        RenderSystem.disableDepthTest();
-        RenderSystem.depthMask(false);
-        RenderSystem.disableCull();
-        RenderSystem.disableBlend();
 
-        postChain.process(partialTicks); // Process the shader effect with the current partial ticks
+        // If the shader is already loaded and the window size has not changed, we do not need to reload it
+        if (gameRenderer.currentEffect() != null && isCurrentEffect() && !hasWindowSizeChanged()) {
+            return;
+        }
 
-        RenderSystem.setShaderColor(1, 1, 1, 1);
-        RenderSystem.enableBlend();
-        RenderSystem.enableCull();
-        RenderSystem.depthMask(true);
-        RenderSystem.enableDepthTest();
+        gameRenderer.loadEffect(shaderLocation);
 
-        RenderSystem.setShader(() -> null);
-        mc.getMainRenderTarget().bindWrite(false);
+        // Reapply modified uniforms if the window size has changed
+        if (hasWindowSizeChanged()) reapplyModifiedUniforms();
     }
 
     /**
@@ -157,12 +123,10 @@ public class ShaderRenderer {
      * @return The Uniform object if found, or null if not found or if postChain is null.
      */
     public Uniform getUniform(String name) {
-        if (postChain == null) {
-            ModernMayhemMod.LOGGER.warn("Cannot get uniform {} because postChain is null", name);
+        if (!isCurrentEffect() || mc.gameRenderer.currentEffect() == null) {
             return null;
         }
-        List<PostPass> passes = ((PostChainAccess) postChain).test_master$getPasses();
-
+        List<PostPass> passes = ((PostChainAccess) Objects.requireNonNull(mc.gameRenderer.currentEffect())).test_master$getPasses();
         for (PostPass pass : passes) {
             if (pass.getName().equals(getShaderName())) {
                 Uniform uniform = pass.getEffect().getUniform(name);
@@ -315,31 +279,10 @@ public class ShaderRenderer {
     }
 
     /**
-     * Initializes the shader by creating a PostChain instance.
-     * This method is called when the shader is activated or when the screen size changes.
-     * Note: This method will close any existing PostChain instance before creating a new one.
-     * @throws IOException if there is an error loading the shader resource.
+     * Reapplies modified uniforms to the shader.
+     * This method iterates through the modifiedUniforms map and sets each uniform in the shader.
      */
-    private void initShader() throws IOException {
-        TextureManager textureManager = mc.getTextureManager();
-        ResourceManager resourceManager = mc.getResourceManager();
-        RenderTarget renderTarget = mc.getMainRenderTarget();
-
-        if (postChain != null) {
-            postChain.close();
-            postChain = null;
-        }
-
-        postChain = new PostChain(
-                textureManager,
-                resourceManager,
-                renderTarget,
-                shaderLocation
-        );
-        postChain.resize(
-                renderTarget.width,
-                renderTarget.height
-        );
+    private void reapplyModifiedUniforms() {
         // Reapply modified uniforms to the new PostChain (because uniforms are not persistent across PostChain instances)
         for (Map.Entry<String, Pair<String, Object>> entry : modifiedUniforms.entrySet()) {
             switch (entry.getKey()) {
@@ -393,5 +336,22 @@ public class ShaderRenderer {
         lastFrameScreenWidth = -1;
         lastFrameScreenHeight = -1;
         modifiedUniforms.clear();
+    }
+
+    private boolean hasWindowSizeChanged() {
+        int currentScreenWidth = mc.getWindow().getGuiScaledWidth();
+        int currentScreenHeight = mc.getWindow().getGuiScaledHeight();
+        return lastFrameScreenWidth != currentScreenWidth || lastFrameScreenHeight != currentScreenHeight;
+    }
+
+    private boolean isCurrentEffect() {
+        GameRenderer gameRenderer = mc.gameRenderer;
+        PostChain currentEffect = gameRenderer.currentEffect();
+        if (currentEffect != null) {
+            System.out.println("Current effect is " + currentEffect.getName());
+        } else {
+            System.out.println("Current effect is null");
+        }
+        return currentEffect != null && Objects.equals(currentEffect.getName(), getFullShaderName());
     }
 }
