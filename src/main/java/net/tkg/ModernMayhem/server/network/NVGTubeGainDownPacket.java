@@ -7,7 +7,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
 import net.tkg.ModernMayhem.server.registry.SoundRegistryMM;
@@ -27,10 +26,7 @@ public class NVGTubeGainDownPacket extends PacketBase {
 
     @Override
     public boolean handle(NetworkEvent.Context context) {
-        if (context.getDirection() != NetworkDirection.PLAY_TO_SERVER || context.getSender() == null) {
-            // Just checking if the packet is being sent to the server and the sender is not null
-            return false;
-        }
+        if (!isCtS(context)) return false;
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             Level world = context.getSender().level();

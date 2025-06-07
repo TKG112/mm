@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:glow_ink_sac"
+        },
+        {
+            "item": "minecraft:lime_dye"
+        },
+        {
+            "item": "minecraft:diamond"
+        },
+        {
+            "item": "minecraft:quartz"
+        }
+    ],
+    "result": {
+        "item": "mm:green_phosphor",
+        "count": 1
+    }
+}

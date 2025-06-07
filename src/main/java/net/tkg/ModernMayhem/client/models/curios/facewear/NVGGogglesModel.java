@@ -20,32 +20,7 @@ public class NVGGogglesModel extends GeoModel<NVGGogglesItem> {
 
     @Override
     public ResourceLocation getTextureResource(NVGGogglesItem animatable) {
-         switch (animatable.getConfig().getType()) {
-            case 0 -> {
-                return switch (animatable.getConfig().getVariant()) {
-                    case 0 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/black_gpnvg.png");
-                    case 1 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/tan_gpnvg.png");
-                    case 2 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/green_gpnvg.png");
-                    case 99 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/ultra_gamer_gpnvg.png");
-                    default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
-                };
-            }
-            case 1 -> {
-                return switch (animatable.getConfig().getVariant()) {
-                    case 0 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/black_pvs14.png");
-                    case 1 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/tan_pvs14.png");
-                    case 2 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/green_pvs14.png");
-                    default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
-                };
-            }
-             case 2 -> {
-                 return switch (animatable.getConfig().getVariant()) {
-                     case 0 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/black_pvs7.png");
-                     default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
-                 };
-             }
-        };
-        return fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
+         return getTextureResource(animatable.getConfig().getType(), animatable.getConfig().getVariant());
     }
 
     @Override
@@ -56,5 +31,34 @@ public class NVGGogglesModel extends GeoModel<NVGGogglesItem> {
             case 2 -> fromNamespaceAndPath(ModernMayhemMod.ID, "animations/item/curios/facewear/pvs7.animation.json");
             default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
         };
+    }
+
+    public static ResourceLocation getTextureResource(int type, int variant) {
+        switch (type) {
+            case 0 -> {
+                return switch (variant) {
+                    case 0 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/black_gpnvg.png");
+                    case 1 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/tan_gpnvg.png");
+                    case 2 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/green_gpnvg.png");
+                    case 99 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/ultra_gamer_gpnvg.png");
+                    default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
+                };
+            }
+            case 1 -> {
+                return switch (variant) {
+                    case 0 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/black_pvs14.png");
+                    case 1 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/tan_pvs14.png");
+                    case 2 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/green_pvs14.png");
+                    default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
+                };
+            }
+            case 2 -> {
+                return switch (variant) {
+                    case 0 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/black_pvs7.png");
+                    default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
+                };
+            }
+        };
+        return fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
     }
 }

@@ -34,7 +34,7 @@ public class BlockRegistryMM {
     }
 
     private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
-        return ItemRegistryMM.REGISTRY.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        return ItemRegistryMM.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
 

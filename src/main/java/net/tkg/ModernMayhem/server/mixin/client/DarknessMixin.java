@@ -11,7 +11,6 @@ import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = Darkness.class, remap = false)
@@ -23,6 +22,8 @@ public class DarknessMixin {
         if (player == null) return;
 
         ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
+        if (facewearItem == null) return;
+
         if (facewearItem.getItem() instanceof GenericNVGGogglesItem) {
             if (GenericNVGGogglesItem.getNVGCheck(facewearItem) && Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON) {
                 Darkness.enabled = false;

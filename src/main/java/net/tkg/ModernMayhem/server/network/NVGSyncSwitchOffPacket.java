@@ -8,11 +8,11 @@ import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import net.tkg.ModernMayhem.server.util.PacketBase;
 
-public class SwitchNVGStatusPacket extends PacketBase {
+public class NVGSyncSwitchOffPacket extends PacketBase {
 
-    public SwitchNVGStatusPacket() {}
+    public NVGSyncSwitchOffPacket() {}
 
-    public SwitchNVGStatusPacket(FriendlyByteBuf buffer) {}
+    public NVGSyncSwitchOffPacket(FriendlyByteBuf buffer) {}
 
     @Override
     public void write(FriendlyByteBuf buffer) {
@@ -25,10 +25,10 @@ public class SwitchNVGStatusPacket extends PacketBase {
         // This section switch the NVG status on the player's facewear slot and play the sound accordingly
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
-            if (CuriosUtil.hasNVGEquipped(player)) {
+            if (player != null) {
                 ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
                 if (facewearItem.getItem() instanceof GenericNVGGogglesItem) {
-                    GenericNVGGogglesItem.switchEquipState(facewearItem);
+                    GenericNVGGogglesItem.switchOffNVGMode(facewearItem);
                 }
             }
         });

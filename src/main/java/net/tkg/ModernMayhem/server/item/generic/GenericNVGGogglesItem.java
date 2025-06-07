@@ -24,7 +24,9 @@ import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
 
@@ -37,8 +39,8 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
 
     // Animations
     public static final RawAnimation ANIM_IDLE = RawAnimation.begin().thenLoop("opened");
-    public static final RawAnimation ANIM_OPEN = RawAnimation.begin().thenPlayAndHold("opening").thenLoop("opened");
-    public static final RawAnimation ANIM_CLOSE = RawAnimation.begin().thenPlayAndHold("closing").thenLoop("closed");
+    public static final RawAnimation ANIM_OPEN = RawAnimation.begin().thenPlay("opening").thenLoop("opened");
+    public static final RawAnimation ANIM_CLOSE = RawAnimation.begin().thenPlay("closing").thenLoop("closed");
 
     private static final Map<UUID, Integer> lastConfigIndexMap = new HashMap<>();
 
@@ -113,6 +115,39 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
         stack.setTag(tag);
     }
 
+    public static void switchOnNVGMode(ItemStack item) {
+        System.out.println("[ModernMayhem] Switching on NVG mode for item: " + item);
+        CompoundTag tag = item.getOrCreateTag();
+        tag.putBoolean("NvgCheck", true);
+        item.setTag(tag);
+    }
+
+    public static void switchOffNVGMode(ItemStack item) {
+        System.out.println("[ModernMayhem] Switching off NVG mode for item: " + item);
+        CompoundTag tag = item.getOrCreateTag();
+        tag.putBoolean("NvgCheck", false);
+        item.setTag(tag);
+    }
+
+    public static void switchEquipState(ItemStack stack) {
+        CompoundTag tag = stack.getOrCreateTag();
+        if (tag.contains("NvgOnFace")) {
+            boolean nvgCheck = tag.getBoolean("NvgOnFace");
+            tag.putBoolean("NvgOnFace", !nvgCheck);
+        } else {
+            tag.putBoolean("NvgOnFace", true);
+        }
+        stack.setTag(tag);
+    }
+
+    public static boolean isNVGOnFace(ItemStack stack) {
+        CompoundTag tag = stack.getTag();
+        if (tag != null && tag.contains("NvgOnFace")) {
+            return tag.getBoolean("NvgOnFace");
+        }
+        return false;
+    }
+
     public static void switchConfigUp(ItemStack item) {
         CompoundTag tag = item.getOrCreateTag();
         if (tag.contains("configIndex")) {
@@ -149,12 +184,11 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
                     ItemStack stack = CuriosUtil.getFaceWearItem(player);
                     if (stack.getItem() instanceof GenericNVGGogglesItem) {
                         CompoundTag tag = stack.getOrCreateTag();
-                        if (tag.contains("nvg_mode")) {
-                            int mode = tag.getInt("nvg_mode");
-                            if (mode == 0) {
-                                if (!state.isCurrentAnimation(ANIM_OPEN)) {state.setAnimation(ANIM_OPEN);}
-                            } else {
+                        if (tag.contains("NvgOnFace")) {
+                            if (tag.getBoolean("NvgOnFace")) {
                                 if (!state.isCurrentAnimation(ANIM_CLOSE)) {state.setAnimation(ANIM_CLOSE);}
+                            } else {
+                                if (!state.isCurrentAnimation(ANIM_OPEN)) {state.setAnimation(ANIM_OPEN);}
                             }
                         } else {
                             state.setAnimation(ANIM_IDLE);

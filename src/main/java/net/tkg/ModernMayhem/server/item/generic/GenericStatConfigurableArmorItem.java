@@ -14,8 +14,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.server.config.ArmorConfigGenerator;
-import net.tkg.ModernMayhem.server.config.TestConfig;
 import net.tkg.ModernMayhem.server.util.ArmorProperties;
 import org.jetbrains.annotations.NotNull;
 
