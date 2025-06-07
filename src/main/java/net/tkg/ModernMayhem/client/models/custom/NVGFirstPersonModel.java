@@ -7,7 +7,6 @@ import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.client.item.NVGFirstPersonFakeItem;
 import net.tkg.ModernMayhem.client.models.curios.facewear.NVGGogglesModel;
 import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
-import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import software.bernie.geckolib.model.GeoModel;
 
