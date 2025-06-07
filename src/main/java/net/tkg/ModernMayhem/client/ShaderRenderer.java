@@ -272,8 +272,7 @@ public class ShaderRenderer {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ShaderRenderer)) return false;
-        ShaderRenderer that = (ShaderRenderer) o;
+        if (!(o instanceof ShaderRenderer that)) return false;
         return shaderLocation.equals(that.shaderLocation);
     }
 
@@ -322,15 +321,10 @@ public class ShaderRenderer {
 
     /**
      * Resets the ShaderRenderer to its initial state.
-     * This method closes the PostChain if it exists,
-     * deactivates the shader,
+     * This method deactivates the shader,
      * and clears the modified uniforms.
      */
     public void reset() {
-        if (postChain != null) {
-            postChain.close();
-            postChain = null;
-        }
         isActive = false;
         lastFrameScreenWidth = -1;
         lastFrameScreenHeight = -1;
@@ -346,11 +340,6 @@ public class ShaderRenderer {
     private boolean isCurrentEffect() {
         GameRenderer gameRenderer = mc.gameRenderer;
         PostChain currentEffect = gameRenderer.currentEffect();
-        if (currentEffect != null) {
-            System.out.println("Current effect is " + currentEffect.getName());
-        } else {
-            System.out.println("Current effect is null");
-        }
         return currentEffect != null && Objects.equals(currentEffect.getName(), getFullShaderName());
     }
 }

@@ -50,7 +50,7 @@ public class RenderNVGShader {
 
     private static void renderNVGShader(float partialTick) {
         LocalPlayer player = mc.player;
-        if (player == null || !CuriosUtil.hasNVGEquipped(mc.player)) return;
+        if (player == null) return;
 
         boolean shouldRender = false;
         GenericNVGGogglesItem.NVGConfig nvgItemConfig = null;
