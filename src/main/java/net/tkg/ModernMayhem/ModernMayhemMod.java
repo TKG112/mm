@@ -1,10 +1,6 @@
 package net.tkg.ModernMayhem;
 
 import com.mojang.logging.LogUtils;
-import com.tacz.guns.compat.oculus.legacy.OculusCompatLegacy;
-import net.irisshaders.iris.api.v0.IrisApi;
-import net.irisshaders.iris.apiimpl.IrisApiV0Impl;
-import net.minecraftforge.client.model.ElementsModel;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
