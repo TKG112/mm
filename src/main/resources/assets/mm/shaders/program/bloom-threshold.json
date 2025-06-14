@@ -1,0 +1,16 @@
+{
+  "blend": {
+    "func": "add",
+    "srcrgb": "one",
+    "dstrgb": "zero"
+  },
+  "vertex": "blit",
+  "fragment": "mm:bloom-threshold",
+  "attributes": [ "Position" ],
+  "samplers": [
+    { "name": "DiffuseSampler" }
+  ],
+  "uniforms": [
+    { "name": "BloomThreshold", "type": "float", "count": 1, "values": [1.0] }
+  ]
+}

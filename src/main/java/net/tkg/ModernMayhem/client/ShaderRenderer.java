@@ -128,6 +128,7 @@ public class ShaderRenderer {
         List<PostPass> passes = ((PostChainAccess) Objects.requireNonNull(mc.gameRenderer.currentEffect())).test_master$getPasses();
         for (PostPass pass : passes) {
             if (pass.getName().equals(getShaderName())) {
+                System.out.println(pass.getEffect().getName());
                 Uniform uniform = pass.getEffect().getUniform(name);
                 if (uniform != null) {
                     return uniform;
@@ -150,7 +151,7 @@ public class ShaderRenderer {
             uniform.set(value);
             modifiedUniforms.put("float", new Pair<>(name, value));
         } else {
-            ModernMayhemMod.LOGGER.warn("Uniform {} not found in shader {}", name, getShaderName());
+            ModernMayhemMod.LOGGER.warn("Uniform \"{}\" not found in shader \"{}\"", name, getShaderName());
         }
     }
 

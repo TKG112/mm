@@ -126,7 +126,7 @@ dependencies {
 
 
     compileOnly fg.deobf("curse.maven:oculus-581495:6020952")
-    runtimeOnly fg.deobf("curse.maven:oculus-581495:6020952")
+    //runtimeOnly fg.deobf("curse.maven:oculus-581495:6020952")
 
 }
 
