@@ -21,6 +21,6 @@ void main() {
     if (brightness >= BloomThreshold) { // If brightness is above the threshold, set color to white
         fragColor = vec4(1.0, 1.0, 1.0, 1.0);
     } else { // Otherwise, set color to black
-        fragColor = vec4(0.0, 0.0, 0.0, 1.0);
+        fragColor = vec4(1.0, 0.0, 0.0, 1.0);
     }
 }
