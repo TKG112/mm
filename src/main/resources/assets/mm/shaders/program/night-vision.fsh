@@ -127,4 +127,11 @@ void main() {
     }
 
     gl_FragColor = vec4(texColor.rgb, 1);
+    texColor = texture2D(DiffuseSampler, texCoord.xy);
+    float brightness = dot(texColor.rgb, vec3(0.299, 0.587, 0.114));
+    if (brightness < 0.8) {
+        gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); // Set to black if too dark
+    } else {
+        gl_FragColor = texColor;
+    }
 }

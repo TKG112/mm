@@ -92,7 +92,7 @@ public class KeyMappingRegistryMM {
         }
     };
 
-    public static final KeyMapping TEST_KEY = new KeyMapping("key.mm.test_key", GLFW.GLFW_KEY_W, CATEGORY) {
+    public static final KeyMapping TEST_KEY = new KeyMapping("key.mm.test_key", GLFW.GLFW_KEY_Z, CATEGORY) {
         private boolean isDownOld = false;
 
         @Override

@@ -4,7 +4,6 @@ package net.tkg.ModernMayhem.client.event;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -15,16 +14,10 @@ import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
 
 @Mod.EventBusSubscriber(modid = ModernMayhemMod.ID, value = Dist.CLIENT)
 public class RenderTestShader {
-    public static final ShaderRenderer TEST_SHADER_RENDERER = new ShaderRenderer(fromNamespaceAndPath(ModernMayhemMod.ID, "shaders/post/test-shader.json"));
-
-    private static final Minecraft mc = Minecraft.getInstance();
+    public static final ShaderRenderer TEST_SHADER_RENDERER = new ShaderRenderer(fromNamespaceAndPath(ModernMayhemMod.ID, "shaders/post/test_shader.json"));
 
     @SubscribeEvent
     public static void afterLevelRender(RenderLevelStageEvent event) {
         TEST_SHADER_RENDERER.render();
-        LocalPlayer player = mc.player;
-        if (TEST_SHADER_RENDERER.isActive() && player != null) {
-            TEST_SHADER_RENDERER.setFloatUniform("BloomThreshold", (float) (player.position().x / 10));
-        }
     }
 }
