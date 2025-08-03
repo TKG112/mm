@@ -5,6 +5,7 @@ import net.tkg.ModernMayhem.client.renderer.curios.body.BandoleerRenderer;
 import net.tkg.ModernMayhem.client.renderer.curios.body.PlateCarrierRenderer;
 import net.tkg.ModernMayhem.client.renderer.curios.body.ReconRigRenderer;
 import net.tkg.ModernMayhem.client.renderer.curios.facewear.NVGGogglesRenderer;
+import net.tkg.ModernMayhem.client.renderer.curios.facewear.VisorRenderer;
 import net.tkg.ModernMayhem.client.renderer.curios.head.HeadGearRenderer;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
@@ -22,6 +23,10 @@ public class CuriosRendererRegistryMM {
         CuriosRendererRegistry.register(ItemRegistryMM.GREEN_PVS14.get(), NVGGogglesRenderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.ULTRA_GAMER_GPNVG.get(), NVGGogglesRenderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_PVS7.get(), NVGGogglesRenderer::new);
+
+        //Visor Gear
+        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_VISOR.get(), VisorRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.TAN_VISOR.get(), VisorRenderer::new);
 
         // Head Gear
         CuriosRendererRegistry.register(ItemRegistryMM.BALACLAVA.get(), HeadGearRenderer::new);

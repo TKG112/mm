@@ -10,5 +10,23 @@
   "small_click" : {
     "subtitle" : "sounds.mm.small_click",
     "sounds" : [ "mm:switch_button_click_small" ]
+  },
+  "sound_visor_open" : {
+    "subtitle" : "sounds.mm.visor_close",
+    "sounds": [
+      {
+        "name": "block.iron_trapdoor.close",
+        "type": "event"
+      }
+    ]
+  },
+  "sound_visor_close" : {
+    "subtitle" : "sounds.mm.visor_open",
+    "sounds": [
+      {
+        "name": "block.iron_trapdoor.open",
+        "type": "event"
+      }
+    ]
   }
 }

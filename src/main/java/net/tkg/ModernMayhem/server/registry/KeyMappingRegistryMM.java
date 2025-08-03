@@ -17,7 +17,7 @@ public class KeyMappingRegistryMM {
         public void setDown(boolean isDown) {
             super.setDown(isDown);
             if (isDownOld != isDown && isDown) {
-                if (CuriosUtil.hasNVGEquipped(Minecraft.getInstance().player)) {
+                if (CuriosUtil.hasNVGEquipped(Minecraft.getInstance().player) || CuriosUtil.hasVisorEquipped(Minecraft.getInstance().player)) {
                     PacketsRegistryMM.getChannel().sendToServer(new SwitchNVGStatusPacket());
                 }
             }

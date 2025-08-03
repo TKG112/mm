@@ -84,5 +84,9 @@
 
   "sounds.mm.nvg_on" : "Night Vision Goggles On",
   "sounds.mm.nvg_off" : "Night Vision Goggles Off",
-  "sounds.mm.small_click" : "Night Vision Goggles Gain Change"
+  "sounds.mm.small_click" : "Night Vision Goggles Gain Change",
+  "sounds.mm.visor_open" : "Visor Open",
+  "sounds.mm.visor_close" : "Visor Close",
+
+  "curios.modifiers.facewear": "When equipped on the face:"
 }

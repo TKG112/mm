@@ -25,6 +25,8 @@ public class CreativeTabsRegistryMM {
                         pOutput.accept(ItemRegistryMM.TAN_PVS14.get());
                         pOutput.accept(ItemRegistryMM.GREEN_PVS14.get());
                         pOutput.accept(ItemRegistryMM.BLACK_PVS7.get());
+                        pOutput.accept(ItemRegistryMM.BLACK_VISOR.get());
+                        pOutput.accept(ItemRegistryMM.TAN_VISOR.get());
                         pOutput.accept(ItemRegistryMM.BLACK_BACKPACK_T1.get());
                         pOutput.accept(ItemRegistryMM.BLACK_BACKPACK_T2.get());
                         pOutput.accept(ItemRegistryMM.BLACK_BACKPACK_T3.get());
