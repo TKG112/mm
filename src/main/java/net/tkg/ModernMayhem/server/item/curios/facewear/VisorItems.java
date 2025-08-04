@@ -1,6 +1,5 @@
 package net.tkg.ModernMayhem.server.item.curios.facewear;
 
-import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.ChatFormatting;

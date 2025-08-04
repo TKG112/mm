@@ -42,6 +42,7 @@ public class ModernMayhemMod
         CreativeTabsRegistryMM.init(modEventBus);
         GUIRegistryMM.init(modEventBus);
         EntityRegistryMM.init(modEventBus);
+        AttributesRegistryMM.init(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);

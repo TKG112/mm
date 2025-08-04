@@ -7,6 +7,7 @@ import net.tkg.ModernMayhem.client.renderer.curios.body.ReconRigRenderer;
 import net.tkg.ModernMayhem.client.renderer.curios.facewear.NVGGogglesRenderer;
 import net.tkg.ModernMayhem.client.renderer.curios.facewear.VisorRenderer;
 import net.tkg.ModernMayhem.client.renderer.curios.head.HeadGearRenderer;
+import net.tkg.ModernMayhem.client.renderer.curios.knee.KneepadRenderer;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 public class CuriosRendererRegistryMM {
@@ -35,7 +36,6 @@ public class CuriosRendererRegistryMM {
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_HEADSET.get(), HeadGearRenderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_MILITARY_BALACLAVA.get(), HeadGearRenderer::new);
 
-
         // Back Gear
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_BACKPACK_T1.get(), BackpackRenderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_BACKPACK_T2.get(), BackpackRenderer::new);
@@ -58,5 +58,10 @@ public class CuriosRendererRegistryMM {
 
         CuriosRendererRegistry.register(ItemRegistryMM.TAN_BANDOLEER.get(), BandoleerRenderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.GREEN_RECON.get(), ReconRigRenderer::new);
+
+        //Knee Gear
+        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_KNEE_PADS.get(), KneepadRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.GREEN_KNEE_PADS.get(), KneepadRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.TAN_KNEE_PADS.get(), KneepadRenderer::new);
     }
 }

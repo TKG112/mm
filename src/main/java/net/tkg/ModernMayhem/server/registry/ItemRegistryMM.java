@@ -20,6 +20,7 @@ import net.tkg.ModernMayhem.server.item.curios.body.ReconRigItem;
 import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.curios.facewear.VisorItems;
 import net.tkg.ModernMayhem.server.item.curios.head.HeadGearItems;
+import net.tkg.ModernMayhem.server.item.curios.knee.KneepadItems;
 import net.tkg.ModernMayhem.server.util.ArmorProperties;
 
 public class ItemRegistryMM {
@@ -138,6 +139,14 @@ public class ItemRegistryMM {
             () -> new HeadGearItems(3, 0));
     public static final RegistryObject<Item> BLACK_MILITARY_BALACLAVA = ITEMS.register("black_military_balaclava",
             () -> new HeadGearItems(4, 0));
+
+
+    public static final RegistryObject<Item> BLACK_KNEE_PADS = ITEMS.register("black_knee_pads",
+            () -> new KneepadItems(0));
+    public static final RegistryObject<Item> GREEN_KNEE_PADS = ITEMS.register("green_knee_pads",
+            () -> new KneepadItems(1));
+    public static final RegistryObject<Item> TAN_KNEE_PADS = ITEMS.register("tan_knee_pads",
+            () -> new KneepadItems(2));
 
 
     public static final RegistryObject<Item> DUFFEL_BAG = ITEMS.register("duffel_bag",

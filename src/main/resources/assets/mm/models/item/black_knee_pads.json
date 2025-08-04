@@ -1,0 +1,109 @@
+{
+  "credit": "Made with Blockbench",
+  "parent": "builtin/entity",
+  "texture_size": [
+    32,
+    32
+  ],
+  "display": {
+    "thirdperson_righthand": {
+      "translation": [
+        0,
+        -7.25,
+        -1.25
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "thirdperson_lefthand": {
+      "translation": [
+        0,
+        -7.25,
+        -1.25
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        -164.76999999999998,
+        11.679999999999836,
+        170.5999999999999
+      ],
+      "translation": [
+        -2.75,
+        -2.5,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        -164.77,
+        11.68,
+        170.6
+      ],
+      "translation": [
+        -2.75,
+        -2.5,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        -5.75,
+        0
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ]
+    },
+    "gui": {
+      "rotation": [
+        30,
+        150,
+        0
+      ],
+      "translation": [
+        0,
+        -5.75,
+        0
+      ]
+    },
+    "head": {
+      "scale": [
+        0,
+        0,
+        0
+      ]
+    },
+    "fixed": {
+      "translation": [
+        0,
+        -7,
+        0
+      ]
+    }
+  },
+  "textures": {
+    "particle": "item/black_knee_pads"
+  }
+}

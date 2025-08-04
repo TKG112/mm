@@ -57,7 +57,9 @@
   "item.mm.black_iola" : "Black IOLA",
   "item.mm.green_iola" : "Green IOLA",
   "item.mm.tan_iola" : "Tan IOLA",
-
+  "item.mm.black_knee_pads" : "Black Knee Pads",
+  "item.mm.green_knee_pads" : "Green Knee Pads",
+  "item.mm.tan_knee_pads" : "Tan Knee Pads",
 
 
   "block.mm.duffel_bag_block" : "Duffel Bag",
@@ -79,7 +81,12 @@
 
 
   "curios.identifier.facewear" : "Facewear",
+  "curios.modifiers.facewear": "When equipped on the face:",
   "curios.identifier.earwear" : "Earwear",
+  "curios.modifiers.earwear": "When equipped on the ears:",
+  "curios.identifier.knees" : "Knees",
+  "curios.modifiers.knees": "When equipped on the knees:",
+
 
 
   "sounds.mm.nvg_on" : "Night Vision Goggles On",
@@ -88,5 +95,5 @@
   "sounds.mm.visor_open" : "Visor Open",
   "sounds.mm.visor_close" : "Visor Close",
 
-  "curios.modifiers.facewear": "When equipped on the face:"
+  "attribute.name.generic.safe_fall_distance": "Safe Fall Distance"
 }
