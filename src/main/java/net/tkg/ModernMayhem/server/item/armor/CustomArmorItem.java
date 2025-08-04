@@ -24,6 +24,7 @@ public class CustomArmorItem extends GenericStatConfigurableArmorItem implements
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private final int variant;
     private final boolean hasFaceWearCapability;
+    private final ArmorProperties config;
 
     public CustomArmorItem(
             ArmorProperties pConfig,
@@ -32,7 +33,6 @@ public class CustomArmorItem extends GenericStatConfigurableArmorItem implements
     ) {
         this(pConfig, pType, pVariant, false);
     }
-
 
     public CustomArmorItem(
         ArmorProperties pConfig,
@@ -46,8 +46,8 @@ public class CustomArmorItem extends GenericStatConfigurableArmorItem implements
         );
         this.variant = pVariant;
         this.hasFaceWearCapability = pHasFaceWearCapability;
+        this.config = pConfig;
     }
-
 
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
@@ -68,8 +68,6 @@ public class CustomArmorItem extends GenericStatConfigurableArmorItem implements
         });
     }
 
-
-
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         // left empty on purpose, this method is used to register animation controllers, but we don't have any for the armors
@@ -84,5 +82,12 @@ public class CustomArmorItem extends GenericStatConfigurableArmorItem implements
         return this.variant;
     }
 
-    public boolean hasFaceWearCapability() { return hasFaceWearCapability; }
+    public boolean hasFaceWearCapability() {
+        return hasFaceWearCapability;
+    }
+
+    public ArmorProperties getConfig() {
+        return config;
+    }
+
 }
