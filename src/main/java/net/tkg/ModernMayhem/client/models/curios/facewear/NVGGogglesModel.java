@@ -14,6 +14,7 @@ public class NVGGogglesModel extends GeoModel<NVGGogglesItem> {
             case 0 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/item/curios/facewear/gpnvg.geo.json");
             case 1 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/item/curios/facewear/pvs14.geo.json");
             case 2 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/item/curios/facewear/pvs7.geo.json");
+            case 3 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/item/curios/facewear/visor.geo.json");
             default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
         };
     }
@@ -29,6 +30,7 @@ public class NVGGogglesModel extends GeoModel<NVGGogglesItem> {
             case 0 -> fromNamespaceAndPath(ModernMayhemMod.ID, "animations/item/curios/facewear/gpnvg.animation.json");
             case 1 -> fromNamespaceAndPath(ModernMayhemMod.ID, "animations/item/curios/facewear/pvs14.animation.json");
             case 2 -> fromNamespaceAndPath(ModernMayhemMod.ID, "animations/item/curios/facewear/pvs7.animation.json");
+            case 3 -> fromNamespaceAndPath(ModernMayhemMod.ID, "animations/item/curios/facewear/visor.animation.json");
             default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
         };
     }
@@ -55,6 +57,13 @@ public class NVGGogglesModel extends GeoModel<NVGGogglesItem> {
             case 2 -> {
                 return switch (variant) {
                     case 0 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/black_pvs7.png");
+                    default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
+                };
+            }
+            case 3 -> {
+                return switch (variant) {
+                    case 0 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/black_visor.png");
+                    case 1 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/tan_visor.png");
                     default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
                 };
             }

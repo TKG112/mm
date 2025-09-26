@@ -14,6 +14,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.tkg.ModernMayhem.client.models.curios.head.HeadGearModel;
+import net.tkg.ModernMayhem.server.item.curios.facewear.VisorItem;
 import net.tkg.ModernMayhem.server.item.curios.head.HeadGearItems;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import software.bernie.geckolib.renderer.GeoItemRenderer;
@@ -53,6 +54,6 @@ public class HeadGearRenderer extends GeoArmorRenderer<HeadGearItems> implements
 
     @Override
     public RenderType getRenderType(HeadGearItems animatable, ResourceLocation texture, MultiBufferSource bufferSource, float partialTick) {
-        return RenderType.entityTranslucent(getTextureLocation(animatable));
+        return RenderType.entityTranslucent(texture);
     }
 }

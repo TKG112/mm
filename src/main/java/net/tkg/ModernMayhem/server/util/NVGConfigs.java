@@ -3,6 +3,7 @@ package net.tkg.ModernMayhem.server.util;
 import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
 
 public class NVGConfigs {
+
     public static GenericNVGGogglesItem.NVGConfig[] WHITE_PHOSPHOR_GPVNG = {
         new GenericNVGGogglesItem.NVGConfig(
                 0.35f,

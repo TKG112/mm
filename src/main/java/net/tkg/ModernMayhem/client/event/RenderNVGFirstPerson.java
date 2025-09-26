@@ -1,5 +1,6 @@
 package net.tkg.ModernMayhem.client.event;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -19,7 +20,6 @@ import net.tkg.ModernMayhem.server.util.CuriosUtil;
 
 @Mod.EventBusSubscriber(modid = ModernMayhemMod.ID, value = Dist.CLIENT)
 public class RenderNVGFirstPerson {
-
     private static final Minecraft MC = Minecraft.getInstance();
     private static NVGFirstPersonFakeItem DUMMY_ITEM = null;
     private static final NVGFirstPersonRenderer RENDERER = new NVGFirstPersonRenderer();
@@ -37,7 +37,7 @@ public class RenderNVGFirstPerson {
 
     private static void renderNVGFirstPersonModel(RenderHandEvent event) {
         LocalPlayer player = MC.player;
-        PoseStack poseStack = new PoseStack(); // Don't use the event's pose stack or we will get the head bobbing effect
+        PoseStack poseStack = new PoseStack(); // Don't use the event's pose stack to avoid head bob
         MultiBufferSource.BufferSource buffer = MC.renderBuffers().bufferSource();
         float partialTicks = event.getPartialTick();
 
@@ -46,7 +46,14 @@ public class RenderNVGFirstPerson {
         var model = RENDERER.getGeoModel();
         var bakedModel = model.getBakedModel(model.getModelResource(DUMMY_ITEM));
         var texture = RENDERER.getTextureLocation(DUMMY_ITEM);
-        var renderType = RenderType.entityTranslucent(texture);
+
+        var renderType = RenderType.itemEntityTranslucentCull(texture);
+        buffer.endBatch();
+
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.enableDepthTest();
+        RenderSystem.depthMask(false);
 
         RENDERER.actuallyRender(
                 poseStack,
@@ -61,17 +68,23 @@ public class RenderNVGFirstPerson {
                 OverlayTexture.NO_OVERLAY,
                 1f, 1f, 1f, 1f
         );
+
         buffer.endBatch();
+
+        RenderSystem.depthMask(true);
+        RenderSystem.disableBlend();
+        RenderSystem.disableDepthTest();
+
         poseStack.popPose();
     }
+
 
     private static boolean shouldRender() {
         // Check if the player is wearing NVG goggles and if they are in first-person view
         LocalPlayer player = MC.player;
         if (player == null) return false;
 //        if (!MC.options.getCameraType().isFirstPerson()) return false;
-        if (!CuriosUtil.hasNVGEquipped(player)) return false;
-        return true;
+        return CuriosUtil.hasNVGEquipped(player);
     }
 
     public static void initialiseFirstPersonRenderer() {

@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,7 +25,7 @@ public class DarknessMixin {
         ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
         if (facewearItem == null) return;
 
-        if (facewearItem.getItem() instanceof GenericNVGGogglesItem) {
+        if (facewearItem.getItem() instanceof NVGGogglesItem) {
             if (GenericNVGGogglesItem.getNVGCheck(facewearItem) && Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON) {
                 Darkness.enabled = false;
                 ci.cancel();

@@ -18,7 +18,7 @@ import net.tkg.ModernMayhem.server.item.curios.body.BandoleerItem;
 import net.tkg.ModernMayhem.server.item.curios.body.PlateCarrierItem;
 import net.tkg.ModernMayhem.server.item.curios.body.ReconRigItem;
 import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
-import net.tkg.ModernMayhem.server.item.curios.facewear.VisorItems;
+import net.tkg.ModernMayhem.server.item.curios.facewear.VisorItem;
 import net.tkg.ModernMayhem.server.item.curios.head.HeadGearItems;
 import net.tkg.ModernMayhem.server.item.curios.knee.KneepadItems;
 import net.tkg.ModernMayhem.server.util.ArmorProperties;
@@ -42,9 +42,9 @@ public class ItemRegistryMM {
             () -> new NVGGogglesItem(NVGGoggleList.BLACK_PVS7));
 
     public static final RegistryObject<Item> BLACK_VISOR = ITEMS.register("black_visor",
-            () -> new VisorItems(0));
+            () -> new VisorItem(NVGGoggleList.BLACK_VISOR));
     public static final RegistryObject<Item> TAN_VISOR = ITEMS.register("tan_visor",
-            () -> new VisorItems(1));
+            () -> new VisorItem(NVGGoggleList.TAN_VISOR));
 
     public static final RegistryObject<Item> BLACK_BACKPACK_T1 = ITEMS.register("black_backpack_t1",
             () -> new BackpackItem(0, 1));

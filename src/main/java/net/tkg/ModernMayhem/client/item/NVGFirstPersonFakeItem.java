@@ -130,6 +130,29 @@ public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
             }
         });
 
+        // Add a custom instruction keyframe handler to handle the NVG effect enabling/disabling
+        controller.setCustomInstructionKeyframeHandler(event -> {
+            // Check if it's the open animation or the close animation
+            CustomInstructionKeyframeData keyframeData = event.getKeyframeData();
+            String key = keyframeData.getInstructions();
+            LocalPlayer player = Minecraft.getInstance().player;
+            ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
+            if (player != null) {
+                if (facewearItem.getItem() instanceof GenericNVGGogglesItem) {
+                    // We switch on the NVG mode on the client side and then on the server side.
+                    // This is done to avoid the delay of the server response.
+                    // Since the server will synchronize the state later.
+                    if (key.equals("enableNVGEffect;")) {
+                        GenericNVGGogglesItem.switchOnNVGMode(facewearItem);
+                        PacketsRegistryMM.getChannel().sendToServer(new NVGSyncSwitchOnPacket());
+                    } else if (key.equals("disableNVGEffect;")) {
+                        GenericNVGGogglesItem.switchOffNVGMode(facewearItem);
+                        PacketsRegistryMM.getChannel().sendToServer(new NVGSyncSwitchOffPacket());
+                    }
+                }
+            }
+        });
+
         // Add the sounds to the controller
         controller.setSoundKeyframeHandler(event -> {
             SoundKeyframeData soundData = event.getKeyframeData();

@@ -33,7 +33,7 @@ public class NVGFirstPersonRenderer extends GeoItemRenderer<NVGFirstPersonFakeIt
 
     @Override
     public RenderType getRenderType(NVGFirstPersonFakeItem animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
-        return RenderType.entityTranslucent(texture);
+        return RenderType.entityTranslucentCull(getTextureLocation(animatable));
     }
 
     public void initCurrentItemStack(NVGFirstPersonFakeItem item) {

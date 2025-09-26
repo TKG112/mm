@@ -3,7 +3,6 @@ package net.tkg.ModernMayhem.server.util;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.tkg.ModernMayhem.server.item.curios.facewear.VisorItems;
 import net.tkg.ModernMayhem.server.item.generic.GenericBackpackItem;
 import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
 import top.theillusivec4.curios.api.CuriosApi;
@@ -19,19 +18,6 @@ public class CuriosUtil {
             curiosInventory.getStacksHandler("facewear").ifPresent( facewearSlot -> {
                 ItemStack facewearItem = facewearSlot.getStacks().getStackInSlot(0);
                 if (facewearItem.getItem() instanceof GenericNVGGogglesItem) {
-                    result.set(true);
-                }
-            });
-        });
-        return result.get();
-    }
-
-    public static boolean hasVisorEquipped(Player player) {
-        AtomicBoolean result = new AtomicBoolean(false);
-        CuriosApi.getCuriosInventory(player).ifPresent( curiosInventory -> {
-            curiosInventory.getStacksHandler("facewear").ifPresent( facewearSlot -> {
-                ItemStack facewearItem = facewearSlot.getStacks().getStackInSlot(0);
-                if (facewearItem.getItem() instanceof VisorItems) {
                     result.set(true);
                 }
             });

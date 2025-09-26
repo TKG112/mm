@@ -55,15 +55,17 @@ public class RenderNVGShader {
         boolean shouldRender = false;
         GenericNVGGogglesItem.NVGConfig nvgItemConfig = null;
         ItemStack facewearItem = null;
-        // Check if the player has an item inheriting from GenericNVGGooglesItem
-        // and if it is turned on
+
         if (CuriosUtil.hasNVGEquipped(player)) {
             facewearItem = CuriosUtil.getFaceWearItem(player);
-            if (facewearItem.getItem() instanceof GenericNVGGogglesItem genericNVGGogglesItem) {
-                shouldRender = GenericNVGGogglesItem.getNVGMode(CuriosUtil.getFaceWearItem(player)) == 1;
-                nvgItemConfig = GenericNVGGogglesItem.getCurrentConfig(facewearItem);
+            if (facewearItem.getItem() instanceof GenericNVGGogglesItem genericItem) {
+                if (genericItem.shouldRenderShader()) {
+                    shouldRender = GenericNVGGogglesItem.getNVGMode(facewearItem) == 1;
+                    nvgItemConfig = GenericNVGGogglesItem.getCurrentConfig(facewearItem);
+                }
             }
         }
+
         if (shouldRender && !NVG_SHADER_RENDERER.isActive()) {
             NVG_SHADER_RENDERER.activate();
         } else if (!shouldRender && NVG_SHADER_RENDERER.isActive()) {
@@ -71,7 +73,8 @@ public class RenderNVGShader {
         }
 
         NVG_SHADER_RENDERER.render();
-        if (NVG_SHADER_RENDERER.isActive()) {
+
+        if (NVG_SHADER_RENDERER.isActive() && nvgItemConfig != null) {
             boolean isUltraGamer = (facewearItem.getItem() instanceof NVGGogglesItem nvgGogglesItem && nvgGogglesItem.isGamerNVG());
             NVG_SHADER_RENDERER.setFloatUniform("Brightness", nvgItemConfig.getBrightness());
             NVG_SHADER_RENDERER.setFloatUniform("RedValue", isUltraGamer ? NVGConfigs.getUltraGamerRedValue() : nvgItemConfig.getRedValue());
@@ -79,6 +82,7 @@ public class RenderNVGShader {
             NVG_SHADER_RENDERER.setFloatUniform("BlueValue", isUltraGamer ? NVGConfigs.getUltraGamerBlueValue() : nvgItemConfig.getBlueValue());
         }
     }
+
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void renderNVGOverlay(RenderGuiEvent.Pre event) {
@@ -96,11 +100,17 @@ public class RenderNVGShader {
         RenderSystem.setShaderColor(1, 1, 1, 1);
 
         ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
-        if (facewearItem.getItem() instanceof GenericNVGGogglesItem) {
-            if (GenericNVGGogglesItem.getNVGMode(facewearItem) == 1 && Minecraft.getInstance().options.getCameraType().isFirstPerson() && GenericNVGGogglesItem.getCurrentConfig(facewearItem).getOverlay() != null) {
-                event.getGuiGraphics().blit(GenericNVGGogglesItem.getCurrentConfig(facewearItem).getOverlay(), 0, 0, 0, 0, screenWidth, screenHeight, screenWidth, screenHeight);
+        if (facewearItem.getItem() instanceof GenericNVGGogglesItem genericItem) {
+            if (genericItem.shouldRenderShader() &&
+                    GenericNVGGogglesItem.getNVGMode(facewearItem) == 1 &&
+                    Minecraft.getInstance().options.getCameraType().isFirstPerson() &&
+                    GenericNVGGogglesItem.getCurrentConfig(facewearItem).getOverlay() != null) {
+                event.getGuiGraphics().blit(GenericNVGGogglesItem.getCurrentConfig(facewearItem).getOverlay(),
+                        0, 0, 0, 0, screenWidth, screenHeight, screenWidth, screenHeight);
             }
         }
+
+
 
         RenderSystem.depthMask(true);
         RenderSystem.defaultBlendFunc();

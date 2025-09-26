@@ -36,6 +36,7 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
     private static int defaultConfigIndex = 0;
     public RegistryObject<SoundEvent> ACTIVATION_SOUND = null;
     public RegistryObject<SoundEvent> DEACTIVATION_SOUND = null;
+    private static final NVGConfig FALLBACK_CONFIG = new NVGConfig(1.0f, 1.0f, 1.0f, 1.0f);
 
     // Animations
     public static final RawAnimation ANIM_IDLE = RawAnimation.begin().thenLoop("opened");
@@ -67,14 +68,33 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
         this.DEACTIVATION_SOUND = pDeactivationSound;
     }
 
+    public boolean shouldRenderShader() {
+        return true;
+    }
+
+    public boolean shouldRenderFirstPerson() {
+        return true;
+    }
+
+
     public static NVGConfig getCurrentConfig(ItemStack item) {
         CompoundTag tag = item.getOrCreateTag();
+        GenericNVGGogglesItem itemInstance = (GenericNVGGogglesItem) item.getItem();
+        if (itemInstance.configs == null || itemInstance.configs.length == 0) {
+            if (!tag.contains("configIndex")) tag.putInt("configIndex", 0);
+            return FALLBACK_CONFIG;
+        }
         if (tag.contains("configIndex")) {
-            return ((GenericNVGGogglesItem) item.getItem()).configs[tag.getInt("configIndex")];
+            int idx = tag.getInt("configIndex");
+            if (idx >= 0 && idx < itemInstance.configs.length) {
+                return itemInstance.configs[idx];
+            } else {
+                tag.putInt("configIndex", 0);
+                return itemInstance.configs[0];
+            }
         }
         tag.putInt("configIndex", defaultConfigIndex);
-        return ((GenericNVGGogglesItem) item.getItem()).configs[defaultConfigIndex];
-
+        return itemInstance.configs[defaultConfigIndex];
     }
 
     private void updateNVGMode(ItemStack stack) {
@@ -171,6 +191,27 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
         }
         tag.putInt("configIndex", defaultConfigIndex);
     }
+
+    // in GenericNVGGogglesItem (near other NBT helpers)
+    private static final String NBT_ANIM_END = "NVGAnimEndMs";
+
+    /** Mark animation start: write an absolute end-time (ms) into the stack NBT. */
+    public static void markAnimationStart(ItemStack stack, long durationMs) {
+        CompoundTag tag = stack.getOrCreateTag();
+        long end = System.currentTimeMillis() + durationMs;
+        tag.putLong(NBT_ANIM_END, end);
+        stack.setTag(tag);
+    }
+
+    /** Return true while the saved animation end timestamp is still in the future. */
+    public static boolean isAnimationPlaying(ItemStack stack) {
+        CompoundTag tag = stack.getTag();
+        if (tag == null) return false;
+        if (!tag.contains(NBT_ANIM_END)) return false;
+        long end = tag.getLong(NBT_ANIM_END);
+        return System.currentTimeMillis() < end;
+    }
+
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {

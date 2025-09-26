@@ -64,6 +64,22 @@ public enum NVGGoggleList {
             2,
             0
     ),
+    BLACK_VISOR(
+            null,
+            1,
+            SoundRegistryMM.SOUND_VISOR_CLOSE,
+            SoundRegistryMM.SOUND_VISOR_CLOSE,
+            3,
+            0
+    ),
+    TAN_VISOR(
+            null,
+            1,
+            SoundRegistryMM.SOUND_VISOR_CLOSE,
+            SoundRegistryMM.SOUND_VISOR_CLOSE,
+            3,
+            1
+    ),
 
     ;
 
