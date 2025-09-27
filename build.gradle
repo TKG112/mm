@@ -124,7 +124,7 @@ dependencies {
     implementation fg.deobf("curse.maven:embeddium-908741:5681725")
     implementation fg.deobf("curse.maven:chloride-931925:6504509")
 
-
+    // Oculus dependencies
     compileOnly fg.deobf("curse.maven:oculus-581495:6020952")
     runtimeOnly fg.deobf("curse.maven:oculus-581495:6020952")
 
