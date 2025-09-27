@@ -192,27 +192,6 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
         tag.putInt("configIndex", defaultConfigIndex);
     }
 
-    // in GenericNVGGogglesItem (near other NBT helpers)
-    private static final String NBT_ANIM_END = "NVGAnimEndMs";
-
-    /** Mark animation start: write an absolute end-time (ms) into the stack NBT. */
-    public static void markAnimationStart(ItemStack stack, long durationMs) {
-        CompoundTag tag = stack.getOrCreateTag();
-        long end = System.currentTimeMillis() + durationMs;
-        tag.putLong(NBT_ANIM_END, end);
-        stack.setTag(tag);
-    }
-
-    /** Return true while the saved animation end timestamp is still in the future. */
-    public static boolean isAnimationPlaying(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag == null) return false;
-        if (!tag.contains(NBT_ANIM_END)) return false;
-        long end = tag.getLong(NBT_ANIM_END);
-        return System.currentTimeMillis() < end;
-    }
-
-
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, 1, state -> {
@@ -313,7 +292,6 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
         ItemStack headItem = player.getItemBySlot(EquipmentSlot.HEAD);
         return !headItem.isEmpty() && headItem.is(HAS_HEAD_MOUNT_TAG);
     }
-
 
     public static boolean hasConfigIndexChanged(Player player, ItemStack stack) {
         if (!(stack.getItem() instanceof GenericNVGGogglesItem)) return false;
