@@ -9,6 +9,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.tkg.ModernMayhem.ModernMayhemMod;
+import net.tkg.ModernMayhem.client.event.RenderNVGFirstPerson;
 import net.tkg.ModernMayhem.client.renderer.custom.NVGFirstPersonRenderer;
 import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
 import net.tkg.ModernMayhem.server.network.NVGSyncSwitchOffPacket;
@@ -104,6 +106,7 @@ public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
             if (!(state.isCurrentAnimation(GenericNVGGogglesItem.ANIM_CLOSE) || state.isCurrentAnimation(GenericNVGGogglesItem.ANIM_OPEN) || state.isCurrentAnimation(GenericNVGGogglesItem.ANIM_IDLE))) {
                 state.setAnimation(GenericNVGGogglesItem.ANIM_IDLE);
             }
+            RenderNVGFirstPerson.shouldRenderLeftArm = !(state.isCurrentAnimationStage("opening") || state.isCurrentAnimationStage("closing")); // Prevent the player from rendering a third arm when the NVG animation shows the left arm
             return PlayState.CONTINUE;
         });
 
