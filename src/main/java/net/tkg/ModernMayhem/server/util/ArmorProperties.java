@@ -139,6 +139,9 @@ public enum ArmorProperties {
         ) {
             BUILDER.push("Armor type : " + name);
 
+            //TODO Make these code actually work
+            BUILDER.push("WIP, these values do nothing for now, will be re-implemented in future updates");
+
             PROTECTION_AMOUNT_HEAD = BUILDER.comment("Protection amount for head armor").defineInRange("protectionAmountHead", protectionAmountArray[0], 0, 100);
             PROTECTION_AMOUNT_CHESTPLATE = BUILDER.comment("Protection amount for chestplate armor").defineInRange("protectionAmountChestplate", protectionAmountArray[1], 0, 100);
             PROTECTION_AMOUNT_LEGGINGS = BUILDER.comment("Protection amount for leggings armor").defineInRange("protectionAmountLeggings", protectionAmountArray[2], 0, 100);

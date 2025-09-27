@@ -33,6 +33,7 @@ public class GenericStatConfigurableArmorItem extends ArmorItem {
             Type pType
     ) {
         super(
+                // TODO - implement defense values from config files, armorConfig will be ignored for now
                 new ArmorMaterial() {
 
                     @Override
@@ -42,7 +43,8 @@ public class GenericStatConfigurableArmorItem extends ArmorItem {
 
                     @Override
                     public int getDefenseForType(@NotNull Type type) {
-                        return 0;
+                        // return 0;
+                        return (int) pConfigs.getProtectionAmountArray()[type.getSlot().getIndex()];
                     }
 
                     @Override
@@ -69,12 +71,14 @@ public class GenericStatConfigurableArmorItem extends ArmorItem {
 
                     @Override
                     public float getToughness() {
-                        return 0;
+                        // return 0;
+                        return pConfigs.getToughnessAmountArray()[pType.getSlot().getIndex()];
                     }
 
                     @Override
                     public float getKnockbackResistance() {
-                        return 0;
+                        // return 0;
+                        return pConfigs.getKnockbackResistanceArray()[pType.getSlot().getIndex()];
                     }
                 },
                 pType,
@@ -83,24 +87,25 @@ public class GenericStatConfigurableArmorItem extends ArmorItem {
         armorConfig = pConfigs;
     }
 
-    @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-        if (slot != this.getType().getSlot()) {
-            return super.getAttributeModifiers(slot, stack); // If the slot is not the same as the slot of the armor, return the default attribute modifiers
-            // We are doing this in order not to have 4 times the same attribute modifiers when equipped in each slot.
-        }
-        // Only give the attribute modifiers if the game is ready to not try to get config value before they are even initialized
-        if (ModernMayhemMod.isGameReady()) {
-            if (this.attributeModifiers == null) {
-                this.attributeModifiers = HashMultimap.create();
-                ArmorProperties.ArmorConfigFile armorConfigFile = armorConfig.getArmorConfigFile();
-                this.attributeModifiers.put(Attributes.ARMOR, new AttributeModifier("Armor", armorConfigFile.getProtectionAmountArray()[type.getSlot().getIndex()], AttributeModifier.Operation.ADDITION));
-                this.attributeModifiers.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier("Armor toughness", armorConfigFile.getToughnessAmountArray()[type.getSlot().getIndex()], AttributeModifier.Operation.ADDITION));
-                this.attributeModifiers.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("Knockback resistance", armorConfigFile.getKnockbackResistanceArray()[type.getSlot().getIndex()], AttributeModifier.Operation.ADDITION));
-            }
-        }
-        return this.attributeModifiers; // Return the attribute modifiers from the armor material
-    }
+    // TODO - re-implement attribute modifiers when config system is done or remove entirely if not needed anymore
+//    @Override
+//    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
+//        if (slot != this.getType().getSlot()) {
+//            return super.getAttributeModifiers(slot, stack); // If the slot is not the same as the slot of the armor, return the default attribute modifiers
+//            // We are doing this in order not to have 4 times the same attribute modifiers when equipped in each slot.
+//        }
+//        // Only give the attribute modifiers if the game is ready to not try to get config value before they are even initialized
+//        if (ModernMayhemMod.isGameReady()) {
+//            if (this.attributeModifiers == null) {
+//                this.attributeModifiers = HashMultimap.create();
+//                ArmorProperties.ArmorConfigFile armorConfigFile = armorConfig.getArmorConfigFile();
+//                this.attributeModifiers.put(Attributes.ARMOR, new AttributeModifier("Armor", armorConfigFile.getProtectionAmountArray()[type.getSlot().getIndex()], AttributeModifier.Operation.ADDITION));
+//                this.attributeModifiers.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier("Armor toughness", armorConfigFile.getToughnessAmountArray()[type.getSlot().getIndex()], AttributeModifier.Operation.ADDITION));
+//                this.attributeModifiers.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("Knockback resistance", armorConfigFile.getKnockbackResistanceArray()[type.getSlot().getIndex()], AttributeModifier.Operation.ADDITION));
+//            }
+//        }
+//        return this.attributeModifiers; // Return the attribute modifiers from the armor material
+//    }
 
 
 }
