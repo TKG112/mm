@@ -10,10 +10,11 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.tkg.ModernMayhem.client.event.ItemInteractionEvent;
 import net.tkg.ModernMayhem.client.event.RenderNVGFirstPerson;
 import net.tkg.ModernMayhem.server.compat.OculusCompat;
 import net.tkg.ModernMayhem.server.config.ArmorConfigGenerator;
-import net.tkg.ModernMayhem.server.config.TestConfig;
+import net.tkg.ModernMayhem.server.config.CommonConfig;
 import net.tkg.ModernMayhem.server.registry.*;
 import org.slf4j.Logger;
 
@@ -47,8 +48,10 @@ public class ModernMayhemMod
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::onGameReady);
+        ItemInteractionEvent.register();
 
-        context.registerConfig(ModConfig.Type.COMMON, TestConfig.CONFIG);
+
+        context.registerConfig(ModConfig.Type.COMMON, CommonConfig.CONFIG);
         ArmorConfigGenerator.init();
 
         MinecraftForge.EVENT_BUS.register(this);
