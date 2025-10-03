@@ -9,7 +9,7 @@ import net.tkg.ModernMayhem.server.util.NVGConfigs;
 public enum NVGGoggleList {
 
     BLACK_GPNVG(
-            NVGConfigs.WHITE_PHOSPHOR_GPVNG,
+            NVGConfigs.GREEN_PHOSPHOR_GPVNG,
             2,
             SoundRegistryMM.SOUND_NVG_ON,
             SoundRegistryMM.SOUND_NVG_OFF,
@@ -17,7 +17,7 @@ public enum NVGGoggleList {
             0
     ),
     TAN_GPNVG(
-            NVGConfigs.GREEN_PHOSPHOR_GPVNG,
+            NVGConfigs.WHITE_PHOSPHOR_GPVNG,
             3,
             SoundRegistryMM.SOUND_NVG_ON,
             SoundRegistryMM.SOUND_NVG_OFF,
@@ -33,7 +33,7 @@ public enum NVGGoggleList {
             99
     ),
     BLACK_PVS14(
-            NVGConfigs.WHITE_PHOSPHOR_PVS14,
+            NVGConfigs.GREEN_PHOSPHOR_PVS14,
             1,
             SoundRegistryMM.SOUND_NVG_ON,
             SoundRegistryMM.SOUND_NVG_OFF,
@@ -41,7 +41,7 @@ public enum NVGGoggleList {
             0
     ),
     TAN_PVS14(
-            NVGConfigs.GREEN_PHOSPHOR_PVS14,
+            NVGConfigs.WHITE_PHOSPHOR_PVS14,
             1,
             SoundRegistryMM.SOUND_NVG_ON,
             SoundRegistryMM.SOUND_NVG_OFF,
@@ -57,7 +57,7 @@ public enum NVGGoggleList {
             2
     ),
     BLACK_PVS7(
-            NVGConfigs.WHITE_PHOSPHOR_PVS7,
+            NVGConfigs.GREEN_PHOSPHOR_PVS7,
             1,
             SoundRegistryMM.SOUND_NVG_ON,
             SoundRegistryMM.SOUND_NVG_OFF,
@@ -80,7 +80,6 @@ public enum NVGGoggleList {
             3,
             1
     ),
-
     ;
 
     private final GenericNVGGogglesItem.NVGConfig[] configs;

@@ -23,7 +23,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-// ⚠️ : Was not made for any inventory larger than a simple chest (3 line with 9 item per line)
 public class GenericBackpackGUI extends AbstractContainerMenuUtil implements Supplier<Map<Integer, Slot>> {
     private int backpackSize;
     private int numberOfLine;
@@ -68,7 +67,6 @@ public class GenericBackpackGUI extends AbstractContainerMenuUtil implements Sup
         };
         this.playerInventory = pPlayerInventory;
         this.playerCuriosInventory = pPlayerCuriosInventory;
-        // Checking if the backpack is a Curios backpack
 
         // Extracting the data from pExtraData if it exists
         if (pExtraData != null) {
@@ -81,7 +79,6 @@ public class GenericBackpackGUI extends AbstractContainerMenuUtil implements Sup
             }
             this.isCuriosBackpack = pExtraData.readBoolean();
             if (this.isCuriosBackpack) {
-                // if client side we need to get the player's Curios inventory from the client
                 this.backpackSlotID = pExtraData.readByte();
                 this.curiosSlotType = switch (pExtraData.readByte()) {
                     case 0 -> "back";
@@ -107,11 +104,10 @@ public class GenericBackpackGUI extends AbstractContainerMenuUtil implements Sup
 
         this.backpackSize = this.numberOfLine * this.slotPerLine;
 
-        // Generating the inventory slots
+        // Generating the backpack inventory slots FIRST
         int slotID = 0;
         for (int row = 0; row < this.numberOfLine; row++) {
             for (int collumn = 0; collumn < this.slotPerLine; collumn++) {
-                int finalSlotID = slotID;
                 this.slots.put(slotID, this.addSlot(new SlotItemHandler(
                         itemHandler,
                         slotID,
@@ -132,8 +128,10 @@ public class GenericBackpackGUI extends AbstractContainerMenuUtil implements Sup
                 slotID++;
             }
         }
-        createPlayerHotbar(pPlayerInventory, this.backpackSlotID, !this.isCuriosBackpack, this.numberOfLine, this.slotPerLine);
+
+        // Then add player inventory (main inventory first, then hotbar)
         createPlayerInventory(pPlayerInventory, this.backpackSlotID, !this.isCuriosBackpack, this.numberOfLine, this.slotPerLine);
+        createPlayerHotbar(pPlayerInventory, this.backpackSlotID, !this.isCuriosBackpack, this.numberOfLine, this.slotPerLine);
     }
 
     @Override
@@ -141,28 +139,49 @@ public class GenericBackpackGUI extends AbstractContainerMenuUtil implements Sup
         Slot originSlot = getSlot(pIndex);
         ItemStack originStack = originSlot.getItem();
 
-        if(originStack.getCount() <= 0)
-            originSlot.set(ItemStack.EMPTY);
-
-        if(!originSlot.hasItem())
+        if (!originSlot.hasItem())
             return ItemStack.EMPTY;
 
         ItemStack copyOriginStack = originStack.copy();
 
-        if(pIndex < 36) {
-            // Moving from player inventory to backpack
-            if (!moveItemStackTo(originStack, 36, 36 + this.backpackSize, false))
+        // Slot ranges:
+        // 0 to (backpackSize-1): Backpack slots
+        // backpackSize to (backpackSize+26): Player main inventory (3 rows)
+        // (backpackSize+27) to (backpackSize+35): Player hotbar
+
+        int playerInventoryStart = this.backpackSize;
+        int playerInventoryEnd = this.backpackSize + 27;
+        int hotbarStart = this.backpackSize + 27;
+        int hotbarEnd = this.backpackSize + 36;
+
+        if (pIndex < this.backpackSize) {
+            // Moving FROM backpack TO player inventory
+            // Try hotbar first, then main inventory
+            if (!moveItemStackTo(originStack, hotbarStart, hotbarEnd, false)) {
+                if (!moveItemStackTo(originStack, playerInventoryStart, playerInventoryEnd, false)) {
+                    return ItemStack.EMPTY;
+                }
+            }
+        } else if (pIndex >= playerInventoryStart && pIndex < hotbarEnd) {
+            // Moving FROM player inventory or hotbar TO backpack
+            if (!moveItemStackTo(originStack, 0, this.backpackSize, false)) {
                 return ItemStack.EMPTY;
-        }else if (pIndex < (36 + this.backpackSize)) {
-            // Moving from backpack to player inventory
-            if (!moveItemStackTo(originStack, 0, 36, false))
-                return ItemStack.EMPTY;
+            }
         } else {
-                System.err.println("Invalid slot index: " + pIndex);
-                return ItemStack.EMPTY;
+            System.err.println("Invalid slot index: " + pIndex);
+            return ItemStack.EMPTY;
         }
 
-        originSlot.setChanged();
+        if (originStack.isEmpty()) {
+            originSlot.set(ItemStack.EMPTY);
+        } else {
+            originSlot.setChanged();
+        }
+
+        if (originStack.getCount() == copyOriginStack.getCount()) {
+            return ItemStack.EMPTY;
+        }
+
         originSlot.onTake(pPlayer, originStack);
         updateBackpack();
 
@@ -180,7 +199,6 @@ public class GenericBackpackGUI extends AbstractContainerMenuUtil implements Sup
     }
 
     private void updateBackpack() {
-        // Updating the backpack item NBT but only on the server side
         if (this.isCuriosBackpack) {
             Optional<ICurioStacksHandler> temp = this.playerCuriosInventory.getStacksHandler(this.curiosSlotType);
             if (temp.isEmpty()) {

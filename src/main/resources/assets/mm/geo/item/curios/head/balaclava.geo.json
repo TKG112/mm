@@ -3,10 +3,10 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.balaclava",
+				"identifier": "geometry.unknown",
 				"texture_width": 32,
 				"texture_height": 32,
-				"visible_bounds_width": 2,
+				"visible_bounds_width": 3,
 				"visible_bounds_height": 3.5,
 				"visible_bounds_offset": [0, 1.25, 0]
 			},
@@ -23,7 +23,7 @@
 						{
 							"origin": [-4, 24, -4],
 							"size": [8, 8, 8],
-							"inflate": 0.3,
+							"inflate": 0.6,
 							"uv": {
 								"north": {"uv": [0, 0], "uv_size": [8, 8]},
 								"east": {"uv": [0, 8], "uv_size": [8, 8]},

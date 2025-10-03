@@ -10,10 +10,10 @@ public enum ArmorProperties {
             "kevlar",
             new int[]{25, 25, 25, 25},
             SoundEvents.ARMOR_EQUIP_LEATHER,
-            new float[]{1, 2, 3, 1},
-            new float[]{2, 4, 6, 2},
-            new float[]{4, 8, 12, 1}
-            ),
+            new float[]{3, 6, 8, 3},
+            new float[]{3, 3, 3, 3},
+            new float[]{0.15f, 0.15f, 0.15f, 0.15f}
+    ),
     NOTHING(
             "nothing",
             new int[]{25, 25, 25, 25},
@@ -26,17 +26,17 @@ public enum ArmorProperties {
             "ronin",
             new int[]{25, 25, 25, 25},
             SoundEvents.ARMOR_EQUIP_LEATHER,
-            new float[]{2, 3, 4, 2},
-            new float[]{3, 5, 7, 3},
-            new float[]{5, 9, 13, 2}
+            new float[]{4, 8, 10, 4},
+            new float[]{3, 3, 3, 3},
+            new float[]{0.25f, 0.25f, 0.25f, 0.25f}
     ),
     HAZMAT(
             "hazmat",
             new int[]{25, 25, 25, 25},
             SoundEvents.ARMOR_EQUIP_LEATHER,
-            new float[]{1, 2, 3, 1},
-            new float[]{2, 4, 6, 2},
-            new float[]{4, 8, 12, 1}
+            new float[]{2, 5, 4, 1},
+            new float[]{0, 0, 0, 0},
+            new float[]{0, 0, 0, 0}
     ),
     ;
 
@@ -168,28 +168,28 @@ public enum ArmorProperties {
 
         public float[] getProtectionAmountArray() {
             return new float[]{
-                PROTECTION_AMOUNT_HEAD.get().floatValue(),
-                PROTECTION_AMOUNT_CHESTPLATE.get().floatValue(),
-                PROTECTION_AMOUNT_LEGGINGS.get().floatValue(),
-                PROTECTION_AMOUNT_BOOTS.get().floatValue()
+                    PROTECTION_AMOUNT_HEAD.get().floatValue(),
+                    PROTECTION_AMOUNT_CHESTPLATE.get().floatValue(),
+                    PROTECTION_AMOUNT_LEGGINGS.get().floatValue(),
+                    PROTECTION_AMOUNT_BOOTS.get().floatValue()
             };
         }
 
         public float[] getToughnessAmountArray() {
             return new float[]{
-                TOUGHNESS_AMOUNT_HEAD.get().floatValue(),
-                TOUGHNESS_AMOUNT_CHESTPLATE.get().floatValue(),
-                TOUGHNESS_AMOUNT_LEGGINGS.get().floatValue(),
-                TOUGHNESS_AMOUNT_BOOTS.get().floatValue()
+                    TOUGHNESS_AMOUNT_HEAD.get().floatValue(),
+                    TOUGHNESS_AMOUNT_CHESTPLATE.get().floatValue(),
+                    TOUGHNESS_AMOUNT_LEGGINGS.get().floatValue(),
+                    TOUGHNESS_AMOUNT_BOOTS.get().floatValue()
             };
         }
 
         public float[] getKnockbackResistanceArray() {
             return new float[]{
-                KNOCKBACK_RESISTANCE_HEAD.get().floatValue(),
-                KNOCKBACK_RESISTANCE_CHESTPLATE.get().floatValue(),
-                KNOCKBACK_RESISTANCE_LEGGINGS.get().floatValue(),
-                KNOCKBACK_RESISTANCE_BOOTS.get().floatValue()
+                    KNOCKBACK_RESISTANCE_HEAD.get().floatValue(),
+                    KNOCKBACK_RESISTANCE_CHESTPLATE.get().floatValue(),
+                    KNOCKBACK_RESISTANCE_LEGGINGS.get().floatValue(),
+                    KNOCKBACK_RESISTANCE_BOOTS.get().floatValue()
             };
         }
     }

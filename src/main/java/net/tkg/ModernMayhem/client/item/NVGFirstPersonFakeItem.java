@@ -168,7 +168,7 @@ public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
                 if (facewearItem.getItem() instanceof GenericNVGGogglesItem genericNVGGogglesItem) {
                     switch (soundKey) {
                         case "nvg_on" -> {
-                            player.displayClientMessage(Component.literal("NVG Activated"), true);
+                            //player.displayClientMessage(Component.literal("NVG Activated"), true);
                             world.playSeededSound(
                                     player,
                                     player.getX(),
@@ -182,7 +182,7 @@ public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
                             );
                         }
                         case "nvg_off" -> {
-                            player.displayClientMessage(Component.literal("NVG Deactivated"), true);
+                            //player.displayClientMessage(Component.literal("NVG Deactivated"), true);
                             world.playSeededSound(
                                     player,
                                     player.getX(),

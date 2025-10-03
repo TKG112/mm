@@ -25,10 +25,11 @@
 					"parent": "armorHead",
 					"pivot": [0, 24, 0],
 					"cubes": [
-						{"origin": [-4, 24, -4], "size": [8, 8, 8], "inflate": 0.6, "uv": [0, 0]},
+						{"origin": [-4, 24, -4], "size": [8, 8, 8], "inflate": 1, "uv": [0, 0]},
 						{
 							"origin": [-5.5, 29.125, -5.5],
 							"size": [11, 0.8125, 11],
+							"inflate": 0.25,
 							"uv": {
 								"north": {"uv": [22, 16], "uv_size": [11, 1]},
 								"east": {"uv": [22, 17], "uv_size": [11, 1]},
