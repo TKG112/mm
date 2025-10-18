@@ -31,7 +31,21 @@ public class NVGFirstPersonModel extends GeoModel<NVGFirstPersonFakeItem> {
     @Override
     public ResourceLocation getTextureResource(NVGFirstPersonFakeItem animatable) {
         // Would have been duplicated code if we didn't use the NVGGogglesModel
-        return NVGGogglesModel.getTextureResource(getType(), getVariant());
+        return getTextureResource(getType(), getVariant());
+    }
+
+    public static ResourceLocation getTextureResource(int type, int variant) {
+        switch (type) {
+            case 3 -> {
+                return switch (variant) {
+                    case 0 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/black_visor_transparent.png");
+                    case 1 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/tan_visor_transparent.png");
+                    default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
+                };
+            }
+            default -> NVGGogglesModel.getTextureResource(type, variant);
+        }
+        return NVGGogglesModel.getTextureResource(type, variant);
     }
 
     @Override
