@@ -13,29 +13,30 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.server.util.ArmorProperties;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class GenericStatConfigurableArmorItem extends ArmorItem {
 
-    // Needed to calculate the durability of the armor
+    // UUIDs to ensure attributes stack correctly
+    private static final UUID[] ARMOR_MODIFIER_UUID_PER_SLOT = new UUID[]{
+            UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"),
+            UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"),
+            UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"),
+            UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")
+    };
+
     public static final int[] BASE_DURABILITY = new int[]{ 13, 15, 16, 11 };
 
-    public static ArmorProperties armorConfig;
-    private Multimap<Attribute, AttributeModifier> attributeModifiers;
+    // [FIX] REMOVED 'static'. Each armor item needs its OWN config reference.
+    public final ArmorProperties armorConfig;
 
-
-    public GenericStatConfigurableArmorItem(
-            ArmorProperties pConfigs,
-            Type pType
-    ) {
+    public GenericStatConfigurableArmorItem(ArmorProperties pConfigs, Type pType) {
         super(
-                // TODO - implement defense values from config files, armorConfig will be ignored for now
                 new ArmorMaterial() {
-
                     @Override
                     public int getDurabilityForType(@NotNull Type type) {
                         return BASE_DURABILITY[type.getSlot().getIndex()] * pConfigs.getDurabilityMultiplier(type);
@@ -43,69 +44,65 @@ public class GenericStatConfigurableArmorItem extends ArmorItem {
 
                     @Override
                     public int getDefenseForType(@NotNull Type type) {
-                        // return 0;
-                        return (int) pConfigs.getProtectionAmountArray()[type.getSlot().getIndex()];
+                        // [FIX] Use getDefaultProtection (Safe for Registry/Startup)
+                        return (int) pConfigs.getDefaultProtection(type);
                     }
 
                     @Override
-                    public int getEnchantmentValue() {
-                        return 0;
-                    }
+                    public int getEnchantmentValue() { return 0; }
 
                     @Override
                     public @NotNull SoundEvent getEquipSound() {
-                        // If the equip sound is null, return the generic armor equip sound
                         return Objects.requireNonNullElse(pConfigs.getEquipSound(), SoundEvents.ARMOR_EQUIP_GENERIC);
                     }
 
                     @Override
-                    public @NotNull Ingredient getRepairIngredient() {
-                        // If the repair ingredient is null, return an empty ingredient
-                        return Ingredient.of();
-                    }
+                    public @NotNull Ingredient getRepairIngredient() { return Ingredient.of(); }
 
                     @Override
-                    public @NotNull String getName() {
-                        return pConfigs.getName();
-                    }
+                    public @NotNull String getName() { return pConfigs.getName(); }
 
                     @Override
                     public float getToughness() {
-                        // return 0;
-                        return pConfigs.getToughnessAmountArray()[pType.getSlot().getIndex()];
+                        // [FIX] Use getDefaultToughness (Safe for Registry/Startup)
+                        return pConfigs.getDefaultToughness(pType);
                     }
 
                     @Override
                     public float getKnockbackResistance() {
-                        // return 0;
-                        return pConfigs.getKnockbackResistanceArray()[pType.getSlot().getIndex()];
+                        // [FIX] Use getDefaultKnockback (Safe for Registry/Startup)
+                        return pConfigs.getDefaultKnockback(pType);
                     }
                 },
                 pType,
                 new Properties().stacksTo(1).rarity(Rarity.COMMON)
         );
-        armorConfig = pConfigs;
+        this.armorConfig = pConfigs;
     }
 
-    // TODO - re-implement attribute modifiers when config system is done or remove entirely if not needed anymore
-//    @Override
-//    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-//        if (slot != this.getType().getSlot()) {
-//            return super.getAttributeModifiers(slot, stack); // If the slot is not the same as the slot of the armor, return the default attribute modifiers
-//            // We are doing this in order not to have 4 times the same attribute modifiers when equipped in each slot.
-//        }
-//        // Only give the attribute modifiers if the game is ready to not try to get config value before they are even initialized
-//        if (ModernMayhemMod.isGameReady()) {
-//            if (this.attributeModifiers == null) {
-//                this.attributeModifiers = HashMultimap.create();
-//                ArmorProperties.ArmorConfigFile armorConfigFile = armorConfig.getArmorConfigFile();
-//                this.attributeModifiers.put(Attributes.ARMOR, new AttributeModifier("Armor", armorConfigFile.getProtectionAmountArray()[type.getSlot().getIndex()], AttributeModifier.Operation.ADDITION));
-//                this.attributeModifiers.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier("Armor toughness", armorConfigFile.getToughnessAmountArray()[type.getSlot().getIndex()], AttributeModifier.Operation.ADDITION));
-//                this.attributeModifiers.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("Knockback resistance", armorConfigFile.getKnockbackResistanceArray()[type.getSlot().getIndex()], AttributeModifier.Operation.ADDITION));
-//            }
-//        }
-//        return this.attributeModifiers; // Return the attribute modifiers from the armor material
-//    }
+    @Override
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
+        if (slot != this.getType().getSlot()) {
+            return super.getAttributeModifiers(slot, stack);
+        }
 
+        Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
+        // [FIX] Here we use the Config Getters (Safe for Runtime/Gameplay)
+        float protection = this.armorConfig.getProtectionAmount(this.getType());
+        float toughness = this.armorConfig.getToughnessAmount(this.getType());
+        float knockback = this.armorConfig.getKnockbackResistance(this.getType());
+
+        if (protection > 0) {
+            modifiers.put(Attributes.ARMOR, new AttributeModifier(ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()], "Armor modifier", protection, AttributeModifier.Operation.ADDITION));
+        }
+        if (toughness > 0) {
+            modifiers.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()], "Armor toughness", toughness, AttributeModifier.Operation.ADDITION));
+        }
+        if (knockback > 0) {
+            modifiers.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()], "Armor knockback resistance", knockback, AttributeModifier.Operation.ADDITION));
+        }
+
+        return modifiers;
+    }
 }

@@ -2,6 +2,7 @@ package net.tkg.ModernMayhem.server.util;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraftforge.common.ForgeConfigSpec;
 
@@ -44,154 +45,125 @@ public enum ArmorProperties {
     private final int[] durabilityMultiplierArray;
     private final SoundEvent equipSound;
     private final float[] protectionAmountArray;
-    private final float[] ToughnessAmoutArray;
+    private final float[] toughnessAmountArray;
     private final float[] knockbackResistanceArray;
     private final ArmorConfigFile armorConfigFile;
-
 
     ArmorProperties(
             String name,
             int[] durabilityMultiplierArray,
             SoundEvent equipSound,
             float[] protectionAmountArray,
-            float[] toughnessAmoutArray,
+            float[] toughnessAmountArray,
             float[] knockbackResistanceArray
     ) {
         this.name = name;
         this.durabilityMultiplierArray = durabilityMultiplierArray;
         this.equipSound = equipSound;
         this.protectionAmountArray = protectionAmountArray;
-        this.ToughnessAmoutArray = toughnessAmoutArray;
+        this.toughnessAmountArray = toughnessAmountArray;
         this.knockbackResistanceArray = knockbackResistanceArray;
         this.armorConfigFile = new ArmorConfigFile(
                 this.name,
                 this.protectionAmountArray,
-                this.ToughnessAmoutArray,
+                this.toughnessAmountArray,
                 this.knockbackResistanceArray
         );
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
     public int getDurabilityMultiplier(ArmorItem.Type type) { return durabilityMultiplierArray[type.getSlot().getIndex()]; }
 
-    public int[] getDurabilityMultiplierArray() {
-        return durabilityMultiplierArray;
-    }
+    public SoundEvent getEquipSound() { return equipSound; }
 
-    public SoundEvent getEquipSound() {
-        return equipSound;
-    }
+    public float getProtectionAmount(ArmorItem.Type type) { return this.armorConfigFile.getProtection(type); }
+    public float getToughnessAmount(ArmorItem.Type type) { return this.armorConfigFile.getToughness(type); }
+    public float getKnockbackResistance(ArmorItem.Type type) { return this.armorConfigFile.getKnockback(type); }
 
-    public float getProtectionAmount(ArmorItem.Type type) {
-        return protectionAmountArray[type.getSlot().getIndex()];
-    }
-
-    public float[] getProtectionAmountArray() {
-        return protectionAmountArray;
-    }
-
-    public float getToughnessAmount(ArmorItem.Type type) { return ToughnessAmoutArray[type.getSlot().getIndex()]; }
-
-    public float[] getToughnessAmountArray() {
-        return ToughnessAmoutArray;
-    }
-
-    public float getKnockbackResistance(ArmorItem.Type type) { return knockbackResistanceArray[type.getSlot().getIndex()]; }
-
-    public float[] getKnockbackResistanceArray() {
-        return knockbackResistanceArray;
-    }
+    public float getDefaultProtection(ArmorItem.Type type) { return protectionAmountArray[type.getSlot().getIndex()]; }
+    public float getDefaultToughness(ArmorItem.Type type) { return toughnessAmountArray[type.getSlot().getIndex()]; }
+    public float getDefaultKnockback(ArmorItem.Type type) { return knockbackResistanceArray[type.getSlot().getIndex()]; }
 
     public ForgeConfigSpec getConfig() { return this.armorConfigFile.getConfig(); }
 
-    public ArmorConfigFile getArmorConfigFile() {
-        return this.armorConfigFile;
-    }
-
     public static class ArmorConfigFile {
-
         public final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
-        public ForgeConfigSpec CONFIG = null;
+        public ForgeConfigSpec CONFIG;
 
-        public ForgeConfigSpec.DoubleValue PROTECTION_AMOUNT_HEAD = null;
-        public ForgeConfigSpec.DoubleValue PROTECTION_AMOUNT_CHESTPLATE = null;
-        public ForgeConfigSpec.DoubleValue PROTECTION_AMOUNT_LEGGINGS = null;
-        public ForgeConfigSpec.DoubleValue PROTECTION_AMOUNT_BOOTS = null;
+        public ForgeConfigSpec.DoubleValue PROTECTION_AMOUNT_HEAD;
+        public ForgeConfigSpec.DoubleValue PROTECTION_AMOUNT_CHESTPLATE;
+        public ForgeConfigSpec.DoubleValue PROTECTION_AMOUNT_LEGGINGS;
+        public ForgeConfigSpec.DoubleValue PROTECTION_AMOUNT_BOOTS;
 
-        public ForgeConfigSpec.DoubleValue TOUGHNESS_AMOUNT_HEAD = null;
-        public ForgeConfigSpec.DoubleValue TOUGHNESS_AMOUNT_CHESTPLATE = null;
-        public ForgeConfigSpec.DoubleValue TOUGHNESS_AMOUNT_LEGGINGS = null;
-        public ForgeConfigSpec.DoubleValue TOUGHNESS_AMOUNT_BOOTS = null;
+        public ForgeConfigSpec.DoubleValue TOUGHNESS_AMOUNT_HEAD;
+        public ForgeConfigSpec.DoubleValue TOUGHNESS_AMOUNT_CHESTPLATE;
+        public ForgeConfigSpec.DoubleValue TOUGHNESS_AMOUNT_LEGGINGS;
+        public ForgeConfigSpec.DoubleValue TOUGHNESS_AMOUNT_BOOTS;
 
-        public ForgeConfigSpec.DoubleValue KNOCKBACK_RESISTANCE_HEAD = null;
-        public ForgeConfigSpec.DoubleValue KNOCKBACK_RESISTANCE_CHESTPLATE = null;
-        public ForgeConfigSpec.DoubleValue KNOCKBACK_RESISTANCE_LEGGINGS = null;
-        public ForgeConfigSpec.DoubleValue KNOCKBACK_RESISTANCE_BOOTS = null;
+        public ForgeConfigSpec.DoubleValue KNOCKBACK_RESISTANCE_HEAD;
+        public ForgeConfigSpec.DoubleValue KNOCKBACK_RESISTANCE_CHESTPLATE;
+        public ForgeConfigSpec.DoubleValue KNOCKBACK_RESISTANCE_LEGGINGS;
+        public ForgeConfigSpec.DoubleValue KNOCKBACK_RESISTANCE_BOOTS;
 
-        public ArmorConfigFile(
-                String name,
-                float[] protectionAmountArray,
-                float[] toughnessAmoutArray,
-                float[] knockbackResistanceArray
-        ) {
+        public ArmorConfigFile(String name, float[] protection, float[] toughness, float[] knockback) {
             BUILDER.push("Armor type : " + name);
 
-            //TODO Make these code actually work
-            BUILDER.push("WIP, these values do nothing for now, will be re-implemented in future updates");
+            PROTECTION_AMOUNT_HEAD       = define("protectionAmountHead",       "Protection amount for head armor",       protection[3]);
+            PROTECTION_AMOUNT_CHESTPLATE = define("protectionAmountChestplate", "Protection amount for chestplate armor", protection[2]);
+            PROTECTION_AMOUNT_LEGGINGS   = define("protectionAmountLeggings",   "Protection amount for leggings armor",   protection[1]);
+            PROTECTION_AMOUNT_BOOTS      = define("protectionAmountBoots",      "Protection amount for boots armor",      protection[0]);
 
-            PROTECTION_AMOUNT_HEAD = BUILDER.comment("Protection amount for head armor").defineInRange("protectionAmountHead", protectionAmountArray[0], 0, 100);
-            PROTECTION_AMOUNT_CHESTPLATE = BUILDER.comment("Protection amount for chestplate armor").defineInRange("protectionAmountChestplate", protectionAmountArray[1], 0, 100);
-            PROTECTION_AMOUNT_LEGGINGS = BUILDER.comment("Protection amount for leggings armor").defineInRange("protectionAmountLeggings", protectionAmountArray[2], 0, 100);
-            PROTECTION_AMOUNT_BOOTS = BUILDER.comment("Protection amount for boots armor").defineInRange("protectionAmountBoots", protectionAmountArray[3], 0, 100);
+            TOUGHNESS_AMOUNT_HEAD       = define("toughnessAmountHead",       "Toughness amount for head armor",       toughness[3]);
+            TOUGHNESS_AMOUNT_CHESTPLATE = define("toughnessAmountChestplate", "Toughness amount for chestplate armor", toughness[2]);
+            TOUGHNESS_AMOUNT_LEGGINGS   = define("toughnessAmountLeggings",   "Toughness amount for leggings armor",   toughness[1]);
+            TOUGHNESS_AMOUNT_BOOTS      = define("toughnessAmountBoots",      "Toughness amount for boots armor",      toughness[0]);
 
-            TOUGHNESS_AMOUNT_HEAD = BUILDER.comment("Toughness amount for head armor").defineInRange("toughnessAmountHead", toughnessAmoutArray[0], 0, 100);
-            TOUGHNESS_AMOUNT_CHESTPLATE = BUILDER.comment("Toughness amount for chestplate armor").defineInRange("toughnessAmountChestplate", toughnessAmoutArray[1], 0, 100);
-            TOUGHNESS_AMOUNT_LEGGINGS = BUILDER.comment("Toughness amount for leggings armor").defineInRange("toughnessAmountLeggings", toughnessAmoutArray[2], 0, 100);
-            TOUGHNESS_AMOUNT_BOOTS = BUILDER.comment("Toughness amount for boots armor").defineInRange("toughnessAmountBoots", toughnessAmoutArray[3], 0, 100);
-
-            KNOCKBACK_RESISTANCE_HEAD = BUILDER.comment("Knockback resistance for head armor").defineInRange("knockbackResistanceHead", knockbackResistanceArray[0], 0, 100);
-            KNOCKBACK_RESISTANCE_CHESTPLATE = BUILDER.comment("Knockback resistance for chestplate armor").defineInRange("knockbackResistanceChestplate", knockbackResistanceArray[1], 0, 100);
-            KNOCKBACK_RESISTANCE_LEGGINGS = BUILDER.comment("Knockback resistance for leggings armor").defineInRange("knockbackResistanceLeggings", knockbackResistanceArray[2], 0, 100);
-            KNOCKBACK_RESISTANCE_BOOTS = BUILDER.comment("Knockback resistance for boots armor").defineInRange("knockbackResistanceBoots", knockbackResistanceArray[3], 0, 100);
+            KNOCKBACK_RESISTANCE_HEAD       = define("knockbackResistanceHead",       "Knockback resistance for head armor",       knockback[3]);
+            KNOCKBACK_RESISTANCE_CHESTPLATE = define("knockbackResistanceChestplate", "Knockback resistance for chestplate armor", knockback[2]);
+            KNOCKBACK_RESISTANCE_LEGGINGS   = define("knockbackResistanceLeggings",   "Knockback resistance for leggings armor",   knockback[1]);
+            KNOCKBACK_RESISTANCE_BOOTS      = define("knockbackResistanceBoots",      "Knockback resistance for boots armor",      knockback[0]);
 
             BUILDER.pop();
-
             CONFIG = BUILDER.build();
         }
 
-        public ForgeConfigSpec getConfig() {
-            return CONFIG;
+        private ForgeConfigSpec.DoubleValue define(String path, String description, double defaultValue) {
+            return BUILDER
+                    .comment("\n" + description, "Default: " + defaultValue)
+                    .defineInRange(path, defaultValue, 0, 100);
         }
 
-        public float[] getProtectionAmountArray() {
-            return new float[]{
-                    PROTECTION_AMOUNT_HEAD.get().floatValue(),
-                    PROTECTION_AMOUNT_CHESTPLATE.get().floatValue(),
-                    PROTECTION_AMOUNT_LEGGINGS.get().floatValue(),
-                    PROTECTION_AMOUNT_BOOTS.get().floatValue()
+        public float getProtection(ArmorItem.Type type) {
+            return switch (type.getSlot()) {
+                case HEAD -> PROTECTION_AMOUNT_HEAD.get().floatValue();
+                case CHEST -> PROTECTION_AMOUNT_CHESTPLATE.get().floatValue();
+                case LEGS -> PROTECTION_AMOUNT_LEGGINGS.get().floatValue();
+                case FEET -> PROTECTION_AMOUNT_BOOTS.get().floatValue();
+                default -> 0f;
             };
         }
 
-        public float[] getToughnessAmountArray() {
-            return new float[]{
-                    TOUGHNESS_AMOUNT_HEAD.get().floatValue(),
-                    TOUGHNESS_AMOUNT_CHESTPLATE.get().floatValue(),
-                    TOUGHNESS_AMOUNT_LEGGINGS.get().floatValue(),
-                    TOUGHNESS_AMOUNT_BOOTS.get().floatValue()
+        public float getToughness(ArmorItem.Type type) {
+            return switch (type.getSlot()) {
+                case HEAD -> TOUGHNESS_AMOUNT_HEAD.get().floatValue();
+                case CHEST -> TOUGHNESS_AMOUNT_CHESTPLATE.get().floatValue();
+                case LEGS -> TOUGHNESS_AMOUNT_LEGGINGS.get().floatValue();
+                case FEET -> TOUGHNESS_AMOUNT_BOOTS.get().floatValue();
+                default -> 0f;
             };
         }
 
-        public float[] getKnockbackResistanceArray() {
-            return new float[]{
-                    KNOCKBACK_RESISTANCE_HEAD.get().floatValue(),
-                    KNOCKBACK_RESISTANCE_CHESTPLATE.get().floatValue(),
-                    KNOCKBACK_RESISTANCE_LEGGINGS.get().floatValue(),
-                    KNOCKBACK_RESISTANCE_BOOTS.get().floatValue()
+        public float getKnockback(ArmorItem.Type type) {
+            return switch (type.getSlot()) {
+                case HEAD -> KNOCKBACK_RESISTANCE_HEAD.get().floatValue();
+                case CHEST -> KNOCKBACK_RESISTANCE_CHESTPLATE.get().floatValue();
+                case LEGS -> KNOCKBACK_RESISTANCE_LEGGINGS.get().floatValue();
+                case FEET -> KNOCKBACK_RESISTANCE_BOOTS.get().floatValue();
+                default -> 0f;
             };
         }
+
+        public ForgeConfigSpec getConfig() { return CONFIG; }
     }
-
 }
