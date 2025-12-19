@@ -21,7 +21,6 @@ import java.util.UUID;
 
 public class GenericStatConfigurableArmorItem extends ArmorItem {
 
-    // UUIDs to ensure attributes stack correctly
     private static final UUID[] ARMOR_MODIFIER_UUID_PER_SLOT = new UUID[]{
             UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"),
             UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"),
@@ -31,7 +30,6 @@ public class GenericStatConfigurableArmorItem extends ArmorItem {
 
     public static final int[] BASE_DURABILITY = new int[]{ 13, 15, 16, 11 };
 
-    // [FIX] REMOVED 'static'. Each armor item needs its OWN config reference.
     public final ArmorProperties armorConfig;
 
     public GenericStatConfigurableArmorItem(ArmorProperties pConfigs, Type pType) {
@@ -44,7 +42,6 @@ public class GenericStatConfigurableArmorItem extends ArmorItem {
 
                     @Override
                     public int getDefenseForType(@NotNull Type type) {
-                        // [FIX] Use getDefaultProtection (Safe for Registry/Startup)
                         return (int) pConfigs.getDefaultProtection(type);
                     }
 
@@ -64,13 +61,11 @@ public class GenericStatConfigurableArmorItem extends ArmorItem {
 
                     @Override
                     public float getToughness() {
-                        // [FIX] Use getDefaultToughness (Safe for Registry/Startup)
                         return pConfigs.getDefaultToughness(pType);
                     }
 
                     @Override
                     public float getKnockbackResistance() {
-                        // [FIX] Use getDefaultKnockback (Safe for Registry/Startup)
                         return pConfigs.getDefaultKnockback(pType);
                     }
                 },
@@ -88,7 +83,6 @@ public class GenericStatConfigurableArmorItem extends ArmorItem {
 
         Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
-        // [FIX] Here we use the Config Getters (Safe for Runtime/Gameplay)
         float protection = this.armorConfig.getProtectionAmount(this.getType());
         float toughness = this.armorConfig.getToughnessAmount(this.getType());
         float knockback = this.armorConfig.getKnockbackResistance(this.getType());
