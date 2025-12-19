@@ -18,7 +18,17 @@
 				{
 					"name": "armorHead",
 					"parent": "bipedHead",
-					"pivot": [0, 24.25, 0.125],
+					"pivot": [0, 24.25, 0.125]
+				},
+				{
+					"name": "GPNVGS",
+					"parent": "armorHead",
+					"pivot": [0, 29.6, -1.4]
+				},
+				{
+					"name": "bone",
+					"parent": "GPNVGS",
+					"pivot": [0, 29.6, -1.4],
 					"cubes": [
 						{
 							"origin": [4.98534, 28.57813, -5],

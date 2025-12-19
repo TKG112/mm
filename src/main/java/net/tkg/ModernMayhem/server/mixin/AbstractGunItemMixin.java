@@ -31,18 +31,20 @@ import java.util.Optional;
 public class AbstractGunItemMixin {
 
     @Unique
-    private static final ThreadLocal<Player> RELOADING_PLAYER = new ThreadLocal<>();
+    private static final ThreadLocal<Boolean> EXTRACTING_FROM_RIG = ThreadLocal.withInitial(() -> false);
 
-    @Inject(method = "canReload", at = @At("HEAD"), remap = false)
-    private void capturePlayerBeforeReload(LivingEntity shooter, ItemStack gunItem, CallbackInfoReturnable<Boolean> cir) {
-        if (shooter instanceof Player player) {
-            RELOADING_PLAYER.set(player);
-        }
-    }
+    @Unique
+    private static final ThreadLocal<Player> CURRENT_RELOADING_PLAYER = ThreadLocal.withInitial(() -> null);
 
+    // Check rig for ammo after normal checks fail
     @Inject(method = "canReload", at = @At("RETURN"), cancellable = true, remap = false)
     private void checkRigForAmmo(LivingEntity shooter, ItemStack gunItem, CallbackInfoReturnable<Boolean> cir) {
-        if (cir.getReturnValue()) return;
+        // Only proceed if the original method returned false
+        if (cir.getReturnValue()) {
+            return;
+        }
+
+        if (!(shooter instanceof Player player)) return;
 
         ResourceLocation gunId = ((AbstractGunItem)(Object)this).getGunId(gunItem);
         Optional<CommonGunIndex> optionalIndex = TimelessAPI.getCommonGunIndex(gunId);
@@ -52,12 +54,11 @@ public class AbstractGunItemMixin {
         int currentAmmoCount = ((AbstractGunItem)(Object)this).getCurrentAmmoCount(gunItem);
         int maxAmmoCount = AttachmentDataUtils.getAmmoCountWithAttachment(gunItem, gunIndex.getGunData());
 
+        // Don't reload if already full
         if (currentAmmoCount >= maxAmmoCount) {
             cir.setReturnValue(false);
             return;
         }
-
-        if (!(shooter instanceof Player player)) return;
 
         ItemStack rigItem = CuriosUtil.getRigItem(player);
         if (rigItem == null || rigItem.isEmpty()) return;
@@ -71,48 +72,99 @@ public class AbstractGunItemMixin {
         ItemStackHandler inventory = new ItemStackHandler(size);
         inventory.deserializeNBT(tag.getCompound("inventory"));
 
+        // Check if there's any compatible ammo in the rig
         for (int i = 0; i < inventory.getSlots(); i++) {
             ItemStack stack = inventory.getStackInSlot(i);
             if (stack.isEmpty()) continue;
 
             if (stack.getItem() instanceof IAmmo iAmmo && iAmmo.isAmmoOfGun(gunItem, stack)) {
+                // Set the current player so extraction can find them
+                CURRENT_RELOADING_PLAYER.set(player);
                 cir.setReturnValue(true);
                 return;
             }
 
             if (stack.getItem() instanceof IAmmoBox iBox && iBox.isAmmoBoxOfGun(gunItem, stack)) {
-                cir.setReturnValue(true);
-                return;
+                int boxAmmo = iBox.getAmmoCount(stack);
+                if (boxAmmo > 0) {
+                    // Set the current player so extraction can find them
+                    CURRENT_RELOADING_PLAYER.set(player);
+                    cir.setReturnValue(true);
+                    return;
+                }
             }
         }
     }
 
+    // Extract ammo from rig inventory AFTER normal inventory extraction
     @Inject(method = "findAndExtractInventoryAmmo", at = @At("RETURN"), cancellable = true, remap = false)
-    private void extractAmmoFromRig(IItemHandler itemHandler, ItemStack gunItem, int needAmmoCount, CallbackInfoReturnable<Integer> cir) {
-        int alreadyFound = cir.getReturnValue();
-        int remainingToFind = needAmmoCount - alreadyFound;
-        if (remainingToFind <= 0) {
-            RELOADING_PLAYER.remove();
+    private void extractAmmoFromRigAfter(IItemHandler itemHandler, ItemStack gunItem, int needAmmoCount, CallbackInfoReturnable<Integer> cir) {
+        // Prevent recursion - if we're already extracting from rig, don't do it again
+        if (EXTRACTING_FROM_RIG.get()) {
             return;
         }
 
-        Player player = RELOADING_PLAYER.get();
-        RELOADING_PLAYER.remove();
-        if (player == null) return;
+        int alreadyFound = cir.getReturnValue();
+        int remainingToFind = needAmmoCount - alreadyFound;
+
+        // If we found everything we need, we're done
+        if (remainingToFind <= 0) {
+            // Clear the reloading player since we're done
+            CURRENT_RELOADING_PLAYER.remove();
+            return;
+        }
+
+        // Get the player from ThreadLocal
+        Player player = CURRENT_RELOADING_PLAYER.get();
+
+        if (player == null) {
+            return;
+        }
 
         ItemStack rigItem = CuriosUtil.getRigItem(player);
-        if (rigItem == null || rigItem.isEmpty()) return;
+        if (rigItem == null || rigItem.isEmpty()) {
+            CURRENT_RELOADING_PLAYER.remove();
+            return;
+        }
 
         int size = getRigInventorySize(rigItem);
-        if (size <= 0) return;
+        if (size <= 0) {
+            CURRENT_RELOADING_PLAYER.remove();
+            return;
+        }
 
         CompoundTag tag = rigItem.getOrCreateTag();
-        if (!tag.contains("inventory")) return;
+        if (!tag.contains("inventory")) {
+            CURRENT_RELOADING_PLAYER.remove();
+            return;
+        }
 
-        ItemStackHandler inventory = new ItemStackHandler(size);
-        inventory.deserializeNBT(tag.getCompound("inventory"));
+        ItemStackHandler rigInventory = new ItemStackHandler(size);
+        rigInventory.deserializeNBT(tag.getCompound("inventory"));
 
-        MutableInt remaining = new MutableInt(remainingToFind);
+        // Mark that we're extracting from rig to prevent recursion
+        EXTRACTING_FROM_RIG.set(true);
+        try {
+            // Extract from rig
+            int foundInRig = extractFromRig(rigInventory, gunItem, remainingToFind);
+
+            if (foundInRig > 0) {
+                // Save the updated rig inventory
+                tag.put("inventory", rigInventory.serializeNBT());
+                rigItem.setTag(tag);
+
+                // Return the total found
+                cir.setReturnValue(alreadyFound + foundInRig);
+            }
+        } finally {
+            // Always reset the flags
+            EXTRACTING_FROM_RIG.set(false);
+        }
+    }
+
+    @Unique
+    private int extractFromRig(ItemStackHandler inventory, ItemStack gunItem, int needAmmoCount) {
+        MutableInt remaining = new MutableInt(needAmmoCount);
         int found = 0;
 
         for (int i = 0; i < inventory.getSlots() && remaining.value > 0; i++) {
@@ -126,20 +178,19 @@ public class AbstractGunItemMixin {
                 remaining.value -= extracted.getCount();
             } else if (stack.getItem() instanceof IAmmoBox iBox && iBox.isAmmoBoxOfGun(gunItem, stack)) {
                 int boxAmmo = iBox.getAmmoCount(stack);
-                int extractCount = Math.min(boxAmmo, remaining.value);
-                iBox.setAmmoCount(stack, boxAmmo - extractCount);
-                if (boxAmmo - extractCount <= 0) {
-                    iBox.setAmmoId(stack, DefaultAssets.EMPTY_AMMO_ID);
+                if (boxAmmo > 0) {
+                    int extractCount = Math.min(boxAmmo, remaining.value);
+                    iBox.setAmmoCount(stack, boxAmmo - extractCount);
+                    if (boxAmmo - extractCount <= 0) {
+                        iBox.setAmmoId(stack, DefaultAssets.EMPTY_AMMO_ID);
+                    }
+                    found += extractCount;
+                    remaining.value -= extractCount;
                 }
-                found += extractCount;
-                remaining.value -= extractCount;
             }
         }
 
-        tag.put("inventory", inventory.serializeNBT());
-        rigItem.setTag(tag);
-
-        cir.setReturnValue(alreadyFound + found);
+        return found;
     }
 
     @Unique
