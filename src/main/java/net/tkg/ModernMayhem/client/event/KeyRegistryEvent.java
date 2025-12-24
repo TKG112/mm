@@ -15,6 +15,7 @@ public class KeyRegistryEvent {
         event.register(KeyMappingRegistryMM.TOGGLE_NVG_KEY);
         event.register(KeyMappingRegistryMM.INCREASE_TUBE_GAIN_KEY);
         event.register(KeyMappingRegistryMM.DECREASE_TUBE_GAIN_KEY);
+        event.register(KeyMappingRegistryMM.TOGGLE_AUTO_GAIN_KEY);
         event.register(KeyMappingRegistryMM.OPEN_BACKPACK_KEY);
         event.register(KeyMappingRegistryMM.OPEN_RIG_KEY);
     }

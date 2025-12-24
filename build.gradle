@@ -119,14 +119,13 @@ dependencies {
     runtimeOnly(fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}"))
 
     //TacZ dependencies
-    implementation fg.deobf("curse.maven:timeless-and-classics-zero-1028108:6518539")
+    implementation fg.deobf("curse.maven:timeless-and-classics-zero-1028108:7278003")
 
     implementation fg.deobf("curse.maven:embeddium-908741:5681725")
     implementation fg.deobf("curse.maven:chloride-931925:6504509")
 
     // Oculus dependencies
     compileOnly fg.deobf("curse.maven:oculus-581495:6020952")
-    runtimeOnly fg.deobf("curse.maven:oculus-581495:6020952") // Comment this line if you want to test the mod without Oculus installed
 
 }
 

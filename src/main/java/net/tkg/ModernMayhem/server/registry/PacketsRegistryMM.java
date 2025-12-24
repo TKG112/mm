@@ -28,8 +28,9 @@ public enum PacketsRegistryMM {
     OPEN_BACK_BACKPACK_FROM_CONTROL(OpenBackpackKeyPacket.class, OpenBackpackKeyPacket::new, PLAY_TO_SERVER),
     OPEN_CHEST_BACKPACK_FROM_CONTROL(OpenRigKeyPacket.class, OpenRigKeyPacket::new, PLAY_TO_SERVER),
     NVG_SYNC_SWITCH_ON(NVGSyncSwitchOnPacket.class, NVGSyncSwitchOnPacket::new, PLAY_TO_SERVER),
-    NVG_SYNC_SWITCH_OFF(NVGSyncSwitchOffPacket.class, NVGSyncSwitchOffPacket::new, PLAY_TO_SERVER),;
-
+    NVG_SYNC_SWITCH_OFF(NVGSyncSwitchOffPacket.class, NVGSyncSwitchOffPacket::new, PLAY_TO_SERVER),
+    NVG_AUTO_GAIN_TOGGLE(NVGAutoGainTogglePacket.class, NVGAutoGainTogglePacket::new, PLAY_TO_SERVER),
+    ;
 
     // Server to Client
     // There is no Server to Client packets at the moment

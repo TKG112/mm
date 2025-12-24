@@ -5,6 +5,7 @@
   "item.mm.black_pvs14" :  "Black PVS-14",
   "item.mm.green_pvs14" :  "Green PVS-14",
   "item.mm.tan_pvs14" :  "Tan PVS-14",
+  "item.mm.black_tvg" :  "Black T7 Thermal Imager",
   "item.mm.black_backpack_t1" : "Small Black Backpack",
   "item.mm.black_backpack_t2" : "Medium Black Backpack",
   "item.mm.black_backpack_t3" : "Large Black Backpack",
@@ -22,6 +23,7 @@
   "item.mm.tan_plate_carrier_pouches" : "Tan Plate Carrier - Pouches",
   "item.mm.tan_bandoleer" : "Tan Bandoleer",
   "item.mm.green_recon_rig" : "Green Recon Rig",
+  "item.mm.hexagon_rig" : "Hexagon Rig",
   "item.mm.black_combat_helmet" : "Black F70 Helmet",
   "item.mm.black_kevlar_chestplate" : "Black Kevlar Chestplate",
   "item.mm.black_kevlar_leggings" : "Black Kevlar Leggings",
@@ -69,11 +71,12 @@
 
 
   "key.categories.mm" : "Modern Mayhem",
-  "key.mm.toggle_nvg" : "Toggle Night Vision",
+  "key.mm.toggle_nvg" : "Toggle Facewear Effect",
   "key.mm.increase_tube_gain" : "Increase Tube Gain",
   "key.mm.decrease_tube_gain" : "Decrease Tube Gain",
   "key.mm.open_backpack" : "Open Backpack",
   "key.mm.open_rig" : "Open Rig",
+  "key.mm.toggle_auto_gain" : "Toggle Auto Gain",
 
 
   "description.mm.nvgs" : "Helmet required",

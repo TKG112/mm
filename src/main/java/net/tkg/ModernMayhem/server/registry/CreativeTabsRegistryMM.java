@@ -27,6 +27,7 @@ public class CreativeTabsRegistryMM {
                         pOutput.accept(ItemRegistryMM.BLACK_PVS7.get());
                         pOutput.accept(ItemRegistryMM.BLACK_VISOR.get());
                         pOutput.accept(ItemRegistryMM.TAN_VISOR.get());
+                        pOutput.accept(ItemRegistryMM.BLACK_TVG.get());
                         pOutput.accept(ItemRegistryMM.BLACK_BACKPACK_T1.get());
                         pOutput.accept(ItemRegistryMM.BLACK_BACKPACK_T2.get());
                         pOutput.accept(ItemRegistryMM.BLACK_BACKPACK_T3.get());
@@ -44,6 +45,7 @@ public class CreativeTabsRegistryMM {
                         pOutput.accept(ItemRegistryMM.TAN_PLATE_CARRIER_POUCHES.get());
                         pOutput.accept(ItemRegistryMM.TAN_BANDOLEER.get());
                         pOutput.accept(ItemRegistryMM.GREEN_RECON.get());
+                        pOutput.accept(ItemRegistryMM.HEXAGON_RIG.get());
                         pOutput.accept(ItemRegistryMM.BLACK_COMBAT_HELMET.get());
                         pOutput.accept(ItemRegistryMM.BLACK_KEVLAR_CHESTPLATE.get());
                         pOutput.accept(ItemRegistryMM.BLACK_KEVLAR_LEGGINGS.get());

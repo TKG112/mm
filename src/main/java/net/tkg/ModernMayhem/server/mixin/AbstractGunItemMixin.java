@@ -17,6 +17,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.tkg.ModernMayhem.server.item.curios.body.BandoleerItem;
 import net.tkg.ModernMayhem.server.item.curios.body.PlateCarrierItem;
 import net.tkg.ModernMayhem.server.item.curios.body.ReconRigItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericBackpackItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import net.tkg.ModernMayhem.server.util.MutableInt;
 import org.spongepowered.asm.mixin.Mixin;
@@ -36,10 +37,8 @@ public class AbstractGunItemMixin {
     @Unique
     private static final ThreadLocal<Player> CURRENT_RELOADING_PLAYER = ThreadLocal.withInitial(() -> null);
 
-    // Check rig for ammo after normal checks fail
     @Inject(method = "canReload", at = @At("RETURN"), cancellable = true, remap = false)
     private void checkRigForAmmo(LivingEntity shooter, ItemStack gunItem, CallbackInfoReturnable<Boolean> cir) {
-        // Only proceed if the original method returned false
         if (cir.getReturnValue()) {
             return;
         }
@@ -54,7 +53,6 @@ public class AbstractGunItemMixin {
         int currentAmmoCount = ((AbstractGunItem)(Object)this).getCurrentAmmoCount(gunItem);
         int maxAmmoCount = AttachmentDataUtils.getAmmoCountWithAttachment(gunItem, gunIndex.getGunData());
 
-        // Don't reload if already full
         if (currentAmmoCount >= maxAmmoCount) {
             cir.setReturnValue(false);
             return;
@@ -63,7 +61,9 @@ public class AbstractGunItemMixin {
         ItemStack rigItem = CuriosUtil.getRigItem(player);
         if (rigItem == null || rigItem.isEmpty()) return;
 
-        int size = getRigInventorySize(rigItem);
+        if (!modernMayhem$canRigSupplyAmmo(rigItem)) return;
+
+        int size = modernMayhem$getRigInventorySize(rigItem);
         if (size <= 0) return;
 
         CompoundTag tag = rigItem.getTag();
@@ -72,13 +72,11 @@ public class AbstractGunItemMixin {
         ItemStackHandler inventory = new ItemStackHandler(size);
         inventory.deserializeNBT(tag.getCompound("inventory"));
 
-        // Check if there's any compatible ammo in the rig
         for (int i = 0; i < inventory.getSlots(); i++) {
             ItemStack stack = inventory.getStackInSlot(i);
             if (stack.isEmpty()) continue;
 
             if (stack.getItem() instanceof IAmmo iAmmo && iAmmo.isAmmoOfGun(gunItem, stack)) {
-                // Set the current player so extraction can find them
                 CURRENT_RELOADING_PLAYER.set(player);
                 cir.setReturnValue(true);
                 return;
@@ -87,7 +85,6 @@ public class AbstractGunItemMixin {
             if (stack.getItem() instanceof IAmmoBox iBox && iBox.isAmmoBoxOfGun(gunItem, stack)) {
                 int boxAmmo = iBox.getAmmoCount(stack);
                 if (boxAmmo > 0) {
-                    // Set the current player so extraction can find them
                     CURRENT_RELOADING_PLAYER.set(player);
                     cir.setReturnValue(true);
                     return;
@@ -96,10 +93,8 @@ public class AbstractGunItemMixin {
         }
     }
 
-    // Extract ammo from rig inventory AFTER normal inventory extraction
     @Inject(method = "findAndExtractInventoryAmmo", at = @At("RETURN"), cancellable = true, remap = false)
     private void extractAmmoFromRigAfter(IItemHandler itemHandler, ItemStack gunItem, int needAmmoCount, CallbackInfoReturnable<Integer> cir) {
-        // Prevent recursion - if we're already extracting from rig, don't do it again
         if (EXTRACTING_FROM_RIG.get()) {
             return;
         }
@@ -107,14 +102,11 @@ public class AbstractGunItemMixin {
         int alreadyFound = cir.getReturnValue();
         int remainingToFind = needAmmoCount - alreadyFound;
 
-        // If we found everything we need, we're done
         if (remainingToFind <= 0) {
-            // Clear the reloading player since we're done
             CURRENT_RELOADING_PLAYER.remove();
             return;
         }
 
-        // Get the player from ThreadLocal
         Player player = CURRENT_RELOADING_PLAYER.get();
 
         if (player == null) {
@@ -127,7 +119,12 @@ public class AbstractGunItemMixin {
             return;
         }
 
-        int size = getRigInventorySize(rigItem);
+        if (!modernMayhem$canRigSupplyAmmo(rigItem)) {
+            CURRENT_RELOADING_PLAYER.remove();
+            return;
+        }
+
+        int size = modernMayhem$getRigInventorySize(rigItem);
         if (size <= 0) {
             CURRENT_RELOADING_PLAYER.remove();
             return;
@@ -142,22 +139,17 @@ public class AbstractGunItemMixin {
         ItemStackHandler rigInventory = new ItemStackHandler(size);
         rigInventory.deserializeNBT(tag.getCompound("inventory"));
 
-        // Mark that we're extracting from rig to prevent recursion
         EXTRACTING_FROM_RIG.set(true);
         try {
-            // Extract from rig
             int foundInRig = extractFromRig(rigInventory, gunItem, remainingToFind);
 
             if (foundInRig > 0) {
-                // Save the updated rig inventory
                 tag.put("inventory", rigInventory.serializeNBT());
                 rigItem.setTag(tag);
 
-                // Return the total found
                 cir.setReturnValue(alreadyFound + foundInRig);
             }
         } finally {
-            // Always reset the flags
             EXTRACTING_FROM_RIG.set(false);
         }
     }
@@ -194,21 +186,18 @@ public class AbstractGunItemMixin {
     }
 
     @Unique
-    private int getRigInventorySize(ItemStack rigItem) {
-        if (rigItem.getItem() instanceof PlateCarrierItem plate) {
-            if (!"ammo".equals(plate.getType())) return -1;
-            return PlateCarrierItem.getNumberofLinesPlateCarrier(plate.getType())
-                    * PlateCarrierItem.getNumberofCollumnsPlateCarrier(plate.getType());
+    private boolean modernMayhem$canRigSupplyAmmo(ItemStack rigItem) {
+        if (rigItem.getItem() instanceof GenericBackpackItem backpackItem) {
+            return backpackItem.canSupplyAmmo();
         }
+        return false;
+    }
 
-        if (rigItem.getItem() instanceof BandoleerItem) {
-            return 6;
+    @Unique
+    private int modernMayhem$getRigInventorySize(ItemStack rigItem) {
+        if (rigItem.getItem() instanceof GenericBackpackItem backpackItem) {
+            return backpackItem.getInventorySize();
         }
-
-        if (rigItem.getItem() instanceof ReconRigItem) {
-            return 12;
-        }
-
         return -1;
     }
 }

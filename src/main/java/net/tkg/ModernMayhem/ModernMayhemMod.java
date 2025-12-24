@@ -13,7 +13,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.tkg.ModernMayhem.client.event.ItemInteractionEvent;
 import net.tkg.ModernMayhem.client.event.RenderNVGFirstPerson;
 import net.tkg.ModernMayhem.server.compat.OculusCompat;
-import net.tkg.ModernMayhem.server.config.ArmorConfigGenerator;
+import net.tkg.ModernMayhem.server.config.ServerConfig;
 import net.tkg.ModernMayhem.server.config.CommonConfig;
 import net.tkg.ModernMayhem.server.registry.*;
 import org.slf4j.Logger;
@@ -52,7 +52,7 @@ public class ModernMayhemMod
 
 
         context.registerConfig(ModConfig.Type.COMMON, CommonConfig.CONFIG);
-        ArmorConfigGenerator.init();
+        ServerConfig.init();
 
         MinecraftForge.EVENT_BUS.register(this);
     }

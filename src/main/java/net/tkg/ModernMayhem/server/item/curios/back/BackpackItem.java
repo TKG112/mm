@@ -8,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.tkg.ModernMayhem.client.renderer.curios.back.BackpackRenderer;
 import net.tkg.ModernMayhem.server.item.generic.GenericBackpackItem;
+import net.tkg.ModernMayhem.server.util.BackpackStorageProperties;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -25,11 +26,25 @@ public class BackpackItem extends GenericBackpackItem implements GeoItem, ICurio
     private final int variant;
     private final int tier;
 
-
     public BackpackItem(int variant, int tier) {
-        super((byte) getNumberofLinesBackpack(tier), (byte) getNumberofColumnsBackpack(tier), (byte) 0);
+        super((byte) 0);
         this.variant = variant;
         this.tier = tier;
+    }
+
+    @Override
+    public int getInventoryLines() {
+        return BackpackStorageProperties.getByTier(this.tier).getLines();
+    }
+
+    @Override
+    public int getInventoryColumns() {
+        return BackpackStorageProperties.getByTier(this.tier).getColumns();
+    }
+
+    @Override
+    public boolean canSupplyAmmo() {
+        return false;
     }
 
     @Override
@@ -75,24 +90,6 @@ public class BackpackItem extends GenericBackpackItem implements GeoItem, ICurio
 
     public int getTier() {
         return this.tier;
-    }
-
-    public static int getNumberofLinesBackpack(int tier) {
-        return switch (tier) {
-            case 1 -> 3;
-            case 2 -> 3;
-            case 3 -> 3;
-            default -> 1;
-        };
-    }
-
-    public static int getNumberofColumnsBackpack(int tier) {
-        return switch (tier) {
-            case 1 -> 3;
-            case 2 -> 6;
-            case 3 -> 9;
-            default -> 1;
-        };
     }
 
 }

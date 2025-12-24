@@ -10,13 +10,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.tkg.ModernMayhem.client.renderer.curios.facewear.NVGGogglesRenderer;
+import net.tkg.ModernMayhem.client.renderer.curios.facewear.GenericNVGGogglesRenderer;
 import net.tkg.ModernMayhem.server.item.NVGGoggleList;
 import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
@@ -41,25 +40,26 @@ public class NVGGogglesItem extends GenericNVGGogglesItem {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private GeoArmorRenderer<?> lRenderer;
+            // Use the generic renderer
+            private GenericNVGGogglesRenderer<NVGGogglesItem> lRenderer;
 
             @Override
             public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
                 if (this.lRenderer == null)
-                    this.lRenderer = new NVGGogglesRenderer();
+                    this.lRenderer = new GenericNVGGogglesRenderer<>(); // No custom model needed
+
                 this.lRenderer.prepForRender(livingEntity, itemStack, equipmentSlot, original);
                 return this.lRenderer;
             }
-
         });
+
         consumer.accept(new IClientItemExtensions() {
-            private NVGGogglesRenderer.NVGGogglesSlotRenderer renderer = null;
-            // Don't instantiate until ready. This prevents race conditions breaking things
+            private GenericNVGGogglesRenderer.GenericNVGGogglesSlotRenderer<NVGGogglesItem> renderer = null;
+
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
                 if (this.renderer == null)
-                    this.renderer = new NVGGogglesRenderer.NVGGogglesSlotRenderer();
-
+                    this.renderer = new GenericNVGGogglesRenderer.GenericNVGGogglesSlotRenderer<>();
                 return renderer;
             }
         });

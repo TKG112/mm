@@ -15,9 +15,11 @@ import net.tkg.ModernMayhem.server.item.NVGGoggleList;
 import net.tkg.ModernMayhem.server.item.armor.CustomArmorItem;
 import net.tkg.ModernMayhem.server.item.curios.back.BackpackItem;
 import net.tkg.ModernMayhem.server.item.curios.body.BandoleerItem;
+import net.tkg.ModernMayhem.server.item.curios.body.HexagonRigItem;
 import net.tkg.ModernMayhem.server.item.curios.body.PlateCarrierItem;
 import net.tkg.ModernMayhem.server.item.curios.body.ReconRigItem;
 import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.curios.facewear.TVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.curios.facewear.VisorItem;
 import net.tkg.ModernMayhem.server.item.curios.head.HeadGearItems;
 import net.tkg.ModernMayhem.server.item.curios.knee.KneepadItems;
@@ -40,6 +42,9 @@ public class ItemRegistryMM {
             () -> new NVGGogglesItem(NVGGoggleList.GREEN_PVS14));
     public static final RegistryObject<Item> BLACK_PVS7 = ITEMS.register("black_pvs7",
             () -> new NVGGogglesItem(NVGGoggleList.BLACK_PVS7));
+
+    public static final RegistryObject<Item> BLACK_TVG = ITEMS.register("black_tvg",
+            () -> new TVGGogglesItem(NVGGoggleList.BLACK_TVG));
 
     public static final RegistryObject<Item> BLACK_VISOR = ITEMS.register("black_visor",
             () -> new VisorItem(NVGGoggleList.BLACK_VISOR));
@@ -79,6 +84,7 @@ public class ItemRegistryMM {
             () -> new PlateCarrierItem("pouches", 1));
     public static final RegistryObject<Item> TAN_BANDOLEER = ITEMS.register("tan_bandoleer", BandoleerItem::new);
     public static final RegistryObject<Item> GREEN_RECON = ITEMS.register("green_recon_rig", ReconRigItem::new);
+    public static final RegistryObject<Item> HEXAGON_RIG = ITEMS.register("hexagon_rig", HexagonRigItem::new);
 
     public static final RegistryObject<Item> BLACK_COMBAT_HELMET = ITEMS.register("black_combat_helmet",
             () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.HELMET,0, true));

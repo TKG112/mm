@@ -66,7 +66,7 @@ public enum NVGGoggleList {
     ),
     BLACK_VISOR(
             null,
-            1,
+            0,
             SoundRegistryMM.SOUND_VISOR_CLOSE,
             SoundRegistryMM.SOUND_VISOR_CLOSE,
             3,
@@ -74,11 +74,19 @@ public enum NVGGoggleList {
     ),
     TAN_VISOR(
             null,
-            1,
+            0,
             SoundRegistryMM.SOUND_VISOR_CLOSE,
             SoundRegistryMM.SOUND_VISOR_CLOSE,
             3,
             1
+    ),
+    BLACK_TVG(
+            NVGConfigs.THERMAL,
+            0,
+            SoundRegistryMM.SOUND_NVG_ON,
+            SoundRegistryMM.SOUND_NVG_OFF,
+            4,
+            0
     ),
     ;
 

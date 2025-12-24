@@ -177,6 +177,10 @@ public class NVGConfigs {
             )
     };
 
+    public static GenericNVGGogglesItem.NVGConfig[] THERMAL = {
+            new GenericNVGGogglesItem.NVGConfig("textures/screens/pvs7_overlay.png")
+    };
+
     private static int redValue = 100;
     private static int greenValue = 0;
     private static int blueValue = 0;

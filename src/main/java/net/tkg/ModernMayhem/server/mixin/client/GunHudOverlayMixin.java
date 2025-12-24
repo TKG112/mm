@@ -11,9 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemStackHandler;
-import net.tkg.ModernMayhem.server.item.curios.body.BandoleerItem;
-import net.tkg.ModernMayhem.server.item.curios.body.PlateCarrierItem;
-import net.tkg.ModernMayhem.server.item.curios.body.ReconRigItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericBackpackItem; // [NEW] Import this
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -32,7 +30,9 @@ public class GunHudOverlayMixin {
         ItemStack rigItem = CuriosUtil.getRigItem(player);
         if (rigItem == null || rigItem.isEmpty()) return;
 
-        int size = getInventorySizeFromRig(rigItem);
+        if (!modernMayhem$canRigSupplyAmmo(rigItem)) return;
+
+        int size = modernMayhem$getInventorySizeFromRig(rigItem);
         if (size <= 0) return;
 
         CompoundTag tag = rigItem.getTag();
@@ -67,23 +67,18 @@ public class GunHudOverlayMixin {
     }
 
     @Unique
-    private static int getInventorySizeFromRig(ItemStack rigItem) {
-        Item item = rigItem.getItem();
-
-        if (item instanceof PlateCarrierItem carrier) {
-            if (!"ammo".equals(carrier.getType())) return -1;
-            return PlateCarrierItem.getNumberofLinesPlateCarrier(carrier.getType())
-                    * PlateCarrierItem.getNumberofCollumnsPlateCarrier(carrier.getType());
+    private static boolean modernMayhem$canRigSupplyAmmo(ItemStack rigItem) {
+        if (rigItem.getItem() instanceof GenericBackpackItem backpackItem) {
+            return backpackItem.canSupplyAmmo();
         }
+        return false;
+    }
 
-        if (item instanceof BandoleerItem) {
-            return 6;
+    @Unique
+    private static int modernMayhem$getInventorySizeFromRig(ItemStack rigItem) {
+        if (rigItem.getItem() instanceof GenericBackpackItem backpackItem) {
+            return backpackItem.getInventorySize();
         }
-
-        if (item instanceof ReconRigItem) {
-            return 12;
-        }
-
         return -1;
     }
 }

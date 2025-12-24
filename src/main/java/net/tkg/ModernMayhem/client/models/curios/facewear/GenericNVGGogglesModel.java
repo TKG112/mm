@@ -2,35 +2,38 @@ package net.tkg.ModernMayhem.client.models.curios.facewear;
 
 import net.minecraft.resources.ResourceLocation;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
 import software.bernie.geckolib.model.GeoModel;
 
 import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
 
-public class NVGGogglesModel extends GeoModel<NVGGogglesItem> {
+public class GenericNVGGogglesModel<T extends GenericNVGGogglesItem> extends GeoModel<T> {
+
     @Override
-    public ResourceLocation getModelResource(NVGGogglesItem animatable) {
+    public ResourceLocation getModelResource(T animatable) {
         return switch (animatable.getConfig().getType()) {
             case 0 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/item/curios/facewear/gpnvg.geo.json");
             case 1 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/item/curios/facewear/pvs14.geo.json");
             case 2 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/item/curios/facewear/pvs7.geo.json");
             case 3 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/item/curios/facewear/visor.geo.json");
+            case 4 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/item/curios/facewear/tvg.geo.json");
             default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
         };
     }
 
     @Override
-    public ResourceLocation getTextureResource(NVGGogglesItem animatable) {
-         return getTextureResource(animatable.getConfig().getType(), animatable.getConfig().getVariant());
+    public ResourceLocation getTextureResource(T animatable) {
+        return getTextureResource(animatable.getConfig().getType(), animatable.getConfig().getVariant());
     }
 
     @Override
-    public ResourceLocation getAnimationResource(NVGGogglesItem animatable) {
+    public ResourceLocation getAnimationResource(T animatable) {
         return switch (animatable.getConfig().getType()) {
             case 0 -> fromNamespaceAndPath(ModernMayhemMod.ID, "animations/item/curios/facewear/gpnvg.animation.json");
             case 1 -> fromNamespaceAndPath(ModernMayhemMod.ID, "animations/item/curios/facewear/pvs14.animation.json");
             case 2 -> fromNamespaceAndPath(ModernMayhemMod.ID, "animations/item/curios/facewear/pvs7.animation.json");
             case 3 -> fromNamespaceAndPath(ModernMayhemMod.ID, "animations/item/curios/facewear/visor.animation.json");
+            case 4 -> fromNamespaceAndPath(ModernMayhemMod.ID, "animations/item/curios/facewear/tvg.animation.json");
             default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
         };
     }
@@ -67,7 +70,13 @@ public class NVGGogglesModel extends GeoModel<NVGGogglesItem> {
                     default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
                 };
             }
-        };
+            case 4 -> {
+                return switch (variant) {
+                    case 0 -> fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/facewear/black_tvg.png");
+                    default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
+                };
+            }
+        }
         return fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
     }
 }

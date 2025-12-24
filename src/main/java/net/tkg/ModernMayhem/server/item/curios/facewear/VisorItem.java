@@ -1,6 +1,6 @@
 package net.tkg.ModernMayhem.server.item.curios.facewear;
 
-import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.model.HumanoidModel;
@@ -15,13 +15,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.tkg.ModernMayhem.client.renderer.curios.facewear.VisorRenderer;
+import net.tkg.ModernMayhem.client.renderer.curios.facewear.GenericNVGGogglesRenderer;
 import net.tkg.ModernMayhem.server.item.NVGGoggleList;
 import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.server.util.CuriosFacewearProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import top.theillusivec4.curios.api.SlotContext;
 
@@ -50,38 +50,50 @@ public class VisorItem extends GenericNVGGogglesItem {
 
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
+        Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
+
         if (isNVGOnFace(stack)) {
-            return ImmutableMultimap.of(
-                    Attributes.ARMOR,
-                    new AttributeModifier(uuid, "Visor armor bonus", 4.0, AttributeModifier.Operation.ADDITION)
-            );
+            double protection = CuriosFacewearProperties.VISOR.getProtection();
+            double toughness = CuriosFacewearProperties.VISOR.getToughness();
+            double knockback = CuriosFacewearProperties.VISOR.getKnockback();
+
+            if (protection > 0) {
+                multimap.put(Attributes.ARMOR, new AttributeModifier(uuid, "Visor armor bonus", protection, AttributeModifier.Operation.ADDITION));
+            }
+            if (toughness > 0) {
+                multimap.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "Visor toughness", toughness, AttributeModifier.Operation.ADDITION));
+            }
+            if (knockback > 0) {
+                multimap.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Visor knockback resistance", knockback, AttributeModifier.Operation.ADDITION));
+            }
         }
-        return ImmutableMultimap.of();
+        return multimap;
     }
 
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private GeoArmorRenderer<?> lRenderer;
+            // Use the generic renderer
+            private GenericNVGGogglesRenderer<VisorItem> lRenderer;
 
             @Override
             public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
                 if (this.lRenderer == null)
-                    this.lRenderer = new VisorRenderer();
+                    this.lRenderer = new GenericNVGGogglesRenderer<>(); // No custom model needed
+
                 this.lRenderer.prepForRender(livingEntity, itemStack, equipmentSlot, original);
                 return this.lRenderer;
             }
-
         });
-        consumer.accept(new IClientItemExtensions() {
-            private VisorRenderer.VisorSlotRenderer renderer = null;
 
-            // Don't instantiate until ready. This prevents race conditions breaking things
+        consumer.accept(new IClientItemExtensions() {
+            // Use the generic slot renderer
+            private GenericNVGGogglesRenderer.GenericNVGGogglesSlotRenderer<VisorItem> renderer = null;
+
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
                 if (this.renderer == null)
-                    this.renderer = new VisorRenderer.VisorSlotRenderer();
-
+                    this.renderer = new GenericNVGGogglesRenderer.GenericNVGGogglesSlotRenderer<>();
                 return renderer;
             }
         });
@@ -92,7 +104,6 @@ public class VisorItem extends GenericNVGGogglesItem {
         super.appendHoverText(stack, level, tooltip, flag);
         tooltip.add(Component.translatable("description.mm.nvgs").withStyle(ChatFormatting.GRAY));
     }
-
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {

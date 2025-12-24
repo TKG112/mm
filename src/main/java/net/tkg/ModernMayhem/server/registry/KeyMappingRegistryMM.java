@@ -58,6 +58,21 @@ public class KeyMappingRegistryMM {
 
     };
 
+    public static final KeyMapping TOGGLE_AUTO_GAIN_KEY = new KeyMapping("key.mm.toggle_auto_gain", GLFW.GLFW_KEY_LEFT, CATEGORY) {
+        private boolean isDownOld = false;
+
+        @Override
+        public void setDown(boolean isDown) {
+            super.setDown(isDown);
+            if (isDownOld != isDown && isDown) {
+                if (CuriosUtil.hasNVGEquipped(Minecraft.getInstance().player)) {
+                    PacketsRegistryMM.getChannel().sendToServer(new NVGAutoGainTogglePacket());
+                }
+            }
+            isDownOld = isDown;
+        }
+    };
+
     public static final KeyMapping OPEN_BACKPACK_KEY = new KeyMapping("key.mm.open_backpack", GLFW.GLFW_KEY_B, CATEGORY) {
         private boolean isDownOld = false;
 

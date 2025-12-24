@@ -22,7 +22,6 @@ public class NVGSyncSwitchOnPacket extends PacketBase {
     @Override
     public boolean handle(NetworkEvent.Context context) {
         if (!isCtS(context)) return false;
-        // This section switch the NVG status on the player's facewear slot and play the sound accordingly
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             if (player != null) {

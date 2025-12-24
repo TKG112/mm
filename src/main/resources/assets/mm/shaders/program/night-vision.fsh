@@ -1,16 +1,20 @@
-#version 120
+#version 150
 
 uniform float NightVisionEnabled;
 uniform float VignetteEnabled;
+uniform float AutoGainEnabled;
 uniform float VignetteRadius;
 uniform float Brightness;
 uniform float SepiaRatio;
 uniform sampler2D DiffuseSampler;
 uniform sampler2D NoiseSampler;
+uniform sampler2D AutoGainSampler;
 uniform float Time;
-varying vec2 texCoord;
-varying vec2 oneTexel;
-varying vec4 outPos;
+
+in vec2 texCoord;
+in vec2 oneTexel;
+in vec4 outPos;
+
 uniform vec2 InSize;
 uniform float NoiseAmplification;
 uniform float IntensityAdjust;
@@ -18,25 +22,34 @@ uniform float XOffset;
 uniform float RedValue;
 uniform float GreenValue;
 uniform float BlueValue;
-
-
 uniform float GPNVGMode;
 uniform float PVS14Mode;
 uniform float PVS7Mode;
+
+out vec4 fragColor;
 
 const float SOFTNESS = 0.25;
 const float contrast = 0.8;
 const vec3 SEPIA = vec3(1.2, 1.0, 0.8);
 
 void main() {
-    vec4 texColor = texture2D(DiffuseSampler, texCoord.xy);
-    texColor.rgb *= Brightness;
+    vec4 texColor = texture(DiffuseSampler, texCoord.xy);
+
+    float finalGain = Brightness;
+
+    if (AutoGainEnabled > 0.5) {
+        float autoGainValue = texture(AutoGainSampler, vec2(0.25, 0.25)).r;
+        finalGain = autoGainValue;
+    }
+
+    texColor.rgb *= finalGain;
 
     if (NightVisionEnabled > 0.0) {
         vec2 uv;
         uv.x = 0.35 * sin(Time * 10.0);
         uv.y = 0.35 * cos(Time * 10.0);
-        vec3 noise = texture2D(NoiseSampler, texCoord.xy + uv).rgb * NoiseAmplification;
+
+        vec3 noise = texture(NoiseSampler, texCoord.xy + uv).rgb * NoiseAmplification;
         texColor.xy += noise.xy * 0.005;
     }
 
@@ -47,7 +60,6 @@ void main() {
     }
 
     float alpha = 1.0;
-
     if (NightVisionEnabled > 0.0) {
         vec2 scaledCoord;
         bool inside = false;
@@ -82,7 +94,6 @@ void main() {
             vec2 center = vec2(0.5 + XOffset, 0.5);
             vec2 scaledCoord = (texCoord.xy - center) * vec2(InSize.x / InSize.y, 1.0);
             float dist = length(scaledCoord);
-
             if (dist <= 0.4) {
                 const vec3 lumvec = vec3(0.30, 0.59, 0.11);
                 float intensity = dot(lumvec, texColor.rgb);
@@ -97,7 +108,6 @@ void main() {
             vec2 center = vec2(0.5, 0.5);
             vec2 scaledCoord = (texCoord.xy - center) * vec2(InSize.x / InSize.y, 1.0);
             float dist = length(scaledCoord);
-
             if (dist <= 0.4) {
                 const vec3 lumvec = vec3(0.30, 0.59, 0.11);
                 float intensity = dot(lumvec, texColor.rgb);
@@ -126,5 +136,5 @@ void main() {
         texColor = mix(texColor, sepiaColor, SepiaRatio);
     }
 
-    gl_FragColor = vec4(texColor.rgb, 1);
+    fragColor = vec4(texColor.rgb, 1);
 }

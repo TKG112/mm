@@ -5,8 +5,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.client.item.NVGFirstPersonFakeItem;
-import net.tkg.ModernMayhem.client.models.curios.facewear.NVGGogglesModel;
+import net.tkg.ModernMayhem.client.models.curios.facewear.GenericNVGGogglesModel;
 import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.curios.facewear.TVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.curios.facewear.VisorItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import software.bernie.geckolib.model.GeoModel;
@@ -24,6 +25,7 @@ public class NVGFirstPersonModel extends GeoModel<NVGFirstPersonFakeItem> {
             case 1 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/fpm/facewear/pvs14_fpm.geo.json");
             case 2 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/fpm/facewear/pvs7_fpm.geo.json");
             case 3 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/fpm/facewear/visor_fpm.geo.json");
+            case 4 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/fpm/facewear/tvg_fpm.geo.json");
             default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
         };
     }
@@ -43,9 +45,9 @@ public class NVGFirstPersonModel extends GeoModel<NVGFirstPersonFakeItem> {
                     default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
                 };
             }
-            default -> NVGGogglesModel.getTextureResource(type, variant);
+            default -> GenericNVGGogglesModel.getTextureResource(type, variant);
         }
-        return NVGGogglesModel.getTextureResource(type, variant);
+        return GenericNVGGogglesModel.getTextureResource(type, variant);
     }
 
     @Override
@@ -55,29 +57,32 @@ public class NVGFirstPersonModel extends GeoModel<NVGFirstPersonFakeItem> {
             case 1 -> fromNamespaceAndPath(ModernMayhemMod.ID, "animations/item/fpa/facewear/pvs14_fpa.animation.json");
             case 2 -> fromNamespaceAndPath(ModernMayhemMod.ID, "animations/item/fpa/facewear/pvs7_fpa.animation.json");
             case 3 -> fromNamespaceAndPath(ModernMayhemMod.ID, "animations/item/fpa/facewear/visor_fpa.animation.json");
+            case 4 -> fromNamespaceAndPath(ModernMayhemMod.ID, "animations/item/fpa/facewear/tvg_fpa.animation.json");
             default -> fromNamespaceAndPath(ModernMayhemMod.ID, "NOT_FOUND");
         };
     }
 
-    // This method only gets the type of the player's NVG goggles (0 for GPNVG, 1 for PVS-14, 2 for PVS-7)
     private int getType() {
         ItemStack facewear = CuriosUtil.getFaceWearItem(mc.player);
         if (facewear.getItem() instanceof NVGGogglesItem nvgGogglesItem) {
             return nvgGogglesItem.getConfig().getType();
         } else if (facewear.getItem() instanceof VisorItem visorItem) {
             return visorItem.getConfig().getType();
+        } else if (facewear.getItem() instanceof TVGGogglesItem tvgGogglesItem) {
+            return tvgGogglesItem.getConfig().getType();
         }
-        return -1; // No NVG goggles equipped
+        return -1;
     }
 
-    // This method only gets the variant of the player's NVG goggles (0 for black, 1 for tan, 2 for green, 99 for ultra gamer)
     private int getVariant() {
         ItemStack facewear = CuriosUtil.getFaceWearItem(mc.player);
         if (facewear.getItem() instanceof NVGGogglesItem nvgGogglesItem) {
             return nvgGogglesItem.getConfig().getVariant();
         } else if (facewear.getItem() instanceof VisorItem visorItem) {
             return visorItem.getConfig().getVariant();
+        } else if (facewear.getItem() instanceof TVGGogglesItem tvgGogglesItem) {
+            return tvgGogglesItem.getConfig().getVariant();
         }
-        return -1; // No NVG goggles equipped
+        return -1;
     }
 }

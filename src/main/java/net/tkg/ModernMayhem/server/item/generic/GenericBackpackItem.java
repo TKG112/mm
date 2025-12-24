@@ -5,6 +5,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -29,27 +30,60 @@ import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 import java.util.List;
 
-public class GenericBackpackItem extends Item implements ICurioItem {
-    private final int inventorySize;
-    private final byte inventoryLines;
-    private final byte inventoryColumns;
+public abstract class GenericBackpackItem extends Item implements ICurioItem {
     private final byte curiosSlotType;
 
-    public GenericBackpackItem(byte pInventoryLines, byte pInventoryColumns, byte pCuriosSlotType) {
+    public GenericBackpackItem(byte pCuriosSlotType) {
         super(new Properties().stacksTo(1));
-        this.inventorySize = pInventoryLines * pInventoryColumns;
-        this.inventoryLines = pInventoryLines;
-        this.inventoryColumns = pInventoryColumns;
         this.curiosSlotType = pCuriosSlotType;
     }
 
+    public abstract int getInventoryLines();
+    public abstract int getInventoryColumns();
 
-    // This method is called when the player right clicks the item in game
+    public abstract boolean canSupplyAmmo();
+
+    public int getInventorySize() {
+        return getInventoryLines() * getInventoryColumns();
+    }
+
+    private void validateAndResizeInventory(ItemStack stack, Player player) {
+        CompoundTag tag = stack.getOrCreateTag();
+        if (!tag.contains("inventory")) return;
+
+        int configSize = getInventorySize();
+        ItemStackHandler currentHandler = new ItemStackHandler();
+        currentHandler.deserializeNBT(tag.getCompound("inventory"));
+
+        if (currentHandler.getSlots() != configSize) {
+            ItemStackHandler newHandler = new ItemStackHandler(configSize);
+
+            for (int i = 0; i < currentHandler.getSlots(); i++) {
+                ItemStack s = currentHandler.getStackInSlot(i);
+
+                if (i < configSize) {
+                    newHandler.setStackInSlot(i, s);
+                }
+                else if (!s.isEmpty()) {
+                    if (!player.getInventory().add(s)) {
+                        player.drop(s, false);
+                    }
+                }
+            }
+            tag.put("inventory", newHandler.serializeNBT());
+        }
+    }
+
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, @NotNull Player pPlayer, @NotNull InteractionHand pUsedHand) {
-        if (this.inventorySize != 0) {
+        if (this.getInventorySize() > 0) {
             ItemStack stack = pPlayer.getItemInHand(pUsedHand);
-            InitInventory(stack, this.inventorySize);
+
+            if (!pLevel.isClientSide) {
+                validateAndResizeInventory(stack, pPlayer);
+            }
+
+            InitInventory(stack, this.getInventorySize());
             if (pPlayer instanceof ServerPlayer && pUsedHand == InteractionHand.MAIN_HAND) {
                 OpenGUIFromPlayerInventory(pPlayer, stack);
             }
@@ -57,19 +91,17 @@ public class GenericBackpackItem extends Item implements ICurioItem {
         return super.use(pLevel, pPlayer, pUsedHand);
     }
 
-    // This method is called when the player click on an item with the backpack on the mouse in the inventory
     @Override
     public boolean overrideStackedOnOther(ItemStack pStack, Slot pSlot, ClickAction pAction, Player pPlayer) {
-        if (this.inventorySize != 0) {
+        if (this.getInventorySize() > 0) {
             ItemStack slotStack = pSlot.getItem();
-            // Check if the item has an inventory tag if not create one
-            CompoundTag tag = InitInventory(pStack, this.inventorySize);
+            CompoundTag tag = InitInventory(pStack, this.getInventorySize());
 
             if (pAction == ClickAction.SECONDARY) {
-                ItemStackHandler inventory = new ItemStackHandler(inventorySize);
+                ItemStackHandler inventory = new ItemStackHandler(getInventorySize());
                 inventory.deserializeNBT(tag.getCompound("inventory"));
+
                 if (slotStack.isEmpty()) {
-                    // If the slot is empty, we can insert the stack
                     for (int i = inventory.getSlots() - 1; i >= 0; i--) {
                         ItemStack stack = inventory.getStackInSlot(i);
                         if (!stack.isEmpty()) {
@@ -79,17 +111,14 @@ public class GenericBackpackItem extends Item implements ICurioItem {
                         }
                     }
                 } else {
-                    // If the slot is not empty, we add the stack to the inventory
                     for (int i = 0; i < inventory.getSlots(); i++) {
                         ItemStack stack = inventory.getStackInSlot(i);
-                        // If the stack is the same as the slotStack, we can merge the stacks
                         if (ItemStack.isSameItemSameTags(slotStack, inventory.getStackInSlot(i))) {
                             ItemStack remaining = inventory.insertItem(i, slotStack, false);
                             pSlot.set(remaining);
                             tag.put("inventory", inventory.serializeNBT());
                             if (remaining.getCount() <= 0) return true;
                         }
-                        // If the stack is empty, we can insert the slotStack
                         if (stack.isEmpty()) {
                             inventory.insertItem(i, slotStack, false);
                             pSlot.set(ItemStack.EMPTY);
@@ -103,7 +132,6 @@ public class GenericBackpackItem extends Item implements ICurioItem {
         return super.overrideStackedOnOther(pStack, pSlot, pAction, pPlayer);
     }
 
-    // This method is called when the player click on the backpack with an item on the mouse in the inventory
     @Override
     public boolean overrideOtherStackedOnMe(ItemStack pStack, ItemStack pOther, Slot pSlot, ClickAction pAction, Player pPlayer, SlotAccess pAccess) {
         return super.overrideOtherStackedOnMe(pStack, pOther, pSlot, pAction, pPlayer, pAccess);
@@ -117,22 +145,24 @@ public class GenericBackpackItem extends Item implements ICurioItem {
         return tag;
     }
 
-    // Used to open the GUI from the player inventory
     public void OpenGUIFromPlayerInventory(Player pPlayer, ItemStack pStack) {
-        if (this.inventorySize != 0) {
+        if (this.getInventorySize() > 0) {
             ServerPlayer player = (ServerPlayer) pPlayer;
             FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
             CompoundTag tag = pStack.getOrCreateTag();
+
+            validateAndResizeInventory(pStack, pPlayer);
+
             if (tag.contains("inventory")) {
-                data.writeByte(this.inventoryLines);
-                data.writeByte(this.inventoryColumns);
+                data.writeByte(this.getInventoryLines());
+                data.writeByte(this.getInventoryColumns());
                 data.writeNbt(tag.getCompound("inventory"));
                 data.writeBoolean(false);
                 data.writeItemStack(pStack, false);
             }
             NetworkHooks.openScreen(player, new SimpleMenuProvider(((pContainerId, pPlayerInventory, pPlayer1) -> new GenericBackpackGUI(pContainerId, pPlayerInventory, data)), pStack.getDisplayName()), friendlyByteBuf -> {
-                friendlyByteBuf.writeByte(inventoryLines);
-                friendlyByteBuf.writeByte(inventoryColumns);
+                friendlyByteBuf.writeByte(getInventoryLines());
+                friendlyByteBuf.writeByte(getInventoryColumns());
                 friendlyByteBuf.writeNbt(tag.getCompound("inventory"));
                 friendlyByteBuf.writeBoolean(false);
                 friendlyByteBuf.writeItemStack(pStack, false);
@@ -140,9 +170,8 @@ public class GenericBackpackItem extends Item implements ICurioItem {
         }
     }
 
-    // Used to open the GUI from the curios inventory in the given type of slot
     public void OpenGUIFromCuriosInventory(Player pPlayer, ItemStack pStack) {
-        if (this.inventorySize != 0) {
+        if (this.getInventorySize() > 0) {
             ServerPlayer player = (ServerPlayer) pPlayer;
             FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
             CompoundTag tag = pStack.getOrCreateTag();
@@ -157,7 +186,10 @@ public class GenericBackpackItem extends Item implements ICurioItem {
                 case 1 -> CuriosUtil.getRigSlotID(pPlayer);
                 default -> -1;
             };
-            InitInventory(pStack, inventorySize);
+
+            validateAndResizeInventory(pStack, pPlayer);
+
+            InitInventory(pStack, getInventorySize());
             ICuriosItemHandler playerCuriosInventory = CuriosApi.getCuriosInventory(pPlayer).resolve().get();
             if (resetStackInInv) {
                 playerCuriosInventory.getStacksHandler(curiosSlotTypeIdentifer).ifPresent(iCurioStacksHandler -> {
@@ -165,18 +197,17 @@ public class GenericBackpackItem extends Item implements ICurioItem {
                 });
                 playerCuriosInventory = CuriosApi.getCuriosInventory(pPlayer).resolve().get();
             }
-            data.writeByte(this.inventoryLines);
-            data.writeByte(this.inventoryColumns);
+            data.writeByte(this.getInventoryLines());
+            data.writeByte(this.getInventoryColumns());
             data.writeNbt(tag.getCompound("inventory"));
             data.writeBoolean(true);
             data.writeByte(backpackSlotID);
             data.writeByte(this.curiosSlotType);
 
-
-            ICuriosItemHandler finalPlayerCuriosInventory = playerCuriosInventory; // Final variable for lambda
+            ICuriosItemHandler finalPlayerCuriosInventory = playerCuriosInventory;
             NetworkHooks.openScreen(player, new SimpleMenuProvider(((pContainerId, pPlayerInventory, pPlayer1) -> new GenericBackpackGUI(pContainerId, pPlayerInventory, data, finalPlayerCuriosInventory)), pStack.getDisplayName()), friendlyByteBuf -> {
-                friendlyByteBuf.writeByte(inventoryLines);
-                friendlyByteBuf.writeByte(inventoryColumns);
+                friendlyByteBuf.writeByte(getInventoryLines());
+                friendlyByteBuf.writeByte(getInventoryColumns());
                 friendlyByteBuf.writeNbt(tag.getCompound("inventory"));
                 friendlyByteBuf.writeBoolean(true);
                 friendlyByteBuf.writeByte(backpackSlotID);
@@ -191,15 +222,17 @@ public class GenericBackpackItem extends Item implements ICurioItem {
 
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("inventory")) {
-            ItemStackHandler inventory = new ItemStackHandler(inventorySize);
+            ItemStackHandler inventory = new ItemStackHandler();
             inventory.deserializeNBT(tag.getCompound("inventory"));
 
             int shownItems = 0;
             for (int i = 0; i < inventory.getSlots(); i++) {
                 ItemStack item = inventory.getStackInSlot(i);
                 if (!item.isEmpty()) {
-                    tooltip.add(Component.literal("• " + item.getDisplayName().getString() + " x" + item.getCount())
-                            .withStyle(ChatFormatting.GRAY));
+                    MutableComponent line = Component.literal("• ").withStyle(ChatFormatting.GRAY);
+                    line.append(item.getHoverName());
+                    line.append(Component.literal(" x" + item.getCount()).withStyle(ChatFormatting.GRAY));
+                    tooltip.add(line);
                     shownItems++;
                     if (shownItems >= 5) break;
                 }

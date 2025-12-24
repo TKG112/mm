@@ -13,6 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.RegistryObject;
 import net.tkg.ModernMayhem.ModernMayhemMod;
+import net.tkg.ModernMayhem.server.item.NVGGoggleList;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.constant.DataTickets;
@@ -47,10 +48,19 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
 
     private static final TagKey<Item> HAS_HEAD_MOUNT_TAG = ItemTags.create(fromNamespaceAndPath(ModernMayhemMod.ID, "has_head_mount"));
 
+    public enum GoggleType {
+        NIGHT_VISION,
+        THERMAL
+    }
+
+    private final GoggleType goggleType;
+
+    public abstract NVGGoggleList getConfig();
 
     public GenericNVGGogglesItem(NVGConfig pConfig) {
         super(new Item.Properties().stacksTo(1).durability(0));
         defaultConfigIndex = 0;
+        this.goggleType = GoggleType.NIGHT_VISION;
     }
 
     public GenericNVGGogglesItem(NVGConfig pConfig, RegistryObject<SoundEvent> pActivationSound, RegistryObject<SoundEvent> pDeactivationSound) {
@@ -58,6 +68,7 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
         defaultConfigIndex = 0;
         this.ACTIVATION_SOUND = pActivationSound;
         this.DEACTIVATION_SOUND = pDeactivationSound;
+        this.goggleType = GoggleType.NIGHT_VISION;
     }
 
     public GenericNVGGogglesItem(NVGConfig[] pConfigs, int startConfigIndex, RegistryObject<SoundEvent> pActivationSound, RegistryObject<SoundEvent> pDeactivationSound) {
@@ -66,6 +77,17 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
         defaultConfigIndex = startConfigIndex;
         this.ACTIVATION_SOUND = pActivationSound;
         this.DEACTIVATION_SOUND = pDeactivationSound;
+        this.goggleType = GoggleType.NIGHT_VISION;
+    }
+
+    // NEW: Constructor for thermal goggles
+    public GenericNVGGogglesItem(NVGConfig[] pConfigs, int startConfigIndex, RegistryObject<SoundEvent> pActivationSound, RegistryObject<SoundEvent> pDeactivationSound, GoggleType pGoggleType) {
+        super(new Item.Properties().stacksTo(1).durability(0));
+        this.configs = pConfigs;
+        defaultConfigIndex = startConfigIndex;
+        this.ACTIVATION_SOUND = pActivationSound;
+        this.DEACTIVATION_SOUND = pDeactivationSound;
+        this.goggleType = pGoggleType;
     }
 
     public boolean shouldRenderShader() {
@@ -76,25 +98,46 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
         return true;
     }
 
+    // NEW: Get goggle type
+    public GoggleType getGoggleType() {
+        return goggleType;
+    }
+
+    // NEW: Check if this is thermal vision
+    public boolean isThermalVision() {
+        return goggleType == GoggleType.THERMAL;
+    }
 
     public static NVGConfig getCurrentConfig(ItemStack item) {
         CompoundTag tag = item.getOrCreateTag();
         GenericNVGGogglesItem itemInstance = (GenericNVGGogglesItem) item.getItem();
+
+        // Check if configs are null or empty
         if (itemInstance.configs == null || itemInstance.configs.length == 0) {
             if (!tag.contains("configIndex")) tag.putInt("configIndex", 0);
             return FALLBACK_CONFIG;
         }
+
+        // Ensure defaultConfigIndex is within bounds
+        int safeDefaultIndex = Math.min(defaultConfigIndex, itemInstance.configs.length - 1);
+
         if (tag.contains("configIndex")) {
             int idx = tag.getInt("configIndex");
-            if (idx >= 0 && idx < itemInstance.configs.length) {
-                return itemInstance.configs[idx];
-            } else {
-                tag.putInt("configIndex", 0);
-                return itemInstance.configs[0];
+            // Clamp the index to valid range
+            if (idx < 0) {
+                idx = 0;
+            } else if (idx >= itemInstance.configs.length) {
+                idx = itemInstance.configs.length - 1;
             }
+            // Update the tag with the clamped value
+            tag.putInt("configIndex", idx);
+            item.setTag(tag);
+            return itemInstance.configs[idx];
         }
-        tag.putInt("configIndex", defaultConfigIndex);
-        return itemInstance.configs[defaultConfigIndex];
+        // No config index in tag, use safe default
+        tag.putInt("configIndex", safeDefaultIndex);
+        item.setTag(tag);
+        return itemInstance.configs[safeDefaultIndex];
     }
 
     private void updateNVGMode(ItemStack stack) {
@@ -170,26 +213,52 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
 
     public static void switchConfigUp(ItemStack item) {
         CompoundTag tag = item.getOrCreateTag();
-        if (tag.contains("configIndex")) {
-            int configIndex = tag.getInt("configIndex");
-            if (configIndex < ((GenericNVGGogglesItem) item.getItem()).configs.length - 1) {
-                tag.putInt("configIndex", configIndex + 1);
-            }
+        GenericNVGGogglesItem itemInstance = (GenericNVGGogglesItem) item.getItem();
+
+        if (itemInstance.configs == null || itemInstance.configs.length == 0) {
+            tag.putInt("configIndex", 0);
+            item.setTag(tag);
             return;
         }
-        tag.putInt("configIndex", defaultConfigIndex);
+
+        if (tag.contains("configIndex")) {
+            int configIndex = tag.getInt("configIndex");
+            configIndex = Math.max(0, Math.min(configIndex, itemInstance.configs.length - 1));
+            if (configIndex < itemInstance.configs.length - 1) {
+                tag.putInt("configIndex", configIndex + 1);
+            }
+            item.setTag(tag);
+            return;
+        }
+
+        int safeDefaultIndex = Math.min(defaultConfigIndex, itemInstance.configs.length - 1);
+        tag.putInt("configIndex", safeDefaultIndex);
+        item.setTag(tag);
     }
 
     public static void switchConfigDown(ItemStack item) {
         CompoundTag tag = item.getOrCreateTag();
+        GenericNVGGogglesItem itemInstance = (GenericNVGGogglesItem) item.getItem();
+
+        if (itemInstance.configs == null || itemInstance.configs.length == 0) {
+            tag.putInt("configIndex", 0);
+            item.setTag(tag);
+            return;
+        }
+
         if (tag.contains("configIndex")) {
             int configIndex = tag.getInt("configIndex");
+            configIndex = Math.max(0, Math.min(configIndex, itemInstance.configs.length - 1));
             if (configIndex > 0) {
                 tag.putInt("configIndex", configIndex - 1);
             }
+            item.setTag(tag);
             return;
         }
-        tag.putInt("configIndex", defaultConfigIndex);
+
+        int safeDefaultIndex = Math.min(defaultConfigIndex, itemInstance.configs.length - 1);
+        tag.putInt("configIndex", safeDefaultIndex);
+        item.setTag(tag);
     }
 
     @Override
@@ -244,6 +313,10 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
             overlay = fromNamespaceAndPath(ModernMayhemMod.ID, pOverlay);
         }
 
+        public NVGConfig(String pOverlay) {
+            overlay = fromNamespaceAndPath(ModernMayhemMod.ID, pOverlay);
+        }
+
         public float getBrightness() { return brightness; }
         public float getRedValue() { return redValue; }
         public float getGreenValue() { return greenValue; }
@@ -279,14 +352,11 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
         }
     }
 
-
-    // Used to check if it can be equipped (In this case, if the player has a helmet with the tag 'mm:hasHeadMount' equipped)
     @Override
     public boolean canEquip(SlotContext slotContext, ItemStack stack) {
         LivingEntity entity = slotContext.entity();
         if (!(entity instanceof Player player)) return false;
 
-        // If player data is not fully available yet (e.g., during login), allow equip
         if (!player.isAddedToWorld()) return true;
 
         ItemStack headItem = player.getItemBySlot(EquipmentSlot.HEAD);
@@ -303,6 +373,25 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
         if (currentIndex != lastIndex) {
             lastConfigIndexMap.put(playerId, currentIndex);
             return true;
+        }
+        return false;
+    }
+
+    public static void switchAutoGain(ItemStack stack) {
+        CompoundTag tag = stack.getOrCreateTag();
+        if (tag.contains("AutoGainEnabled")) {
+            boolean currentStatus = tag.getBoolean("AutoGainEnabled");
+            tag.putBoolean("AutoGainEnabled", !currentStatus);
+        } else {
+            tag.putBoolean("AutoGainEnabled", true);
+        }
+        stack.setTag(tag);
+    }
+
+    public static boolean isAutoGainEnabled(ItemStack stack) {
+        CompoundTag tag = stack.getTag();
+        if (tag != null && tag.contains("AutoGainEnabled")) {
+            return tag.getBoolean("AutoGainEnabled");
         }
         return false;
     }
