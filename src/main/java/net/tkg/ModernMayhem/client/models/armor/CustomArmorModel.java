@@ -21,7 +21,7 @@ public class CustomArmorModel extends GeoModel<CustomArmorItem> {
                 switch (customArmorItem.getType()) {
                     case HELMET -> {
                         return switch (customArmorItem.getVariant()) {
-                            case 0, 2 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/armor/combat_helmet.geo.json");
+                            case 0, 2, 6 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/armor/combat_helmet.geo.json");
                             case 1 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/armor/ssh68_helmet.geo.json");
                             default -> throw new IllegalStateException("Unexpected value: no such armor type as " + customArmorItem.getMaterial().getName());
                         };
@@ -81,7 +81,6 @@ public class CustomArmorModel extends GeoModel<CustomArmorItem> {
 
     @Override
     public ResourceLocation getTextureResource(CustomArmorItem customArmorItem) {
-        // Check slim status at render time
         boolean isSlim = CustomArmorRenderer.SLIM_CONTEXT.get();
 
         switch (customArmorItem.getMaterial().getName()) {
@@ -125,6 +124,9 @@ public class CustomArmorModel extends GeoModel<CustomArmorItem> {
                     }
                     case 5 -> {
                         return fromNamespaceAndPath(ModernMayhemMod.ID, "textures/armor/tan_iola.png");
+                    }
+                    case 6 -> {
+                        return fromNamespaceAndPath(ModernMayhemMod.ID, "textures/armor/c1300_helmet.png");
                     }
                     default -> throw new IllegalStateException("Unexpected value: No such variant with id " + customArmorItem.getVariant());
                 }

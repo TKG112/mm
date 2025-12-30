@@ -58,7 +58,6 @@ public enum RigStorageProperties {
 
     public int getLines() { return this.configFile.LINES.get(); }
     public int getColumns() { return this.configFile.COLUMNS.get(); }
-    // [NEW] Getter
     public boolean suppliesAmmo() { return this.configFile.SUPPLIES_AMMO.get(); }
 
     public ForgeConfigSpec getConfig() { return this.configFile.getConfig(); }
@@ -68,7 +67,7 @@ public enum RigStorageProperties {
         public ForgeConfigSpec CONFIG;
         public ForgeConfigSpec.IntValue LINES;
         public ForgeConfigSpec.IntValue COLUMNS;
-        public ForgeConfigSpec.BooleanValue SUPPLIES_AMMO; // [NEW]
+        public ForgeConfigSpec.BooleanValue SUPPLIES_AMMO;
 
         public StorageConfigFile(String name, int defaultLines, int defaultCols, boolean defaultSuppliesAmmo) {
             BUILDER.push("Rig Configuration: " + name);
@@ -79,7 +78,6 @@ public enum RigStorageProperties {
             COLUMNS = BUILDER.comment("\nNumber of columns in the inventory.", "Default: " + defaultCols)
                     .defineInRange("columns", defaultCols, 0, 9);
 
-            // [NEW] Config Option
             SUPPLIES_AMMO = BUILDER.comment("\nWhether this rig can automatically supply ammo to guns.", "Default: " + defaultSuppliesAmmo)
                     .define("suppliesAmmo", defaultSuppliesAmmo);
 

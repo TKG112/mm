@@ -35,7 +35,6 @@ public enum BackpackStorageProperties {
         return this.configFile.getConfig();
     }
 
-    // Helper to get properties by tier ID
     public static BackpackStorageProperties getByTier(int tier) {
         return switch (tier) {
             case 1 -> TIER_1;

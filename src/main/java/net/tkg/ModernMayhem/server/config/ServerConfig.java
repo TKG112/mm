@@ -24,7 +24,7 @@ public class ServerConfig {
         }
 
         for(RigStorageProperties curiosConfig : RigStorageProperties.values()) {
-            ModernMayhemMod.getModLoadingContext().registerConfig(ModConfig.Type.SERVER, curiosConfig.getConfig(), "modern-mayhem/curios-config/rigs/" + curiosConfig.getName() + ".toml");
+            ModernMayhemMod.getModLoadingContext().registerConfig(ModConfig.Type.SERVER, curiosConfig.getConfig(), "modern-mayhem/curios-config/body/storage/" + curiosConfig.getName() + ".toml");
         }
 
     }

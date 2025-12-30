@@ -4,9 +4,6 @@
     "mm:black_combat_helmet",
     "mm:tan_combat_helmet",
     "mm:black_head_mount",
-    "minecraft:iron_helmet",
-    "minecraft:diamond_helmet",
-    "minecraft:golden_helmet",
-    "minecraft:netherite_helmet"
+    "mm:c1300_helmet"
   ]
 }

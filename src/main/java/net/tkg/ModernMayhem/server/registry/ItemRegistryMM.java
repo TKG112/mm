@@ -126,6 +126,8 @@ public class ItemRegistryMM {
             () -> new CustomArmorItem(ArmorProperties.NOTHING, ArmorItem.Type.HELMET,0, true));
     public static final RegistryObject<Item> BLACK_RONIN = ITEMS.register("black_ronin",
             () -> new CustomArmorItem(ArmorProperties.RONIN, ArmorItem.Type.HELMET,0, true));
+    public static final RegistryObject<Item> C1300 = ITEMS.register("c1300_helmet",
+            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.HELMET,6, true));
 
     public static final RegistryObject<Item> BLACK_IOLA = ITEMS.register("black_iola",
             () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.LEGGINGS,3));

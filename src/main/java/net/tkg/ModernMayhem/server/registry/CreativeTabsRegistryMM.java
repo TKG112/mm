@@ -46,6 +46,7 @@ public class CreativeTabsRegistryMM {
                         pOutput.accept(ItemRegistryMM.TAN_BANDOLEER.get());
                         pOutput.accept(ItemRegistryMM.GREEN_RECON.get());
                         pOutput.accept(ItemRegistryMM.HEXAGON_RIG.get());
+                        pOutput.accept(ItemRegistryMM.C1300.get());
                         pOutput.accept(ItemRegistryMM.BLACK_COMBAT_HELMET.get());
                         pOutput.accept(ItemRegistryMM.BLACK_KEVLAR_CHESTPLATE.get());
                         pOutput.accept(ItemRegistryMM.BLACK_KEVLAR_LEGGINGS.get());
