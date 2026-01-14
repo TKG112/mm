@@ -31,22 +31,29 @@ public class NVGGogglesItem extends GenericNVGGogglesItem {
                 nvgGoggleList.getConfigs(),
                 nvgGoggleList.getConfigIndex(),
                 nvgGoggleList.getActivationSound(),
-                nvgGoggleList.getDeactivationSound()
+                nvgGoggleList.getDeactivationSound(),
+                canHoldCoti(nvgGoggleList)
         );
         this.isGamerNVG = nvgGoggleList == NVGGoggleList.GAMER_GPNVG;
         this.config = nvgGoggleList;
     }
 
+    private static boolean canHoldCoti(NVGGoggleList config) {
+        return config == NVGGoggleList.BLACK_PVS14 ||
+                config == NVGGoggleList.TAN_PVS14 ||
+                config == NVGGoggleList.GREEN_PVS14 ||
+                config == NVGGoggleList.BLACK_PVS7;
+    }
+
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            // Use the generic renderer
             private GenericNVGGogglesRenderer<NVGGogglesItem> lRenderer;
 
             @Override
             public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
                 if (this.lRenderer == null)
-                    this.lRenderer = new GenericNVGGogglesRenderer<>(); // No custom model needed
+                    this.lRenderer = new GenericNVGGogglesRenderer<>();
 
                 this.lRenderer.prepForRender(livingEntity, itemStack, equipmentSlot, original);
                 return this.lRenderer;
@@ -73,9 +80,11 @@ public class NVGGogglesItem extends GenericNVGGogglesItem {
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         super.appendHoverText(stack, level, tooltip, flag);
+
         if (isGamerNVG) {
             tooltip.add(Component.translatable("description.mm.ultra_gamer_gpnvg").withStyle(ChatFormatting.RED));
         }
+
         tooltip.add(Component.translatable("description.mm.nvgs").withStyle(ChatFormatting.GRAY));
     }
 
@@ -86,5 +95,4 @@ public class NVGGogglesItem extends GenericNVGGogglesItem {
     public NVGGoggleList getConfig() {
         return config;
     }
-
 }

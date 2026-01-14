@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.decoration.HangingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
@@ -11,8 +12,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
+import net.tkg.ModernMayhem.client.event.RenderNVGShader;
 import net.tkg.ModernMayhem.client.event.RenderTVGShader;
 import net.tkg.ModernMayhem.client.outline.render.OutlineRenderer;
+import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.server.util.CuriosUtil;
 
 /**
  * Example usage of the OutlineRenderer system
@@ -30,14 +35,13 @@ public class OutlineThermal {
         OutlineRenderer.setOutlinePredicate(entity -> {
             if (!(entity instanceof LivingEntity)) return false;
 
-            // Exclude item drops
             if (entity instanceof ItemEntity) return false;
 
-            // Exclude thrown projectiles (snowballs, eggs, ender pearls, etc.)
             if (entity instanceof ThrowableProjectile) return false;
 
-            // Exclude hanging entities (item frames, paintings)
             if (entity instanceof HangingEntity) return false;
+
+            if (entity instanceof ArmorStand) return false;
 
             // You can add more exclusions here if you notice more edge-cases:
             // if (entity instanceof SomeOtherType) return false;
@@ -165,8 +169,18 @@ public class OutlineThermal {
             OutlineRenderer.setOutlineColor(1.0f, 1.0f, 1.0f, 2.0f);
         }
 
+        else if (RenderNVGShader.isNvActive() && Minecraft.getInstance().options.getCameraType().isFirstPerson() && isCotiEnabledOnPlayer(player)) {
+            OutlineRenderer.setRenderMode(OutlineRenderer.RenderMode.OUTLINE);
+            OutlineRenderer.setOutlineColor(1.0f, 1.0f, 1.0f, 2.0f);
+        }
+
         else {
             OutlineRenderer.setRenderMode(OutlineRenderer.RenderMode.OFF);
         }
+    }
+
+    private static boolean isCotiEnabledOnPlayer(LocalPlayer player) {
+        ItemStack stack = CuriosUtil.getFaceWearItem(player);
+        return stack.getItem() instanceof NVGGogglesItem && GenericNVGGogglesItem.isCotiEnabled(stack);
     }
 }

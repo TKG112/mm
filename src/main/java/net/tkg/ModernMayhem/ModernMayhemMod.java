@@ -10,25 +10,21 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.tkg.ModernMayhem.client.config.ClientConfig;
 import net.tkg.ModernMayhem.client.event.ItemInteractionEvent;
 import net.tkg.ModernMayhem.client.event.RenderNVGFirstPerson;
 import net.tkg.ModernMayhem.server.compat.OculusCompat;
-import net.tkg.ModernMayhem.server.config.ServerConfig;
+import net.tkg.ModernMayhem.server.config.ArmorConfig;
 import net.tkg.ModernMayhem.server.config.CommonConfig;
+import net.tkg.ModernMayhem.server.config.ServerConfig;
 import net.tkg.ModernMayhem.server.registry.*;
 import org.slf4j.Logger;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(ModernMayhemMod.ID)
-public class ModernMayhemMod
-{
-    // Define mod id in a common place for everything to reference
+public class ModernMayhemMod {
     public static final String ID = "mm";
-    // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
-    // Check if game initialized
     private static boolean isGameReady = false;
-
     private static FMLJavaModLoadingContext modLoadingContext = null;
 
     public ModernMayhemMod(FMLJavaModLoadingContext context) {
@@ -50,27 +46,24 @@ public class ModernMayhemMod
         modEventBus.addListener(this::onGameReady);
         ItemInteractionEvent.register();
 
-
-        context.registerConfig(ModConfig.Type.COMMON, CommonConfig.CONFIG);
-        ServerConfig.init();
+        context.registerConfig(ModConfig.Type.COMMON, CommonConfig.CONFIG, "modern-mayhem-common.toml");
+        context.registerConfig(ModConfig.Type.CLIENT, ClientConfig.CONFIG, "modern-mayhem-client.toml");
+        context.registerConfig(ModConfig.Type.SERVER, ServerConfig.CONFIG, "modern-mayhem-server.toml");
+        ArmorConfig.init();
 
         MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-        // Common setup
         LOGGER.info("HELLO FROM COMMON SETUP");
 
-        // Check soft dependencies
         if (ModList.get().isLoaded("oculus")) {
             LOGGER.info("Oculus is loaded, enabling Oculus compatibility");
             OculusCompat.init(modLoadingContext.getModEventBus());
         }
-
     }
 
     private void clientSetup(FMLClientSetupEvent event) {
-        // All client only
         LOGGER.info("HELLO FROM CLIENT SETUP");
 
         CuriosRendererRegistryMM.register();

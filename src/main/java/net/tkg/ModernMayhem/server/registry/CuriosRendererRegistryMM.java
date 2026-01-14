@@ -36,6 +36,7 @@ public class CuriosRendererRegistryMM {
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_GOGGLES.get(), HeadGearRenderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_HEADSET.get(), HeadGearRenderer::new);
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_MILITARY_BALACLAVA.get(), HeadGearRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.GP5_GAS_MASK.get(), HeadGearRenderer::new);
 
         // Back Gear
         CuriosRendererRegistry.register(ItemRegistryMM.BLACK_BACKPACK_T1.get(), BackpackRenderer::new);

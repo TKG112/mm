@@ -28,6 +28,7 @@ public class CreativeTabsRegistryMM {
                         pOutput.accept(ItemRegistryMM.BLACK_VISOR.get());
                         pOutput.accept(ItemRegistryMM.TAN_VISOR.get());
                         pOutput.accept(ItemRegistryMM.BLACK_TVG.get());
+                        pOutput.accept(ItemRegistryMM.COTI.get());
                         pOutput.accept(ItemRegistryMM.BLACK_BACKPACK_T1.get());
                         pOutput.accept(ItemRegistryMM.BLACK_BACKPACK_T2.get());
                         pOutput.accept(ItemRegistryMM.BLACK_BACKPACK_T3.get());
@@ -78,6 +79,7 @@ public class CreativeTabsRegistryMM {
                         pOutput.accept(ItemRegistryMM.BLACK_GOGGLES.get());
                         pOutput.accept(ItemRegistryMM.BLACK_HEADSET.get());
                         pOutput.accept(ItemRegistryMM.BLACK_MILITARY_BALACLAVA.get());
+                        pOutput.accept(ItemRegistryMM.GP5_GAS_MASK.get());
                         pOutput.accept(ItemRegistryMM.DUFFEL_BAG.get());
                         pOutput.accept(ItemRegistryMM.WHITE_PHOSPHOR.get());
                         pOutput.accept(ItemRegistryMM.GREEN_PHOSPHOR.get());

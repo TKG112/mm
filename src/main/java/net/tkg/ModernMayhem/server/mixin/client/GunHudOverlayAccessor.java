@@ -6,12 +6,12 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(GunHudOverlay.class)
 public interface GunHudOverlayAccessor {
-    @Accessor("cacheInventoryAmmoCount")
+    @Accessor(value = "cacheInventoryAmmoCount", remap = false)
     static int getCacheInventoryAmmoCount() {
         throw new AssertionError();
     }
 
-    @Accessor("cacheInventoryAmmoCount")
+    @Accessor(value = "cacheInventoryAmmoCount", remap = false)
     static void setCacheInventoryAmmoCount(int value) {
         throw new AssertionError();
     }

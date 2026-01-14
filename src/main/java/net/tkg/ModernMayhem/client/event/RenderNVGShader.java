@@ -36,9 +36,7 @@ public class RenderNVGShader {
         try {
             renderNVGShader(event.getPartialTick());
         } catch (Exception e) {
-            // Log error but don't crash
-            System.err.println("[ModernMayhem] Error rendering NVG shader: " + e.getMessage());
-            e.printStackTrace();
+            ModernMayhemMod.LOGGER.error("Error rendering NVG shader", e);
         }
     }
 
@@ -49,9 +47,7 @@ public class RenderNVGShader {
         try {
             renderNVGShader(event.getPartialTick());
         } catch (Exception e) {
-            // Log error but don't crash
-            System.err.println("[ModernMayhem] Error rendering NVG shader: " + e.getMessage());
-            e.printStackTrace();
+            ModernMayhemMod.LOGGER.error("Error rendering NVG shader", e);
         }
     }
 
@@ -62,6 +58,7 @@ public class RenderNVGShader {
         boolean shouldRender = false;
         GenericNVGGogglesItem.NVGConfig nvgItemConfig = null;
         ItemStack facewearItem = null;
+        //boolean useRealisticMask = ClientConfig.REALISTIC_MASK_MODE.get();
 
         if (CuriosUtil.hasNVGEquipped(player)) {
             facewearItem = CuriosUtil.getFaceWearItem(player);
@@ -71,7 +68,7 @@ public class RenderNVGShader {
                     try {
                         nvgItemConfig = GenericNVGGogglesItem.getCurrentConfig(facewearItem);
                     } catch (Exception e) {
-                        System.err.println("[ModernMayhem] Error getting NVG config: " + e.getMessage());
+                        ModernMayhemMod.LOGGER.error("Error getting NVG config", e);
                         shouldRender = false;
                     }
                 }
@@ -89,17 +86,34 @@ public class RenderNVGShader {
         if (NVG_SHADER_RENDERER.isActive() && nvgItemConfig != null && facewearItem != null) {
             try {
                 boolean isUltraGamer = (facewearItem.getItem() instanceof NVGGogglesItem nvgGogglesItem && nvgGogglesItem.isGamerNVG());
+                boolean autoGainActive = GenericNVGGogglesItem.isAutoGainEnabled(facewearItem);
+
+                NVG_SHADER_RENDERER.setFloatUniform("AutoGainEnabled", autoGainActive ? 1.0f : 0.0f);
+
                 NVG_SHADER_RENDERER.setFloatUniform("Brightness", nvgItemConfig.getBrightness());
                 NVG_SHADER_RENDERER.setFloatUniform("RedValue", isUltraGamer ? NVGConfigs.getUltraGamerRedValue() : nvgItemConfig.getRedValue());
                 NVG_SHADER_RENDERER.setFloatUniform("GreenValue", isUltraGamer ? NVGConfigs.getUltraGamerGreenValue() : nvgItemConfig.getGreenValue());
                 NVG_SHADER_RENDERER.setFloatUniform("BlueValue", isUltraGamer ? NVGConfigs.getUltraGamerBlueValue() : nvgItemConfig.getBlueValue());
 
-                boolean autoGainActive = GenericNVGGogglesItem.isAutoGainEnabled(facewearItem);
-                NVG_SHADER_RENDERER.setFloatUniform("AutoGainEnabled", autoGainActive ? 1.0f : 0.0f);
+                //NVG_SHADER_RENDERER.setFloatUniform("UseMask", useRealisticMask ? 1.0f : 0.0f);
+
+                /*
+                if (useRealisticMask) {
+                    ResourceLocation maskLoc = nvgItemConfig.getMask();
+                    if (maskLoc != null) {
+                        NVG_SHADER_RENDERER.setSampler2dUniform("MaskSampler", maskLoc);
+                    }
+
+                }
+                */
             } catch (Exception e) {
-                System.err.println("[ModernMayhem] Error setting shader uniforms: " + e.getMessage());
+                ModernMayhemMod.LOGGER.error("Error setting shader uniforms", e);
             }
         }
+    }
+
+    public static boolean isNvActive() {
+        return NVG_SHADER_RENDERER.isActive();
     }
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
@@ -121,6 +135,12 @@ public class RenderNVGShader {
 
             ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
             if (facewearItem != null && facewearItem.getItem() instanceof NVGGogglesItem nvgGogglesItem) {
+
+                /*
+                boolean useRealisticMask = ClientConfig.REALISTIC_MASK_MODE.get();
+                if (useRealisticMask) return;
+                */
+
                 if (nvgGogglesItem.shouldRenderShader() &&
                         GenericNVGGogglesItem.getNVGMode(facewearItem) == 1 &&
                         Minecraft.getInstance().options.getCameraType().isFirstPerson()) {
@@ -139,7 +159,7 @@ public class RenderNVGShader {
             RenderSystem.disableBlend();
             RenderSystem.setShaderColor(1, 1, 1, 1);
         } catch (Exception e) {
-            System.err.println("[ModernMayhem] Error rendering NVG overlay: " + e.getMessage());
+            ModernMayhemMod.LOGGER.error("Error rendering NVG overlay", e);
         }
     }
 }

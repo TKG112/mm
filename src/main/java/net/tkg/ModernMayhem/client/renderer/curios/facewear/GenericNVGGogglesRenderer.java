@@ -8,9 +8,11 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.tkg.ModernMayhem.client.models.curios.facewear.GenericNVGGogglesModel;
 import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
@@ -22,8 +24,19 @@ import top.theillusivec4.curios.api.client.ICurioRenderer;
 
 public class GenericNVGGogglesRenderer<T extends GenericNVGGogglesItem> extends GeoArmorRenderer<T> implements ICurioRenderer {
 
+    private ItemStack currentRenderStack = ItemStack.EMPTY;
+
     public GenericNVGGogglesRenderer() {
         super(new GenericNVGGogglesModel<>());
+    }
+
+    @Override
+    public ResourceLocation getTextureLocation(T animatable) {
+        if (!this.currentRenderStack.isEmpty() && this.model instanceof GenericNVGGogglesModel) {
+            GenericNVGGogglesModel<T> geoModel = (GenericNVGGogglesModel<T>) this.model;
+            return geoModel.getTextureResource(animatable, this.currentRenderStack);
+        }
+        return super.getTextureLocation(animatable);
     }
 
     @Override
@@ -40,11 +53,24 @@ public class GenericNVGGogglesRenderer<T extends GenericNVGGogglesItem> extends 
             float netHeadYaw,
             float headPitch
     ) {
+        this.currentRenderStack = stack;
+
+        if (this.model instanceof GenericNVGGogglesModel) {
+            GenericNVGGogglesModel<T> geoModel = (GenericNVGGogglesModel<T>) this.model;
+            geoModel.setCurrentStack(stack);
+        }
+
         this.prepForRender(slotContext.entity(), stack, EquipmentSlot.HEAD, (HumanoidModel<?>) renderLayerParent.getModel());
 
         VertexConsumer consumer = renderTypeBuffer.getBuffer(RenderType.armorCutoutNoCull(this.getTextureLocation((T) stack.getItem())));
 
         this.renderToBuffer(matrixStack, consumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+
+        if (this.model instanceof GenericNVGGogglesModel) {
+            GenericNVGGogglesModel<T> geoModel = (GenericNVGGogglesModel<T>) this.model;
+            geoModel.setCurrentStack(ItemStack.EMPTY);
+        }
+        this.currentRenderStack = ItemStack.EMPTY;
     }
 
     @Override
@@ -52,8 +78,44 @@ public class GenericNVGGogglesRenderer<T extends GenericNVGGogglesItem> extends 
     }
 
     public static class GenericNVGGogglesSlotRenderer<T extends GenericNVGGogglesItem> extends GeoItemRenderer<T> {
+        private ItemStack renderingStack = ItemStack.EMPTY;
+
         public GenericNVGGogglesSlotRenderer() {
             super(new GenericNVGGogglesModel<>());
+        }
+
+        @Override
+        public void renderByItem(ItemStack stack, @NotNull ItemDisplayContext transformType, @NotNull PoseStack poseStack,
+                                 @NotNull MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+
+            this.currentItemStack = stack;
+            this.renderingStack = stack;
+
+            T item = (T) stack.getItem();
+
+            if (this.model instanceof GenericNVGGogglesModel) {
+                GenericNVGGogglesModel<T> geoModel = (GenericNVGGogglesModel<T>) this.model;
+                geoModel.setCurrentStack(stack);
+            }
+
+            super.renderByItem(stack, transformType, poseStack, bufferSource, packedLight, packedOverlay);
+
+            if (this.model instanceof GenericNVGGogglesModel) {
+                GenericNVGGogglesModel<T> geoModel = (GenericNVGGogglesModel<T>) this.model;
+                geoModel.setCurrentStack(ItemStack.EMPTY);
+            }
+
+            this.renderingStack = ItemStack.EMPTY;
+            this.currentItemStack = null;
+        }
+
+        @Override
+        public ResourceLocation getTextureLocation(T animatable) {
+            if (!this.renderingStack.isEmpty() && this.model instanceof GenericNVGGogglesModel) {
+                GenericNVGGogglesModel<T> geoModel = (GenericNVGGogglesModel<T>) this.model;
+                return geoModel.getTextureResource(animatable, this.renderingStack);
+            }
+            return super.getTextureLocation(animatable);
         }
     }
 }

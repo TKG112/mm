@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.PostChain;
 import net.minecraft.client.renderer.PostPass;
+import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.server.mixinaccessor.PostChainAccess;
@@ -135,6 +136,34 @@ public class ShaderRenderer {
             }
         }
         return null;
+    }
+
+    /**
+     * Sets a sampler 2D uniform (texture) in the shader.
+     * This method retrieves the shader pass and binds the provided texture resource to the specified sampler name.
+     * @param samplerName - The name of the sampler in the shader JSON (e.g., "MaskSampler").
+     * @param textureLocation - The ResourceLocation of the texture to bind.
+     */
+    public void setSampler2dUniform(String samplerName, ResourceLocation textureLocation) {
+        // Safety check: Ensure the shader is currently loaded and active
+        if (!isCurrentEffect() || mc.gameRenderer.currentEffect() == null) {
+            return;
+        }
+
+        // 1. Get the texture ID from the TextureManager
+        AbstractTexture texture = mc.getTextureManager().getTexture(textureLocation);
+        int textureId = texture.getId();
+
+        // 2. Access the list of passes via the Mixin accessor
+        List<PostPass> passes = ((PostChainAccess) Objects.requireNonNull(mc.gameRenderer.currentEffect())).test_master$getPasses();
+
+        // 3. Find the matching pass and bind the sampler
+        for (PostPass pass : passes) {
+            if (pass.getName().equals(getShaderName())) {
+                // EffectInstance.setSampler takes the name and an IntSupplier for the texture ID
+                pass.getEffect().setSampler(samplerName, () -> textureId);
+            }
+        }
     }
 
     /**

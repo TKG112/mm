@@ -5,128 +5,127 @@ import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
 public class NVGConfigs {
 
     public static GenericNVGGogglesItem.NVGConfig[] WHITE_PHOSPHOR_GPVNG = {
-        new GenericNVGGogglesItem.NVGConfig(
-                0.35f,
-                0.25f,
-                0.5f,
-                0.5f,
-                "textures/screens/gpnvg_overlay.png"
-        ),
-        new GenericNVGGogglesItem.NVGConfig(
-                0.4f,
-                0.25f,
-                0.5f,
-                0.5f,
-                "textures/screens/gpnvg_overlay.png"
-        ),
-        new GenericNVGGogglesItem.NVGConfig(
-                0.45f,
-                0.25f,
-                0.5f,
-                0.5f,
-                "textures/screens/gpnvg_overlay.png"
-        ),
-        new GenericNVGGogglesItem.NVGConfig(
-                0.5f,
-                0.25f,
-                0.5f,
-                0.5f,
-                "textures/screens/gpnvg_overlay.png"
-        ),
-        new GenericNVGGogglesItem.NVGConfig(
-                0.55f,
-                0.25f,
-                0.5f,
-                0.5f,
-                "textures/screens/gpnvg_overlay.png"
-        )
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.35f,
+                    0.25f,
+                    0.5f,
+                    0.5f,
+                    "textures/screens/gpnvg_overlay.png"
+            ),
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.4f,
+                    0.25f,
+                    0.5f,
+                    0.5f,
+                    "textures/screens/gpnvg_overlay.png"
+            ),
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.45f,
+                    0.25f,
+                    0.5f,
+                    0.5f,
+                    "textures/screens/gpnvg_overlay.png"
+            ),
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.5f,
+                    0.25f,
+                    0.5f,
+                    0.5f,
+                    "textures/screens/gpnvg_overlay.png"
+            ),
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.55f,
+                    0.25f,
+                    0.5f,
+                    0.5f,
+                    "textures/screens/gpnvg_overlay.png"
+            )
     };
 
     public static GenericNVGGogglesItem.NVGConfig[] GREEN_PHOSPHOR_GPVNG = {
-        new GenericNVGGogglesItem.NVGConfig(
-                0.4f,
-                0.2f,
-                0.5f,
-                0.2f,
-                "textures/screens/gpnvg_overlay.png"
-        ),
-        new GenericNVGGogglesItem.NVGConfig(
-                0.45f,
-                0.2f,
-                0.5f,
-                0.2f,
-                "textures/screens/gpnvg_overlay.png"
-        ),
-        new GenericNVGGogglesItem.NVGConfig(
-                0.5f,
-                0.2f,
-                0.5f,
-                0.2f,
-                "textures/screens/gpnvg_overlay.png"
-        ),
-        new GenericNVGGogglesItem.NVGConfig(
-                0.55f,
-                0.2f,
-                0.5f,
-                0.2f,
-                "textures/screens/gpnvg_overlay.png"
-        ),
-        new GenericNVGGogglesItem.NVGConfig(
-                0.6f,
-                0.2f,
-                0.5f,
-                0.2f,
-                "textures/screens/gpnvg_overlay.png"
-        )
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.4f,
+                    0.2f,
+                    0.5f,
+                    0.2f,
+                    "textures/screens/gpnvg_overlay.png"
+            ),
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.45f,
+                    0.2f,
+                    0.5f,
+                    0.2f,
+                    "textures/screens/gpnvg_overlay.png"
+            ),
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.5f,
+                    0.2f,
+                    0.5f,
+                    0.2f,
+                    "textures/screens/gpnvg_overlay.png"
+            ),
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.55f,
+                    0.2f,
+                    0.5f,
+                    0.2f,
+                    "textures/screens/gpnvg_overlay.png"
+            ),
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.6f,
+                    0.2f,
+                    0.5f,
+                    0.2f,
+                    "textures/screens/gpnvg_overlay.png"
+            )
     };
 
     public static GenericNVGGogglesItem.NVGConfig[] WHITE_PHOSPHOR_PVS14 = {
-        new GenericNVGGogglesItem.NVGConfig(
-                0.4f,
-                0.25f,
-                0.5f,
-                0.5f,
-                "textures/screens/pvs7_overlay.png"
-        ),
-        new GenericNVGGogglesItem.NVGConfig(
-                0.45f,
-                0.25f,
-                0.5f,
-                0.5f,
-                "textures/screens/pvs7_overlay.png"
-        ),
-        new GenericNVGGogglesItem.NVGConfig(
-                0.5f,
-                0.25f,
-                0.5f,
-                0.5f,
-                "textures/screens/pvs7_overlay.png"
-        )
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.4f,
+                    0.25f,
+                    0.5f,
+                    0.5f,
+                    "textures/screens/pvs7_overlay.png"
+            ),
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.45f,
+                    0.25f,
+                    0.5f,
+                    0.5f,
+                    "textures/screens/pvs7_overlay.png"
+            ),
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.5f,
+                    0.25f,
+                    0.5f,
+                    0.5f,
+                    "textures/screens/pvs7_overlay.png"
+            )
     };
 
-
     public static GenericNVGGogglesItem.NVGConfig[] GREEN_PHOSPHOR_PVS14 = {
-        new GenericNVGGogglesItem.NVGConfig(
-                0.45f,
-                0.2f,
-                0.5f,
-                0.2f,
-                "textures/screens/pvs7_overlay.png"
-        ),
-        new GenericNVGGogglesItem.NVGConfig(
-                0.5f,
-                0.2f,
-                0.5f,
-                0.2f,
-                "textures/screens/pvs7_overlay.png"
-        ),
-        new GenericNVGGogglesItem.NVGConfig(
-                0.55f,
-                0.2f,
-                0.5f,
-                0.2f,
-                "textures/screens/pvs7_overlay.png"
-        )
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.45f,
+                    0.2f,
+                    0.5f,
+                    0.2f,
+                    "textures/screens/pvs7_overlay.png"
+            ),
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.5f,
+                    0.2f,
+                    0.5f,
+                    0.2f,
+                    "textures/screens/pvs7_overlay.png"
+            ),
+            new GenericNVGGogglesItem.NVGConfig(
+                    0.55f,
+                    0.2f,
+                    0.5f,
+                    0.2f,
+                    "textures/screens/pvs7_overlay.png"
+            )
     };
 
     public static GenericNVGGogglesItem.NVGConfig[] WHITE_PHOSPHOR_PVS7 = {
@@ -178,13 +177,14 @@ public class NVGConfigs {
     };
 
     public static GenericNVGGogglesItem.NVGConfig[] THERMAL = {
-            new GenericNVGGogglesItem.NVGConfig("textures/screens/pvs7_overlay.png")
+            new GenericNVGGogglesItem.NVGConfig(
+                    "textures/screens/pvs7_overlay.png"
+            )
     };
 
     private static int redValue = 100;
     private static int greenValue = 0;
     private static int blueValue = 0;
-
 
     public static float getUltraGamerRedValue() {
         if (redValue > 0 && greenValue == 100) {
@@ -194,6 +194,7 @@ public class NVGConfigs {
         }
         return redValue / 100.0f;
     }
+
     public static float getUltraGamerGreenValue() {
         if (greenValue > 0 && blueValue == 100) {
             greenValue--;
@@ -202,6 +203,7 @@ public class NVGConfigs {
         }
         return greenValue / 100.0f;
     }
+
     public static float getUltraGamerBlueValue() {
         if (blueValue > 0 && redValue == 100) {
             blueValue--;

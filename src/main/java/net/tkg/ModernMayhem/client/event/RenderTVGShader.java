@@ -6,8 +6,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -81,28 +79,7 @@ public class RenderTVGShader {
             THERMAL_SHADER_RENDERER.deactivate();
         }
 
-        if (shouldRender) {
-            if (!player.hasEffect(MobEffects.NIGHT_VISION)) {
-                player.addEffect(new MobEffectInstance(
-                        MobEffects.NIGHT_VISION,
-                        -1,
-                        0,
-                        false,
-                        false,
-                        false
-                ));
-            }
-        } else {
-            if (player.hasEffect(MobEffects.NIGHT_VISION)) {
-                player.removeEffect(MobEffects.NIGHT_VISION);
-            }
-        }
-
         THERMAL_SHADER_RENDERER.render();
-
-        if (THERMAL_SHADER_RENDERER.isActive() && thermalConfig != null) {
-
-        }
     }
 
     public static boolean isThermalActive() {

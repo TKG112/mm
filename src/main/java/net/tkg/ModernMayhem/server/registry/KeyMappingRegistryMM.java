@@ -105,4 +105,19 @@ public class KeyMappingRegistryMM {
             isDownOld = isDown;
         }
     };
+
+    public static final KeyMapping TOGGLE_COTI_KEY = new KeyMapping("key.mm.toggle_coti", GLFW.GLFW_KEY_RIGHT, CATEGORY) {
+        private boolean isDownOld = false;
+
+        @Override
+        public void setDown(boolean isDown) {
+            super.setDown(isDown);
+            if (isDownOld != isDown && isDown) {
+                if (CuriosUtil.hasNVGEquipped(Minecraft.getInstance().player)) {
+                    PacketsRegistryMM.getChannel().sendToServer(new NVGCotiTogglePacket());
+                }
+            }
+            isDownOld = isDown;
+        }
+    };
 }

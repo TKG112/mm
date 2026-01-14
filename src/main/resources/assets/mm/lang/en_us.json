@@ -62,8 +62,9 @@
   "item.mm.black_knee_pads" : "Black Knee Pads",
   "item.mm.green_knee_pads" : "Green Knee Pads",
   "item.mm.tan_knee_pads" : "Tan Knee Pads",
-  "item.mm.c13000_helmet" : "C1300 Helmet",
-
+  "item.mm.c1300_helmet" : "C1300 Helmet",
+  "item.mm.coti" : "Clip-on Thermal Imager",
+  "item.mm.gp5_gas_mask" : "GP-5 Gas Mask",
 
   "block.mm.duffel_bag_block" : "Duffel Bag",
 
@@ -78,10 +79,13 @@
   "key.mm.open_backpack" : "Open Backpack",
   "key.mm.open_rig" : "Open Rig",
   "key.mm.toggle_auto_gain" : "Toggle Auto Gain",
+  "key.mm.toggle_coti" : "Toggle COTI",
 
 
   "description.mm.nvgs" : "Helmet required",
   "description.mm.ultra_gamer_gpnvg" : "⚠ Epilepsy Warning ⚠",
+  "description.mm.nvg.coti_installed": "COTI Installed",
+  "description.mm.coti_instructions": "Can be attached to a night vision device",
 
 
   "curios.identifier.facewear" : "Facewear",

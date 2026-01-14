@@ -10,27 +10,25 @@
   "samplers": [
     { "name": "DiffuseSampler" },
     { "name": "NoiseSampler" },
-    { "name": "AutoGainSampler" }
+    { "name": "AutoGainSampler" },
+    { "name": "MaskSampler" }
   ],
   "uniforms": [
-    { "name": "NightVisionEnabled", "type": "float",     "count": 1,  "values": [1.0] },
-    { "name": "VignetteEnabled",    "type": "float",     "count": 1,  "values": [0.0] },
-    { "name": "AutoGainEnabled",    "type": "float",     "count": 1,  "values": [1.0] },
-    { "name": "VignetteRadius",     "type": "float",     "count": 1,  "values": [0.55] },
-    { "name": "Brightness",         "type": "float",     "count": 1,  "values": [1.0] },
-    { "name": "SepiaRatio",         "type": "float",     "count": 1,  "values": [0.0] },
-    { "name": "ProjMat",            "type": "matrix4x4", "count": 16, "values": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0] },
-    { "name": "InSize",             "type": "float",     "count": 2,  "values": [1.0, 1.0] },
-    { "name": "OutSize",            "type": "float",     "count": 2,  "values": [1.0, 1.0] },
-    { "name": "Time",               "type": "float",     "count": 1,  "values": [1.0] },
-    { "name": "NoiseAmplification", "type": "float",     "count": 1,  "values": [2.0] },
-    { "name": "IntensityAdjust",    "type": "float",     "count": 1,  "values": [40.0] },
-    { "name": "RedValue",           "type": "float",     "count": 1,  "values": [1.0] },
-    { "name": "GreenValue",         "type": "float",     "count": 1,  "values": [1.0] },
-    { "name": "BlueValue",          "type": "float",     "count": 1,  "values": [1.0] },
-    { "name": "XOffset",            "type": "float",     "count": 1,  "values": [0.2] },
-    { "name": "GPNVGMode",          "type": "float",     "count": 1,  "values": [0.0] },
-    { "name": "PVS14Mode",          "type": "float",     "count": 1,  "values": [0.0] },
-    { "name": "PVS7Mode",           "type": "float",     "count": 1,  "values": [0.0] }
+    { "name": "NightVisionEnabled", "type": "float", "count": 1, "values": [1.0] },
+    { "name": "VignetteEnabled", "type": "float", "count": 1, "values": [0.0] },
+    { "name": "AutoGainEnabled", "type": "float", "count": 1, "values": [1.0] },
+    { "name": "UseMask", "type": "float", "count": 1, "values": [0.0] },
+    { "name": "VignetteRadius", "type": "float", "count": 1, "values": [0.0] },
+    { "name": "Brightness", "type": "float", "count": 1, "values": [1.0] },
+    { "name": "SepiaRatio", "type": "float", "count": 1, "values": [0.0] },
+    { "name": "ProjMat", "type": "matrix4x4", "count": 16, "values": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0] },
+    { "name": "InSize", "type": "float", "count": 2, "values": [1.0, 1.0] },
+    { "name": "OutSize", "type": "float", "count": 2, "values": [1.0, 1.0] },
+    { "name": "Time", "type": "float", "count": 1, "values": [1.0] },
+    { "name": "NoiseAmplification", "type": "float", "count": 1, "values": [2.0] },
+    { "name": "IntensityAdjust", "type": "float", "count": 1, "values": [40.0] },
+    { "name": "RedValue", "type": "float", "count": 1, "values": [1.0] },
+    { "name": "GreenValue", "type": "float", "count": 1, "values": [1.0] },
+    { "name": "BlueValue", "type": "float", "count": 1, "values": [1.0] }
   ]
 }

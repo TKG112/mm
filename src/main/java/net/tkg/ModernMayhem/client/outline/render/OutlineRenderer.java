@@ -41,6 +41,10 @@ public class OutlineRenderer {
     private static BufferBuilder maskBuffer = null;
     private static MultiBufferSource.BufferSource maskBufferSource = null;
 
+    private static int lastEntityCount = 0;
+    private static int framesSinceLastCheck = 0;
+    private static final int CHECK_INTERVAL = 5;
+
     public enum RenderMode {
         OFF,
         OUTLINE,
@@ -132,43 +136,25 @@ public class OutlineRenderer {
         maskBufferSource = MultiBufferSource.immediate(maskBuffer);
     }
 
-    private static void aggressiveStateReset() {
+    private static void minimalStateReset() {
         GL20.glUseProgram(0);
-
-        RenderSystem.setShader(() -> null);
-
         GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
 
-        RenderSystem.activeTexture(GL13.GL_TEXTURE0);
-
-        RenderSystem.activeTexture(GL13.GL_TEXTURE1);
-        GlStateManager._bindTexture(0);
-        RenderSystem.activeTexture(GL13.GL_TEXTURE2);
-        GlStateManager._bindTexture(0);
-        RenderSystem.activeTexture(GL13.GL_TEXTURE3);
-        GlStateManager._bindTexture(0);
-
+        // Reset texture units
+        for (int i = 0; i < 4; i++) {
+            RenderSystem.activeTexture(GL13.GL_TEXTURE0 + i);
+            GlStateManager._bindTexture(0);
+        }
         RenderSystem.activeTexture(GL13.GL_TEXTURE0);
 
         RenderSystem.enableDepthTest();
         RenderSystem.depthFunc(GL11.GL_LEQUAL);
         RenderSystem.depthMask(true);
-        GL11.glClearDepth(1.0);
-
-        GL11.glDisable(GL11.GL_STENCIL_TEST);
-        GL11.glStencilMask(0xFF);
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        RenderSystem.colorMask(true, true, true, true);
 
-        RenderSystem.lineWidth(1.0F);
-
-        GL11.glEnable(GL11.GL_CULL_FACE);
-        GL11.glCullFace(GL11.GL_BACK);
-
-        GL30.glBindBuffer(GL30.GL_ARRAY_BUFFER, 0);
-        GL30.glBindBuffer(GL30.GL_ELEMENT_ARRAY_BUFFER, 0);
+        GL30.glBindVertexArray(0);
     }
 
     private static void createQuadVAO() {
@@ -244,15 +230,10 @@ public class OutlineRenderer {
 
     @SubscribeEvent
     public static void onRenderLevelStage(RenderLevelStageEvent event) {
-        // --- PERFORMANCE OPTIMIZATION ---
-        // If the mode is OFF, we return immediately.
-        // We do not touch OpenGL, we do not clear buffers, we do absolutely nothing.
-        // This ensures 0% performance impact when the player is not wearing the helmet.
         if (renderMode == RenderMode.OFF) return;
 
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_BLOCK_ENTITIES) {
             try {
-                // Setup State
                 RenderSystem.clearStencil(0);
                 GL11.glClear(GL11.GL_STENCIL_BUFFER_BIT);
 
@@ -260,15 +241,12 @@ public class OutlineRenderer {
                 mc.renderBuffers().bufferSource().endBatch();
                 mc.getMainRenderTarget().bindWrite(false);
 
-                // Render
                 renderOutlines(event.getPoseStack(), event.getProjectionMatrix());
 
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                // Cleanup State
-                aggressiveStateReset();
-                GL30.glBindVertexArray(0);
+                minimalStateReset();
                 Minecraft.getInstance().getMainRenderTarget().bindWrite(false);
             }
         }
@@ -282,17 +260,22 @@ public class OutlineRenderer {
         if (mc.level == null || maskFramebuffer == null) return;
 
         int count = 0;
-        for (Entity entity : mc.level.entitiesForRendering()) {
-            if (outlinePredicate.test(entity)) {
-                count++;
+        framesSinceLastCheck++;
+        if (framesSinceLastCheck >= CHECK_INTERVAL) {
+            for (Entity entity : mc.level.entitiesForRendering()) {
+                if (outlinePredicate.test(entity)) {
+                    count++;
+                }
             }
+            lastEntityCount = count;
+            framesSinceLastCheck = 0;
+        } else {
+            count = lastEntityCount;
         }
 
         if (count == 0) return;
 
         if (!useColoredOutline && !useBlackOutline) return;
-
-        System.out.println("[OutlineRenderer] Rendering outlines for " + count + " entities");
 
         renderEntityMasks(poseStack, projectionMatrix);
         extractEdges();
@@ -370,7 +353,6 @@ public class OutlineRenderer {
             double lerpY = entity.yOld + (entity.getY() - entity.yOld) * partialTick;
             double lerpZ = entity.zOld + (entity.getZ() - entity.zOld) * partialTick;
 
-            // --- COLOR LOGIC START ---
             if (colorProvider != null) {
                 int color = colorProvider.apply(entity);
                 float r = ((color >> 16) & 0xFF) / 255.0f;
@@ -379,30 +361,22 @@ public class OutlineRenderer {
                 float a = ((color >> 24) & 0xFF) / 255.0f;
                 if (a == 0.0f) a = 1.0f;
 
-                // Tint the entity (modifies texture color)
                 RenderSystem.setShaderColor(r, g, b, a);
             } else {
                 RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
             }
-            // --- COLOR LOGIC END ---
 
             EntityMaskRenderer.renderEntityMask(entity, lerpX, lerpY, lerpZ, partialTick, poseStack, projectionMatrix, maskBufferSource);
 
-            // --- BATCH FLUSH START ---
-            // If we are coloring per-entity, we MUST draw (flush) immediately
-            // otherwise all mobs will be drawn with the LAST color set.
             if (colorProvider != null) {
                 maskBufferSource.endBatch();
             }
-            // --- BATCH FLUSH END ---
         }
 
-        // Final flush if not already done
         if (colorProvider == null) {
             maskBufferSource.endBatch();
         }
 
-        // Reset Color
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
 
         mc.getEntityRenderDispatcher().setRenderShadow(oldRenderShadows);
@@ -425,8 +399,8 @@ public class OutlineRenderer {
         GL30.glBindVertexArray(quadVAO);
 
         maskShader.use();
-        int sourceMaskTex1 = (processedMaskTexture != 0) ? processedMaskTexture : maskFramebuffer.getColorTexture();
-        maskShader.setTexture("DiffuseSampler", sourceMaskTex1);
+        int sourceMaskTex = (processedMaskTexture != 0) ? processedMaskTexture : maskFramebuffer.getColorTexture();
+        maskShader.setTexture("DiffuseSampler", sourceMaskTex);
         maskShader.setUniform("InSize", (float) maskFramebuffer.width, (float) maskFramebuffer.height);
         maskShader.setUniform("OutSize", (float) edgeFramebuffer.width, (float) edgeFramebuffer.height);
 
@@ -436,11 +410,10 @@ public class OutlineRenderer {
         RenderSystem.clearColor(0.0f, 0.0f, 0.0f, 0.0f);
         RenderSystem.clear(GL30.GL_COLOR_BUFFER_BIT, false);
 
-        maskShader.use();
-        int sourceMaskTex2 = (processedMaskTexture != 0) ? processedMaskTexture : maskFramebuffer.getColorTexture();
-        maskShader.setTexture("DiffuseSampler", sourceMaskTex2);
-        maskShader.setUniform("InSize", (float) maskFramebuffer.width, (float) maskFramebuffer.height);
-        maskShader.setUniform("OutSize", (float) blurFramebuffer1.width, (float) blurFramebuffer1.height);
+        applyShader.use();
+        applyShader.setTexture("DiffuseSampler", edgeFramebuffer.getColorTexture());
+        applyShader.setUniform("OutlineColor", 1.0f, 1.0f, 1.0f, 1.0f);
+        applyShader.setUniform("UseSourceColor", 1);
 
         drawFullscreenQuad();
 
@@ -466,7 +439,7 @@ public class OutlineRenderer {
         blurShader.setUniform("InSize", (float) source.width, (float) source.height);
         blurShader.setUniform("OutSize", (float) target.width, (float) target.height);
         blurShader.setUniform("BlurDir", horizontal ? 1.0f : 0.0f, horizontal ? 0.0f : 1.0f);
-        blurShader.setUniform("Radius", 1.0f);
+        blurShader.setUniform("Radius", 1.0f); // Consider reducing this if still too slow
 
         drawFullscreenQuad();
 
@@ -485,14 +458,11 @@ public class OutlineRenderer {
         GL30.glBindVertexArray(quadVAO);
 
         blackOutlineShader.use();
-
         blackOutlineShader.setTexture("DiffuseSampler", edgeFramebuffer.getColorTexture());
-
         blackOutlineShader.setTexture("EntityMask", maskFramebuffer.getColorTexture());
-
         blackOutlineShader.setUniform("InSize", (float) edgeFramebuffer.width, (float) edgeFramebuffer.height);
         blackOutlineShader.setUniform("OutSize", (float) blackOutlineFramebuffer.width, (float) blackOutlineFramebuffer.height);
-        blackOutlineShader.setUniform("Radius", 2.0f);
+        blackOutlineShader.setUniform("Radius", 1.5f); // REDUCED from 2.0 for better performance
 
         drawFullscreenQuad();
 

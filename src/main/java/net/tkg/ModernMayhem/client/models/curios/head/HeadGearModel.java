@@ -16,6 +16,7 @@ public class HeadGearModel extends GeoModel<HeadGearItems> {
             case 2 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/item/curios/facewear/goggles.geo.json");
             case 3 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/item/curios/earwear/headset.geo.json");
             case 4 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/item/curios/head/military_balaclava.geo.json");
+            case 5 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/item/curios/head/gp5_gas_mask.geo.json");
             default -> throw new IllegalStateException("Unexpected value: no such armor type as " + animatable.getType());
         };
     }
@@ -37,6 +38,9 @@ public class HeadGearModel extends GeoModel<HeadGearItems> {
             }
             case 4 -> {
                 return fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/head/black_military_balaclava.png");
+            }
+            case 5 -> {
+                return fromNamespaceAndPath(ModernMayhemMod.ID, "textures/item/curios/head/gp5_gas_mask.png");
             }
             default -> {
                 throw new IllegalStateException("Unexpected value: no such armor type as " + animatable.getType());

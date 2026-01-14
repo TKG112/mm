@@ -6,9 +6,11 @@ uniform float AutoGainEnabled;
 uniform float VignetteRadius;
 uniform float Brightness;
 uniform float SepiaRatio;
+uniform float UseMask;
 uniform sampler2D DiffuseSampler;
 uniform sampler2D NoiseSampler;
 uniform sampler2D AutoGainSampler;
+uniform sampler2D MaskSampler;
 uniform float Time;
 
 in vec2 texCoord;
@@ -18,13 +20,9 @@ in vec4 outPos;
 uniform vec2 InSize;
 uniform float NoiseAmplification;
 uniform float IntensityAdjust;
-uniform float XOffset;
 uniform float RedValue;
 uniform float GreenValue;
 uniform float BlueValue;
-uniform float GPNVGMode;
-uniform float PVS14Mode;
-uniform float PVS7Mode;
 
 out vec4 fragColor;
 
@@ -33,7 +31,9 @@ const float contrast = 0.8;
 const vec3 SEPIA = vec3(1.2, 1.0, 0.8);
 
 void main() {
-    vec4 texColor = texture(DiffuseSampler, texCoord.xy);
+    vec4 sceneColor = texture(DiffuseSampler, texCoord.xy);
+
+    vec4 nvgColor = sceneColor;
 
     float finalGain = Brightness;
 
@@ -41,100 +41,55 @@ void main() {
         float autoGainValue = texture(AutoGainSampler, vec2(0.25, 0.25)).r;
         finalGain = autoGainValue;
     }
-
-    texColor.rgb *= finalGain;
+    nvgColor.rgb *= finalGain;
 
     if (NightVisionEnabled > 0.0) {
         vec2 uv;
         uv.x = 0.35 * sin(Time * 10.0);
         uv.y = 0.35 * cos(Time * 10.0);
-
         vec3 noise = texture(NoiseSampler, texCoord.xy + uv).rgb * NoiseAmplification;
-        texColor.xy += noise.xy * 0.005;
+
+        nvgColor.xy += noise.xy * 0.005;
     }
 
     if (VignetteEnabled > 0.0) {
         float dist = distance(texCoord.xy, vec2(0.5, 0.5));
         float vignette = smoothstep(VignetteRadius, VignetteRadius - SOFTNESS, dist);
-        texColor.rgb *= vignette;
+        nvgColor.rgb *= vignette;
     }
 
-    float alpha = 1.0;
     if (NightVisionEnabled > 0.0) {
-        vec2 scaledCoord;
-        bool inside = false;
+        const vec3 lumvec = vec3(0.30, 0.59, 0.11);
 
-        if (GPNVGMode > 0.0) {
-            vec2 center = vec2(0.5, 0.5);
-            scaledCoord = (texCoord.xy - center) * vec2(InSize.x / InSize.y, 1.0);
-            float distCenter = length(scaledCoord);
-            inside = inside || (distCenter <= 0.4);
+        float intensity = dot(lumvec, nvgColor.rgb);
+        intensity = clamp(contrast * (intensity - 0.5) + 0.5, 0.0, 1.0);
+        float color = clamp(intensity / 0.59, 0.0, 1.0) * IntensityAdjust;
 
-            vec2 left = vec2(0.25, 0.5);
-            scaledCoord = (texCoord.xy - left) * vec2(InSize.x / InSize.y, 1.0);
-            float distLeft = length(scaledCoord);
-            inside = inside || (distLeft <= 0.4);
+        vec4 visionColor = vec4(RedValue * color, GreenValue * color, BlueValue * color, 1.0);
 
-            vec2 right = vec2(0.75, 0.5);
-            scaledCoord = (texCoord.xy - right) * vec2(InSize.x / InSize.y, 1.0);
-            float distRight = length(scaledCoord);
-            inside = inside || (distRight <= 0.4);
+        float gray = dot(nvgColor.rgb, vec3(0.299, 0.587, 0.114));
+        vec4 grayColor = vec4(gray, gray, gray, 1.0);
 
-            if (inside) {
-                const vec3 lumvec = vec3(0.30, 0.59, 0.11);
-                float intensity = dot(lumvec, texColor.rgb);
-                intensity = clamp(contrast * (intensity - 0.5) + 0.5, 0.0, 1.0);
-                float color = clamp(intensity / 0.59, 0.0, 1.0) * IntensityAdjust;
-                vec4 visionColor = vec4(RedValue * color, GreenValue * color, BlueValue * color, 1.0);
-                float gray = dot(texColor.rgb, vec3(0.299, 0.587, 0.114));
-                vec4 grayColor = vec4(gray, gray, gray, 1.0);
-                texColor = grayColor * visionColor;
-            }
-        } else if (PVS14Mode > 0.0) {
-            vec2 center = vec2(0.5 + XOffset, 0.5);
-            vec2 scaledCoord = (texCoord.xy - center) * vec2(InSize.x / InSize.y, 1.0);
-            float dist = length(scaledCoord);
-            if (dist <= 0.4) {
-                const vec3 lumvec = vec3(0.30, 0.59, 0.11);
-                float intensity = dot(lumvec, texColor.rgb);
-                intensity = clamp(contrast * (intensity - 0.5) + 0.5, 0.0, 1.0);
-                float color = clamp(intensity / 0.59, 0.0, 1.0) * IntensityAdjust;
-                vec4 visionColor = vec4(RedValue * color, GreenValue * color, BlueValue * color, 1.0);
-                float gray = dot(texColor.rgb, vec3(0.299, 0.587, 0.114));
-                vec4 grayColor = vec4(gray, gray, gray, 1.0);
-                texColor = grayColor * visionColor;
-            }
-        } else if (PVS7Mode > 0.0) {
-            vec2 center = vec2(0.5, 0.5);
-            vec2 scaledCoord = (texCoord.xy - center) * vec2(InSize.x / InSize.y, 1.0);
-            float dist = length(scaledCoord);
-            if (dist <= 0.4) {
-                const vec3 lumvec = vec3(0.30, 0.59, 0.11);
-                float intensity = dot(lumvec, texColor.rgb);
-                intensity = clamp(contrast * (intensity - 0.5) + 0.5, 0.0, 1.0);
-                float color = clamp(intensity / 0.59, 0.0, 1.0) * IntensityAdjust;
-                vec4 visionColor = vec4(RedValue * color, GreenValue * color, BlueValue * color, 1.0);
-                float gray = dot(texColor.rgb, vec3(0.299, 0.587, 0.114));
-                vec4 grayColor = vec4(gray, gray, gray, 1.0);
-                texColor = grayColor * visionColor;
-            }
-        } else {
-            const vec3 lumvec = vec3(0.30, 0.59, 0.11);
-            float intensity = dot(lumvec, texColor.rgb);
-            intensity = clamp(contrast * (intensity - 0.5) + 0.5, 0.0, 1.0);
-            float color = clamp(intensity / 0.59, 0.0, 1.0) * IntensityAdjust;
-            vec4 visionColor = vec4(RedValue * color, GreenValue * color, BlueValue * color, 1.0);
-            float gray = dot(texColor.rgb, vec3(0.299, 0.587, 0.114));
-            vec4 grayColor = vec4(gray, gray, gray, 1.0);
-            texColor = grayColor * visionColor;
-        }
+        nvgColor = grayColor * visionColor;
     }
 
     if (SepiaRatio > 0.0) {
-        float gray = dot(texColor.rgb, vec3(0.299, 0.587, 0.114));
+        float gray = dot(nvgColor.rgb, vec3(0.299, 0.587, 0.114));
         vec4 sepiaColor = vec4(vec3(gray) * SEPIA, 1.0);
-        texColor = mix(texColor, sepiaColor, SepiaRatio);
+        nvgColor = mix(nvgColor, sepiaColor, SepiaRatio);
     }
 
-    fragColor = vec4(texColor.rgb, 1);
+    if (NightVisionEnabled > 0.0) {
+        if (UseMask > 0.5) {
+            float maskValue = texture(MaskSampler, texCoord).r;
+
+            fragColor = mix(sceneColor, nvgColor, maskValue);
+        } else {
+            fragColor = nvgColor;
+        }
+    } else {
+        fragColor = sceneColor;
+    }
+
+    fragColor.a = 1.0;
 }

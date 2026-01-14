@@ -30,6 +30,7 @@ public enum PacketsRegistryMM {
     NVG_SYNC_SWITCH_ON(NVGSyncSwitchOnPacket.class, NVGSyncSwitchOnPacket::new, PLAY_TO_SERVER),
     NVG_SYNC_SWITCH_OFF(NVGSyncSwitchOffPacket.class, NVGSyncSwitchOffPacket::new, PLAY_TO_SERVER),
     NVG_AUTO_GAIN_TOGGLE(NVGAutoGainTogglePacket.class, NVGAutoGainTogglePacket::new, PLAY_TO_SERVER),
+    NVG_COTI_TOGGLE(NVGCotiTogglePacket.class, NVGCotiTogglePacket::new, PLAY_TO_SERVER),
     ;
 
     // Server to Client

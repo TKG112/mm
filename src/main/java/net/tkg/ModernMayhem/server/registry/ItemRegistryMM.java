@@ -10,6 +10,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.client.item.NVGFirstPersonFakeItem;
+import net.tkg.ModernMayhem.server.item.CotiItem;
 import net.tkg.ModernMayhem.server.item.DuffelBagItem;
 import net.tkg.ModernMayhem.server.item.NVGGoggleList;
 import net.tkg.ModernMayhem.server.item.armor.CustomArmorItem;
@@ -147,6 +148,8 @@ public class ItemRegistryMM {
             () -> new HeadGearItems(3, 0));
     public static final RegistryObject<Item> BLACK_MILITARY_BALACLAVA = ITEMS.register("black_military_balaclava",
             () -> new HeadGearItems(4, 0));
+    public static final RegistryObject<Item> GP5_GAS_MASK = ITEMS.register("gp5_gas_mask",
+            () -> new HeadGearItems(5, 0));
 
 
     public static final RegistryObject<Item> BLACK_KNEE_PADS = ITEMS.register("black_knee_pads",
@@ -159,6 +162,10 @@ public class ItemRegistryMM {
 
     public static final RegistryObject<Item> DUFFEL_BAG = ITEMS.register("duffel_bag",
             () -> new DuffelBagItem(new Item.Properties().stacksTo(1), 256));
+
+
+    public static final RegistryObject<Item> COTI = ITEMS.register("coti",
+            () -> new CotiItem(new Item.Properties().stacksTo(1)));
 
 
     public static final RegistryObject<Item> WHITE_PHOSPHOR = ITEMS.register("white_phosphor",

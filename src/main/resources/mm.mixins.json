@@ -4,11 +4,17 @@
   "compatibilityLevel": "JAVA_17",
   "target": "@env(DEFAULT)",
   "client": [
-    "client.DarknessMixin",
+    "client.DimensionEffectsMixin",
+    "client.DimensionEffectsMixin$EndMixin",
+    "client.DimensionEffectsMixin$NetherMixin",
+    "client.DynamicTextureMixin",
+    "client.GameRendererMixin",
+    "client.GunAnimationStateContextMixin",
     "client.GunHudOverlayAccessor",
     "client.GunHudOverlayMixin",
-    "client.PostChainMixin",
-    "client.GunAnimationStateContextMixin"
+    "client.LightTextureAccessor",
+    "client.LightTextureMixin",
+    "client.PostChainMixin"
   ],
   "injectors": {
     "defaultRequire": 1
