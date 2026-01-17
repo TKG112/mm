@@ -78,7 +78,6 @@ public class Darkness {
         final ClientLevel level = client.level;
         if (level == null || client.player == null) return;
 
-        // --- 1. CHECK GOGGLES STATE ---
         boolean nvgActive = false;
         tvgActive = false;
 
@@ -250,8 +249,6 @@ public class Darkness {
         public static boolean getOnNoSkyLight() {
             return useServer() ? ServerConfig.DARKNESS_ON_NO_SKY_LIGHT.get() : ClientConfig.DARKNESS_ON_NO_SKY_LIGHT.get();
         }
-
-        // ... (Add the rest of the getters: BlockLightOnly, FullBrightBiomes, MoonPhase, etc.)
 
         public static boolean getAffectedByMoonPhase() {
             return useServer() ? ServerConfig.DARKNESS_AFFECTED_BY_MOON_PHASE.get() : ClientConfig.DARKNESS_AFFECTED_BY_MOON_PHASE.get();

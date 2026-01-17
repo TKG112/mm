@@ -117,7 +117,7 @@ public class NVGFirstPersonRenderer extends GeoItemRenderer<NVGFirstPersonFakeIt
                 poseStack.translate(0f, -0.8f, 0f);
                 ResourceLocation playerSkin = player.getSkinTextureLocation();
                 VertexConsumer armBuilder = this.currentBuffer.getBuffer(RenderType.entitySolid(playerSkin));
-                VertexConsumer sleeveBuilder = this.currentBuffer.getBuffer(RenderType.entityTranslucent(playerSkin));
+                VertexConsumer sleeveBuilder = this.currentBuffer.getBuffer(RenderType.entityTranslucentCull(playerSkin));
                 if (boneName.equals("left_arm")) {
                     poseStack.translate(-SCALE_RECIPROCAL, 2.0f * SCALE_RECIPROCAL, 0.0f);
                     AnimUtils.renderPartOverBone(model.leftArm, bone, poseStack, armBuilder, packedLight, OverlayTexture.NO_OVERLAY, armsAlpha);
