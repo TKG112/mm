@@ -36,7 +36,6 @@ public class RenderNVGFirstPerson {
     private static boolean isRendering = false;
     public static boolean shouldRenderLeftArm = true;
 
-    // [NEW] Cache AR status to avoid checking ModList every frame
     private static final boolean IS_AR_LOADED = ModList.get().isLoaded("acceleratedrendering");
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -67,17 +66,11 @@ public class RenderNVGFirstPerson {
         PoseStack handStack = isHoldingGun ? new PoseStack() : event.getPoseStack();
         ItemInHandRenderer itemInHandRenderer = MC.gameRenderer.itemInHandRenderer;
 
-        // [FIX START] ================================================================
-        // Force Accelerated Rendering to use the Vanilla Pipeline for this specific pass.
-        // This disables "Ring Buffering" and ensures the gun is drawn IMMEDIATELY,
-        // so it exists in the depth buffer BEFORE we clear it.
         if (IS_AR_LOADED) {
             try {
-                // We disable acceleration for both Items (Guns) and Entities
                 AcceleratedItemRenderingFeature.useVanillaPipeline();
                 AcceleratedEntityRenderingFeature.useVanillaPipeline();
             } catch (Throwable ignored) {
-                // Fail silently if API changes or linking errors occur
             }
         }
 
@@ -91,19 +84,15 @@ public class RenderNVGFirstPerson {
             );
         }
 
-        // Flush standard buffers (still good practice)
         buffer.endBatch();
 
-        // Restore AR pipeline state so the rest of the game renders normally
         if (IS_AR_LOADED) {
             try {
                 AcceleratedItemRenderingFeature.resetPipeline();
                 AcceleratedEntityRenderingFeature.resetPipeline();
             } catch (Throwable ignored) {}
         }
-        // [FIX END] ==================================================================
 
-        // Now safe to clear depth - the gun is definitely drawn.
         RenderSystem.clear(256, Minecraft.ON_OSX);
 
         PoseStack nvgStack = new PoseStack();
