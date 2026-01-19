@@ -3,6 +3,10 @@ package net.tkg.ModernMayhem.client.event;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.tacz.guns.api.item.IGun;
+import com.github.argon4w.acceleratedrendering.features.items.AcceleratedItemRenderingFeature;
+import com.github.argon4w.acceleratedrendering.features.entities.AcceleratedEntityRenderingFeature;
+import net.minecraftforge.fml.ModList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
@@ -30,13 +34,14 @@ public class RenderNVGFirstPerson {
     private static final NVGFirstPersonRenderer RENDERER = new NVGFirstPersonRenderer();
     private static boolean initialized = false;
     private static boolean isRendering = false;
-    public static boolean shouldRenderLeftArm = true; // Whether to render the left arm (prevent the player to grow a third arm if the nvg animation shows the left arm)
+    public static boolean shouldRenderLeftArm = true;
+
+    // [NEW] Cache AR status to avoid checking ModList every frame
+    private static final boolean IS_AR_LOADED = ModList.get().isLoaded("acceleratedrendering");
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    @OnlyIn(Dist.CLIENT) // Just to be safe, this event is only fired on the client side (even if it's only a client event)
-    // We use RenderHandEvent because it allows us to render the NVG goggles in first-person view in front of the player's hand.
+    @OnlyIn(Dist.CLIENT)
     public static void onRenderOverlay(RenderHandEvent event) {
-        // Don't render anything if the item is not registered yet (prevents null pointer exceptions)
         if (!initialized) return;
         if (!shouldRender()) return;
         renderNVGFirstPersonModel(event);
@@ -60,8 +65,22 @@ public class RenderNVGFirstPerson {
         boolean isHoldingGun = IGun.getIGunOrNull(mainHandStack) != null;
 
         PoseStack handStack = isHoldingGun ? new PoseStack() : event.getPoseStack();
-
         ItemInHandRenderer itemInHandRenderer = MC.gameRenderer.itemInHandRenderer;
+
+        // [FIX START] ================================================================
+        // Force Accelerated Rendering to use the Vanilla Pipeline for this specific pass.
+        // This disables "Ring Buffering" and ensures the gun is drawn IMMEDIATELY,
+        // so it exists in the depth buffer BEFORE we clear it.
+        if (IS_AR_LOADED) {
+            try {
+                // We disable acceleration for both Items (Guns) and Entities
+                AcceleratedItemRenderingFeature.useVanillaPipeline();
+                AcceleratedEntityRenderingFeature.useVanillaPipeline();
+            } catch (Throwable ignored) {
+                // Fail silently if API changes or linking errors occur
+            }
+        }
+
         if (shouldRenderLeftArm || event.getHand() == InteractionHand.MAIN_HAND) {
             itemInHandRenderer.renderHandsWithItems(
                     partialTicks,
@@ -72,10 +91,22 @@ public class RenderNVGFirstPerson {
             );
         }
 
-        RenderSystem.clear(256, Minecraft.ON_OSX); // Needed so nvg model and gun model doesn't clip through each other when nvg animation plays
+        // Flush standard buffers (still good practice)
+        buffer.endBatch();
+
+        // Restore AR pipeline state so the rest of the game renders normally
+        if (IS_AR_LOADED) {
+            try {
+                AcceleratedItemRenderingFeature.resetPipeline();
+                AcceleratedEntityRenderingFeature.resetPipeline();
+            } catch (Throwable ignored) {}
+        }
+        // [FIX END] ==================================================================
+
+        // Now safe to clear depth - the gun is definitely drawn.
+        RenderSystem.clear(256, Minecraft.ON_OSX);
 
         PoseStack nvgStack = new PoseStack();
-
         nvgStack.pushPose();
 
         var model = RENDERER.getGeoModel();
@@ -83,7 +114,6 @@ public class RenderNVGFirstPerson {
         var texture = RENDERER.getTextureLocation(DUMMY_ITEM);
 
         var renderType = RenderType.itemEntityTranslucentCull(texture);
-        buffer.endBatch();
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
@@ -115,11 +145,9 @@ public class RenderNVGFirstPerson {
         isRendering = false;
     }
 
-
     private static boolean shouldRender() {
         LocalPlayer player = MC.player;
         if (player == null) return false;
-//        if (!MC.options.getCameraType().isFirstPerson()) return false;
         return CuriosUtil.hasNVGEquipped(player);
     }
 

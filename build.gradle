@@ -126,6 +126,8 @@ dependencies {
     // Oculus dependencies
     compileOnly fg.deobf("curse.maven:oculus-581495:6020952")
 
+    implementation fg.deobf("curse.maven:accelerated-rendering-1314021:7342975")
+
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
