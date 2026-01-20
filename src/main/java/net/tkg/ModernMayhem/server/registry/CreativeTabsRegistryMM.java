@@ -67,7 +67,7 @@ public class CreativeTabsRegistryMM {
                         pOutput.accept(ItemRegistryMM.TAN_IOLA.get());
                         pOutput.accept(ItemRegistryMM.TAN_KNEE_PADS.get());
                         pOutput.accept(ItemRegistryMM.BLACK_HEAD_MOUNT.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_RONIN.get());
+                        pOutput.accept(ItemRegistryMM.BLACK_RONIN_HELMET.get());
                         pOutput.accept(ItemRegistryMM.YELLOW_HAZMAT_HELMET.get());
                         pOutput.accept(ItemRegistryMM.YELLOW_HAZMAT_CHESTPLATE.get());
                         pOutput.accept(ItemRegistryMM.YELLOW_HAZMAT_LEGGINGS.get());

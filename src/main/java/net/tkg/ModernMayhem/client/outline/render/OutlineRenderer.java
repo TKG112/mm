@@ -3,11 +3,14 @@ package net.tkg.ModernMayhem.client.outline.render;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.material.FogType;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.joml.Matrix4f;
@@ -15,6 +18,8 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
+
+import net.tkg.ModernMayhem.server.compat.ARCompat;
 
 import java.io.IOException;
 import java.util.function.Function;
@@ -62,7 +67,6 @@ public class OutlineRenderer {
     }
 
     private static Predicate<Entity> outlinePredicate = entity -> entity instanceof LivingEntity;
-
     private static Function<Entity, Integer> colorProvider = null;
 
     private static float outlineR = 1.0f;
@@ -73,43 +77,18 @@ public class OutlineRenderer {
     private static boolean useColoredOutline = true;
     private static boolean useBlackOutline = true;
 
-    public static void setOutlineColorProvider(Function<Entity, Integer> provider) {
-        colorProvider = provider;
-    }
-
-    public static void setOutlinePredicate(Predicate<Entity> predicate) {
-        outlinePredicate = predicate;
-    }
-
-    public static void setOutlineColor(float r, float g, float b, float a) {
-        outlineR = r;
-        outlineG = g;
-        outlineB = b;
-        outlineA = a;
-    }
-
-    public static void setUseColoredOutline(boolean use) {
-        useColoredOutline = use;
-    }
-
-    public static boolean isUsingColoredOutline() {
-        return useColoredOutline;
-    }
-
-    public static void setUseBlackOutline(boolean use) {
-        useBlackOutline = use;
-    }
-
-    public static boolean isUsingBlackOutline() {
-        return useBlackOutline;
-    }
+    public static void setOutlineColorProvider(Function<Entity, Integer> provider) { colorProvider = provider; }
+    public static void setOutlinePredicate(Predicate<Entity> predicate) { outlinePredicate = predicate; }
+    public static void setOutlineColor(float r, float g, float b, float a) { outlineR = r; outlineG = g; outlineB = b; outlineA = a; }
+    public static void setUseColoredOutline(boolean use) { useColoredOutline = use; }
+    public static boolean isUsingColoredOutline() { return useColoredOutline; }
+    public static void setUseBlackOutline(boolean use) { useBlackOutline = use; }
+    public static boolean isUsingBlackOutline() { return useBlackOutline; }
 
     public static void init() {
         Minecraft mc = Minecraft.getInstance();
         int width = mc.getWindow().getWidth();
         int height = mc.getWindow().getHeight();
-
-        System.out.println("[OutlineRenderer] Initializing with size: " + width + "x" + height);
 
         maskFramebuffer = new OutlineFramebuffer(width, height, true);
         edgeFramebuffer = new OutlineFramebuffer(width, height);
@@ -122,16 +101,12 @@ public class OutlineRenderer {
             blurShader = new OutlineShader("blur");
             applyShader = new OutlineShader("apply");
             blackOutlineShader = new OutlineShader("black_outline");
-
-            System.out.println("[OutlineRenderer] Shaders loaded successfully!");
         } catch (IOException e) {
-            System.err.println("[OutlineRenderer] Failed to load shaders!");
             e.printStackTrace();
             throw new RuntimeException("Failed to load outline shaders", e);
         }
 
         createQuadVAO();
-
         maskBuffer = new BufferBuilder(262144);
         maskBufferSource = MultiBufferSource.immediate(maskBuffer);
     }
@@ -139,28 +114,22 @@ public class OutlineRenderer {
     private static void minimalStateReset() {
         GL20.glUseProgram(0);
         GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
-
-        // Reset texture units
         for (int i = 0; i < 4; i++) {
             RenderSystem.activeTexture(GL13.GL_TEXTURE0 + i);
             GlStateManager._bindTexture(0);
         }
         RenderSystem.activeTexture(GL13.GL_TEXTURE0);
-
         RenderSystem.enableDepthTest();
         RenderSystem.depthFunc(GL11.GL_LEQUAL);
         RenderSystem.depthMask(true);
-
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-
         GL30.glBindVertexArray(0);
     }
 
     private static void createQuadVAO() {
         quadVAO = GL30.glGenVertexArrays();
         quadVBO = GL30.glGenBuffers();
-
         float[] quadVertices = {
                 -1.0f,  1.0f,  0.0f, 1.0f,
                 -1.0f, -1.0f,  0.0f, 0.0f,
@@ -169,20 +138,14 @@ public class OutlineRenderer {
                 1.0f, -1.0f,  1.0f, 0.0f,
                 1.0f,  1.0f,  1.0f, 1.0f
         };
-
         GL30.glBindVertexArray(quadVAO);
         GL30.glBindBuffer(GL30.GL_ARRAY_BUFFER, quadVBO);
         GL30.glBufferData(GL30.GL_ARRAY_BUFFER, quadVertices, GL30.GL_STATIC_DRAW);
-
         GL30.glEnableVertexAttribArray(0);
         GL30.glVertexAttribPointer(0, 2, GL30.GL_FLOAT, false, 4 * Float.BYTES, 0);
-
         GL30.glEnableVertexAttribArray(1);
         GL30.glVertexAttribPointer(1, 2, GL30.GL_FLOAT, false, 4 * Float.BYTES, 2 * Float.BYTES);
-
         GL30.glBindVertexArray(0);
-
-        System.out.println("[OutlineRenderer] Created fullscreen quad VAO");
     }
 
     public static void resize(int width, int height) {
@@ -202,23 +165,14 @@ public class OutlineRenderer {
             blurFramebuffer1.destroy();
             blurFramebuffer2.destroy();
             blackOutlineFramebuffer.destroy();
-
             maskFramebuffer = null;
-            edgeFramebuffer = null;
-            blurFramebuffer1 = null;
-            blurFramebuffer2 = null;
-            blackOutlineFramebuffer = null;
         }
         if (maskShader != null) {
             maskShader.close();
             blurShader.close();
             applyShader.close();
             blackOutlineShader.close();
-
             maskShader = null;
-            blurShader = null;
-            applyShader = null;
-            blackOutlineShader = null;
         }
         if (quadVAO != -1) {
             GL30.glDeleteVertexArrays(quadVAO);
@@ -232,40 +186,53 @@ public class OutlineRenderer {
     public static void onRenderLevelStage(RenderLevelStageEvent event) {
         if (renderMode == RenderMode.OFF) return;
 
+        // Unified Logic: Everything happens at AFTER_BLOCK_ENTITIES
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_BLOCK_ENTITIES) {
+
+            Minecraft mc = Minecraft.getInstance();
+            boolean arDisabled = false;
+
             try {
-                RenderSystem.clearStencil(0);
-                GL11.glClear(GL11.GL_STENCIL_BUFFER_BIT);
-
-                Minecraft mc = Minecraft.getInstance();
+                // CRITICAL FIX: Flush all pending batched rendering BEFORE disabling AR
+                // This ensures the depth buffer contains the complete scene including block entities
                 mc.renderBuffers().bufferSource().endBatch();
-                mc.getMainRenderTarget().bindWrite(false);
 
-                renderOutlines(event.getPoseStack(), event.getProjectionMatrix());
+                // Now disable AR to ensure immediate rendering for our mask
+                try {
+                    ARCompat.disableAcceleration();
+                    arDisabled = true;
+                } catch (Throwable ignored) {
+                    // AR might not be present or failed, continue with vanilla logic
+                }
+
+                // Capture the mask with the now-complete depth buffer
+                if (captureMobMasks(event.getPoseStack(), event.getProjectionMatrix())) {
+                    // Draw the overlay immediately
+                    drawOverlayToScreen();
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                minimalStateReset();
-                Minecraft.getInstance().getMainRenderTarget().bindWrite(false);
+                // Reset AR immediately after we are done
+                if (arDisabled) {
+                    try {
+                        ARCompat.resetAcceleration();
+                    } catch (Throwable ignored) {}
+                }
             }
         }
     }
 
-    private static void renderOutlines(com.mojang.blaze3d.vertex.PoseStack poseStack, Matrix4f projectionMatrix) {
-        if (renderMode == RenderMode.OFF) return;
-
+    private static boolean captureMobMasks(PoseStack poseStack, Matrix4f projectionMatrix) {
         Minecraft mc = Minecraft.getInstance();
-
-        if (mc.level == null || maskFramebuffer == null) return;
+        if (mc.level == null || maskFramebuffer == null) return false;
 
         int count = 0;
         framesSinceLastCheck++;
         if (framesSinceLastCheck >= CHECK_INTERVAL) {
             for (Entity entity : mc.level.entitiesForRendering()) {
-                if (outlinePredicate.test(entity)) {
-                    count++;
-                }
+                if (outlinePredicate.test(entity)) count++;
             }
             lastEntityCount = count;
             framesSinceLastCheck = 0;
@@ -273,24 +240,48 @@ public class OutlineRenderer {
             count = lastEntityCount;
         }
 
-        if (count == 0) return;
+        if (count == 0) return false;
+        if (!useColoredOutline && !useBlackOutline) return false;
 
-        if (!useColoredOutline && !useBlackOutline) return;
-
-        renderEntityMasks(poseStack, projectionMatrix);
-        extractEdges();
-        applyBlur(true);
-        applyBlur(false);
-
-        if (useBlackOutline) {
-            createBlackOutline();
+        try {
+            renderEntityMasks(poseStack, projectionMatrix);
+            return true;
+        } catch (Throwable t) {
+            t.printStackTrace();
+            return false;
         }
-
-        compositeOutline();
-        mc.getMainRenderTarget().bindWrite(false);
     }
 
-    private static void renderEntityMasks(com.mojang.blaze3d.vertex.PoseStack poseStack, Matrix4f projectionMatrix) {
+    private static void drawOverlayToScreen() {
+        try {
+            RenderSystem.clearStencil(0);
+            GL11.glClear(GL11.GL_STENCIL_BUFFER_BIT);
+
+            Minecraft mc = Minecraft.getInstance();
+            // Note: We already flushed before capturing the mask, but we flush again here
+            // to ensure any rendering we did in renderEntityMasks is complete
+            mc.renderBuffers().bufferSource().endBatch();
+            mc.getMainRenderTarget().bindWrite(false);
+
+            extractEdges();
+            applyBlur(true);
+            applyBlur(false);
+
+            if (useBlackOutline) {
+                createBlackOutline();
+            }
+
+            compositeOutline();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            minimalStateReset();
+            Minecraft.getInstance().getMainRenderTarget().bindWrite(false);
+        }
+    }
+
+    private static void renderEntityMasks(PoseStack poseStack, Matrix4f projectionMatrix) {
         Minecraft mc = Minecraft.getInstance();
         int targetWidth = mc.getMainRenderTarget().width;
         int targetHeight = mc.getMainRenderTarget().height;
@@ -325,8 +316,7 @@ public class OutlineRenderer {
         }
 
         RenderSystem.enableDepthTest();
-        if (canShareDepth) RenderSystem.depthFunc(GL30.GL_EQUAL);
-        else RenderSystem.depthFunc(GL30.GL_LEQUAL);
+        RenderSystem.depthFunc(GL30.GL_LEQUAL);
 
         RenderSystem.depthMask(false);
         RenderSystem.colorMask(true, true, true, true);
@@ -345,6 +335,19 @@ public class OutlineRenderer {
 
         float partialTick = mc.getFrameTime();
 
+        // Get render distance in blocks
+        int renderDistanceChunks = mc.options.renderDistance().get();
+        double renderDistanceBlocks = renderDistanceChunks * 16.0;
+
+        // Check if camera is underwater or in lava - adjust render distance to match fog
+        FogType fogType = mc.gameRenderer.getMainCamera().getFluidInCamera();
+        if (fogType == FogType.WATER || fogType == FogType.LAVA) {
+            // Underwater fog is very short, limit to about 16-32 blocks to prevent depth issues
+            renderDistanceBlocks = Math.min(renderDistanceBlocks, 32.0);
+        }
+
+        double renderDistanceSquared = renderDistanceBlocks * renderDistanceBlocks;
+
         for (Entity entity : mc.level.entitiesForRendering()) {
             if (!outlinePredicate.test(entity)) continue;
             if (entity == mc.player && mc.options.getCameraType() == CameraType.FIRST_PERSON) continue;
@@ -352,6 +355,15 @@ public class OutlineRenderer {
             double lerpX = entity.xOld + (entity.getX() - entity.xOld) * partialTick;
             double lerpY = entity.yOld + (entity.getY() - entity.yOld) * partialTick;
             double lerpZ = entity.zOld + (entity.getZ() - entity.zOld) * partialTick;
+
+            // Check if entity is within render distance
+            Vec3 cameraPos = mc.gameRenderer.getMainCamera().getPosition();
+            double dx = lerpX - cameraPos.x;
+            double dy = lerpY - cameraPos.y;
+            double dz = lerpZ - cameraPos.z;
+            double distanceSquared = dx * dx + dy * dy + dz * dz;
+
+            if (distanceSquared > renderDistanceSquared) continue;
 
             if (colorProvider != null) {
                 int color = colorProvider.apply(entity);
@@ -439,7 +451,7 @@ public class OutlineRenderer {
         blurShader.setUniform("InSize", (float) source.width, (float) source.height);
         blurShader.setUniform("OutSize", (float) target.width, (float) target.height);
         blurShader.setUniform("BlurDir", horizontal ? 1.0f : 0.0f, horizontal ? 0.0f : 1.0f);
-        blurShader.setUniform("Radius", 1.0f); // Consider reducing this if still too slow
+        blurShader.setUniform("Radius", 1.0f);
 
         drawFullscreenQuad();
 
@@ -462,7 +474,7 @@ public class OutlineRenderer {
         blackOutlineShader.setTexture("EntityMask", maskFramebuffer.getColorTexture());
         blackOutlineShader.setUniform("InSize", (float) edgeFramebuffer.width, (float) edgeFramebuffer.height);
         blackOutlineShader.setUniform("OutSize", (float) blackOutlineFramebuffer.width, (float) blackOutlineFramebuffer.height);
-        blackOutlineShader.setUniform("Radius", 1.5f); // REDUCED from 2.0 for better performance
+        blackOutlineShader.setUniform("Radius", 1.5f);
 
         drawFullscreenQuad();
 

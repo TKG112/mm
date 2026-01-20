@@ -2,11 +2,6 @@ package net.tkg.ModernMayhem.client.event;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.tacz.guns.api.item.IGun;
-import com.github.argon4w.acceleratedrendering.features.items.AcceleratedItemRenderingFeature;
-import com.github.argon4w.acceleratedrendering.features.entities.AcceleratedEntityRenderingFeature;
-import net.minecraftforge.fml.ModList;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
@@ -20,12 +15,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.client.item.NVGFirstPersonFakeItem;
 import net.tkg.ModernMayhem.client.renderer.custom.NVGFirstPersonRenderer;
 import net.tkg.ModernMayhem.server.registry.ItemRegistryMM;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
+import net.tkg.ModernMayhem.server.compat.ARCompat;
 
 @Mod.EventBusSubscriber(modid = ModernMayhemMod.ID, value = Dist.CLIENT)
 public class RenderNVGFirstPerson {
@@ -36,7 +33,7 @@ public class RenderNVGFirstPerson {
     private static boolean isRendering = false;
     public static boolean shouldRenderLeftArm = true;
 
-    private static final boolean IS_AR_LOADED = ModList.get().isLoaded("acceleratedrendering");
+    private static final boolean TACZ_LOADED = ModList.get().isLoaded("tacz");
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     @OnlyIn(Dist.CLIENT)
@@ -61,18 +58,12 @@ public class RenderNVGFirstPerson {
         isRendering = true;
 
         ItemStack mainHandStack = player.getMainHandItem();
-        boolean isHoldingGun = IGun.getIGunOrNull(mainHandStack) != null;
+        boolean isHoldingGun = TACZ_LOADED && isTACZGun(mainHandStack);
 
         PoseStack handStack = isHoldingGun ? new PoseStack() : event.getPoseStack();
         ItemInHandRenderer itemInHandRenderer = MC.gameRenderer.itemInHandRenderer;
 
-        if (IS_AR_LOADED) {
-            try {
-                AcceleratedItemRenderingFeature.useVanillaPipeline();
-                AcceleratedEntityRenderingFeature.useVanillaPipeline();
-            } catch (Throwable ignored) {
-            }
-        }
+        ARCompat.disableAcceleration();
 
         if (shouldRenderLeftArm || event.getHand() == InteractionHand.MAIN_HAND) {
             itemInHandRenderer.renderHandsWithItems(
@@ -86,12 +77,7 @@ public class RenderNVGFirstPerson {
 
         buffer.endBatch();
 
-        if (IS_AR_LOADED) {
-            try {
-                AcceleratedItemRenderingFeature.resetPipeline();
-                AcceleratedEntityRenderingFeature.resetPipeline();
-            } catch (Throwable ignored) {}
-        }
+        ARCompat.resetAcceleration();
 
         RenderSystem.clear(256, Minecraft.ON_OSX);
 
@@ -132,6 +118,17 @@ public class RenderNVGFirstPerson {
         nvgStack.popPose();
 
         isRendering = false;
+    }
+
+    private static boolean isTACZGun(ItemStack stack) {
+        try {
+            Class<?> iGunClass = Class.forName("com.tacz.guns.api.item.IGun");
+            java.lang.reflect.Method method = iGunClass.getMethod("getIGunOrNull", ItemStack.class);
+            Object result = method.invoke(null, stack);
+            return result != null;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private static boolean shouldRender() {
