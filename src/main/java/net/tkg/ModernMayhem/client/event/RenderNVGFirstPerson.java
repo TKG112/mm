@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -20,9 +21,13 @@ import net.minecraftforge.fml.common.Mod;
 import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.client.item.NVGFirstPersonFakeItem;
 import net.tkg.ModernMayhem.client.renderer.custom.NVGFirstPersonRenderer;
-import net.tkg.ModernMayhem.server.registry.ItemRegistryMM;
+import net.tkg.ModernMayhem.client.renderer.ShaderCompatibleRenderTypes;
+import net.tkg.ModernMayhem.client.registry.ClientItemRegistryMM;
+import net.tkg.ModernMayhem.server.item.curios.facewear.VisorItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import net.tkg.ModernMayhem.server.compat.ARCompat;
+import org.lwjgl.opengl.GL11;
+import software.bernie.geckolib.cache.object.BakedGeoModel;
 
 @Mod.EventBusSubscriber(modid = ModernMayhemMod.ID, value = Dist.CLIENT)
 public class RenderNVGFirstPerson {
@@ -79,8 +84,6 @@ public class RenderNVGFirstPerson {
 
         ARCompat.resetAcceleration();
 
-        RenderSystem.clear(256, Minecraft.ON_OSX);
-
         PoseStack nvgStack = new PoseStack();
         nvgStack.pushPose();
 
@@ -88,11 +91,110 @@ public class RenderNVGFirstPerson {
         var bakedModel = model.getBakedModel(model.getModelResource(DUMMY_ITEM));
         var texture = RENDERER.getTextureLocation(DUMMY_ITEM);
 
-        var renderType = RenderType.itemEntityTranslucentCull(texture);
+        ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
+        boolean isVisor = facewearItem != null && facewearItem.getItem() instanceof VisorItem;
+
+        if (RenderNVGShader.oculusShaderEnabled) {
+            if (isVisor) {
+                renderVisorWithShaderSupport(nvgStack, buffer, event, bakedModel, texture);
+            } else {
+                renderNVGWithShaderSupport(nvgStack, buffer, event, bakedModel, texture);
+            }
+        } else {
+            renderWithoutShaders(nvgStack, buffer, event, bakedModel, texture, isVisor);
+        }
+
+        RenderSystem.disableDepthTest();
+
+        nvgStack.popPose();
+
+        isRendering = false;
+    }
+
+    private static void renderVisorWithShaderSupport(PoseStack nvgStack, MultiBufferSource.BufferSource buffer, RenderHandEvent event, BakedGeoModel bakedModel, ResourceLocation texture) {
+        var renderType = ShaderCompatibleRenderTypes.visorTranslucent(texture);
+
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+
+        RENDERER.actuallyRender(
+                nvgStack,
+                DUMMY_ITEM,
+                bakedModel,
+                renderType,
+                buffer,
+                buffer.getBuffer(renderType),
+                false,
+                MC.getFrameTime(),
+                event.getPackedLight(),
+                OverlayTexture.NO_OVERLAY,
+                1f, 1f, 1f, 1f
+        );
+
+        buffer.endBatch();
+
+        RenderSystem.disableBlend();
+    }
+
+    private static void renderNVGWithShaderSupport(PoseStack nvgStack, MultiBufferSource.BufferSource buffer, RenderHandEvent event, BakedGeoModel bakedModel, ResourceLocation texture) {
+        GL11.glColorMask(false, false, false, false);
+        GL11.glDepthMask(true);
+        GL11.glDepthFunc(GL11.GL_ALWAYS);
+        GL11.glDisable(GL11.GL_BLEND);
+
+        var depthOnlyType = RenderType.entityTranslucentCull(texture);
+
+        RENDERER.actuallyRender(
+                nvgStack,
+                DUMMY_ITEM,
+                bakedModel,
+                depthOnlyType,
+                buffer,
+                buffer.getBuffer(depthOnlyType),
+                false,
+                MC.getFrameTime(),
+                event.getPackedLight(),
+                OverlayTexture.NO_OVERLAY,
+                1f, 1f, 1f, 1f
+        );
+
+        buffer.endBatch();
+
+        GL11.glColorMask(true, true, true, true);
+        GL11.glDepthMask(false);
+        GL11.glDepthFunc(GL11.GL_EQUAL);
+        GL11.glDisable(GL11.GL_BLEND);
+
+        var colorType = RenderType.entityTranslucentCull(texture);
+
+        RENDERER.actuallyRender(
+                nvgStack,
+                DUMMY_ITEM,
+                bakedModel,
+                colorType,
+                buffer,
+                buffer.getBuffer(colorType),
+                false,
+                MC.getFrameTime(),
+                event.getPackedLight(),
+                OverlayTexture.NO_OVERLAY,
+                1f, 1f, 1f, 1f
+        );
+
+        buffer.endBatch();
+
+        GL11.glDepthFunc(GL11.GL_LEQUAL);
+        GL11.glDepthMask(true);
+        GL11.glEnable(GL11.GL_BLEND);
+    }
+
+    private static void renderWithoutShaders(PoseStack nvgStack, MultiBufferSource.BufferSource buffer, RenderHandEvent event, BakedGeoModel bakedModel, ResourceLocation texture, boolean isVisor) {
+        var renderType = isVisor ? RenderType.entityTranslucent(texture) : RenderType.entityTranslucentCull(texture);
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();
+        GL11.glDepthFunc(GL11.GL_ALWAYS);
         RenderSystem.depthMask(false);
 
         RENDERER.actuallyRender(
@@ -111,13 +213,9 @@ public class RenderNVGFirstPerson {
 
         buffer.endBatch();
 
+        GL11.glDepthFunc(GL11.GL_LEQUAL);
         RenderSystem.depthMask(true);
         RenderSystem.disableBlend();
-        RenderSystem.disableDepthTest();
-
-        nvgStack.popPose();
-
-        isRendering = false;
     }
 
     private static boolean isTACZGun(ItemStack stack) {
@@ -140,7 +238,7 @@ public class RenderNVGFirstPerson {
     public static void initialiseFirstPersonRenderer() {
         ModernMayhemMod.LOGGER.info("["+ ModernMayhemMod.ID + "] Initializing NVG First Person Renderer");
         if (initialized) return;
-        DUMMY_ITEM = (NVGFirstPersonFakeItem) ItemRegistryMM.FIRST_PERSON_NVG.get();
+        DUMMY_ITEM = (NVGFirstPersonFakeItem) ClientItemRegistryMM.FIRST_PERSON_NVG.get();
         RENDERER.initCurrentItemStack(DUMMY_ITEM);
         initialized = true;
     }

@@ -10,9 +10,11 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.tkg.ModernMayhem.client.config.ClientConfig;
 import net.tkg.ModernMayhem.client.event.ItemInteractionEvent;
 import net.tkg.ModernMayhem.client.event.RenderNVGFirstPerson;
+import net.tkg.ModernMayhem.client.registry.ClientItemRegistryMM;
 import net.tkg.ModernMayhem.server.compat.OculusCompat;
 import net.tkg.ModernMayhem.server.config.ArmorConfig;
 import net.tkg.ModernMayhem.server.config.CommonConfig;
@@ -45,6 +47,10 @@ public class ModernMayhemMod {
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::onGameReady);
         ItemInteractionEvent.register();
+
+        if (FMLEnvironment.dist.isClient()) {
+            ClientItemRegistryMM.init(modEventBus);
+        }
 
         context.registerConfig(ModConfig.Type.COMMON, CommonConfig.CONFIG, "modern-mayhem-common.toml");
         context.registerConfig(ModConfig.Type.CLIENT, ClientConfig.CONFIG, "modern-mayhem-client.toml");

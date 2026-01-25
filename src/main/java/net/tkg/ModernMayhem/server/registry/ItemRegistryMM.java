@@ -179,11 +179,6 @@ public class ItemRegistryMM {
     public static final RegistryObject<Item> MENU_ITEM = ITEMS.register("menu_item",
             () -> new Item(new Item.Properties().stacksTo(1)));
 
-    // Check if on the client side
-    @OnlyIn(Dist.CLIENT)
-    public static final RegistryObject<Item> FIRST_PERSON_NVG = ITEMS.register("first_person_nvg",
-            NVGFirstPersonFakeItem::new);
-
     public static void init(IEventBus modEventBus) {
         ITEMS.register(modEventBus);
     }

@@ -38,7 +38,8 @@ public class VisorItem extends GenericSpecialGogglesItem {
                 nvgGoggleList.getConfigs(),
                 nvgGoggleList.getConfigIndex(),
                 nvgGoggleList.getActivationSound(),
-                nvgGoggleList.getDeactivationSound()
+                nvgGoggleList.getDeactivationSound(),
+                GoggleType.VISOR
         );
         this.config = nvgGoggleList;
     }

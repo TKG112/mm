@@ -62,11 +62,14 @@ public abstract class GenericSpecialGogglesItem extends Item implements GeoItem,
     private static final Map<UUID, Integer> lastConfigIndexMap = new HashMap<>();
 
     private static final TagKey<Item> HAS_HEAD_MOUNT_TAG = ItemTags.create(fromNamespaceAndPath(ModernMayhemMod.ID, "has_head_mount"));
+    private static final TagKey<Item> HAS_VISOR_MOUNT_TAG = ItemTags.create(fromNamespaceAndPath(ModernMayhemMod.ID, "has_visor_mount"));
+
     private static final String COTI_CONTENTS_TAG = "CotiContents";
 
     public enum GoggleType {
         NIGHT_VISION,
-        THERMAL
+        THERMAL,
+        VISOR
     }
 
     private final GoggleType goggleType;
@@ -152,6 +155,10 @@ public abstract class GenericSpecialGogglesItem extends Item implements GeoItem,
 
     public boolean hasAutoGating() {
         return hasAutoGating;
+    }
+
+    public GoggleType getGoggleType() {
+        return goggleType;
     }
 
     @Override
@@ -622,7 +629,9 @@ public abstract class GenericSpecialGogglesItem extends Item implements GeoItem,
         if (entity instanceof Player player && !player.level().isClientSide()) {
             ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
 
-            if (helmet.isEmpty() || !helmet.is(HAS_HEAD_MOUNT_TAG)) {
+            TagKey<Item> requiredTag = (getGoggleType() == GoggleType.VISOR) ? HAS_VISOR_MOUNT_TAG : HAS_HEAD_MOUNT_TAG;
+
+            if (helmet.isEmpty() || !helmet.is(requiredTag)) {
                 CuriosApi.getCuriosInventory(player).ifPresent(curios -> {
                     curios.getStacksHandler(slotContext.identifier()).ifPresent(handler -> {
                         ItemStack removedStack = handler.getStacks().getStackInSlot(slotContext.index()).copy();
@@ -646,7 +655,10 @@ public abstract class GenericSpecialGogglesItem extends Item implements GeoItem,
         if (!player.isAddedToWorld()) return true;
 
         ItemStack headItem = player.getItemBySlot(EquipmentSlot.HEAD);
-        return !headItem.isEmpty() && headItem.is(HAS_HEAD_MOUNT_TAG);
+
+        TagKey<Item> requiredTag = (getGoggleType() == GoggleType.VISOR) ? HAS_VISOR_MOUNT_TAG : HAS_HEAD_MOUNT_TAG;
+
+        return !headItem.isEmpty() && headItem.is(requiredTag);
     }
 
     public static boolean hasConfigIndexChanged(Player player, ItemStack stack) {
