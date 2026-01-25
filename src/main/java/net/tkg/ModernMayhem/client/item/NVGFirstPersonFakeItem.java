@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.tkg.ModernMayhem.client.event.RenderNVGFirstPerson;
 import net.tkg.ModernMayhem.client.renderer.custom.NVGFirstPersonRenderer;
-import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import net.tkg.ModernMayhem.server.network.NVGSyncSwitchOffPacket;
 import net.tkg.ModernMayhem.server.network.NVGSyncSwitchOnPacket;
 import net.tkg.ModernMayhem.server.registry.PacketsRegistryMM;
@@ -77,32 +77,32 @@ public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
                 // we check if the player has NVG goggles equipped and set the animation accordingly
                 if (CuriosUtil.hasNVGEquipped(player)) {
                     ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
-                    if (facewearItem.getItem() instanceof GenericNVGGogglesItem) {
-                        if (GenericNVGGogglesItem.isNVGOnFace(facewearItem)) {
+                    if (facewearItem.getItem() instanceof GenericSpecialGogglesItem) {
+                        if (GenericSpecialGogglesItem.isNVGOnFace(facewearItem)) {
                             state.setAnimation(ANIM_CLOSED);
                         } else {
                             state.setAnimation(ANIM_OPENED);
                         }
                     } else {
-                        state.setAnimation(GenericNVGGogglesItem.ANIM_IDLE);
+                        state.setAnimation(GenericSpecialGogglesItem.ANIM_IDLE);
                     }
                 } else {
-                    state.setAnimation(GenericNVGGogglesItem.ANIM_IDLE);
+                    state.setAnimation(GenericSpecialGogglesItem.ANIM_IDLE);
                 }
                 return PlayState.CONTINUE;
             }
             if (state.isCurrentAnimationStage("opened") || state.isCurrentAnimationStage("closed") || state.isCurrentAnimationStage("idle") || state.isCurrentAnimationStage("")) {
                 ItemStack stack = CuriosUtil.getFaceWearItem(player);
-                if (stack.getItem() instanceof GenericNVGGogglesItem) {
-                    if (GenericNVGGogglesItem.isNVGOnFace(stack)) {
-                        state.setAnimation(GenericNVGGogglesItem.ANIM_CLOSE);
+                if (stack.getItem() instanceof GenericSpecialGogglesItem) {
+                    if (GenericSpecialGogglesItem.isNVGOnFace(stack)) {
+                        state.setAnimation(GenericSpecialGogglesItem.ANIM_CLOSE);
                     } else {
-                        state.setAnimation(GenericNVGGogglesItem.ANIM_OPEN);
+                        state.setAnimation(GenericSpecialGogglesItem.ANIM_OPEN);
                     }
                 }
             }
-            if (!(state.isCurrentAnimation(GenericNVGGogglesItem.ANIM_CLOSE) || state.isCurrentAnimation(GenericNVGGogglesItem.ANIM_OPEN) || state.isCurrentAnimation(GenericNVGGogglesItem.ANIM_IDLE))) {
-                state.setAnimation(GenericNVGGogglesItem.ANIM_IDLE);
+            if (!(state.isCurrentAnimation(GenericSpecialGogglesItem.ANIM_CLOSE) || state.isCurrentAnimation(GenericSpecialGogglesItem.ANIM_OPEN) || state.isCurrentAnimation(GenericSpecialGogglesItem.ANIM_IDLE))) {
+                state.setAnimation(GenericSpecialGogglesItem.ANIM_IDLE);
             }
             RenderNVGFirstPerson.shouldRenderLeftArm = !(state.isCurrentAnimationStage("opening") || state.isCurrentAnimationStage("closing")); // Prevent the player from rendering a third arm when the NVG animation shows the left arm
             return PlayState.CONTINUE;
@@ -116,15 +116,15 @@ public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
             LocalPlayer player = Minecraft.getInstance().player;
             ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
             if (player != null) {
-                if (facewearItem.getItem() instanceof GenericNVGGogglesItem) {
+                if (facewearItem.getItem() instanceof GenericSpecialGogglesItem) {
                     // We switch on the NVG mode on the client side and then on the server side.
                     // This is done to avoid the delay of the server response.
                     // Since the server will synchronize the state later.
                     if (key.equals("enableNVGEffect;")) {
-                        GenericNVGGogglesItem.switchOnNVGMode(facewearItem);
+                        GenericSpecialGogglesItem.switchOnNVGMode(facewearItem);
                         PacketsRegistryMM.getChannel().sendToServer(new NVGSyncSwitchOnPacket());
                     } else if (key.equals("disableNVGEffect;")) {
-                        GenericNVGGogglesItem.switchOffNVGMode(facewearItem);
+                        GenericSpecialGogglesItem.switchOffNVGMode(facewearItem);
                         PacketsRegistryMM.getChannel().sendToServer(new NVGSyncSwitchOffPacket());
                     }
                 }
@@ -139,15 +139,15 @@ public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
             LocalPlayer player = Minecraft.getInstance().player;
             ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
             if (player != null) {
-                if (facewearItem.getItem() instanceof GenericNVGGogglesItem) {
+                if (facewearItem.getItem() instanceof GenericSpecialGogglesItem) {
                     // We switch on the NVG mode on the client side and then on the server side.
                     // This is done to avoid the delay of the server response.
                     // Since the server will synchronize the state later.
                     if (key.equals("enableNVGEffect;")) {
-                        GenericNVGGogglesItem.switchOnNVGMode(facewearItem);
+                        GenericSpecialGogglesItem.switchOnNVGMode(facewearItem);
                         PacketsRegistryMM.getChannel().sendToServer(new NVGSyncSwitchOnPacket());
                     } else if (key.equals("disableNVGEffect;")) {
-                        GenericNVGGogglesItem.switchOffNVGMode(facewearItem);
+                        GenericSpecialGogglesItem.switchOffNVGMode(facewearItem);
                         PacketsRegistryMM.getChannel().sendToServer(new NVGSyncSwitchOffPacket());
                     }
                 }
@@ -163,7 +163,7 @@ public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
 
             if (player != null && world != null) {
                 ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
-                if (facewearItem.getItem() instanceof GenericNVGGogglesItem genericNVGGogglesItem) {
+                if (facewearItem.getItem() instanceof GenericSpecialGogglesItem genericSpecialGogglesItem) {
                     switch (soundKey) {
                         case "nvg_on" -> {
                             //player.displayClientMessage(Component.literal("NVG Activated"), true);
@@ -172,7 +172,7 @@ public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
                                     player.getX(),
                                     player.getY(),
                                     player.getZ(),
-                                    genericNVGGogglesItem.ACTIVATION_SOUND.get(),
+                                    genericSpecialGogglesItem.ACTIVATION_SOUND.get(),
                                     SoundSource.NEUTRAL,
                                     1,
                                     1,
@@ -186,7 +186,7 @@ public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
                                     player.getX(),
                                     player.getY(),
                                     player.getZ(),
-                                    genericNVGGogglesItem.DEACTIVATION_SOUND.get(),
+                                    genericSpecialGogglesItem.DEACTIVATION_SOUND.get(),
                                     SoundSource.NEUTRAL,
                                     1,
                                     1,

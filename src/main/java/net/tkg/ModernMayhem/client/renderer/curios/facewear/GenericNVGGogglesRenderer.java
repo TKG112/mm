@@ -15,14 +15,14 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.tkg.ModernMayhem.client.models.curios.facewear.GenericNVGGogglesModel;
-import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import software.bernie.geckolib.renderer.GeoItemRenderer;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.client.ICurioRenderer;
 
-public class GenericNVGGogglesRenderer<T extends GenericNVGGogglesItem> extends GeoArmorRenderer<T> implements ICurioRenderer {
+public class GenericNVGGogglesRenderer<T extends GenericSpecialGogglesItem> extends GeoArmorRenderer<T> implements ICurioRenderer {
 
     private ItemStack currentRenderStack = ItemStack.EMPTY;
 
@@ -77,7 +77,7 @@ public class GenericNVGGogglesRenderer<T extends GenericNVGGogglesItem> extends 
     public void setupAnim(@NotNull Entity entity, float pLimbswing, float pLimbswingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
     }
 
-    public static class GenericNVGGogglesSlotRenderer<T extends GenericNVGGogglesItem> extends GeoItemRenderer<T> {
+    public static class GenericNVGGogglesSlotRenderer<T extends GenericSpecialGogglesItem> extends GeoItemRenderer<T> {
         private ItemStack renderingStack = ItemStack.EMPTY;
 
         public GenericNVGGogglesSlotRenderer() {

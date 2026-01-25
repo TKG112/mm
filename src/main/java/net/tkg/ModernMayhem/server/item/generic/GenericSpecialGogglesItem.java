@@ -47,7 +47,7 @@ import java.util.UUID;
 
 import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
 
-public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICurioItem {
+public abstract class GenericSpecialGogglesItem extends Item implements GeoItem, ICurioItem {
     private NVGConfig[] configs;
     private int configIndex = 0;
     private static int defaultConfigIndex = 0;
@@ -71,26 +71,32 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
 
     private final GoggleType goggleType;
     private final boolean canHoldCoti;
+    private final boolean hasAutoGain;
+    private final boolean hasAutoGating;
 
     public abstract NVGGoggleList getConfig();
 
-    public GenericNVGGogglesItem(NVGConfig pConfig) {
+    public GenericSpecialGogglesItem(NVGConfig pConfig) {
         super(new Item.Properties().stacksTo(1).durability(0));
         defaultConfigIndex = 0;
         this.goggleType = GoggleType.NIGHT_VISION;
         this.canHoldCoti = false;
+        this.hasAutoGain = false;
+        this.hasAutoGating = false;
     }
 
-    public GenericNVGGogglesItem(NVGConfig pConfig, RegistryObject<SoundEvent> pActivationSound, RegistryObject<SoundEvent> pDeactivationSound) {
+    public GenericSpecialGogglesItem(NVGConfig pConfig, RegistryObject<SoundEvent> pActivationSound, RegistryObject<SoundEvent> pDeactivationSound) {
         super(new Item.Properties().stacksTo(1).durability(0));
         defaultConfigIndex = 0;
         this.ACTIVATION_SOUND = pActivationSound;
         this.DEACTIVATION_SOUND = pDeactivationSound;
         this.goggleType = GoggleType.NIGHT_VISION;
         this.canHoldCoti = false;
+        this.hasAutoGain = false;
+        this.hasAutoGating = false;
     }
 
-    public GenericNVGGogglesItem(NVGConfig[] pConfigs, int startConfigIndex, RegistryObject<SoundEvent> pActivationSound, RegistryObject<SoundEvent> pDeactivationSound) {
+    public GenericSpecialGogglesItem(NVGConfig[] pConfigs, int startConfigIndex, RegistryObject<SoundEvent> pActivationSound, RegistryObject<SoundEvent> pDeactivationSound) {
         super(new Item.Properties().stacksTo(1).durability(0));
         this.configs = pConfigs;
         defaultConfigIndex = startConfigIndex;
@@ -98,19 +104,27 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
         this.DEACTIVATION_SOUND = pDeactivationSound;
         this.goggleType = GoggleType.NIGHT_VISION;
         this.canHoldCoti = false;
+        this.hasAutoGain = false;
+        this.hasAutoGating = false;
+
+        calculateBrightnessRange();
     }
 
-    public GenericNVGGogglesItem(NVGConfig[] pConfigs, int startConfigIndex, RegistryObject<SoundEvent> pActivationSound, RegistryObject<SoundEvent> pDeactivationSound, boolean canHoldCoti) {
+    public GenericSpecialGogglesItem(NVGConfig[] pConfigs, int startConfigIndex, RegistryObject<SoundEvent> pActivationSound, RegistryObject<SoundEvent> pDeactivationSound, GoggleType pGoggleType, boolean canHoldCoti, boolean pHasAutoGain, boolean pHasAutoGating) {
         super(new Item.Properties().stacksTo(1).durability(0));
         this.configs = pConfigs;
         defaultConfigIndex = startConfigIndex;
         this.ACTIVATION_SOUND = pActivationSound;
         this.DEACTIVATION_SOUND = pDeactivationSound;
-        this.goggleType = GoggleType.NIGHT_VISION;
+        this.goggleType = pGoggleType;
         this.canHoldCoti = canHoldCoti;
+        this.hasAutoGain = pHasAutoGain;
+        this.hasAutoGating = pHasAutoGating;
+
+        calculateBrightnessRange();
     }
 
-    public GenericNVGGogglesItem(NVGConfig[] pConfigs, int startConfigIndex, RegistryObject<SoundEvent> pActivationSound, RegistryObject<SoundEvent> pDeactivationSound, GoggleType pGoggleType) {
+    public GenericSpecialGogglesItem(NVGConfig[] pConfigs, int startConfigIndex, RegistryObject<SoundEvent> pActivationSound, RegistryObject<SoundEvent> pDeactivationSound, GoggleType pGoggleType) {
         super(new Item.Properties().stacksTo(1).durability(0));
         this.configs = pConfigs;
         defaultConfigIndex = startConfigIndex;
@@ -118,26 +132,26 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
         this.DEACTIVATION_SOUND = pDeactivationSound;
         this.goggleType = pGoggleType;
         this.canHoldCoti = false;
+        this.hasAutoGain = false;
+        this.hasAutoGating = false;
+
+        calculateBrightnessRange();
     }
 
     public boolean shouldRenderShader() {
         return true;
     }
 
-    public boolean shouldRenderFirstPerson() {
-        return true;
-    }
-
-    public GoggleType getGoggleType() {
-        return goggleType;
-    }
-
-    public boolean isThermalVision() {
-        return goggleType == GoggleType.THERMAL;
-    }
-
     public boolean canHoldCoti() {
         return canHoldCoti;
+    }
+
+    public boolean hasAutoGain() {
+        return hasAutoGain;
+    }
+
+    public boolean hasAutoGating() {
+        return hasAutoGating;
     }
 
     @Override
@@ -258,7 +272,7 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
     }
 
     public static boolean hasCoti(ItemStack nvgStack) {
-        if (!(nvgStack.getItem() instanceof GenericNVGGogglesItem nvgItem)) {
+        if (!(nvgStack.getItem() instanceof GenericSpecialGogglesItem nvgItem)) {
             return false;
         }
 
@@ -309,7 +323,7 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
 
     public static NVGConfig getCurrentConfig(ItemStack item) {
         CompoundTag tag = item.getOrCreateTag();
-        GenericNVGGogglesItem itemInstance = (GenericNVGGogglesItem) item.getItem();
+        GenericSpecialGogglesItem itemInstance = (GenericSpecialGogglesItem) item.getItem();
 
         if (itemInstance.configs == null || itemInstance.configs.length == 0) {
             if (!tag.contains("configIndex")) tag.putInt("configIndex", 0);
@@ -407,7 +421,7 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
 
     public static void switchConfigUp(ItemStack item) {
         CompoundTag tag = item.getOrCreateTag();
-        GenericNVGGogglesItem itemInstance = (GenericNVGGogglesItem) item.getItem();
+        GenericSpecialGogglesItem itemInstance = (GenericSpecialGogglesItem) item.getItem();
 
         if (itemInstance.configs == null || itemInstance.configs.length == 0) {
             tag.putInt("configIndex", 0);
@@ -432,7 +446,7 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
 
     public static void switchConfigDown(ItemStack item) {
         CompoundTag tag = item.getOrCreateTag();
-        GenericNVGGogglesItem itemInstance = (GenericNVGGogglesItem) item.getItem();
+        GenericSpecialGogglesItem itemInstance = (GenericSpecialGogglesItem) item.getItem();
 
         if (itemInstance.configs == null || itemInstance.configs.length == 0) {
             tag.putInt("configIndex", 0);
@@ -465,7 +479,7 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
             if (entity instanceof Player player) {
                 if (CuriosUtil.hasNVGEquipped(player)) {
                     ItemStack stack = CuriosUtil.getFaceWearItem(player);
-                    if (stack.getItem() instanceof GenericNVGGogglesItem) {
+                    if (stack.getItem() instanceof GenericSpecialGogglesItem) {
                         CompoundTag tag = stack.getOrCreateTag();
                         if (tag.contains("NvgOnFace")) {
                             if (tag.getBoolean("NvgOnFace")) {
@@ -484,13 +498,37 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
         }));
     }
 
+    private void calculateBrightnessRange() {
+        if (configs == null || configs.length == 0) return;
+
+        float min = Float.MAX_VALUE;
+        float max = Float.MIN_VALUE;
+
+        for (NVGConfig config : configs) {
+            float brightness = config.getBrightness();
+            if (brightness < min) min = brightness;
+            if (brightness > max) max = brightness;
+        }
+
+        for (NVGConfig config : configs) {
+            config.setMinGain(min);
+            config.setMaxGain(max);
+        }
+    }
+
     public static class NVGConfig {
         private Float brightness = 1.0f;
         private Float redValue = 1.0f;
         private Float greenValue = 1.0f;
         private Float blueValue = 1.0f;
         private ResourceLocation overlay = null;
-        private ResourceLocation mask = null;
+        private Float minGain = 0.1f;
+        private Float maxGain = 1.0f;
+        private Float noiseMultiplier = 1.0f;
+        private Float autoGainSpeed = 0.05f;
+        private Float autoGainOffset = 0f;
+        private Float autoGatingOffset = 0.1f;
+        private Float autoGatingSpeed = 0.1f;
 
         public NVGConfig(float pBrightness, float pRed, float pGreen, float pBlue) {
             brightness = pBrightness;
@@ -507,22 +545,54 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
             overlay = fromNamespaceAndPath(ModernMayhemMod.ID, pOverlay);
         }
 
-        public NVGConfig(float pBrightness, float pRed, float pGreen, float pBlue, String pOverlay, String pMask) {
+        public NVGConfig(float pBrightness, float pRed, float pGreen, float pBlue, String pOverlay, float pNoiseMultiplier) {
             brightness = pBrightness;
             redValue = pRed;
             greenValue = pGreen;
             blueValue = pBlue;
             overlay = fromNamespaceAndPath(ModernMayhemMod.ID, pOverlay);
-            mask = fromNamespaceAndPath(ModernMayhemMod.ID, pMask);
+            noiseMultiplier = pNoiseMultiplier;
+        }
+
+        public NVGConfig(float pBrightness, float pRed, float pGreen, float pBlue, String pOverlay, float pNoiseMultiplier, float pAutoGainSpeed) {
+            brightness = pBrightness;
+            redValue = pRed;
+            greenValue = pGreen;
+            blueValue = pBlue;
+            overlay = fromNamespaceAndPath(ModernMayhemMod.ID, pOverlay);
+            noiseMultiplier = pNoiseMultiplier;
+            autoGainSpeed = pAutoGainSpeed;
+        }
+
+        public NVGConfig(float pBrightness, float pRed, float pGreen, float pBlue, String pOverlay, float pNoiseMultiplier, float pAutoGainSpeed, float pAutoGatingOffset, float pAutoGatingSpeed) {
+            brightness = pBrightness;
+            redValue = pRed;
+            greenValue = pGreen;
+            blueValue = pBlue;
+            overlay = fromNamespaceAndPath(ModernMayhemMod.ID, pOverlay);
+            noiseMultiplier = pNoiseMultiplier;
+            autoGainSpeed = pAutoGainSpeed;
+            autoGatingOffset = pAutoGatingOffset;
+            autoGatingSpeed = pAutoGatingSpeed;
+
+        }
+
+        public NVGConfig(float pBrightness, float pRed, float pGreen, float pBlue, String pOverlay, float pNoiseMultiplier, float pAutoGainSpeed, float pAutoGainOffset, float pAutoGatingOffset, float pAutoGatingSpeed) {
+            brightness = pBrightness;
+            redValue = pRed;
+            greenValue = pGreen;
+            blueValue = pBlue;
+            overlay = fromNamespaceAndPath(ModernMayhemMod.ID, pOverlay);
+            noiseMultiplier = pNoiseMultiplier;
+            autoGainSpeed = pAutoGainSpeed;
+            autoGainOffset = pAutoGainOffset;
+            autoGatingOffset = pAutoGatingOffset;
+            autoGatingSpeed = pAutoGatingSpeed;
+
         }
 
         public NVGConfig(String pOverlay) {
             overlay = fromNamespaceAndPath(ModernMayhemMod.ID, pOverlay);
-        }
-
-        public NVGConfig(String pOverlay, String pMask) {
-            overlay = fromNamespaceAndPath(ModernMayhemMod.ID, pOverlay);
-            mask = fromNamespaceAndPath(ModernMayhemMod.ID, pMask);
         }
 
         public float getBrightness() { return brightness; }
@@ -530,8 +600,14 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
         public float getGreenValue() { return greenValue; }
         public float getBlueValue() { return blueValue; }
         public ResourceLocation getOverlay() { return overlay; }
-        public ResourceLocation getMask() { return mask; }
-
+        public void setMinGain(float min) { this.minGain = min; }
+        public void setMaxGain(float max) { this.maxGain = max; }
+        public float getMinGain() { return minGain - autoGainOffset; }
+        public float getMaxGain() { return maxGain + autoGatingOffset; }
+        public float getNoiseMultiplier() { return noiseMultiplier; }
+        public float getAutoGainSpeed() { return autoGainSpeed; }
+        public float getAutoGatingOffset() { return autoGatingOffset; }
+        public float getAutoGatingSpeed() { return autoGatingSpeed; }
     }
 
     @Override
@@ -574,7 +650,7 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
     }
 
     public static boolean hasConfigIndexChanged(Player player, ItemStack stack) {
-        if (!(stack.getItem() instanceof GenericNVGGogglesItem)) return false;
+        if (!(stack.getItem() instanceof GenericSpecialGogglesItem)) return false;
         CompoundTag tag = stack.getTag();
         if (tag == null || !tag.contains("configIndex")) return false;
         int currentIndex = tag.getInt("configIndex");
@@ -617,9 +693,7 @@ public abstract class GenericNVGGogglesItem extends Item implements GeoItem, ICu
         stack.setTag(tag);
     }
 
-    // Check if active
     public static boolean isCotiEnabled(ItemStack stack) {
-        // It must HAVE a Coti installed AND be switched ON
         return hasCoti(stack) && stack.getTag() != null && stack.getTag().getBoolean("Coti");
     }
 }

@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.client.ShaderRenderer;
 import net.tkg.ModernMayhem.server.item.curios.facewear.TVGGogglesItem;
-import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 
 @Mod.EventBusSubscriber(modid = ModernMayhemMod.ID, value = Dist.CLIENT)
@@ -60,15 +60,15 @@ public class RenderTVGShader {
         if (player == null) return;
 
         boolean shouldRender = false;
-        GenericNVGGogglesItem.NVGConfig thermalConfig = null;
+        GenericSpecialGogglesItem.NVGConfig thermalConfig = null;
         ItemStack facewearItem = null;
 
         if (CuriosUtil.hasNVGEquipped(player)) {
             facewearItem = CuriosUtil.getFaceWearItem(player);
             if (facewearItem.getItem() instanceof TVGGogglesItem thermalItem) {
                 if (thermalItem.shouldRenderShader()) {
-                    shouldRender = GenericNVGGogglesItem.getNVGMode(facewearItem) == 1;
-                    thermalConfig = GenericNVGGogglesItem.getCurrentConfig(facewearItem);
+                    shouldRender = GenericSpecialGogglesItem.getNVGMode(facewearItem) == 1;
+                    thermalConfig = GenericSpecialGogglesItem.getCurrentConfig(facewearItem);
                 }
             }
         }
@@ -109,12 +109,12 @@ public class RenderTVGShader {
 
         ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
         if (facewearItem.getItem() instanceof TVGGogglesItem) {
-            if (GenericNVGGogglesItem.getNVGMode(facewearItem) == 1 &&
+            if (GenericSpecialGogglesItem.getNVGMode(facewearItem) == 1 &&
                     Minecraft.getInstance().options.getCameraType().isFirstPerson() &&
-                    GenericNVGGogglesItem.getCurrentConfig(facewearItem).getOverlay() != null) {
+                    GenericSpecialGogglesItem.getCurrentConfig(facewearItem).getOverlay() != null) {
 
                 event.getGuiGraphics().blit(
-                        GenericNVGGogglesItem.getCurrentConfig(facewearItem).getOverlay(),
+                        GenericSpecialGogglesItem.getCurrentConfig(facewearItem).getOverlay(),
                         0, 0, 0, 0,
                         screenWidth, screenHeight,
                         screenWidth, screenHeight

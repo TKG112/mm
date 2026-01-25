@@ -9,7 +9,7 @@ import net.tkg.ModernMayhem.client.models.curios.facewear.GenericNVGGogglesModel
 import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.curios.facewear.TVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.curios.facewear.VisorItem;
-import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import software.bernie.geckolib.model.GeoModel;
 
@@ -23,7 +23,7 @@ public class NVGFirstPersonModel extends GeoModel<NVGFirstPersonFakeItem> {
     public ResourceLocation getModelResource(NVGFirstPersonFakeItem animatable) {
         // 1. Get the actual item from the player
         ItemStack stack = getStack();
-        boolean hasCoti = GenericNVGGogglesItem.hasCoti(stack);
+        boolean hasCoti = GenericSpecialGogglesItem.hasCoti(stack);
 
         return switch (getType()) {
             case 0 -> fromNamespaceAndPath(ModernMayhemMod.ID, "geo/fpm/facewear/gpnvg_fpm.geo.json");
@@ -51,7 +51,7 @@ public class NVGFirstPersonModel extends GeoModel<NVGFirstPersonFakeItem> {
         int variant = getVariant();
 
         ItemStack stack = getStack();
-        boolean hasCoti = GenericNVGGogglesItem.hasCoti(stack);
+        boolean hasCoti = GenericSpecialGogglesItem.hasCoti(stack);
 
         if (type == 3) {
             return switch (variant) {
@@ -67,7 +67,7 @@ public class NVGFirstPersonModel extends GeoModel<NVGFirstPersonFakeItem> {
     @Override
     public ResourceLocation getAnimationResource(NVGFirstPersonFakeItem animatable) {
         ItemStack stack = getStack();
-        boolean hasCoti = GenericNVGGogglesItem.hasCoti(stack);
+        boolean hasCoti = GenericSpecialGogglesItem.hasCoti(stack);
 
         return switch (getType()) {
             case 0 -> fromNamespaceAndPath(ModernMayhemMod.ID, "animations/item/fpa/facewear/gpnvg_fpa.animation.json");

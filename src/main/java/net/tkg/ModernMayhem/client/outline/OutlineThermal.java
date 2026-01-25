@@ -16,7 +16,7 @@ import net.tkg.ModernMayhem.client.event.RenderNVGShader;
 import net.tkg.ModernMayhem.client.event.RenderTVGShader;
 import net.tkg.ModernMayhem.client.outline.render.OutlineRenderer;
 import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
-import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 
 /**
@@ -181,6 +181,6 @@ public class OutlineThermal {
 
     private static boolean isCotiEnabledOnPlayer(LocalPlayer player) {
         ItemStack stack = CuriosUtil.getFaceWearItem(player);
-        return stack.getItem() instanceof NVGGogglesItem && GenericNVGGogglesItem.isCotiEnabled(stack);
+        return stack.getItem() instanceof NVGGogglesItem && GenericSpecialGogglesItem.isCotiEnabled(stack);
     }
 }

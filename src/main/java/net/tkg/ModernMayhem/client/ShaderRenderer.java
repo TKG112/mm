@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.server.mixinaccessor.PostChainAccess;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import oshi.util.tuples.Pair;
 
 import java.util.HashMap;
@@ -94,48 +95,56 @@ public class ShaderRenderer {
     public void render() {
         GameRenderer gameRenderer = mc.gameRenderer;
 
-        // If the shader is not active and is currently loaded, we need to unload it
         if (!isActive && isCurrentEffect()) {
             gameRenderer.shutdownEffect();
             return;
         }
 
-        // If the shader is not active or is already the current effect, we do not need to load it again
         if (!isActive || isCurrentEffect()) {
             return;
         }
 
-        // If the shader is already loaded and the window size has not changed, we do not need to reload it
         if (gameRenderer.currentEffect() != null && isCurrentEffect() && !hasWindowSizeChanged()) {
             return;
         }
 
         gameRenderer.loadEffect(shaderLocation);
-
-        // Reapply modified uniforms if the window size has changed
         if (hasWindowSizeChanged()) reapplyModifiedUniforms();
     }
 
     /**
-     * Gets a specific uniform from the shader.
-     * This method searches through the PostChain's passes to find the uniform by name.
-     * @param name - The name of the uniform to retrieve.
-     * @return The Uniform object if found, or null if not found or if postChain is null.
+     * Gets a specific uniform from a specific shader pass.
+     * @param passName - The name of the pass to search (e.g., "mm:autogain", "mm:night-vision"). If null, searches all passes.
+     * @param uniformName - The name of the uniform to retrieve.
+     * @return The Uniform object if found, or null if not found.
      */
-    public Uniform getUniform(String name) {
+    public Uniform getUniform(@Nullable String passName, String uniformName) {
         if (!isCurrentEffect() || mc.gameRenderer.currentEffect() == null) {
             return null;
         }
         List<PostPass> passes = ((PostChainAccess) Objects.requireNonNull(mc.gameRenderer.currentEffect())).test_master$getPasses();
+
         for (PostPass pass : passes) {
-            if (pass.getName().equals(getShaderName())) {
-                Uniform uniform = pass.getEffect().getUniform(name);
-                if (uniform != null) {
-                    return uniform;
-                }
+            if (passName != null && !pass.getName().equals(passName)) {
+                continue;
+            }
+
+            Uniform uniform = pass.getEffect().getUniform(uniformName);
+            if (uniform != null) {
+                return uniform;
             }
         }
         return null;
+    }
+
+    /**
+     * Gets a specific uniform from any shader pass.
+     * Searches through all passes to find the uniform.
+     * @param uniformName - The name of the uniform to retrieve.
+     * @return The Uniform object if found, or null if not found.
+     */
+    public Uniform getUniform(String uniformName) {
+        return getUniform(null, uniformName);
     }
 
     /**
@@ -167,115 +176,200 @@ public class ShaderRenderer {
     }
 
     /**
-     * Sets a float uniform in the shader.
-     * This method retrieves the uniform by name and sets its value.
-     * If the uniform is not found, it logs a warning.
-     * @param name - The name of the uniform to set.
-     * @param value - The float value to set the uniform to.
+     * Sets a float uniform in a specific shader pass.
+     * @param passName - The name of the pass (e.g., "mm:autogain", "mm:night-vision")
+     * @param uniformName - The name of the uniform to set
+     * @param value - The float value to set
      */
-    public void setFloatUniform(String name, float value) {
-        Uniform uniform = getUniform(name);
+    public void setFloatUniform(String passName, String uniformName, float value) {
+        Uniform uniform = getUniform(passName, uniformName);
         if (uniform != null) {
             uniform.set(value);
-            modifiedUniforms.put("float", new Pair<>(name, value));
+            modifiedUniforms.put("float:" + passName + ":" + uniformName, new Pair<>(passName + ":" + uniformName, value));
         } else {
-            ModernMayhemMod.LOGGER.warn("Uniform {} not found in shader {}", name, getShaderName());
+            ModernMayhemMod.LOGGER.warn("Uniform {} not found in pass {}", uniformName, passName);
         }
     }
 
     /**
-     * Sets an integer uniform in the shader.
-     * This method retrieves the uniform by name and sets its value.
-     * If the uniform is not found, it logs a warning.
-     * @param name - The name of the uniform to set.
-     * @param value - The int value to set the uniform to.
-     * @implNote The resetting of int has not been tested yet, so use with caution.
+     * Sets a float uniform in any shader pass (searches all passes).
+     * @param uniformName - The name of the uniform to set
+     * @param value - The float value to set
      */
-    public void setIntUniform(String name, int value) {
-        Uniform uniform = getUniform(name);
+    public void setFloatUniform(String uniformName, float value) {
+        Uniform uniform = getUniform(null, uniformName);
         if (uniform != null) {
             uniform.set(value);
-            modifiedUniforms.put("int", new Pair<>(name, value));
+            modifiedUniforms.put("float:" + uniformName, new Pair<>(uniformName, value));
         } else {
-            ModernMayhemMod.LOGGER.warn("Uniform {} not found in shader {}", name, getShaderName());
+            ModernMayhemMod.LOGGER.warn("Uniform {} not found in shader {}", uniformName, getShaderName());
         }
     }
 
     /**
-     * Sets a boolean uniform in the shader.
-     * This method retrieves the uniform by name and sets its value.
-     * If the uniform is not found, it logs a warning.
-     * @param name - The name of the uniform to set.
-     * @param value - The boolean value to set the uniform to.
-     * @implNote The resetting of boolean has not been tested yet, so use with caution.
+     * Sets an integer uniform in a specific shader pass.
+     * @param passName - The name of the pass (e.g., "mm:autogain", "mm:night-vision")
+     * @param uniformName - The name of the uniform to set
+     * @param value - The int value to set
      */
-    public void setBooleanUniform(String name, boolean value) {
-        Uniform uniform = getUniform(name);
+    public void setIntUniform(String passName, String uniformName, int value) {
+        Uniform uniform = getUniform(passName, uniformName);
+        if (uniform != null) {
+            uniform.set(value);
+            modifiedUniforms.put("int:" + passName + ":" + uniformName, new Pair<>(passName + ":" + uniformName, value));
+        } else {
+            ModernMayhemMod.LOGGER.warn("Uniform {} not found in pass {}", uniformName, passName);
+        }
+    }
+
+    /**
+     * Sets an integer uniform in any shader pass (searches all passes).
+     * @param uniformName - The name of the uniform to set
+     * @param value - The int value to set
+     */
+    public void setIntUniform(String uniformName, int value) {
+        Uniform uniform = getUniform(null, uniformName);
+        if (uniform != null) {
+            uniform.set(value);
+            modifiedUniforms.put("int:" + uniformName, new Pair<>(uniformName, value));
+        } else {
+            ModernMayhemMod.LOGGER.warn("Uniform {} not found in shader {}", uniformName, getShaderName());
+        }
+    }
+
+    /**
+     * Sets a boolean uniform in a specific shader pass.
+     * @param passName - The name of the pass (e.g., "mm:autogain", "mm:night-vision")
+     * @param uniformName - The name of the uniform to set
+     * @param value - The boolean value to set
+     */
+    public void setBooleanUniform(String passName, String uniformName, boolean value) {
+        Uniform uniform = getUniform(passName, uniformName);
         if (uniform != null) {
             uniform.set(value ? 1 : 0);
-            modifiedUniforms.put("bool", new Pair<>(name, value ? 1 : 0));
+            modifiedUniforms.put("bool:" + passName + ":" + uniformName, new Pair<>(passName + ":" + uniformName, value ? 1 : 0));
         } else {
-            ModernMayhemMod.LOGGER.warn("Uniform {} not found in shader {}", name, getShaderName());
+            ModernMayhemMod.LOGGER.warn("Uniform {} not found in pass {}", uniformName, passName);
         }
     }
 
     /**
-     * Sets a vec2 uniform in the shader.
-     * This method retrieves the uniform by name and sets its value.
-     * If the uniform is not found, it logs a warning.
-     * @param name - The name of the uniform to set.
-     * @param x - The x component of the vec2.
-     * @param y - The y component of the vec2.
-     * @implNote The resetting of vec2 has not been tested yet, so use with caution.
+     * Sets a boolean uniform in any shader pass (searches all passes).
+     * @param uniformName - The name of the uniform to set
+     * @param value - The boolean value to set
      */
-    public void setVec2Uniform(String name, float x, float y) {
-        Uniform uniform = getUniform(name);
+    public void setBooleanUniform(String uniformName, boolean value) {
+        Uniform uniform = getUniform(null, uniformName);
+        if (uniform != null) {
+            uniform.set(value ? 1 : 0);
+            modifiedUniforms.put("bool:" + uniformName, new Pair<>(uniformName, value ? 1 : 0));
+        } else {
+            ModernMayhemMod.LOGGER.warn("Uniform {} not found in shader {}", uniformName, getShaderName());
+        }
+    }
+
+    /**
+     * Sets a vec2 uniform in a specific shader pass.
+     * @param passName - The name of the pass (e.g., "mm:autogain", "mm:night-vision")
+     * @param uniformName - The name of the uniform to set
+     * @param x - The x component of the vec2
+     * @param y - The y component of the vec2
+     */
+    public void setVec2Uniform(String passName, String uniformName, float x, float y) {
+        Uniform uniform = getUniform(passName, uniformName);
         if (uniform != null) {
             uniform.set(x, y);
-            modifiedUniforms.put("vec2", new Pair<>(name, new float[]{x, y}));
+            modifiedUniforms.put("vec2:" + passName + ":" + uniformName, new Pair<>(passName + ":" + uniformName, new float[]{x, y}));
         } else {
-            ModernMayhemMod.LOGGER.warn("Uniform {} not found in shader {}", name, getShaderName());
+            ModernMayhemMod.LOGGER.warn("Uniform {} not found in pass {}", uniformName, passName);
         }
     }
 
     /**
-     * Sets a vec3 uniform in the shader.
-     * This method retrieves the uniform by name and sets its value.
-     * If the uniform is not found, it logs a warning.
-     * @param name - The name of the uniform to set.
-     * @param x - The x component of the vec3.
-     * @param y - The y component of the vec3.
-     * @param z - The z component of the vec3.
-     * @implNote The resetting of vec3 has not been tested yet, so use with caution.
+     * Sets a vec2 uniform in any shader pass (searches all passes).
+     * @param uniformName - The name of the uniform to set
+     * @param x - The x component of the vec2
+     * @param y - The y component of the vec2
      */
-    public void setVec3Uniform(String name, float x, float y, float z) {
-        Uniform uniform = getUniform(name);
+    public void setVec2Uniform(String uniformName, float x, float y) {
+        Uniform uniform = getUniform(null, uniformName);
+        if (uniform != null) {
+            uniform.set(x, y);
+            modifiedUniforms.put("vec2:" + uniformName, new Pair<>(uniformName, new float[]{x, y}));
+        } else {
+            ModernMayhemMod.LOGGER.warn("Uniform {} not found in shader {}", uniformName, getShaderName());
+        }
+    }
+
+    /**
+     * Sets a vec3 uniform in a specific shader pass.
+     * @param passName - The name of the pass (e.g., "mm:autogain", "mm:night-vision")
+     * @param uniformName - The name of the uniform to set
+     * @param x - The x component of the vec3
+     * @param y - The y component of the vec3
+     * @param z - The z component of the vec3
+     */
+    public void setVec3Uniform(String passName, String uniformName, float x, float y, float z) {
+        Uniform uniform = getUniform(passName, uniformName);
         if (uniform != null) {
             uniform.set(x, y, z);
-            modifiedUniforms.put("vec3", new Pair<>(name, new float[]{x, y, z}));
+            modifiedUniforms.put("vec3:" + passName + ":" + uniformName, new Pair<>(passName + ":" + uniformName, new float[]{x, y, z}));
         } else {
-            ModernMayhemMod.LOGGER.warn("Uniform {} not found in shader {}", name, getShaderName());
+            ModernMayhemMod.LOGGER.warn("Uniform {} not found in pass {}", uniformName, passName);
         }
     }
 
     /**
-     * Sets a vec4 uniform in the shader.
-     * This method retrieves the uniform by name and sets its value.
-     * If the uniform is not found, it logs a warning.
-     * @param name - The name of the uniform to set.
-     * @param x - The x component of the vec4.
-     * @param y - The y component of the vec4.
-     * @param z - The z component of the vec4.
-     * @param w - The w component of the vec4.
-     * @implNote The resetting of vec4 has not been tested yet, so use with caution.
+     * Sets a vec3 uniform in any shader pass (searches all passes).
+     * @param uniformName - The name of the uniform to set
+     * @param x - The x component of the vec3
+     * @param y - The y component of the vec3
+     * @param z - The z component of the vec3
      */
-    public void setVec4Uniform(String name, float x, float y, float z, float w) {
-        Uniform uniform = getUniform(name);
+    public void setVec3Uniform(String uniformName, float x, float y, float z) {
+        Uniform uniform = getUniform(null, uniformName);
+        if (uniform != null) {
+            uniform.set(x, y, z);
+            modifiedUniforms.put("vec3:" + uniformName, new Pair<>(uniformName, new float[]{x, y, z}));
+        } else {
+            ModernMayhemMod.LOGGER.warn("Uniform {} not found in shader {}", uniformName, getShaderName());
+        }
+    }
+
+    /**
+     * Sets a vec4 uniform in a specific shader pass.
+     * @param passName - The name of the pass (e.g., "mm:autogain", "mm:night-vision")
+     * @param uniformName - The name of the uniform to set
+     * @param x - The x component of the vec4
+     * @param y - The y component of the vec4
+     * @param z - The z component of the vec4
+     * @param w - The w component of the vec4
+     */
+    public void setVec4Uniform(String passName, String uniformName, float x, float y, float z, float w) {
+        Uniform uniform = getUniform(passName, uniformName);
         if (uniform != null) {
             uniform.set(x, y, z, w);
-            modifiedUniforms.put("vec4", new Pair<>(name, new float[]{x, y, z, w}));
+            modifiedUniforms.put("vec4:" + passName + ":" + uniformName, new Pair<>(passName + ":" + uniformName, new float[]{x, y, z, w}));
         } else {
-            ModernMayhemMod.LOGGER.warn("Uniform {} not found in shader {}", name, getShaderName());
+            ModernMayhemMod.LOGGER.warn("Uniform {} not found in pass {}", uniformName, passName);
+        }
+    }
+
+    /**
+     * Sets a vec4 uniform in any shader pass (searches all passes).
+     * @param uniformName - The name of the uniform to set
+     * @param x - The x component of the vec4
+     * @param y - The y component of the vec4
+     * @param z - The z component of the vec4
+     * @param w - The w component of the vec4
+     */
+    public void setVec4Uniform(String uniformName, float x, float y, float z, float w) {
+        Uniform uniform = getUniform(null, uniformName);
+        if (uniform != null) {
+            uniform.set(x, y, z, w);
+            modifiedUniforms.put("vec4:" + uniformName, new Pair<>(uniformName, new float[]{x, y, z, w}));
+        } else {
+            ModernMayhemMod.LOGGER.warn("Uniform {} not found in shader {}", uniformName, getShaderName());
         }
     }
 
@@ -312,38 +406,71 @@ public class ShaderRenderer {
     private void reapplyModifiedUniforms() {
         // Reapply modified uniforms to the new PostChain (because uniforms are not persistent across PostChain instances)
         for (Map.Entry<String, Pair<String, Object>> entry : modifiedUniforms.entrySet()) {
-            switch (entry.getKey()) {
+            String[] keyParts = entry.getKey().split(":", 3);
+            String type = keyParts[0];
+            String passAndUniform = entry.getValue().getA();
+
+            // Check if this is a pass-specific uniform
+            String passName = null;
+            String uniformName;
+            if (passAndUniform.contains(":")) {
+                String[] parts = passAndUniform.split(":", 2);
+                passName = parts[0];
+                uniformName = parts[1];
+            } else {
+                uniformName = passAndUniform;
+            }
+
+            switch (type) {
                 case "float" -> {
-                    String uniformName = entry.getValue().getA();
                     float value = (float) entry.getValue().getB();
-                    this.setFloatUniform(uniformName, value);
+                    if (passName != null) {
+                        this.setFloatUniform(passName, uniformName, value);
+                    } else {
+                        this.setFloatUniform(uniformName, value);
+                    }
                 }
                 case "int" -> {
-                    String uniformName = entry.getValue().getA();
                     int value = (int) entry.getValue().getB();
-                    this.setIntUniform(uniformName, value);
+                    if (passName != null) {
+                        this.setIntUniform(passName, uniformName, value);
+                    } else {
+                        this.setIntUniform(uniformName, value);
+                    }
                 }
                 case "bool" -> {
-                    String uniformName = entry.getValue().getA();
                     boolean value = (int) entry.getValue().getB() == 1;
-                    this.setBooleanUniform(uniformName, value);
+                    if (passName != null) {
+                        this.setBooleanUniform(passName, uniformName, value);
+                    } else {
+                        this.setBooleanUniform(uniformName, value);
+                    }
                 }
                 case "vec2" -> {
-                    String uniformName = entry.getValue().getA();
                     float[] vec2Values = (float[]) entry.getValue().getB();
-                    this.setVec2Uniform(uniformName, vec2Values[0], vec2Values[1]);
+                    if (passName != null) {
+                        this.setVec2Uniform(passName, uniformName, vec2Values[0], vec2Values[1]);
+                    } else {
+                        this.setVec2Uniform(uniformName, vec2Values[0], vec2Values[1]);
+                    }
                 }
                 case "vec3" -> {
-                    String uniformName = entry.getValue().getA();
                     float[] vec3Values = (float[]) entry.getValue().getB();
-                    this.setVec3Uniform(uniformName, vec3Values[0], vec3Values[1], vec3Values[2]);
+                    if (passName != null) {
+                        this.setVec3Uniform(passName, uniformName, vec3Values[0], vec3Values[1], vec3Values[2]);
+                    } else {
+                        this.setVec3Uniform(uniformName, vec3Values[0], vec3Values[1], vec3Values[2]);
+                    }
                 }
                 case "vec4" -> {
-                    String uniformName = entry.getValue().getA();
                     float[] vec4Values = (float[]) entry.getValue().getB();
-                    this.setVec4Uniform(uniformName, vec4Values[0], vec4Values[1], vec4Values[2], vec4Values[3]);
+                    if (passName != null) {
+                        this.setVec4Uniform(passName, uniformName, vec4Values[0], vec4Values[1], vec4Values[2], vec4Values[3]);
+                    } else {
+                        this.setVec4Uniform(uniformName, vec4Values[0], vec4Values[1], vec4Values[2], vec4Values[3]);
+                    }
                 }
-                default -> ModernMayhemMod.LOGGER.warn("Unknown uniform type: {}", entry.getKey());
+                default -> ModernMayhemMod.LOGGER.warn("Unknown uniform type: {}", type);
             }
         }
     }

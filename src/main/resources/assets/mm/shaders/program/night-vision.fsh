@@ -3,6 +3,7 @@
 uniform float NightVisionEnabled;
 uniform float VignetteEnabled;
 uniform float AutoGainEnabled;
+uniform float AutoGatingEnabled;
 uniform float VignetteRadius;
 uniform float Brightness;
 uniform float SepiaRatio;
@@ -10,6 +11,7 @@ uniform float UseMask;
 uniform sampler2D DiffuseSampler;
 uniform sampler2D NoiseSampler;
 uniform sampler2D AutoGainSampler;
+uniform sampler2D AutoGatingSampler;
 uniform sampler2D MaskSampler;
 uniform float Time;
 
@@ -23,6 +25,7 @@ uniform float IntensityAdjust;
 uniform float RedValue;
 uniform float GreenValue;
 uniform float BlueValue;
+uniform float NoiseMultiplier;
 
 out vec4 fragColor;
 
@@ -35,12 +38,18 @@ void main() {
 
     vec4 nvgColor = sceneColor;
 
-    float finalGain = Brightness;
+    float finalGain;
 
     if (AutoGainEnabled > 0.5) {
         float autoGainValue = texture(AutoGainSampler, vec2(0.25, 0.25)).r;
         finalGain = autoGainValue;
+    } else if (AutoGatingEnabled > 0.5) {
+        float gatingOffset = texture(AutoGatingSampler, vec2(0.25, 0.25)).r;
+        finalGain = Brightness + gatingOffset;
+    } else {
+        finalGain = Brightness;
     }
+
     nvgColor.rgb *= finalGain;
 
     if (NightVisionEnabled > 0.0) {
@@ -48,8 +57,9 @@ void main() {
         uv.x = 0.35 * sin(Time * 10.0);
         uv.y = 0.35 * cos(Time * 10.0);
         vec3 noise = texture(NoiseSampler, texCoord.xy + uv).rgb * NoiseAmplification;
+        float gainBasedNoise = finalGain * NoiseMultiplier;
 
-        nvgColor.xy += noise.xy * 0.005;
+        nvgColor.xy += noise.xy * 0.005 * gainBasedNoise;
     }
 
     if (VignetteEnabled > 0.0) {

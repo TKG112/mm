@@ -17,7 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.tkg.ModernMayhem.client.renderer.curios.facewear.GenericNVGGogglesRenderer;
 import net.tkg.ModernMayhem.server.item.NVGGoggleList;
-import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import net.tkg.ModernMayhem.server.util.CuriosFacewearProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-public class VisorItem extends GenericNVGGogglesItem {
+public class VisorItem extends GenericSpecialGogglesItem {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private final NVGGoggleList config;
 

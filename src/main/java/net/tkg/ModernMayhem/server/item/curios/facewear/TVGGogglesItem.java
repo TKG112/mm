@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.tkg.ModernMayhem.client.renderer.curios.facewear.GenericNVGGogglesRenderer;
 import net.tkg.ModernMayhem.server.item.NVGGoggleList;
-import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -21,11 +21,10 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class TVGGogglesItem extends GenericNVGGogglesItem {
+public class TVGGogglesItem extends GenericSpecialGogglesItem {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private final NVGGoggleList config;
 
-    // Simple constructor with single config (overlay only)
     public TVGGogglesItem(NVGGoggleList nvgGoggleList) {
         super(
                 nvgGoggleList.getConfigs(),
@@ -40,13 +39,12 @@ public class TVGGogglesItem extends GenericNVGGogglesItem {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            // Use the generic renderer
             private GenericNVGGogglesRenderer<TVGGogglesItem> lRenderer;
 
             @Override
             public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
                 if (this.lRenderer == null)
-                    this.lRenderer = new GenericNVGGogglesRenderer<>(); // No custom model needed
+                    this.lRenderer = new GenericNVGGogglesRenderer<>();
 
                 this.lRenderer.prepForRender(livingEntity, itemStack, equipmentSlot, original);
                 return this.lRenderer;
@@ -54,7 +52,6 @@ public class TVGGogglesItem extends GenericNVGGogglesItem {
         });
 
         consumer.accept(new IClientItemExtensions() {
-            // Use the generic slot renderer
             private GenericNVGGogglesRenderer.GenericNVGGogglesSlotRenderer<TVGGogglesItem> renderer = null;
 
             @Override

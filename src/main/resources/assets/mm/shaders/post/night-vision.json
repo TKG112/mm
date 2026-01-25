@@ -2,7 +2,9 @@
   "targets": [
     "swap",
     "autogain_temp",
-    "autogain_buffer"
+    "autogain_buffer",
+    "autogating_temp",
+    "autogating_buffer"
   ],
   "passes": [
     {
@@ -14,12 +16,30 @@
           "name": "PreviousGainSampler",
           "id": "autogain_buffer"
         }
-      ]
+      ],
+      "uniforms": []
     },
     {
       "name": "blit",
       "intarget": "autogain_temp",
       "outtarget": "autogain_buffer"
+    },
+    {
+      "name": "mm:autogating",
+      "intarget": "minecraft:main",
+      "outtarget": "autogating_temp",
+      "auxtargets": [
+        {
+          "name": "PreviousGatingSampler",
+          "id": "autogating_buffer"
+        }
+      ],
+      "uniforms": []
+    },
+    {
+      "name": "blit",
+      "intarget": "autogating_temp",
+      "outtarget": "autogating_buffer"
     },
     {
       "name": "mm:night-vision",
@@ -36,6 +56,10 @@
         {
           "name": "AutoGainSampler",
           "id": "autogain_buffer"
+        },
+        {
+          "name": "AutoGatingSampler",
+          "id": "autogating_buffer"
         }
       ],
       "uniforms": []

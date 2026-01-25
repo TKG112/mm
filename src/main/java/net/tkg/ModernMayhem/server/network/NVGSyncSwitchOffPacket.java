@@ -4,7 +4,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
-import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import net.tkg.ModernMayhem.server.util.PacketBase;
 
@@ -26,8 +26,8 @@ public class NVGSyncSwitchOffPacket extends PacketBase {
             ServerPlayer player = context.getSender();
             if (player != null) {
                 ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
-                if (facewearItem.getItem() instanceof GenericNVGGogglesItem) {
-                    GenericNVGGogglesItem.switchOffNVGMode(facewearItem);
+                if (facewearItem.getItem() instanceof GenericSpecialGogglesItem) {
+                    GenericSpecialGogglesItem.switchOffNVGMode(facewearItem);
                 }
             }
         });

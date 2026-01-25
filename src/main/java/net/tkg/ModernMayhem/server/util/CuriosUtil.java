@@ -4,7 +4,7 @@ package net.tkg.ModernMayhem.server.util;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.tkg.ModernMayhem.server.item.generic.GenericBackpackItem;
-import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -17,7 +17,7 @@ public class CuriosUtil {
         CuriosApi.getCuriosInventory(player).ifPresent( curiosInventory -> {
             curiosInventory.getStacksHandler("facewear").ifPresent( facewearSlot -> {
                 ItemStack facewearItem = facewearSlot.getStacks().getStackInSlot(0);
-                if (facewearItem.getItem() instanceof GenericNVGGogglesItem) {
+                if (facewearItem.getItem() instanceof GenericSpecialGogglesItem) {
                     result.set(true);
                 }
             });

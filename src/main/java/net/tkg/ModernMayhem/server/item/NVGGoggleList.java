@@ -2,7 +2,7 @@ package net.tkg.ModernMayhem.server.item;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.registries.RegistryObject;
-import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import net.tkg.ModernMayhem.server.registry.SoundRegistryMM;
 import net.tkg.ModernMayhem.server.util.NVGConfigs;
 
@@ -90,14 +90,14 @@ public enum NVGGoggleList {
     ),
     ;
 
-    private final GenericNVGGogglesItem.NVGConfig[] configs;
+    private final GenericSpecialGogglesItem.NVGConfig[] configs;
     private final int configIndex;
     private final RegistryObject<SoundEvent> activationSound;
     private final RegistryObject<SoundEvent> deactivationSound;
     private final int Type;
     private final int Variant;
 
-    NVGGoggleList(GenericNVGGogglesItem.NVGConfig[] pConfigs, int pConfigIndex, RegistryObject<SoundEvent> pActivationSound, RegistryObject<SoundEvent> pDeactivationSound, int Type , int Variant) {
+    NVGGoggleList(GenericSpecialGogglesItem.NVGConfig[] pConfigs, int pConfigIndex, RegistryObject<SoundEvent> pActivationSound, RegistryObject<SoundEvent> pDeactivationSound, int Type , int Variant) {
         this.configs = pConfigs;
         this.configIndex = pConfigIndex;
         this.activationSound = pActivationSound;
@@ -106,7 +106,7 @@ public enum NVGGoggleList {
         this.Variant = Variant;
     }
 
-    public GenericNVGGogglesItem.NVGConfig[] getConfigs() {
+    public GenericSpecialGogglesItem.NVGConfig[] getConfigs() {
         return this.configs;
     }
 

@@ -3,24 +3,24 @@ package net.tkg.ModernMayhem.client.models.curios.facewear;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import software.bernie.geckolib.model.GeoModel;
 
 import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
 
-public class GenericNVGGogglesModel<T extends GenericNVGGogglesItem> extends GeoModel<T> {
+public class GenericNVGGogglesModel<T extends GenericSpecialGogglesItem> extends GeoModel<T> {
 
     private ItemStack currentStack = ItemStack.EMPTY;
 
     @Override
     public ResourceLocation getModelResource(T animatable) {
-        boolean hasCoti = !currentStack.isEmpty() && GenericNVGGogglesItem.hasCoti(currentStack);
+        boolean hasCoti = !currentStack.isEmpty() && GenericSpecialGogglesItem.hasCoti(currentStack);
 
         return getModelResourceWithCoti(animatable.getConfig().getType(), hasCoti);
     }
 
     public ResourceLocation getModelResource(T animatable, ItemStack stack) {
-        boolean hasCoti = GenericNVGGogglesItem.hasCoti(stack);
+        boolean hasCoti = GenericSpecialGogglesItem.hasCoti(stack);
         return getModelResourceWithCoti(animatable.getConfig().getType(), hasCoti);
     }
 
@@ -53,7 +53,7 @@ public class GenericNVGGogglesModel<T extends GenericNVGGogglesItem> extends Geo
 
     @Override
     public ResourceLocation getTextureResource(T animatable) {
-        boolean hasCoti = !this.currentStack.isEmpty() && GenericNVGGogglesItem.hasCoti(this.currentStack);
+        boolean hasCoti = !this.currentStack.isEmpty() && GenericSpecialGogglesItem.hasCoti(this.currentStack);
 
         return getTextureResourceWithCoti(animatable.getConfig().getType(), animatable.getConfig().getVariant(), hasCoti);
     }
@@ -61,14 +61,14 @@ public class GenericNVGGogglesModel<T extends GenericNVGGogglesItem> extends Geo
     public ResourceLocation getTextureResource(T animatable, ItemStack stack) {
         int type = animatable.getConfig().getType();
         int variant = animatable.getConfig().getVariant();
-        boolean hasCoti = GenericNVGGogglesItem.hasCoti(stack);
+        boolean hasCoti = GenericSpecialGogglesItem.hasCoti(stack);
 
         return getTextureResourceWithCoti(type, variant, hasCoti);
     }
 
     @Override
     public ResourceLocation getAnimationResource(T animatable) {
-        boolean hasCoti = !currentStack.isEmpty() && GenericNVGGogglesItem.hasCoti(currentStack);
+        boolean hasCoti = !currentStack.isEmpty() && GenericSpecialGogglesItem.hasCoti(currentStack);
 
         return getAnimationResourceWithCoti(animatable.getConfig().getType(), hasCoti);
     }

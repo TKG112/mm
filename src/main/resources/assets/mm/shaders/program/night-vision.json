@@ -11,12 +11,14 @@
     { "name": "DiffuseSampler" },
     { "name": "NoiseSampler" },
     { "name": "AutoGainSampler" },
+    { "name": "AutoGatingSampler" },
     { "name": "MaskSampler" }
   ],
   "uniforms": [
     { "name": "NightVisionEnabled", "type": "float", "count": 1, "values": [1.0] },
     { "name": "VignetteEnabled", "type": "float", "count": 1, "values": [0.0] },
     { "name": "AutoGainEnabled", "type": "float", "count": 1, "values": [1.0] },
+    { "name": "AutoGatingEnabled", "type": "float", "count": 1, "values": [0.0] },
     { "name": "UseMask", "type": "float", "count": 1, "values": [0.0] },
     { "name": "VignetteRadius", "type": "float", "count": 1, "values": [0.0] },
     { "name": "Brightness", "type": "float", "count": 1, "values": [1.0] },
@@ -29,6 +31,7 @@
     { "name": "IntensityAdjust", "type": "float", "count": 1, "values": [40.0] },
     { "name": "RedValue", "type": "float", "count": 1, "values": [1.0] },
     { "name": "GreenValue", "type": "float", "count": 1, "values": [1.0] },
-    { "name": "BlueValue", "type": "float", "count": 1, "values": [1.0] }
+    { "name": "BlueValue", "type": "float", "count": 1, "values": [1.0] },
+    { "name": "NoiseMultiplier", "type": "float", "count": 1, "values": [1.0] }
   ]
 }

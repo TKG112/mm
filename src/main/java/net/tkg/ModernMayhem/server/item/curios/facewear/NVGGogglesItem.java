@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.tkg.ModernMayhem.client.renderer.curios.facewear.GenericNVGGogglesRenderer;
 import net.tkg.ModernMayhem.server.item.NVGGoggleList;
-import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -21,7 +21,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class NVGGogglesItem extends GenericNVGGogglesItem {
+public class NVGGogglesItem extends GenericSpecialGogglesItem {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private final boolean isGamerNVG;
     private final NVGGoggleList config;
@@ -32,10 +32,29 @@ public class NVGGogglesItem extends GenericNVGGogglesItem {
                 nvgGoggleList.getConfigIndex(),
                 nvgGoggleList.getActivationSound(),
                 nvgGoggleList.getDeactivationSound(),
-                canHoldCoti(nvgGoggleList)
+                GoggleType.NIGHT_VISION,
+                canHoldCoti(nvgGoggleList),
+                hasAutoGain(nvgGoggleList),
+                hasAutoGating(nvgGoggleList)
         );
         this.isGamerNVG = nvgGoggleList == NVGGoggleList.GAMER_GPNVG;
         this.config = nvgGoggleList;
+    }
+
+    private static boolean hasAutoGating(NVGGoggleList config) {
+        return config == NVGGoggleList.BLACK_PVS14 ||
+                config == NVGGoggleList.TAN_PVS14 ||
+                config == NVGGoggleList.GREEN_PVS14 ||
+                config == NVGGoggleList.BLACK_GPNVG ||
+                config == NVGGoggleList.TAN_GPNVG;
+    }
+
+    private static boolean hasAutoGain(NVGGoggleList config) {
+        return config == NVGGoggleList.BLACK_PVS14 ||
+                config == NVGGoggleList.TAN_PVS14 ||
+                config == NVGGoggleList.GREEN_PVS14 ||
+                config == NVGGoggleList.BLACK_GPNVG ||
+                config == NVGGoggleList.TAN_GPNVG;
     }
 
     private static boolean canHoldCoti(NVGGoggleList config) {

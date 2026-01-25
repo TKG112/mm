@@ -16,7 +16,7 @@ import net.tkg.ModernMayhem.client.config.ClientConfig;
 import net.tkg.ModernMayhem.server.config.ServerConfig;
 import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.curios.facewear.TVGGogglesItem;
-import net.tkg.ModernMayhem.server.item.generic.GenericNVGGogglesItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 
 /*
@@ -83,7 +83,7 @@ public class Darkness {
 
         ItemStack facewearItem = CuriosUtil.getFaceWearItem(client.player);
         if (facewearItem != null) {
-            boolean isPowered = GenericNVGGogglesItem.getNVGCheck(facewearItem);
+            boolean isPowered = GenericSpecialGogglesItem.getNVGCheck(facewearItem);
 
             if (facewearItem.getItem() instanceof NVGGogglesItem && isPowered) {
                 nvgActive = true;
