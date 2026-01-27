@@ -1,12 +1,9 @@
 package net.tkg.ModernMayhem.server.network;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
@@ -29,16 +26,13 @@ public class NVGAutoGainTogglePacket extends PacketBase {
         if (!isCtS(context)) return false;
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
-            Level world = context.getSender().level();
-            Player clientPlayer = Minecraft.getInstance().player;
             if (player != null) {
                 if (CuriosUtil.hasNVGEquipped(player)) {
                     ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
                     if (facewearItem.getItem() instanceof NVGGogglesItem nvgGogglesItem) {
                         if (nvgGogglesItem.hasAutoGain()) {
                             GenericSpecialGogglesItem.switchAutoGain(facewearItem);
-                            world.playSeededSound(clientPlayer, clientPlayer.getX(), clientPlayer.getY(), clientPlayer.getZ(),
-                                    SoundRegistryMM.SMALL_CLICK.get(), SoundSource.NEUTRAL, 1.0F, 1.0F, 0);
+                            player.playNotifySound(SoundRegistryMM.SMALL_CLICK.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
                         }
                     }
                 }

@@ -4,7 +4,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
@@ -26,15 +25,12 @@ public class NVGCotiTogglePacket extends PacketBase {
         if (!isCtS(context)) return false;
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
-            Level world = player.level();
-
             if (player != null && CuriosUtil.hasNVGEquipped(player)) {
                 ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
                 if (facewearItem.getItem() instanceof NVGGogglesItem) {
                     if (GenericSpecialGogglesItem.hasCoti(facewearItem)) {
                         GenericSpecialGogglesItem.switchCotiMode(facewearItem);
-
-                        world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundRegistryMM.SMALL_CLICK.get(), SoundSource.PLAYERS, 1.0F, 1.5F);
+                        player.playNotifySound(SoundRegistryMM.SMALL_CLICK.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
                     }
                 }
             }

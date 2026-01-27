@@ -3,10 +3,13 @@ package net.tkg.ModernMayhem.server.registry;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.tkg.ModernMayhem.server.network.*;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import org.lwjgl.glfw.GLFW;
 
+@OnlyIn(Dist.CLIENT)
 public class KeyMappingRegistryMM {
     public static final String CATEGORY = "key.categories.mm";
 

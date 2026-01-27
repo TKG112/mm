@@ -1,12 +1,9 @@
 package net.tkg.ModernMayhem.server.network;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
@@ -30,17 +27,15 @@ public class NVGTubeGainUpPacket extends PacketBase {
         if (!isCtS(context)) return false;
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
-            Level world = context.getSender().level();
-            Player clientPlayer = Minecraft.getInstance().player;
-            if (CuriosUtil.hasNVGEquipped(player)) {
+            if (player != null && CuriosUtil.hasNVGEquipped(player)) {
                 ItemStack nvgItem = CuriosUtil.getFaceWearItem(player);
                 if (nvgItem.getItem() instanceof NVGGogglesItem) {
                     if (GenericSpecialGogglesItem.isAutoGainEnabled(nvgItem)) {
                         return;
                     }
                     GenericSpecialGogglesItem.switchConfigUp(nvgItem);
-                    if (GenericSpecialGogglesItem.hasConfigIndexChanged(clientPlayer, nvgItem)) {
-                        world.playSeededSound(clientPlayer, clientPlayer.getX(), clientPlayer.getY(), clientPlayer.getZ(), SoundRegistryMM.SMALL_CLICK.get(), SoundSource.NEUTRAL, 1.0F, 1.0F, 0);
+                    if (GenericSpecialGogglesItem.hasConfigIndexChanged(player, nvgItem)) {
+                        player.playNotifySound(SoundRegistryMM.SMALL_CLICK.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
                     }
                 }
             }

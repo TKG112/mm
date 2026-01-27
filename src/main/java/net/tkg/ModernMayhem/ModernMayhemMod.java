@@ -46,10 +46,10 @@ public class ModernMayhemMod {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::onGameReady);
-        ItemInteractionEvent.register();
 
         if (FMLEnvironment.dist.isClient()) {
             ClientItemRegistryMM.init(modEventBus);
+            ItemInteractionEvent.register();
         }
 
         context.registerConfig(ModConfig.Type.COMMON, CommonConfig.CONFIG, "modern-mayhem-common.toml");
