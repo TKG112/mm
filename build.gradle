@@ -102,6 +102,13 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
+    }
 }
 
 dependencies {
@@ -115,18 +122,18 @@ dependencies {
     implementation("com.eliotlash.mclib:mclib:20")
 
     // Curios dependencies
-    compileOnly(fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api"))
-    runtimeOnly(fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}"))
+    compileOnly (fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api"))
+    runtimeOnly (fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}"))
 
     //TacZ dependencies
     implementation fg.deobf("curse.maven:timeless-and-classics-zero-1028108:7278003")
 
     implementation fg.deobf("curse.maven:embeddium-908741:5681725")
 
-    // Oculus dependencies
     implementation fg.deobf("curse.maven:oculus-581495:6020952")
+    compileOnly fg.deobf("maven.modrinth:oculus:1.20.1-1.6.15a")
 
-    compileOnly fg.deobf("curse.maven:accelerated-rendering-1314021:7342975")
+    implementation fg.deobf("curse.maven:accelerated-rendering-1314021:7342975")
 
 }
 

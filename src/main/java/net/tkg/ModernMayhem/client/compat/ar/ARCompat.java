@@ -1,4 +1,4 @@
-package net.tkg.ModernMayhem.server.compat;
+package net.tkg.ModernMayhem.client.compat.ar;
 
 import net.minecraftforge.fml.ModList;
 

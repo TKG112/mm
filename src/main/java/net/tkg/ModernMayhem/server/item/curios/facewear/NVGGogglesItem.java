@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.tkg.ModernMayhem.client.renderer.curios.facewear.GenericNVGGogglesRenderer;
+import net.tkg.ModernMayhem.client.renderer.curios.facewear.GenericSpecialGogglesRenderer;
 import net.tkg.ModernMayhem.server.item.NVGGoggleList;
 import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import org.jetbrains.annotations.NotNull;
@@ -67,12 +67,12 @@ public class NVGGogglesItem extends GenericSpecialGogglesItem {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private GenericNVGGogglesRenderer<NVGGogglesItem> lRenderer;
+            private GenericSpecialGogglesRenderer<NVGGogglesItem> lRenderer;
 
             @Override
             public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
                 if (this.lRenderer == null)
-                    this.lRenderer = new GenericNVGGogglesRenderer<>();
+                    this.lRenderer = new GenericSpecialGogglesRenderer<>();
 
                 this.lRenderer.prepForRender(livingEntity, itemStack, equipmentSlot, original);
                 return this.lRenderer;
@@ -80,12 +80,12 @@ public class NVGGogglesItem extends GenericSpecialGogglesItem {
         });
 
         consumer.accept(new IClientItemExtensions() {
-            private GenericNVGGogglesRenderer.GenericNVGGogglesSlotRenderer<NVGGogglesItem> renderer = null;
+            private GenericSpecialGogglesRenderer.GenericNVGGogglesSlotRenderer<NVGGogglesItem> renderer = null;
 
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
                 if (this.renderer == null)
-                    this.renderer = new GenericNVGGogglesRenderer.GenericNVGGogglesSlotRenderer<>();
+                    this.renderer = new GenericSpecialGogglesRenderer.GenericNVGGogglesSlotRenderer<>();
                 return renderer;
             }
         });

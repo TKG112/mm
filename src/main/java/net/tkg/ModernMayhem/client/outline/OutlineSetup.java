@@ -33,7 +33,6 @@ public class OutlineSetup {
             if (event.phase == TickEvent.Phase.END) {
                 Minecraft mc = Minecraft.getInstance();
 
-                // Check if window was resized
                 if (mc.getWindow() != null) {
                     int width = mc.getWindow().getWidth();
                     int height = mc.getWindow().getHeight();

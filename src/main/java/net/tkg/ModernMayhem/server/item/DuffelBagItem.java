@@ -211,8 +211,6 @@ public class DuffelBagItem extends BundleItem {
         ItemUtils.onContainerDestroyed(entity, getContents(entity.getItem()));
     }
 
-
-
     private static int add(ItemStack bundleStack, ItemStack addStack, int size, @Nullable Player player) {
         if (!addStack.isEmpty() && addStack.getItem().canFitInsideContainerItems()) {
             CompoundTag tag = bundleStack.getOrCreateTag();

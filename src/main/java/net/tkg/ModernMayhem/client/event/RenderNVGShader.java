@@ -30,7 +30,7 @@ public class RenderNVGShader {
 
     private static final Minecraft mc = Minecraft.getInstance();
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onRenderHand(RenderHandEvent event) {
         if (oculusShaderEnabled) return;
         try {
@@ -40,7 +40,7 @@ public class RenderNVGShader {
         }
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onRenderLevel(RenderLevelStageEvent event) {
         if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_LEVEL) return;
         if (!oculusShaderEnabled) return;

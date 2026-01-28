@@ -25,7 +25,8 @@ import net.tkg.ModernMayhem.client.renderer.ShaderCompatibleRenderTypes;
 import net.tkg.ModernMayhem.client.registry.ClientItemRegistryMM;
 import net.tkg.ModernMayhem.server.item.curios.facewear.VisorItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
-import net.tkg.ModernMayhem.server.compat.ARCompat;
+import net.tkg.ModernMayhem.client.compat.ar.ARCompat;
+import net.tkg.ModernMayhem.client.compat.oculus.OculusCompat;
 import org.lwjgl.opengl.GL11;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 
@@ -39,12 +40,18 @@ public class RenderNVGFirstPerson {
     public static boolean shouldRenderLeftArm = true;
 
     private static final boolean TACZ_LOADED = ModList.get().isLoaded("tacz");
+    private static final boolean OCULUS_LOADED = ModList.get().isLoaded("oculus");
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     @OnlyIn(Dist.CLIENT)
     public static void onRenderOverlay(RenderHandEvent event) {
         if (!initialized) return;
         if (!shouldRender()) return;
+
+        if (OCULUS_LOADED && OculusCompat.isRenderShadow()) {
+            return;
+        }
+
         renderNVGFirstPersonModel(event);
     }
 
@@ -80,7 +87,9 @@ public class RenderNVGFirstPerson {
             );
         }
 
-        buffer.endBatch();
+        if (!OculusCompat.endBatch(buffer)) {
+            buffer.endBatch();
+        }
 
         ARCompat.resetAcceleration();
 
@@ -94,7 +103,9 @@ public class RenderNVGFirstPerson {
         ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
         boolean isVisor = facewearItem != null && facewearItem.getItem() instanceof VisorItem;
 
-        if (RenderNVGShader.oculusShaderEnabled) {
+        boolean shadersActive = OCULUS_LOADED && OculusCompat.isShaderPackInUse();
+
+        if (shadersActive || RenderNVGShader.oculusShaderEnabled) {
             if (isVisor) {
                 renderVisorWithShaderSupport(nvgStack, buffer, event, bakedModel, texture);
             } else {
@@ -131,7 +142,9 @@ public class RenderNVGFirstPerson {
                 1f, 1f, 1f, 1f
         );
 
-        buffer.endBatch();
+        if (!OculusCompat.endBatch(buffer)) {
+            buffer.endBatch();
+        }
 
         RenderSystem.disableBlend();
     }
@@ -158,7 +171,9 @@ public class RenderNVGFirstPerson {
                 1f, 1f, 1f, 1f
         );
 
-        buffer.endBatch();
+        if (!OculusCompat.endBatch(buffer)) {
+            buffer.endBatch();
+        }
 
         GL11.glColorMask(true, true, true, true);
         GL11.glDepthMask(false);
@@ -181,7 +196,9 @@ public class RenderNVGFirstPerson {
                 1f, 1f, 1f, 1f
         );
 
-        buffer.endBatch();
+        if (!OculusCompat.endBatch(buffer)) {
+            buffer.endBatch();
+        }
 
         GL11.glDepthFunc(GL11.GL_LEQUAL);
         GL11.glDepthMask(true);
@@ -211,7 +228,9 @@ public class RenderNVGFirstPerson {
                 1f, 1f, 1f, 1f
         );
 
-        buffer.endBatch();
+        if (!OculusCompat.endBatch(buffer)) {
+            buffer.endBatch();
+        }
 
         GL11.glDepthFunc(GL11.GL_LEQUAL);
         RenderSystem.depthMask(true);
@@ -238,6 +257,7 @@ public class RenderNVGFirstPerson {
     public static void initialiseFirstPersonRenderer() {
         ModernMayhemMod.LOGGER.info("["+ ModernMayhemMod.ID + "] Initializing NVG First Person Renderer");
         if (initialized) return;
+
         DUMMY_ITEM = (NVGFirstPersonFakeItem) ClientItemRegistryMM.FIRST_PERSON_NVG.get();
         RENDERER.initCurrentItemStack(DUMMY_ITEM);
         initialized = true;

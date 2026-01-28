@@ -8,7 +8,7 @@ import software.bernie.geckolib.model.GeoModel;
 
 import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
 
-public class GenericNVGGogglesModel<T extends GenericSpecialGogglesItem> extends GeoModel<T> {
+public class GenericSpecialGogglesModel<T extends GenericSpecialGogglesItem> extends GeoModel<T> {
 
     private ItemStack currentStack = ItemStack.EMPTY;
 

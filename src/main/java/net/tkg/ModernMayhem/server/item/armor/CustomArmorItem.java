@@ -23,29 +23,11 @@ import java.util.function.Consumer;
 public class CustomArmorItem extends GenericStatConfigurableArmorItem implements GeoItem {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private final int variant;
-    private final boolean hasFaceWearCapability;
     private final ArmorProperties config;
 
-    public CustomArmorItem(
-            ArmorProperties pConfig,
-            Type pType,
-            int pVariant
-    ) {
-        this(pConfig, pType, pVariant, false);
-    }
-
-    public CustomArmorItem(
-        ArmorProperties pConfig,
-        Type pType,
-        int pVariant,
-        boolean pHasFaceWearCapability
-    ) {
-        super(
-            pConfig,
-            pType
-        );
+    public CustomArmorItem(ArmorProperties pConfig, Type pType, int pVariant) {
+        super(pConfig, pType);
         this.variant = pVariant;
-        this.hasFaceWearCapability = pHasFaceWearCapability;
         this.config = pConfig;
     }
 
@@ -80,10 +62,6 @@ public class CustomArmorItem extends GenericStatConfigurableArmorItem implements
 
     public int getVariant() {
         return this.variant;
-    }
-
-    public boolean hasFaceWearCapability() {
-        return hasFaceWearCapability;
     }
 
     public ArmorProperties getConfig() {

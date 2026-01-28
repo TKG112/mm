@@ -1,4 +1,4 @@
-package net.tkg.ModernMayhem.server.compat;
+package net.tkg.ModernMayhem.client.compat.ar;
 
 import com.github.argon4w.acceleratedrendering.features.entities.AcceleratedEntityRenderingFeature;
 import com.github.argon4w.acceleratedrendering.features.items.AcceleratedItemRenderingFeature;

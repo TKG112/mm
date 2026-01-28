@@ -11,11 +11,12 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.tkg.ModernMayhem.client.compat.ar.ARCompat;
+import net.tkg.ModernMayhem.client.compat.oculus.OculusCompat;
 import net.tkg.ModernMayhem.client.config.ClientConfig;
 import net.tkg.ModernMayhem.client.event.ItemInteractionEvent;
 import net.tkg.ModernMayhem.client.event.RenderNVGFirstPerson;
 import net.tkg.ModernMayhem.client.registry.ClientItemRegistryMM;
-import net.tkg.ModernMayhem.server.compat.OculusCompat;
 import net.tkg.ModernMayhem.server.config.ArmorConfig;
 import net.tkg.ModernMayhem.server.config.CommonConfig;
 import net.tkg.ModernMayhem.server.config.ServerConfig;
@@ -62,15 +63,22 @@ public class ModernMayhemMod {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         LOGGER.info("HELLO FROM COMMON SETUP");
-
-        if (ModList.get().isLoaded("oculus")) {
-            LOGGER.info("Oculus is loaded, enabling Oculus compatibility");
-            OculusCompat.init(modLoadingContext.getModEventBus());
-        }
     }
 
     private void clientSetup(FMLClientSetupEvent event) {
         LOGGER.info("HELLO FROM CLIENT SETUP");
+
+        // Initialize Oculus compatibility if loaded
+        if (ModList.get().isLoaded("oculus")) {
+            OculusCompat.initCompat();
+            LOGGER.info("[" + ID + "] Oculus compatibility layer initialized");
+        }
+
+        // Initialize Accelerated Rendering compatibility if loaded
+        if (ModList.get().isLoaded("acceleratedrendering")) {
+            ARCompat.init();
+            LOGGER.info("[" + ID + "] Accelerated Rendering compatibility layer initialized");
+        }
 
         CuriosRendererRegistryMM.register();
         ScreenRegistryMM.register(event);

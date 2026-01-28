@@ -85,7 +85,7 @@ public class ItemRegistryMM {
     public static final RegistryObject<Item> HEXAGON_RIG = ITEMS.register("hexagon_rig", HexagonRigItem::new);
 
     public static final RegistryObject<Item> BLACK_COMBAT_HELMET = ITEMS.register("black_combat_helmet",
-            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.HELMET,0, true));
+            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.HELMET,0));
     public static final RegistryObject<Item> BLACK_KEVLAR_CHESTPLATE = ITEMS.register("black_kevlar_chestplate",
             () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.CHESTPLATE,0));
     public static final RegistryObject<Item> BLACK_KEVLAR_LEGGINGS = ITEMS.register("black_kevlar_leggings",
@@ -93,7 +93,7 @@ public class ItemRegistryMM {
     public static final RegistryObject<Item> BLACK_KEVLAR_BOOTS = ITEMS.register("black_kevlar_boots",
             () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.BOOTS,0));
     public static final RegistryObject<Item> GREEN_SSH68_HELMET = ITEMS.register("green_ssh68_helmet",
-            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.HELMET,1, true));
+            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.HELMET,1));
     public static final RegistryObject<Item> GREEN_KEVLAR_CHESTPLATE = ITEMS.register("green_kevlar_chestplate",
             () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.CHESTPLATE,1));
     public static final RegistryObject<Item> GREEN_KEVLAR_LEGGINGS = ITEMS.register("green_kevlar_leggings",
@@ -101,7 +101,7 @@ public class ItemRegistryMM {
     public static final RegistryObject<Item> GREEN_KEVLAR_BOOTS = ITEMS.register("green_kevlar_boots",
             () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.BOOTS,1));
     public static final RegistryObject<Item> TAN_COMBAT_HELMET = ITEMS.register("tan_combat_helmet",
-            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.HELMET,2, true));
+            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.HELMET,2));
     public static final RegistryObject<Item> TAN_KEVLAR_CHESTPLATE = ITEMS.register("tan_kevlar_chestplate",
             () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.CHESTPLATE,2));
     public static final RegistryObject<Item> TAN_KEVLAR_LEGGINGS = ITEMS.register("tan_kevlar_leggings",
@@ -121,11 +121,11 @@ public class ItemRegistryMM {
     public static final RegistryObject<Item> ORANGE_HAZMAT_LEGGINGS = ITEMS.register("orange_hazmat_leggings",
             () -> new CustomArmorItem(ArmorProperties.HAZMAT, ArmorItem.Type.LEGGINGS,1));
     public static final RegistryObject<Item> BLACK_HEAD_MOUNT = ITEMS.register("black_head_mount",
-            () -> new CustomArmorItem(ArmorProperties.NOTHING, ArmorItem.Type.HELMET,0, true));
+            () -> new CustomArmorItem(ArmorProperties.NOTHING, ArmorItem.Type.HELMET,0));
     public static final RegistryObject<Item> BLACK_RONIN_HELMET = ITEMS.register("black_ronin_helmet",
-            () -> new CustomArmorItem(ArmorProperties.RONIN, ArmorItem.Type.HELMET,0, true));
+            () -> new CustomArmorItem(ArmorProperties.RONIN, ArmorItem.Type.HELMET,0));
     public static final RegistryObject<Item> C1300 = ITEMS.register("c1300_helmet",
-            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.HELMET,6, true));
+            () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.HELMET,6));
 
     public static final RegistryObject<Item> BLACK_IOLA = ITEMS.register("black_iola",
             () -> new CustomArmorItem(ArmorProperties.KEVLAR, ArmorItem.Type.LEGGINGS,3));

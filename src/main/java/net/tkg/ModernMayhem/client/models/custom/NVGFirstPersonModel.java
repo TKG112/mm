@@ -5,7 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.client.item.NVGFirstPersonFakeItem;
-import net.tkg.ModernMayhem.client.models.curios.facewear.GenericNVGGogglesModel;
+import net.tkg.ModernMayhem.client.models.curios.facewear.GenericSpecialGogglesModel;
 import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.curios.facewear.TVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.curios.facewear.VisorItem;
@@ -61,7 +61,7 @@ public class NVGFirstPersonModel extends GeoModel<NVGFirstPersonFakeItem> {
             };
         }
 
-        return GenericNVGGogglesModel.getTextureResourceWithCoti(type, variant, hasCoti);
+        return GenericSpecialGogglesModel.getTextureResourceWithCoti(type, variant, hasCoti);
     }
 
     @Override

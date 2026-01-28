@@ -5,7 +5,7 @@ import net.tkg.ModernMayhem.client.renderer.curios.body.BandoleerRenderer;
 import net.tkg.ModernMayhem.client.renderer.curios.body.HexagonRigRenderer;
 import net.tkg.ModernMayhem.client.renderer.curios.body.PlateCarrierRenderer;
 import net.tkg.ModernMayhem.client.renderer.curios.body.ReconRigRenderer;
-import net.tkg.ModernMayhem.client.renderer.curios.facewear.GenericNVGGogglesRenderer;
+import net.tkg.ModernMayhem.client.renderer.curios.facewear.GenericSpecialGogglesRenderer;
 import net.tkg.ModernMayhem.client.renderer.curios.head.HeadGearRenderer;
 import net.tkg.ModernMayhem.client.renderer.curios.knee.KneepadRenderer;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
@@ -17,18 +17,18 @@ public class CuriosRendererRegistryMM {
         // Registering Curios Renderers
 
         // Facewear Gear
-        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_GPNVG.get(), GenericNVGGogglesRenderer::new);
-        CuriosRendererRegistry.register(ItemRegistryMM.TAN_GPNVG.get(), GenericNVGGogglesRenderer::new);
-        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_PVS14.get(), GenericNVGGogglesRenderer::new);
-        CuriosRendererRegistry.register(ItemRegistryMM.TAN_PVS14.get(), GenericNVGGogglesRenderer::new);
-        CuriosRendererRegistry.register(ItemRegistryMM.GREEN_PVS14.get(), GenericNVGGogglesRenderer::new);
-        CuriosRendererRegistry.register(ItemRegistryMM.ULTRA_GAMER_GPNVG.get(), GenericNVGGogglesRenderer::new);
-        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_PVS7.get(), GenericNVGGogglesRenderer::new);
-        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_TVG.get(), GenericNVGGogglesRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_GPNVG.get(), GenericSpecialGogglesRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.TAN_GPNVG.get(), GenericSpecialGogglesRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_PVS14.get(), GenericSpecialGogglesRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.TAN_PVS14.get(), GenericSpecialGogglesRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.GREEN_PVS14.get(), GenericSpecialGogglesRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.ULTRA_GAMER_GPNVG.get(), GenericSpecialGogglesRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_PVS7.get(), GenericSpecialGogglesRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_TVG.get(), GenericSpecialGogglesRenderer::new);
 
         //Visor Gear
-        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_VISOR.get(), GenericNVGGogglesRenderer::new);
-        CuriosRendererRegistry.register(ItemRegistryMM.TAN_VISOR.get(), GenericNVGGogglesRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.BLACK_VISOR.get(), GenericSpecialGogglesRenderer::new);
+        CuriosRendererRegistry.register(ItemRegistryMM.TAN_VISOR.get(), GenericSpecialGogglesRenderer::new);
 
         // Head Gear
         CuriosRendererRegistry.register(ItemRegistryMM.BALACLAVA.get(), HeadGearRenderer::new);

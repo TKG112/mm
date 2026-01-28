@@ -19,13 +19,18 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import net.tkg.ModernMayhem.server.compat.ARCompat;
+import net.tkg.ModernMayhem.client.compat.ar.ARCompat;
+import net.tkg.ModernMayhem.client.compat.oculus.OculusCompat;
 
 import java.io.IOException;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import net.minecraftforge.fml.ModList;
 
 public class OutlineRenderer {
+
+    private static final boolean OCULUS_LOADED = ModList.get().isLoaded("oculus");
+    private static final boolean AR_LOADED = ModList.get().isLoaded("acceleratedrendering");
 
     private static OutlineFramebuffer maskFramebuffer;
     private static OutlineFramebuffer edgeFramebuffer;
@@ -186,39 +191,43 @@ public class OutlineRenderer {
     public static void onRenderLevelStage(RenderLevelStageEvent event) {
         if (renderMode == RenderMode.OFF) return;
 
-        // Unified Logic: Everything happens at AFTER_BLOCK_ENTITIES
+        if (OCULUS_LOADED && OculusCompat.isRenderShadow()) {
+            return;
+        }
+
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_BLOCK_ENTITIES) {
 
             Minecraft mc = Minecraft.getInstance();
             boolean arDisabled = false;
 
             try {
-                // CRITICAL FIX: Flush all pending batched rendering BEFORE disabling AR
-                // This ensures the depth buffer contains the complete scene including block entities
-                mc.renderBuffers().bufferSource().endBatch();
-
-                // Now disable AR to ensure immediate rendering for our mask
-                try {
-                    ARCompat.disableAcceleration();
-                    arDisabled = true;
-                } catch (Throwable ignored) {
-                    // AR might not be present or failed, continue with vanilla logic
+                MultiBufferSource.BufferSource bufferSource = mc.renderBuffers().bufferSource();
+                if (!OculusCompat.endBatch(bufferSource)) {
+                    bufferSource.endBatch();
                 }
 
-                // Capture the mask with the now-complete depth buffer
+                if (AR_LOADED) {
+                    try {
+                        ARCompat.disableAcceleration();
+                        arDisabled = true;
+                    } catch (Throwable t) {
+                        System.err.println("[OutlineRenderer] Failed to disable AR acceleration: " + t.getMessage());
+                    }
+                }
+
                 if (captureMobMasks(event.getPoseStack(), event.getProjectionMatrix())) {
-                    // Draw the overlay immediately
                     drawOverlayToScreen();
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                // Reset AR immediately after we are done
-                if (arDisabled) {
+                if (arDisabled && AR_LOADED) {
                     try {
                         ARCompat.resetAcceleration();
-                    } catch (Throwable ignored) {}
+                    } catch (Throwable t) {
+                        System.err.println("[OutlineRenderer] Failed to reset AR acceleration: " + t.getMessage());
+                    }
                 }
             }
         }
@@ -258,9 +267,10 @@ public class OutlineRenderer {
             GL11.glClear(GL11.GL_STENCIL_BUFFER_BIT);
 
             Minecraft mc = Minecraft.getInstance();
-            // Note: We already flushed before capturing the mask, but we flush again here
-            // to ensure any rendering we did in renderEntityMasks is complete
-            mc.renderBuffers().bufferSource().endBatch();
+            MultiBufferSource.BufferSource bufferSource = mc.renderBuffers().bufferSource();
+            if (!OculusCompat.endBatch(bufferSource)) {
+                bufferSource.endBatch();
+            }
             mc.getMainRenderTarget().bindWrite(false);
 
             extractEdges();
@@ -335,14 +345,11 @@ public class OutlineRenderer {
 
         float partialTick = mc.getFrameTime();
 
-        // Get render distance in blocks
         int renderDistanceChunks = mc.options.renderDistance().get();
         double renderDistanceBlocks = renderDistanceChunks * 16.0;
 
-        // Check if camera is underwater or in lava - adjust render distance to match fog
         FogType fogType = mc.gameRenderer.getMainCamera().getFluidInCamera();
         if (fogType == FogType.WATER || fogType == FogType.LAVA) {
-            // Underwater fog is very short, limit to about 16-32 blocks to prevent depth issues
             renderDistanceBlocks = Math.min(renderDistanceBlocks, 32.0);
         }
 
@@ -356,7 +363,6 @@ public class OutlineRenderer {
             double lerpY = entity.yOld + (entity.getY() - entity.yOld) * partialTick;
             double lerpZ = entity.zOld + (entity.getZ() - entity.zOld) * partialTick;
 
-            // Check if entity is within render distance
             Vec3 cameraPos = mc.gameRenderer.getMainCamera().getPosition();
             double dx = lerpX - cameraPos.x;
             double dy = lerpY - cameraPos.y;
@@ -381,12 +387,16 @@ public class OutlineRenderer {
             EntityMaskRenderer.renderEntityMask(entity, lerpX, lerpY, lerpZ, partialTick, poseStack, projectionMatrix, maskBufferSource);
 
             if (colorProvider != null) {
-                maskBufferSource.endBatch();
+                if (!OculusCompat.endBatch(maskBufferSource)) {
+                    maskBufferSource.endBatch();
+                }
             }
         }
 
         if (colorProvider == null) {
-            maskBufferSource.endBatch();
+            if (!OculusCompat.endBatch(maskBufferSource)) {
+                maskBufferSource.endBatch();
+            }
         }
 
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);

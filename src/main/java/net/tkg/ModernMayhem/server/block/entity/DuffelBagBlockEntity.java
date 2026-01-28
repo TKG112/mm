@@ -16,6 +16,7 @@ public class DuffelBagBlockEntity extends BlockEntity {
 
     public void setDuffelBag(ItemStack stack) {
         this.duffelBag = stack.copy();
+        setChanged();
     }
 
     public ItemStack getDuffelBag() {
@@ -38,4 +39,3 @@ public class DuffelBagBlockEntity extends BlockEntity {
         }
     }
 }
-
