@@ -17,13 +17,8 @@ public final class OculusCompat {
 
     public static void initCompat() {
         ModList.get().getModContainerById(OCULUS_MOD_ID).ifPresent(mod -> {
-            if (mod.getModInfo().getVersion().compareTo(VERSION_1_7_0) >= 0) {
-                END_BATCH_FUNCTION = OculusCompatNewly::endBatch;
-                IS_RENDER_SHADOW_SUPPLIER = OculusCompatNewly::isRenderShadow;
-            } else {
-                END_BATCH_FUNCTION = OculusCompatLegacy::endBatch;
-                IS_RENDER_SHADOW_SUPPLIER = OculusCompatLegacy::isRenderShadow;
-            }
+            END_BATCH_FUNCTION = OculusCompatImpl::endBatch;
+            IS_RENDER_SHADOW_SUPPLIER = OculusCompatImpl::isRenderShadow;
         });
     }
 
@@ -41,11 +36,26 @@ public final class OculusCompat {
         return false;
     }
 
-
     public static boolean endBatch(MultiBufferSource.BufferSource bufferSource) {
         if (ModList.get().isLoaded(OCULUS_MOD_ID)) {
             return END_BATCH_FUNCTION.apply(bufferSource);
         }
         return false;
+    }
+
+    public static boolean isTranslucentHandPass = false;
+
+    public static boolean shouldRenderVisor() {
+        if (!isShaderPackInUse()) return true;
+
+        return isTranslucentHandPass;
+    }
+
+    public static boolean isSolidHandPass = false;
+
+    public static boolean shouldRenderNVG() {
+        if (!isShaderPackInUse()) return true;
+
+        return isSolidHandPass;
     }
 }

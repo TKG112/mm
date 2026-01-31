@@ -1,10 +1,10 @@
 package net.tkg.ModernMayhem.client.compat.oculus;
 
-import net.coderbot.batchedentityrendering.impl.FullyBufferedMultiBufferSource;
-import net.coderbot.iris.shadows.ShadowRenderingState;
+import net.irisshaders.batchedentityrendering.impl.FullyBufferedMultiBufferSource;
+import net.irisshaders.iris.shadows.ShadowRenderingState;
 import net.minecraft.client.renderer.MultiBufferSource;
 
-public final class OculusCompatLegacy {
+public final class OculusCompatImpl {
 
     public static boolean isRenderShadow() {
         return ShadowRenderingState.areShadowsCurrentlyBeingRendered();

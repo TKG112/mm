@@ -44,14 +44,10 @@ public class RenderNVGFirstPerson {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     @OnlyIn(Dist.CLIENT)
-    public static void onRenderOverlay(RenderHandEvent event) {
+    public static void onRenderHand(RenderHandEvent event) {
         if (!initialized) return;
         if (!shouldRender()) return;
-
-        if (OCULUS_LOADED && OculusCompat.isRenderShadow()) {
-            return;
-        }
-
+        if (OculusCompat.isRenderShadow()) return;
         renderNVGFirstPersonModel(event);
     }
 
@@ -59,6 +55,10 @@ public class RenderNVGFirstPerson {
         if (isRendering) return;
         LocalPlayer player = MC.player;
         if (player == null) return;
+
+        boolean shadersActive = OCULUS_LOADED && OculusCompat.isShaderPackInUse();
+
+        boolean isShaderTranslucentPass = shadersActive && OculusCompat.isTranslucentHandPass;
 
         MultiBufferSource.BufferSource buffer = MC.renderBuffers().bufferSource();
         float partialTicks = event.getPartialTick();
@@ -77,14 +77,16 @@ public class RenderNVGFirstPerson {
 
         ARCompat.disableAcceleration();
 
-        if (shouldRenderLeftArm || event.getHand() == InteractionHand.MAIN_HAND) {
-            itemInHandRenderer.renderHandsWithItems(
-                    partialTicks,
-                    handStack,
-                    buffer,
-                    player,
-                    event.getPackedLight()
-            );
+        if (!isShaderTranslucentPass) {
+            if (shouldRenderLeftArm || event.getHand() == InteractionHand.MAIN_HAND) {
+                itemInHandRenderer.renderHandsWithItems(
+                        partialTicks,
+                        handStack,
+                        buffer,
+                        player,
+                        event.getPackedLight()
+                );
+            }
         }
 
         if (!OculusCompat.endBatch(buffer)) {
@@ -103,19 +105,19 @@ public class RenderNVGFirstPerson {
         ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
         boolean isVisor = facewearItem != null && facewearItem.getItem() instanceof VisorItem;
 
-        boolean shadersActive = OCULUS_LOADED && OculusCompat.isShaderPackInUse();
-
-        if (shadersActive || RenderNVGShader.oculusShaderEnabled) {
+        if (shadersActive) {
             if (isVisor) {
-                renderVisorWithShaderSupport(nvgStack, buffer, event, bakedModel, texture);
+                if (isShaderTranslucentPass) {
+                    renderVisorWithShaderSupport(nvgStack, buffer, event, bakedModel, texture);
+                }
             } else {
-                renderNVGWithShaderSupport(nvgStack, buffer, event, bakedModel, texture);
+                if (!isShaderTranslucentPass) {
+                    renderNVGWithShaderSupport(nvgStack, buffer, event, bakedModel, texture);
+                }
             }
         } else {
             renderWithoutShaders(nvgStack, buffer, event, bakedModel, texture, isVisor);
         }
-
-        RenderSystem.disableDepthTest();
 
         nvgStack.popPose();
 
@@ -123,10 +125,12 @@ public class RenderNVGFirstPerson {
     }
 
     private static void renderVisorWithShaderSupport(PoseStack nvgStack, MultiBufferSource.BufferSource buffer, RenderHandEvent event, BakedGeoModel bakedModel, ResourceLocation texture) {
-        var renderType = ShaderCompatibleRenderTypes.visorTranslucent(texture);
+        var renderType = RenderType.itemEntityTranslucentCull(texture);
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
+
+        RenderSystem.depthMask(false);
 
         RENDERER.actuallyRender(
                 nvgStack,
@@ -146,24 +150,25 @@ public class RenderNVGFirstPerson {
             buffer.endBatch();
         }
 
+        RenderSystem.depthMask(true);
         RenderSystem.disableBlend();
     }
 
     private static void renderNVGWithShaderSupport(PoseStack nvgStack, MultiBufferSource.BufferSource buffer, RenderHandEvent event, BakedGeoModel bakedModel, ResourceLocation texture) {
-        GL11.glColorMask(false, false, false, false);
-        GL11.glDepthMask(true);
-        GL11.glDepthFunc(GL11.GL_ALWAYS);
-        GL11.glDisable(GL11.GL_BLEND);
+        var renderType = RenderType.entityCutoutNoCull(texture);
 
-        var depthOnlyType = RenderType.entityTranslucentCull(texture);
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+
+        RenderSystem.depthMask(true);
 
         RENDERER.actuallyRender(
                 nvgStack,
                 DUMMY_ITEM,
                 bakedModel,
-                depthOnlyType,
+                renderType,
                 buffer,
-                buffer.getBuffer(depthOnlyType),
+                buffer.getBuffer(renderType),
                 false,
                 MC.getFrameTime(),
                 event.getPackedLight(),
@@ -175,34 +180,8 @@ public class RenderNVGFirstPerson {
             buffer.endBatch();
         }
 
-        GL11.glColorMask(true, true, true, true);
-        GL11.glDepthMask(false);
-        GL11.glDepthFunc(GL11.GL_EQUAL);
-        GL11.glDisable(GL11.GL_BLEND);
-
-        var colorType = RenderType.entityTranslucentCull(texture);
-
-        RENDERER.actuallyRender(
-                nvgStack,
-                DUMMY_ITEM,
-                bakedModel,
-                colorType,
-                buffer,
-                buffer.getBuffer(colorType),
-                false,
-                MC.getFrameTime(),
-                event.getPackedLight(),
-                OverlayTexture.NO_OVERLAY,
-                1f, 1f, 1f, 1f
-        );
-
-        if (!OculusCompat.endBatch(buffer)) {
-            buffer.endBatch();
-        }
-
-        GL11.glDepthFunc(GL11.GL_LEQUAL);
-        GL11.glDepthMask(true);
-        GL11.glEnable(GL11.GL_BLEND);
+        RenderSystem.depthMask(true);
+        RenderSystem.disableBlend();
     }
 
     private static void renderWithoutShaders(PoseStack nvgStack, MultiBufferSource.BufferSource buffer, RenderHandEvent event, BakedGeoModel bakedModel, ResourceLocation texture, boolean isVisor) {
@@ -210,7 +189,6 @@ public class RenderNVGFirstPerson {
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        RenderSystem.enableDepthTest();
         GL11.glDepthFunc(GL11.GL_ALWAYS);
         RenderSystem.depthMask(false);
 
@@ -248,7 +226,7 @@ public class RenderNVGFirstPerson {
         }
     }
 
-    private static boolean shouldRender() {
+    public static boolean shouldRender() {
         LocalPlayer player = MC.player;
         if (player == null) return false;
         return CuriosUtil.hasNVGEquipped(player);
