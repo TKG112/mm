@@ -181,6 +181,7 @@ public class OutlineThermal {
 
     private static boolean isCotiEnabledOnPlayer(LocalPlayer player) {
         ItemStack stack = CuriosUtil.getFaceWearItem(player);
+        if (stack == null) return false;
         return stack.getItem() instanceof NVGGogglesItem && GenericSpecialGogglesItem.isCotiEnabled(stack);
     }
 }
