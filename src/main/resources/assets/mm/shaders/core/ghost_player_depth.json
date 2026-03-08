@@ -1,0 +1,22 @@
+{
+  "blend": {
+    "func": "add",
+    "srcrgb": "srcalpha",
+    "dstrgb": "1-srcalpha"
+  },
+  "vertex": "mm:ghost_player_depth",
+  "fragment": "mm:ghost_player_depth",
+  "attributes": [
+    "Position",
+    "UV0"
+  ],
+  "samplers": [
+    { "name": "GhostColorSampler" },
+    { "name": "GhostDepthSampler" },
+    { "name": "SceneDepthSampler" }
+  ],
+  "uniforms": [
+    { "name": "GlobalAlpha", "type": "float", "count": 1, "values": [ 0.4 ] },
+    { "name": "DepthBias", "type": "float", "count": 1, "values": [ 0.0005 ] }
+  ]
+}
