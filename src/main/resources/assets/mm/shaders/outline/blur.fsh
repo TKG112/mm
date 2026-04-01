@@ -1,35 +1,30 @@
 #version 150
 
 uniform sampler2D DiffuseSampler;
-uniform vec2 BlurDir;
+uniform vec2 InSize;
+uniform vec2 OutSize;
+uniform int Horizontal;
 uniform float Radius;
 
 in vec2 texCoord;
-in vec2 oneTexel;
-
 out vec4 fragColor;
 
 void main() {
-    vec4 blurred = vec4(0.0);
-    float totalStrength = 0.0;
-    float totalAlpha = 0.0;
-    float totalSamples = 0.0;
+    vec2 texel = 1.0 / InSize;
+    vec2 dir = (Horizontal == 1) ? vec2(texel.x, 0.0) : vec2(0.0, texel.y);
 
-    // Vanilla uses a simple box blur with radius
-    for(float r = -Radius; r <= Radius; r += 1.0) {
-        vec4 sample = texture(DiffuseSampler, texCoord + oneTexel * r * BlurDir);
+    vec4 sum = vec4(0.0);
+    float total = 0.0;
 
-    // Accumulate color weighted by alpha
-    blurred.rgb += sample.rgb * sample.a;
-    totalAlpha += sample.a;
-    totalSamples += 1.0;
+    int radius = int(max(1.0, Radius));
+
+    for (int i = -radius; i <= radius; i++) {
+        float x = float(i);
+        float w = exp(-(x * x) / (2.0 * Radius * Radius));
+        vec4 sampleColor = texture(DiffuseSampler, texCoord + dir * x);
+        sum += sampleColor * w;
+        total += w;
     }
 
-    // Normalize
-    if (totalAlpha > 0.0) {
-        blurred.rgb /= totalAlpha;
-        blurred.a = totalAlpha / totalSamples;
-    }
-
-    fragColor = blurred;
+    fragColor = sum / max(total, 0.0001);
 }
