@@ -1,4 +1,4 @@
-package net.tkg.ModernMayhem.client.outline;
+package net.tkg.ModernMayhem.client.outline.render;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;

@@ -8,36 +8,36 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.client.shaderRenderer.ThermalHighlightRenderer;
+import net.tkg.ModernMayhem.client.outline.OutlineThermal;
+import net.tkg.ModernMayhem.client.outline.render.OutlineRenderer;
 
 @Mod.EventBusSubscriber(modid = ModernMayhemMod.ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-public final class RenderThermalHighlight {
-
-    private RenderThermalHighlight() {}
+public class OutlineSetupEvent {
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            ThermalHighlightRenderer.init();
-            MinecraftForge.EVENT_BUS.register(ThermalHighlightRenderer.class);
+            OutlineRenderer.init();
+
+            MinecraftForge.EVENT_BUS.register(OutlineRenderer.class);
+
+            OutlineThermal.setupOutlines();
         });
     }
 
     @Mod.EventBusSubscriber(modid = ModernMayhemMod.ID, value = Dist.CLIENT)
-    public static final class ClientForgeEvents {
-
-        private ClientForgeEvents() {}
+    public static class ClientForgeEvents {
 
         @SubscribeEvent
         public static void onClientTick(TickEvent.ClientTickEvent event) {
-            if (event.phase != TickEvent.Phase.END) return;
+            if (event.phase == TickEvent.Phase.END) {
+                Minecraft mc = Minecraft.getInstance();
 
-            Minecraft mc = Minecraft.getInstance();
-            if (mc.getWindow() != null) {
-                ThermalHighlightRenderer.resize(
-                        mc.getWindow().getWidth(),
-                        mc.getWindow().getHeight()
-                );
+                if (mc.getWindow() != null) {
+                    int width = mc.getWindow().getWidth();
+                    int height = mc.getWindow().getHeight();
+                    OutlineRenderer.resize(width, height);
+                }
             }
         }
     }

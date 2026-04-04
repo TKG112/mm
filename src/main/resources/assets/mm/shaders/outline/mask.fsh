@@ -1,19 +1,31 @@
 #version 150
 
 uniform sampler2D DiffuseSampler;
-uniform vec2 InSize;
-uniform vec2 OutSize;
 
 in vec2 texCoord;
+in vec2 oneTexel;
+
 out vec4 fragColor;
 
 void main() {
-    vec4 src = texture(DiffuseSampler, texCoord);
+    // Vanilla entity_sobel.fsh implementation
+    vec4 center = texture(DiffuseSampler, texCoord);
+    vec4 left = texture(DiffuseSampler, texCoord - vec2(oneTexel.x, 0.0));
+    vec4 right = texture(DiffuseSampler, texCoord + vec2(oneTexel.x, 0.0));
+    vec4 up = texture(DiffuseSampler, texCoord - vec2(0.0, oneTexel.y));
+    vec4 down = texture(DiffuseSampler, texCoord + vec2(0.0, oneTexel.y));
 
-    float alpha = max(src.a, max(src.r, max(src.g, src.b)));
-    if (alpha <= 0.001) {
-        discard;
-    }
+    // Calculate edge detection on alpha channel
+    float leftDiff  = abs(center.a - left.a);
+    float rightDiff = abs(center.a - right.a);
+    float upDiff    = abs(center.a - up.a);
+    float downDiff  = abs(center.a - down.a);
+    float total = clamp(leftDiff + rightDiff + upDiff + downDiff, 0.0, 1.0);
 
-    fragColor = vec4(src.rgb, alpha);
+    // Blend colors from all samples (creates smooth colored outline)
+    vec3 outColor = center.rgb * center.a + left.rgb * left.a + right.rgb * right.a + up.rgb * up.a + down.rgb * down.a;
+
+    // Output with FULL brightness (removed the 0.2 multiplier)
+    // The edge-detected alpha controls where the outline appears
+    fragColor = vec4(outColor, total);
 }

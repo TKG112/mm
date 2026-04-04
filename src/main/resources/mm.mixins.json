@@ -16,6 +16,7 @@
     "client.GunHudOverlayMixin",
     "client.LightTextureAccessor",
     "client.LightTextureMixin",
+    "client.PostChainMixin",
     "client.HandRendererMixin"
   ],
   "injectors": {
