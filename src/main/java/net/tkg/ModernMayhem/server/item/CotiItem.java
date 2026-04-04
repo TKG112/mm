@@ -19,5 +19,8 @@ public class CotiItem extends Item {
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
                 tooltip.add(Component.translatable("description.mm.coti_instructions").withStyle(ChatFormatting.GRAY));
+
+                // TODO : Remove this disclaimer once a proper fix for people not understanding how to use the item is implemented
+                tooltip.add(Component.literal("⚠").withStyle(ChatFormatting.RED).append(Component.translatable("description.mm.coti_instructions_temporary_disclaimer").withStyle(ChatFormatting.YELLOW)));
     }
 }
