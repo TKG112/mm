@@ -21,31 +21,7 @@ import net.tkg.ModernMayhem.server.util.CuriosUtil;
 @Mod.EventBusSubscriber(modid = ModernMayhemMod.ID, value = Dist.CLIENT)
 public class RenderNVGShader {
 
-    public static boolean oculusShaderEnabled = false;
-
-//    @SubscribeEvent(priority = EventPriority.HIGHEST)
-//    public static void onRenderHand(RenderHandEvent event) {
-//        if (oculusShaderEnabled) return;
-//        try {
-//            NVGShaderRenderer.INSTANCE.render();
-//        } catch (Exception e) {
-//            ModernMayhemMod.LOGGER.error("Error rendering NVG shader", e);
-//        }
-//    }
-//
-//    @SubscribeEvent(priority = EventPriority.HIGHEST)
-//    public static void onRenderLevel(RenderLevelStageEvent event) {
-//        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_LEVEL) return;
-//        if (!oculusShaderEnabled) return;
-//        try {
-//            NVGShaderRenderer.INSTANCE.render();
-//        } catch (Exception e) {
-//            ModernMayhemMod.LOGGER.error("Error rendering NVG shader", e);
-//        }
-//    }
-
-
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void onRenderScreenEffects(RenderGuiEvent.Pre event) {
         NVGShaderRenderer.INSTANCE.render();
     }
@@ -71,7 +47,7 @@ public class RenderNVGShader {
             if (facewearItem != null && facewearItem.getItem() instanceof NVGGogglesItem nvgGogglesItem) {
 
                 if (nvgGogglesItem.shouldRenderShader() &&
-                        GenericSpecialGogglesItem.getNVGMode(facewearItem) == 1 &&
+                        GenericSpecialGogglesItem.getNVGCheck(facewearItem) &&  // was getNVGMode == 1
                         Minecraft.getInstance().options.getCameraType().isFirstPerson()) {
 
                     GenericSpecialGogglesItem.NVGConfig config = GenericSpecialGogglesItem.getCurrentConfig(facewearItem);

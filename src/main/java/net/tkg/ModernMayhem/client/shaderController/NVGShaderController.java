@@ -65,22 +65,18 @@ public final class NVGShaderController {
             facewearItem = CuriosUtil.getFaceWearItem(player);
             if (facewearItem != null && facewearItem.getItem() instanceof NVGGogglesItem nvgGogglesItem) {
                 if (nvgGogglesItem.shouldRenderShader()) {
-                    shouldRender = GenericSpecialGogglesItem.getNVGMode(facewearItem) == 1;
+                    shouldRender = GenericSpecialGogglesItem.getNVGCheck(facewearItem);
                     try {
                         nvgItemConfig = GenericSpecialGogglesItem.getCurrentConfig(facewearItem);
                     } catch (Exception e) {
                         ModernMayhemMod.LOGGER.error("Error getting NVG config", e);
-                        shouldRender = false;
+                        return;
                     }
                 }
             }
         }
 
-        if (shouldRender && !isEnabled()) {
-            enabled = true;
-        } else if (!shouldRender && isEnabled()) {
-            enabled = false;
-        }
+        enabled = shouldRender;
 
         if (isEnabled() && nvgItemConfig != null && facewearItem != null) {
             boolean isUltraGamer = (facewearItem.getItem() instanceof NVGGogglesItem nvgGogglesItem && nvgGogglesItem.isGamerNVG());
@@ -96,18 +92,15 @@ public final class NVGShaderController {
                 }
             }
 
-            // Set values for the autogain pass
             AutoGainEnabled = autoGainActive ? 1.0f : 0.0f;
             MinGain = nvgItemConfig.getMinGain();
             MaxGain = nvgItemConfig.getMaxGain();
             AutoGainSpeed = nvgItemConfig.getAutoGainSpeed();
 
-            // Set values for the autogating pass
             AutoGatingEnabled = autoGatingActive ? 1.0f : 0.0f;
             AutoGatingOffset = nvgItemConfig.getAutoGatingOffset();
             AutoGatingSpeed = nvgItemConfig.getAutoGatingSpeed();
 
-            // Set values for the night vision color pass
             Brightness = nvgItemConfig.getBrightness();
             if (isUltraGamer) {
                 RedValue = NVGConfigs.getUltraGamerRedValue();

@@ -25,23 +25,24 @@ import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A modified version of {@link net.minecraft.client.renderer.PostChain} that allows dynamic management of post-processing passes and render targets.
- *
  */
 public final class DynamicPostChain implements AutoCloseable {
     private static final String MAIN_RENDER_TARGET = "minecraft:main";
-
     private final RenderTarget screenTarget;
     private final ResourceManager resourceManager;
     private final String name;
-
     private final List<PostPass> passes = Lists.newArrayList();
     private final Map<String, RenderTarget> customRenderTargets = Maps.newHashMap();
     private final List<RenderTarget> fullSizedTargets = Lists.newArrayList();
+
+    private final Set<String> externalTargets = new HashSet<>();
 
     private Matrix4f shaderOrthoMatrix;
     private int screenWidth;
@@ -57,113 +58,76 @@ public final class DynamicPostChain implements AutoCloseable {
         this.screenWidth = screenTarget.viewWidth;
         this.screenHeight = screenTarget.viewHeight;
         this.name = name.toString();
-
         this.updateOrthoMatrix();
         this.load(textureManager, name);
     }
 
-    public List<PostPass> getPasses() {
-        return this.passes;
+    public DynamicPostChain(TextureManager textureManager, ResourceManager resourceManager, RenderTarget screenTarget, ResourceLocation name, Map<String, RenderTarget> preRegisteredExternalTargets) throws IOException {
+        this.resourceManager = resourceManager;
+        this.screenTarget = screenTarget;
+        this.time = 0.0F;
+        this.lastStamp = 0.0F;
+        this.screenWidth = screenTarget.viewWidth;
+        this.screenHeight = screenTarget.viewHeight;
+        this.name = name.toString();
+        this.updateOrthoMatrix();
+        this.externalTargets.addAll(preRegisteredExternalTargets.keySet());
+        this.customRenderTargets.putAll(preRegisteredExternalTargets);
+        this.load(textureManager, name);
     }
 
-    public String getName() {
-        return this.name;
-    }
+    public List<PostPass> getPasses() { return this.passes; }
+    public String getName() { return this.name; }
 
     @Nullable
-    public RenderTarget getTempTarget(String name) {
-        return this.customRenderTargets.get(name);
+    public RenderTarget getTempTarget(String name) { return this.customRenderTargets.get(name); }
+
+    public void setExternalTarget(String name, RenderTarget target) {
+        // If we previously owned a target under this name, clean it up first
+        if (customRenderTargets.containsKey(name) && !externalTargets.contains(name)) {
+            customRenderTargets.get(name).destroyBuffers();
+            fullSizedTargets.remove(customRenderTargets.get(name));
+        }
+        customRenderTargets.put(name, target);
+        externalTargets.add(name);
+        // Intentionally not added to fullSizedTargets — the owner controls its lifecycle
     }
 
-    /**
-     * Checks if any of the passes in this post chain has a uniform with the given name.
-     * @param name The name of the uniform to check for.
-     * @return True if at least one pass has a uniform with the given name, false otherwise.
-     */
-    public boolean hasUniform(String name) {
-        return !this.findUniforms(name).isEmpty();
-    }
+    public boolean hasUniform(String name) { return !this.findUniforms(name).isEmpty(); }
 
-    /**
-     * Sets the value of all uniforms with the given name in all passes of this post chain to the given float value.
-     * @param name The name of the uniform to set.
-     * @param a The value to set the uniform to.
-     */
     public void setUniform1f(String name, float a) {
-        for (Uniform uniform : this.findUniforms(name)) {
-            uniform.set(a);
-        }
+        for (Uniform uniform : this.findUniforms(name)) uniform.set(a);
     }
 
-    /**
-     * Sets the value of all uniforms with the given name in all passes of this post chain to the given float values.
-     * @param name The name of the uniform to set.
-     * @param a The first value to set the uniform to.
-     * @param b The second value to set the uniform to.
-     */
     public void setUniform2f(String name, float a, float b) {
-        for (Uniform uniform : this.findUniforms(name)) {
-            uniform.set(a, b);
-        }
+        for (Uniform uniform : this.findUniforms(name)) uniform.set(a, b);
     }
 
-    /**
-     * Sets the value of all uniforms with the given name in all passes of this post chain to the given float values.
-     * @param name The name of the uniform to set.
-     * @param a The first value to set the uniform to.
-     * @param b The second value to set the uniform to.
-     * @param c The third value to set the uniform to.
-     */
     public void setUniform3f(String name, float a, float b, float c) {
-        for (Uniform uniform : this.findUniforms(name)) {
-            uniform.set(a, b, c);
-        }
+        for (Uniform uniform : this.findUniforms(name)) uniform.set(a, b, c);
     }
 
-    /**
-     * Sets the value of all uniforms with the given name in all passes of this post chain to the given float values.
-     * @param name The name of the uniform to set.
-     * @param a The first value to set the uniform to.
-     * @param b The second value to set the uniform to.
-     * @param c The third value to set the uniform to.
-     * @param d The fourth value to set the uniform to.
-     */
     public void setUniform4f(String name, float a, float b, float c, float d) {
-        for (Uniform uniform : this.findUniforms(name)) {
-            uniform.set(a, b, c, d);
-        }
+        for (Uniform uniform : this.findUniforms(name)) uniform.set(a, b, c, d);
     }
 
-    /**
-     * Finds all uniforms with the given name in all passes of this post chain and returns them as a list.
-     * @param name The name of the uniforms to find.
-     * @return A {@link List} of all {@link Uniform} with the given name in all passes of this post chain. If no uniforms with the given name are found, an empty list is returned.
-     */
     private List<Uniform> findUniforms(String name) {
         List<Uniform> result = new ArrayList<>();
-
         for (PostPass pass : this.passes) {
             Uniform uniform = pass.getEffect().getUniform(name);
-            if (uniform != null) {
-                result.add(uniform);
-            }
+            if (uniform != null) result.add(uniform);
         }
-
         return result;
     }
 
-    /// See the minecraft <a href="https://minecraft.fandom.com/wiki/Shaders#Render_pipeline">wiki</a> for more information on how the json files for post chains are structured and how they work.
     private void load(TextureManager textureManager, ResourceLocation resourceLocation) throws IOException, JsonSyntaxException {
         Resource resource = this.resourceManager.getResourceOrThrow(resourceLocation);
-
         try {
             try (Reader reader = resource.openAsReader()) {
                 JsonObject jsonObject = GsonHelper.parse(reader);
-
                 if (GsonHelper.isArrayNode(jsonObject, "targets")) {
                     JsonArray targets = jsonObject.getAsJsonArray("targets");
                     int i = 0;
-
                     for (JsonElement element : targets) {
                         try {
                             this.parseTargetNode(element);
@@ -172,15 +136,12 @@ public final class DynamicPostChain implements AutoCloseable {
                             chained.prependJsonKey("targets[" + i + "]");
                             throw chained;
                         }
-
                         i++;
                     }
                 }
-
                 if (GsonHelper.isArrayNode(jsonObject, "passes")) {
                     JsonArray passes = jsonObject.getAsJsonArray("passes");
                     int i = 0;
-
                     for (JsonElement element : passes) {
                         try {
                             this.parsePassNode(textureManager, element);
@@ -189,7 +150,6 @@ public final class DynamicPostChain implements AutoCloseable {
                             chained.prependJsonKey("passes[" + i + "]");
                             throw chained;
                         }
-
                         i++;
                     }
                 }
@@ -206,16 +166,13 @@ public final class DynamicPostChain implements AutoCloseable {
             this.addTempTarget(json.getAsString(), this.screenWidth, this.screenHeight);
             return;
         }
-
         JsonObject object = GsonHelper.convertToJsonObject(json, "target");
         String name = GsonHelper.getAsString(object, "name");
         int width = GsonHelper.getAsInt(object, "width", this.screenWidth);
         int height = GsonHelper.getAsInt(object, "height", this.screenHeight);
-
         if (this.customRenderTargets.containsKey(name)) {
             throw new ChainedJsonException(name + " is already defined");
         }
-
         this.addTempTarget(name, width, height);
     }
 
@@ -224,33 +181,22 @@ public final class DynamicPostChain implements AutoCloseable {
         String programName = GsonHelper.getAsString(object, "name");
         String inTargetName = GsonHelper.getAsString(object, "intarget");
         String outTargetName = GsonHelper.getAsString(object, "outtarget");
-
         RenderTarget inTarget = this.getRenderTarget(inTargetName);
         RenderTarget outTarget = this.getRenderTarget(outTargetName);
-
-        if (inTarget == null) {
-            throw new ChainedJsonException("Input target '" + inTargetName + "' does not exist");
-        }
-
-        if (outTarget == null) {
-            throw new ChainedJsonException("Output target '" + outTargetName + "' does not exist");
-        }
+        if (inTarget == null) throw new ChainedJsonException("Input target '" + inTargetName + "' does not exist");
+        if (outTarget == null) throw new ChainedJsonException("Output target '" + outTargetName + "' does not exist");
 
         PostPass postPass = this.addPass(programName, inTarget, outTarget);
-
         JsonArray auxTargets = GsonHelper.getAsJsonArray(object, "auxtargets", null);
         if (auxTargets != null) {
             int i = 0;
-
             for (JsonElement element : auxTargets) {
                 try {
                     JsonObject auxObject = GsonHelper.convertToJsonObject(element, "auxtarget");
                     String uniformName = GsonHelper.getAsString(auxObject, "name");
                     String id = GsonHelper.getAsString(auxObject, "id");
-
                     boolean depth;
                     String targetId;
-
                     if (id.endsWith(":depth")) {
                         depth = true;
                         targetId = id.substring(0, id.lastIndexOf(':'));
@@ -258,28 +204,20 @@ public final class DynamicPostChain implements AutoCloseable {
                         depth = false;
                         targetId = id;
                     }
-
                     RenderTarget auxTarget = this.getRenderTarget(targetId);
                     if (auxTarget == null) {
-                        if (depth) {
-                            throw new ChainedJsonException("Render target '" + targetId + "' can't be used as depth buffer");
-                        }
-
+                        if (depth) throw new ChainedJsonException("Render target '" + targetId + "' can't be used as depth buffer");
                         ResourceLocation rl = ResourceLocation.tryParse(targetId);
                         ResourceLocation textureLocation = ResourceLocation.fromNamespaceAndPath(rl.getNamespace(), "textures/effect/" + rl.getPath() + ".png");
-
                         this.resourceManager.getResource(textureLocation).orElseThrow(() ->
                                 new ChainedJsonException("Render target or texture '" + targetId + "' does not exist")
                         );
-
                         RenderSystem.setShaderTexture(0, textureLocation);
                         textureManager.bindForSetup(textureLocation);
-
                         AbstractTexture texture = textureManager.getTexture(textureLocation);
                         int width = GsonHelper.getAsInt(auxObject, "width");
                         int height = GsonHelper.getAsInt(auxObject, "height");
                         boolean bilinear = GsonHelper.getAsBoolean(auxObject, "bilinear");
-
                         if (bilinear) {
                             RenderSystem.texParameter(3553, 10241, 9729);
                             RenderSystem.texParameter(3553, 10240, 9729);
@@ -287,7 +225,6 @@ public final class DynamicPostChain implements AutoCloseable {
                             RenderSystem.texParameter(3553, 10241, 9728);
                             RenderSystem.texParameter(3553, 10240, 9728);
                         }
-
                         postPass.addAuxAsset(uniformName, texture::getId, width, height);
                     } else if (depth) {
                         postPass.addAuxAsset(uniformName, auxTarget::getDepthTextureId, auxTarget.width, auxTarget.height);
@@ -299,7 +236,6 @@ public final class DynamicPostChain implements AutoCloseable {
                     chained.prependJsonKey("auxtargets[" + i + "]");
                     throw chained;
                 }
-
                 i++;
             }
         }
@@ -307,7 +243,6 @@ public final class DynamicPostChain implements AutoCloseable {
         JsonArray uniforms = GsonHelper.getAsJsonArray(object, "uniforms", null);
         if (uniforms != null) {
             int i = 0;
-
             for (JsonElement element : uniforms) {
                 try {
                     this.parseUniformNode(element);
@@ -316,7 +251,6 @@ public final class DynamicPostChain implements AutoCloseable {
                     chained.prependJsonKey("uniforms[" + i + "]");
                     throw chained;
                 }
-
                 i++;
             }
         }
@@ -326,14 +260,9 @@ public final class DynamicPostChain implements AutoCloseable {
         JsonObject object = GsonHelper.convertToJsonObject(json, "uniform");
         String name = GsonHelper.getAsString(object, "name");
         Uniform uniform = this.passes.get(this.passes.size() - 1).getEffect().getUniform(name);
-
-        if (uniform == null) {
-            throw new ChainedJsonException("Uniform '" + name + "' does not exist");
-        }
-
+        if (uniform == null) throw new ChainedJsonException("Uniform '" + name + "' does not exist");
         float[] values = new float[4];
         int i = 0;
-
         for (JsonElement element : GsonHelper.getAsJsonArray(object, "values")) {
             try {
                 values[i] = GsonHelper.convertToFloat(element, "value");
@@ -342,10 +271,8 @@ public final class DynamicPostChain implements AutoCloseable {
                 chained.prependJsonKey("values[" + i + "]");
                 throw chained;
             }
-
             i++;
         }
-
         switch (i) {
             case 1 -> uniform.set(values[0]);
             case 2 -> uniform.set(values[0], values[1]);
@@ -357,13 +284,8 @@ public final class DynamicPostChain implements AutoCloseable {
     public void addTempTarget(String name, int width, int height) {
         RenderTarget target = new TextureTarget(width, height, true, Minecraft.ON_OSX);
         target.setClearColor(0.0F, 0.0F, 0.0F, 0.0F);
-
-        if (screenTarget.isStencilEnabled()) {
-            target.enableStencil();
-        }
-
+        if (screenTarget.isStencilEnabled()) target.enableStencil();
         this.customRenderTargets.put(name, target);
-
         if (width == this.screenWidth && height == this.screenHeight) {
             this.fullSizedTargets.add(target);
         }
@@ -377,12 +299,9 @@ public final class DynamicPostChain implements AutoCloseable {
 
     private void updateOrthoMatrix() {
         this.shaderOrthoMatrix = new Matrix4f().setOrtho(
-                0.0F,
-                (float) this.screenTarget.width,
-                0.0F,
-                (float) this.screenTarget.height,
-                0.1F,
-                1000.0F
+                0.0F, (float) this.screenTarget.width,
+                0.0F, (float) this.screenTarget.height,
+                0.1F, 1000.0F
         );
     }
 
@@ -390,11 +309,9 @@ public final class DynamicPostChain implements AutoCloseable {
         this.screenWidth = this.screenTarget.width;
         this.screenHeight = this.screenTarget.height;
         this.updateOrthoMatrix();
-
         for (PostPass postPass : this.passes) {
             postPass.setOrthoMatrix(this.shaderOrthoMatrix);
         }
-
         for (RenderTarget target : this.fullSizedTargets) {
             target.resize(width, height, Minecraft.ON_OSX);
         }
@@ -407,13 +324,8 @@ public final class DynamicPostChain implements AutoCloseable {
         } else {
             this.time += partialTicks - this.lastStamp;
         }
-
         this.lastStamp = partialTicks;
-
-        while (this.time > 20.0F) {
-            this.time -= 20.0F;
-        }
-
+        while (this.time > 20.0F) this.time -= 20.0F;
         for (PostPass postPass : this.passes) {
             postPass.process(this.time / 20.0F);
         }
@@ -421,29 +333,22 @@ public final class DynamicPostChain implements AutoCloseable {
 
     @Override
     public void close() {
-        for (RenderTarget target : this.customRenderTargets.values()) {
-            target.destroyBuffers();
+        for (Map.Entry<String, RenderTarget> entry : this.customRenderTargets.entrySet()) {
+            if (!externalTargets.contains(entry.getKey())) {
+                entry.getValue().destroyBuffers();
+            }
         }
-
-        for (PostPass postPass : this.passes) {
-            postPass.close();
-        }
-
+        for (PostPass postPass : this.passes) postPass.close();
         this.passes.clear();
         this.customRenderTargets.clear();
         this.fullSizedTargets.clear();
+        this.externalTargets.clear();
     }
 
     @Nullable
     private RenderTarget getRenderTarget(@Nullable String target) {
-        if (target == null) {
-            return null;
-        }
-
-        if (MAIN_RENDER_TARGET.equals(target)) {
-            return this.screenTarget;
-        }
-
+        if (target == null) return null;
+        if (MAIN_RENDER_TARGET.equals(target)) return this.screenTarget;
         return this.customRenderTargets.get(target);
     }
 }

@@ -355,25 +355,6 @@ public abstract class GenericSpecialGogglesItem extends Item implements GeoItem,
         return itemInstance.configs[safeDefaultIndex];
     }
 
-    private void updateNVGMode(ItemStack stack) {
-        CompoundTag tag = stack.getOrCreateTag();
-        if (tag.contains("NvgCheck")) {
-            boolean nvgCheck = tag.getBoolean("NvgCheck");
-            tag.putInt("nvg_mode", nvgCheck ? 1 : 0);
-        } else {
-            tag.putInt("nvg_mode", 0);
-        }
-        stack.setTag(tag);
-    }
-
-    public static int getNVGMode(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag != null && tag.contains("nvg_mode")) {
-            return tag.getInt("nvg_mode");
-        }
-        return 0;
-    }
-
     public static boolean getNVGCheck(ItemStack stack) {
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("NvgCheck")) {
@@ -621,10 +602,6 @@ public abstract class GenericSpecialGogglesItem extends Item implements GeoItem,
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         Entity entity = slotContext.entity();
         if (!(entity instanceof LivingEntity)) return;
-
-        if (entity.level().isClientSide()) {
-            updateNVGMode(stack);
-        }
 
         if (entity instanceof Player player && !player.level().isClientSide()) {
             ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);

@@ -1,4 +1,4 @@
-package net.tkg.ModernMayhem.client.outline.render;
+package net.tkg.ModernMayhem.client.thermal.render;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class OutlineShader implements AutoCloseable {
+public class ThermalShader implements AutoCloseable {
 
     private int programId;
     private int vertexShaderId;
@@ -25,21 +25,21 @@ public class OutlineShader implements AutoCloseable {
     private Map<String, Integer> textureUnits = new HashMap<>();
     private int nextTextureUnit = 0;
 
-    public OutlineShader(String name) throws IOException {
+    public ThermalShader(String name) throws IOException {
         this(name, "sobel");
     }
 
-    public OutlineShader(String fragmentName, String vertexName) throws IOException {
-        System.out.println("[OutlineShader] Loading shader: " + fragmentName + " (vertex: " + vertexName + ")");
+    public ThermalShader(String fragmentName, String vertexName) throws IOException {
+        System.out.println("[ThermalShader] Loading shader: " + fragmentName + " (vertex: " + vertexName + ")");
 
-        String vertexSource = loadShaderSource("shaders/outline/" + vertexName + ".vsh");
-        System.out.println("[OutlineShader] Loaded vertex shader: " + vertexName + " (" + vertexSource.length() + " chars)");
+        String vertexSource = loadShaderSource("shaders/thermal/" + vertexName + ".vsh");
+        System.out.println("[ThermalShader] Loaded vertex shader: " + vertexName + " (" + vertexSource.length() + " chars)");
 
-        String fragmentSource = loadShaderSource("shaders/outline/" + fragmentName + ".fsh");
-        System.out.println("[OutlineShader] Loaded fragment shader: " + fragmentName + " (" + fragmentSource.length() + " chars)");
+        String fragmentSource = loadShaderSource("shaders/thermal/" + fragmentName + ".fsh");
+        System.out.println("[ThermalShader] Loaded fragment shader: " + fragmentName + " (" + fragmentSource.length() + " chars)");
 
         compile(vertexSource, fragmentSource);
-        System.out.println("[OutlineShader] Compiled shader: " + fragmentName);
+        System.out.println("[ThermalShader] Compiled shader: " + fragmentName);
     }
 
     private String loadShaderSource(String path) throws IOException {

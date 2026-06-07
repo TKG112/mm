@@ -10,21 +10,22 @@
     "client.DimensionEffectsMixin$EndMixin",
     "client.DimensionEffectsMixin$NetherMixin",
     "client.DynamicTextureMixin",
+    "client.GameRendererInvoker",
     "client.GameRendererMixin",
     "client.GunAnimationStateContextMixin",
     "client.GunHudOverlayAccessor",
     "client.GunHudOverlayMixin",
+    "client.HandRendererMixin",
     "client.LightTextureAccessor",
     "client.LightTextureMixin",
-    "client.PostChainMixin",
-    "client.HandRendererMixin"
+    "client.PostChainMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "mixins": [
     "AbstractGunItemMixin",
-    "ModernKineticGunScriptAPIMixin",
-    "LeftHandRenderMixin"
+    "LeftHandRenderMixin",
+    "ModernKineticGunScriptAPIMixin"
   ]
 }

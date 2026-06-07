@@ -8,20 +8,20 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.client.outline.OutlineThermal;
-import net.tkg.ModernMayhem.client.outline.render.OutlineRenderer;
+import net.tkg.ModernMayhem.client.thermal.Thermal;
+import net.tkg.ModernMayhem.client.thermal.render.ThermalRenderer;
 
 @Mod.EventBusSubscriber(modid = ModernMayhemMod.ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-public class OutlineSetupEvent {
+public class ThermalSetupEvent {
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            OutlineRenderer.init();
+            ThermalRenderer.init();
 
-            MinecraftForge.EVENT_BUS.register(OutlineRenderer.class);
+            MinecraftForge.EVENT_BUS.register(ThermalRenderer.class);
 
-            OutlineThermal.setupOutlines();
+            Thermal.setupThermal();
         });
     }
 
@@ -36,7 +36,7 @@ public class OutlineSetupEvent {
                 if (mc.getWindow() != null) {
                     int width = mc.getWindow().getWidth();
                     int height = mc.getWindow().getHeight();
-                    OutlineRenderer.resize(width, height);
+                    ThermalRenderer.resize(width, height);
                 }
             }
         }

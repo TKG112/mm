@@ -21,76 +21,57 @@ import net.tkg.ModernMayhem.server.util.CuriosUtil;
 @Mod.EventBusSubscriber(modid = ModernMayhemMod.ID, value = Dist.CLIENT)
 public class RenderTVGShader {
 
-    public static boolean oculusShaderEnabled = false;
-
-//    @SubscribeEvent(priority = EventPriority.HIGHEST)
-//    public static void onRenderHand(RenderHandEvent event) {
-//        if (oculusShaderEnabled) return;
-//        try {
-//            TVGShaderRenderer.INSTANCE.render();
-//        } catch (Exception e) {
-//            System.err.println("[ModernMayhem] Error rendering thermal shader: " + e.getMessage());
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    @SubscribeEvent(priority = EventPriority.HIGHEST)
-//    public static void onRenderLevel(RenderLevelStageEvent event) {
-//        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_LEVEL) return;
-//        if (!oculusShaderEnabled) return;
-//        try {
-//            TVGShaderRenderer.INSTANCE.render();
-//        } catch (Exception e) {
-//            System.err.println("[ModernMayhem] Error rendering thermal shader: " + e.getMessage());
-//            e.printStackTrace();
-//        }
-//    }
-
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void onRenderScreenEffects(RenderGuiEvent.Pre event) {
         TVGShaderRenderer.INSTANCE.render();
     }
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void renderThermalOverlay(RenderGuiEvent.Pre event) {
-        Player player = Minecraft.getInstance().player;
-        if (player == null) return;
-        if (!TVGShaderController.isEnabled()) return;
+        try {
+            Player player = Minecraft.getInstance().player;
+            if (player == null) return;
+            if (!TVGShaderController.isEnabled()) return;
 
-        int screenWidth = event.getWindow().getGuiScaledWidth();
-        int screenHeight = event.getWindow().getGuiScaledHeight();
+            int screenWidth = event.getWindow().getGuiScaledWidth();
+            int screenHeight = event.getWindow().getGuiScaledHeight();
 
-        RenderSystem.disableDepthTest();
-        RenderSystem.depthMask(false);
-        RenderSystem.enableBlend();
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.blendFuncSeparate(
-                GlStateManager.SourceFactor.SRC_ALPHA,
-                GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
-                GlStateManager.SourceFactor.ONE,
-                GlStateManager.DestFactor.ZERO
-        );
-        RenderSystem.setShaderColor(1, 1, 1, 1);
+            RenderSystem.disableDepthTest();
+            RenderSystem.depthMask(false);
+            RenderSystem.enableBlend();
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            RenderSystem.blendFuncSeparate(
+                    GlStateManager.SourceFactor.SRC_ALPHA,
+                    GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+                    GlStateManager.SourceFactor.ONE,
+                    GlStateManager.DestFactor.ZERO
+            );
+            RenderSystem.setShaderColor(1, 1, 1, 1);
 
-        ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
-        if (facewearItem.getItem() instanceof TVGGogglesItem) {
-            if (GenericSpecialGogglesItem.getNVGMode(facewearItem) == 1 &&
-                    Minecraft.getInstance().options.getCameraType().isFirstPerson() &&
-                    GenericSpecialGogglesItem.getCurrentConfig(facewearItem).getOverlay() != null) {
+            ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
+            if (facewearItem != null && facewearItem.getItem() instanceof TVGGogglesItem) {
+                if (GenericSpecialGogglesItem.getNVGCheck(facewearItem) &&
+                        Minecraft.getInstance().options.getCameraType().isFirstPerson()) {
 
-                event.getGuiGraphics().blit(
-                        GenericSpecialGogglesItem.getCurrentConfig(facewearItem).getOverlay(),
-                        0, 0, 0, 0,
-                        screenWidth, screenHeight,
-                        screenWidth, screenHeight
-                );
+                    GenericSpecialGogglesItem.NVGConfig config = GenericSpecialGogglesItem.getCurrentConfig(facewearItem);
+                    if (config != null && config.getOverlay() != null) {
+                        event.getGuiGraphics().blit(
+                                config.getOverlay(),
+                                0, 0, 0, 0,
+                                screenWidth, screenHeight,
+                                screenWidth, screenHeight
+                        );
+                    }
+                }
             }
-        }
 
-        RenderSystem.depthMask(true);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.enableDepthTest();
-        RenderSystem.disableBlend();
-        RenderSystem.setShaderColor(1, 1, 1, 1);
+            RenderSystem.depthMask(true);
+            RenderSystem.defaultBlendFunc();
+            RenderSystem.enableDepthTest();
+            RenderSystem.disableBlend();
+            RenderSystem.setShaderColor(1, 1, 1, 1);
+        } catch (Exception e) {
+            ModernMayhemMod.LOGGER.error("Error rendering thermal overlay", e);
+        }
     }
 }
