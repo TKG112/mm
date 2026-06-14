@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -72,6 +73,27 @@ public class TVGGogglesItem extends GenericSpecialGogglesItem {
     public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         super.appendHoverText(stack, level, tooltip, flag);
         tooltip.add(Component.translatable("description.mm.nvgs").withStyle(ChatFormatting.GRAY));
+    }
+
+    public static final String PALETTE_TAG = "ThermalPalette";
+    public static final int PALETTE_COUNT = 5; // WHITE_HOT, BLACK_HOT, RED_HOT, FUSION, IRONBOW
+
+    public static int getThermalPalette(ItemStack stack) {
+        if (stack == null) return 0;
+        CompoundTag tag = stack.getTag();
+        if (tag == null || !tag.contains(PALETTE_TAG)) return 0;
+        int p = tag.getInt(PALETTE_TAG);
+        return ((p % PALETTE_COUNT) + PALETTE_COUNT) % PALETTE_COUNT;
+    }
+
+    public static void setThermalPalette(ItemStack stack, int palette) {
+        if (stack == null) return;
+        int wrapped = ((palette % PALETTE_COUNT) + PALETTE_COUNT) % PALETTE_COUNT;
+        stack.getOrCreateTag().putInt(PALETTE_TAG, wrapped);
+    }
+
+    public static void cycleThermalPalette(ItemStack stack, boolean forward) {
+        setThermalPalette(stack, getThermalPalette(stack) + (forward ? 1 : -1));
     }
 
     public NVGGoggleList getConfig() {

@@ -1,8 +1,8 @@
 #version 150
 uniform sampler2D BlurSampler;
 uniform sampler2D MaskSampler;
-uniform float RenderMode;      // >1.5 = OVERLAY, else OUTLINE
-uniform float UseSourceColor;  // >0.5 = use captured entity color
+uniform float RenderMode;
+uniform float UseSourceColor;
 uniform vec4  OutlineColor;
 in vec2 texCoord;
 out vec4 fragColor;
@@ -11,12 +11,10 @@ void main() {
     vec4 result;
 
     if (RenderMode > 1.5) {
-        // OVERLAY
         vec4 mask = texture(MaskSampler, texCoord);
         vec3 color = UseSourceColor > 0.5 ? mask.rgb : OutlineColor.rgb;
         result = vec4(color, clamp(mask.a * OutlineColor.a, 0.0, 1.0));
     } else {
-        // OUTLINE
         vec4 blur = texture(BlurSampler, texCoord);
         vec4 mask = texture(MaskSampler, texCoord);
         float outlineAlpha = clamp(blur.a - mask.a, 0.0, 1.0);

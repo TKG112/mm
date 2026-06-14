@@ -1,21 +1,38 @@
 {
   "targets": [
+    "tinted",
+    "composited",
+    "pixelated",
     "swap",
     "previous"
   ],
   "passes": [
     {
-      "name": "mm:thermal-vision",
+      "name": "mm:thermal_tint",
       "intarget": "minecraft:main",
+      "outtarget": "tinted"
+    },
+    {
+      "name": "mm:thermal_composite",
+      "intarget": "tinted",
+      "outtarget": "composited",
+      "auxtargets": [
+        { "name": "BlurSampler", "id": "thermalBlur" },
+        { "name": "MaskSampler", "id": "thermalMask" },
+        { "name": "SceneDepthSampler", "id": "minecraft:main:depth" }
+      ]
+    },
+    {
+      "name": "mm:thermal_pixelate",
+      "intarget": "composited",
+      "outtarget": "pixelated"
+    },
+    {
+      "name": "mm:thermal_afterimage",
+      "intarget": "pixelated",
       "outtarget": "swap",
       "auxtargets": [
-        {
-          "name": "PrevSampler",
-          "id": "previous"
-        }
-      ],
-      "uniforms": [
-
+        { "name": "PrevSampler", "id": "previous" }
       ]
     },
     {

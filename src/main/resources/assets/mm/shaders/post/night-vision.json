@@ -1,5 +1,6 @@
 {
   "targets": [
+    "composited",
     "swap",
     "autogain_temp",
     "autogain_buffer",
@@ -8,8 +9,27 @@
   ],
   "passes": [
     {
-      "name": "mm:autogain",
+      "name": "mm:thermal_composite",
       "intarget": "minecraft:main",
+      "outtarget": "composited",
+      "auxtargets": [
+        {
+          "name": "BlurSampler",
+          "id": "thermalBlur"
+        },
+        {
+          "name": "MaskSampler",
+          "id": "thermalMask"
+        },
+        {
+          "name": "SceneDepthSampler",
+          "id": "minecraft:main:depth"
+        }
+      ]
+    },
+    {
+      "name": "mm:autogain",
+      "intarget": "composited",
       "outtarget": "autogain_temp",
       "auxtargets": [
         {
@@ -26,7 +46,7 @@
     },
     {
       "name": "mm:autogating",
-      "intarget": "minecraft:main",
+      "intarget": "composited",
       "outtarget": "autogating_temp",
       "auxtargets": [
         {
@@ -43,7 +63,7 @@
     },
     {
       "name": "mm:night-vision",
-      "intarget": "minecraft:main",
+      "intarget": "composited",
       "outtarget": "swap",
       "auxtargets": [
         {

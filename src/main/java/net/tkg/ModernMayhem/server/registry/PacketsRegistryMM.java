@@ -18,7 +18,7 @@ import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
 import static net.minecraftforge.network.NetworkDirection.PLAY_TO_SERVER;
 
 /*
-    * This class is an adapted version of the Create mod packets registry/system
+ * This class is an adapted version of the Create mod packets registry/system
  */
 public enum PacketsRegistryMM {
     // Client to Server
@@ -31,6 +31,7 @@ public enum PacketsRegistryMM {
     NVG_SYNC_SWITCH_OFF(NVGSyncSwitchOffPacket.class, NVGSyncSwitchOffPacket::new, PLAY_TO_SERVER),
     NVG_AUTO_GAIN_TOGGLE(NVGAutoGainTogglePacket.class, NVGAutoGainTogglePacket::new, PLAY_TO_SERVER),
     NVG_COTI_TOGGLE(NVGCotiTogglePacket.class, NVGCotiTogglePacket::new, PLAY_TO_SERVER),
+    THERMAL_PALETTE_CYCLE(ThermalPaletteCyclePacket.class, ThermalPaletteCyclePacket::new, PLAY_TO_SERVER),
     ;
 
     // Server to Client

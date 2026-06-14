@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.tkg.ModernMayhem.client.Darkness;
+import net.tkg.ModernMayhem.client.thermal.render.ThermalRenderer;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -27,5 +28,17 @@ public abstract class GameRendererMixin {
             Darkness.updateLuminance(tickDelta, this.minecraft, (GameRenderer) (Object) this, flicker);
             this.minecraft.getProfiler().pop();
         }
+    }
+
+    @Inject(
+            method = "renderLevel",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/renderer/GameRenderer;renderItemInHand(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/Camera;F)V",
+                    shift = At.Shift.AFTER
+            )
+    )
+    private void modernmayhem$afterFirstPersonHand(float tickDelta, long nanos, PoseStack matrixStack, CallbackInfo ci) {
+        ThermalRenderer.reoccludeMaskAgainstCurrentDepth();
     }
 }

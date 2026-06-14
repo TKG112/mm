@@ -126,14 +126,13 @@ dependencies {
     runtimeOnly (fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}"))
 
     //TacZ dependencies
-    implementation fg.deobf("curse.maven:timeless-and-classics-zero-1028108:7278003")
+    implementation fg.deobf("curse.maven:timeless-and-classics-zero-1028108:8141310")
 
     implementation fg.deobf("curse.maven:embeddium-908741:5681725")
 
     implementation fg.deobf("curse.maven:oculus-581495:6020952")
 
-    implementation fg.deobf("curse.maven:accelerated-rendering-1314021:7342975")
-
+    implementation fg.deobf("curse.maven:accelerated-rendering-1314021:8179092")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

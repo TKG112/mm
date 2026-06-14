@@ -3,8 +3,11 @@ package net.tkg.ModernMayhem.server.registry;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.tkg.ModernMayhem.client.thermal.render.ThermalRenderer;
+import net.tkg.ModernMayhem.server.item.curios.facewear.TVGGogglesItem;
 import net.tkg.ModernMayhem.server.network.*;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import org.lwjgl.glfw.GLFW;
@@ -12,6 +15,13 @@ import org.lwjgl.glfw.GLFW;
 @OnlyIn(Dist.CLIENT)
 public class KeyMappingRegistryMM {
     public static final String CATEGORY = "key.categories.mm";
+
+    /** The thermal (TVG) goggle repurposes the gain Up/Down keys to cycle thermal palettes. */
+    private static boolean isThermalGoggleEquipped(Player player) {
+        if (player == null) return false;
+        ItemStack face = CuriosUtil.getFaceWearItem(player);
+        return face != null && face.getItem() instanceof TVGGogglesItem;
+    }
 
     public static final KeyMapping TOGGLE_NVG_KEY = new KeyMapping("key.mm.toggle_nvg", GLFW.GLFW_KEY_N, CATEGORY) {
         private boolean isDownOld = false;
@@ -36,7 +46,11 @@ public class KeyMappingRegistryMM {
         public void setDown(boolean isDown) {
             super.setDown(isDown);
             if (isDownOld != isDown && isDown) {
-                if (CuriosUtil.hasNVGEquipped(Minecraft.getInstance().player)) {
+                Player player = Minecraft.getInstance().player;
+                if (isThermalGoggleEquipped(player)) {
+                    ThermalRenderer.cycleThermalPalette();
+                    PacketsRegistryMM.getChannel().sendToServer(new ThermalPaletteCyclePacket(true));
+                } else if (CuriosUtil.hasNVGEquipped(player)) {
                     PacketsRegistryMM.getChannel().sendToServer(new NVGTubeGainUpPacket());
                 }
             }
@@ -52,7 +66,12 @@ public class KeyMappingRegistryMM {
         public void setDown(boolean isDown) {
             super.setDown(isDown);
             if (isDownOld != isDown && isDown) {
-                if (CuriosUtil.hasNVGEquipped(Minecraft.getInstance().player)) {
+                Player player = Minecraft.getInstance().player;
+                if (isThermalGoggleEquipped(player)) {
+                    // Thermal goggle: previous palette.
+                    ThermalRenderer.cycleThermalPaletteBack();
+                    PacketsRegistryMM.getChannel().sendToServer(new ThermalPaletteCyclePacket(false));
+                } else if (CuriosUtil.hasNVGEquipped(player)) {
                     PacketsRegistryMM.getChannel().sendToServer(new NVGTubeGainDownPacket());
                 }
             }

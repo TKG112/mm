@@ -30,7 +30,7 @@ public class Thermal {
      */
     public static void setupThermal() {
 
-        registerCombinedModeListener();
+        registerFacewearModeListener();
         ThermalRenderer.setUseBlackOutline(false);
         ThermalRenderer.setOutlinePredicate(entity -> {
             if (!(entity instanceof LivingEntity)) return false;

@@ -2,6 +2,7 @@ package net.tkg.ModernMayhem.client.event;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferUploader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.entity.player.Player;
@@ -17,6 +18,7 @@ import net.tkg.ModernMayhem.client.shaderController.TVGShaderController;
 import net.tkg.ModernMayhem.server.item.curios.facewear.TVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
+import org.lwjgl.opengl.GL13;
 
 @Mod.EventBusSubscriber(modid = ModernMayhemMod.ID, value = Dist.CLIENT)
 public class RenderTVGShader {
@@ -26,7 +28,7 @@ public class RenderTVGShader {
         TVGShaderRenderer.INSTANCE.render();
     }
 
-    @SubscribeEvent(priority = EventPriority.NORMAL)
+    @SubscribeEvent(priority = EventPriority.LOW)
     public static void renderThermalOverlay(RenderGuiEvent.Pre event) {
         try {
             Player player = Minecraft.getInstance().player;
@@ -70,6 +72,13 @@ public class RenderTVGShader {
             RenderSystem.enableDepthTest();
             RenderSystem.disableBlend();
             RenderSystem.setShaderColor(1, 1, 1, 1);
+
+            for (int unit = 0; unit < 8; unit++) {
+                GlStateManager._activeTexture(GL13.GL_TEXTURE0 + unit);
+                GlStateManager._bindTexture(0);
+            }
+            GlStateManager._activeTexture(GL13.GL_TEXTURE0);
+            BufferUploader.reset();
         } catch (Exception e) {
             ModernMayhemMod.LOGGER.error("Error rendering thermal overlay", e);
         }

@@ -5,6 +5,7 @@ import com.mojang.blaze3d.pipeline.TextureTarget;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexSorting;
 import net.minecraft.client.CameraType;
@@ -20,7 +21,10 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.tkg.ModernMayhem.ModernMayhemMod;
+import net.tkg.ModernMayhem.client.shaderController.TVGShaderController;
+import net.tkg.ModernMayhem.client.shaderController.NVGShaderController;
 import net.tkg.ModernMayhem.client.compat.ar.ARCompat;
+import net.tkg.ModernMayhem.client.compat.entityculling.EntityCullingCompat;
 import net.tkg.ModernMayhem.client.compat.oculus.OculusCompat;
 import net.tkg.ModernMayhem.server.mixin.client.GameRendererInvoker;
 import org.joml.Matrix4f;
@@ -38,6 +42,8 @@ public class ThermalRenderer {
     private static final Minecraft MC = Minecraft.getInstance();
     private static final boolean OCULUS_LOADED = ModList.get().isLoaded("oculus");
     private static final boolean AR_LOADED = ModList.get().isLoaded("acceleratedrendering");
+
+    private static final boolean USE_ENTITYCULLING_CULL = true;
 
     private static TextureTarget maskTarget;
     private static TextureTarget blurHTarget;
@@ -76,6 +82,11 @@ public class ThermalRenderer {
     private static boolean useColoredOutline = true;
     private static boolean useBlackOutline = true;
 
+    public enum ThermalPalette { WHITE_HOT, BLACK_HOT, RED_HOT, FUSION, IRONBOW }
+
+    private static int thermalPalette = ThermalPalette.WHITE_HOT.ordinal();
+    private static float detailStrength = 0.3f;
+
     public static void setRenderMode(RenderMode mode) { renderMode = mode; }
     public static RenderMode getRenderMode() { return renderMode; }
     public static void setOutlineColorProvider(Function<Entity, Integer> provider) { colorProvider = provider; }
@@ -85,6 +96,41 @@ public class ThermalRenderer {
     public static boolean isUsingColoredOutline() { return useColoredOutline; }
     public static void setUseBlackOutline(boolean use) { useBlackOutline = use; }
     public static boolean isUsingBlackOutline() { return useBlackOutline; }
+
+    public static RenderTarget getBlurTarget() { return blurVTarget; }
+    public static RenderTarget getOccludedMaskTarget() { return occludedMaskTarget; }
+    public static boolean isUseSourceColor() { return colorProvider != null; }
+    public static float getOutlineR() { return outlineR; }
+    public static float getOutlineG() { return outlineG; }
+    public static float getOutlineB() { return outlineB; }
+    public static float getOutlineA() { return outlineA; }
+
+    public static void setThermalPalette(ThermalPalette palette) { thermalPalette = palette.ordinal(); }
+    public static void setThermalPalette(int paletteId) { thermalPalette = paletteId; }
+    public static int getThermalPalette() { return thermalPalette; }
+    public static void cycleThermalPalette() { thermalPalette = (thermalPalette + 1) % ThermalPalette.values().length; }
+    public static void cycleThermalPaletteBack() {
+        int n = ThermalPalette.values().length;
+        thermalPalette = (thermalPalette - 1 + n) % n;
+    }
+    public static void setDetailStrength(float strength) { detailStrength = Math.max(0.0f, Math.min(1.0f, strength)); }
+    public static float getDetailStrength() { return detailStrength; }
+
+    private static final float[][] WORLD_TINTS = {
+            {1.00f, 1.00f, 1.00f},
+            {1.00f, 1.00f, 1.00f},
+            {1.00f, 0.55f, 0.40f},
+            {0.32f, 0.50f, 1.00f},
+            {0.50f, 0.42f, 0.78f},
+    };
+    private static int paletteIndex() {
+        int n = ThermalPalette.values().length;
+        return ((thermalPalette % n) + n) % n;
+    }
+    public static float getWorldTintR() { return WORLD_TINTS[paletteIndex()][0]; }
+    public static float getWorldTintG() { return WORLD_TINTS[paletteIndex()][1]; }
+    public static float getWorldTintB() { return WORLD_TINTS[paletteIndex()][2]; }
+    public static boolean isWorldInverted() { return thermalPalette == ThermalPalette.BLACK_HOT.ordinal(); }
 
     public static void init() {
         Minecraft mc = Minecraft.getInstance();
@@ -205,7 +251,7 @@ public class ThermalRenderer {
                 GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
                 GlStateManager.SourceFactor.ONE,       GlStateManager.DestFactor.ZERO);
 
-        GL11.glColorMask(true, true, true, false);
+        RenderSystem.colorMask(true, true, true, false);
 
         applyShader.use();
         applyShader.setTexture("BlurSampler", blurSrc.getColorTextureId());
@@ -215,23 +261,46 @@ public class ThermalRenderer {
         applyShader.setUniform("OutlineColor",   outlineR, outlineG, outlineB, outlineA);
         drawFullscreenQuad();
 
-        GL11.glColorMask(true, true, true, true);
+        RenderSystem.colorMask(true, true, true, true);
         GL20.glUseProgram(0);
         for (int i = 0; i < 4; i++) { RenderSystem.activeTexture(GL13.GL_TEXTURE0 + i); GlStateManager._bindTexture(0); }
         RenderSystem.activeTexture(GL13.GL_TEXTURE0);
         RenderSystem.disableBlend();
         RenderSystem.enableDepthTest();
         RenderSystem.depthMask(true);
+        BufferUploader.reset();
         MC.getMainRenderTarget().bindWrite(false);
     }
 
     private static void occludeWithSceneDepth() {
-        if (depthOccludeShader == null || occludedMaskTarget == null) return;
+        occludePass(maskTarget, occludedMaskTarget);
+    }
+
+    public static void reoccludeMaskAgainstCurrentDepth() {
+        if (isIrisShaderpackActive()) return;
+        if (renderMode == RenderMode.OFF) return;
+        if (!compositePending) return; // AFTER_LEVEL prepared the mask this frame
+        if (!(TVGShaderController.isEnabled() || NVGShaderController.isEnabled())) return;
+        if (occludedMaskTarget == null || maskTarget == null) return;
+
+        int savedFbo = GL11.glGetInteger(GL30.GL_DRAW_FRAMEBUFFER_BINDING);
+        try {
+            occludeWithSceneDepth(); // maskTarget vs the live main depth = world + hand
+            runBlur(occludedMaskTarget);
+        } catch (Exception e) {
+            ModernMayhemMod.LOGGER.error("[ThermalRenderer] hand re-occlude error", e);
+        } finally {
+            GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, savedFbo);
+        }
+    }
+
+    private static void occludePass(RenderTarget colorSource, RenderTarget out) {
+        if (depthOccludeShader == null || out == null || colorSource == null) return;
 
         boolean reversedZ = GL11.glGetFloat(GL11.GL_DEPTH_CLEAR_VALUE) < 0.1f;
 
-        occludedMaskTarget.bindWrite(false);
-        GlStateManager._viewport(0, 0, occludedMaskTarget.width, occludedMaskTarget.height);
+        out.bindWrite(false);
+        GlStateManager._viewport(0, 0, out.width, out.height);
         RenderSystem.clearColor(0, 0, 0, 0);
         RenderSystem.clear(GL30.GL_COLOR_BUFFER_BIT, false);
         RenderSystem.disableDepthTest();
@@ -252,10 +321,10 @@ public class ThermalRenderer {
         GlStateManager._bindTexture(0);
 
         depthOccludeShader.use();
-        depthOccludeShader.setTexture("MaskSampler",        maskTarget.getColorTextureId());
+        depthOccludeShader.setTexture("MaskSampler",        colorSource.getColorTextureId());
         depthOccludeShader.setTexture("EntityDepthSampler", maskDepthTex);
         depthOccludeShader.setTexture("SceneDepthSampler",  sceneDepthTex);
-        depthOccludeShader.setUniform("InSize",      (float) maskTarget.width, (float) maskTarget.height);
+        depthOccludeShader.setUniform("InSize",      (float) out.width, (float) out.height);
         depthOccludeShader.setUniform("IsReversedZ", reversedZ ? 1.0f : 0.0f);
         depthOccludeShader.setUniform("NearFar",     maskNear, maskFar);
         depthOccludeShader.setUniform("WorldEpsilon", 0.25f);
@@ -304,9 +373,14 @@ public class ThermalRenderer {
                     RenderSystem.setProjectionMatrix(originalProjection, VertexSorting.DISTANCE_TO_ORIGIN);
 
                 } else {
-                    renderThisFrame = captureMobMasks(event.getPoseStack(), event.getProjectionMatrix());
+                    Matrix4f proj = event.getProjectionMatrix();
+                    maskNear = proj.perspectiveNear();
+                    maskFar = proj.perspectiveFar();
 
-                    if (renderThisFrame) {
+                    renderThisFrame = captureMobMasks(event.getPoseStack(), proj);
+
+                    boolean chainActive = TVGShaderController.isEnabled() || NVGShaderController.isEnabled();
+                    if (renderThisFrame && !chainActive) {
                         runBlur(maskTarget);
                         compositeToMain(blurVTarget, maskTarget);
                         if (renderMode == RenderMode.OUTLINE) {
@@ -326,7 +400,8 @@ public class ThermalRenderer {
                 GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, savedFbo);
             }
 
-        } else if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_LEVEL && isIrisShaderpackActive() && renderThisFrame) {
+        } else if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_LEVEL && renderThisFrame
+                && (isIrisShaderpackActive() || TVGShaderController.isEnabled() || NVGShaderController.isEnabled())) {
             renderThisFrame = false;
             try {
                 MultiBufferSource.BufferSource bufferSource = MC.renderBuffers().bufferSource();
@@ -348,6 +423,7 @@ public class ThermalRenderer {
     public static void onRenderGui(RenderGuiEvent.Pre event) {
         if (!compositePending) return;
         compositePending = false;
+        if (TVGShaderController.isEnabled() || NVGShaderController.isEnabled()) return;
         if (renderMode == RenderMode.OFF || blurVTarget == null || occludedMaskTarget == null) return;
         try {
             compositeToMain(blurVTarget, occludedMaskTarget);
@@ -402,7 +478,7 @@ public class ThermalRenderer {
         MC.getMainRenderTarget().bindWrite(false);
     }
 
-    private static boolean isIrisShaderpackActive() {
+    public static boolean isIrisShaderpackActive() {
         if (!OCULUS_LOADED) return false;
         try {
             return net.irisshaders.iris.api.v0.IrisApi.getInstance().isShaderPackInUse();
@@ -439,7 +515,7 @@ public class ThermalRenderer {
     }
 
     private static void renderEntityMasks(PoseStack poseStack, Matrix4f projectionMatrix) {
-        int targetWidth = MC.getMainRenderTarget().width;
+        int targetWidth  = MC.getMainRenderTarget().width;
         int targetHeight = MC.getMainRenderTarget().height;
 
         if (maskTarget.width != targetWidth || maskTarget.height != targetHeight) {
@@ -448,13 +524,13 @@ public class ThermalRenderer {
 
         int[] savedViewport = new int[4];
         GL11.glGetIntegerv(GL11.GL_VIEWPORT, savedViewport);
-        boolean savedStencil = GL11.glIsEnabled(GL11.GL_STENCIL_TEST);
-        boolean savedScissor = GL11.glIsEnabled(GL11.GL_SCISSOR_TEST);
-        boolean savedBlend = GL11.glIsEnabled(GL11.GL_BLEND);
-        boolean savedCull = GL11.glIsEnabled(GL11.GL_CULL_FACE);
+        boolean savedStencil   = GL11.glIsEnabled(GL11.GL_STENCIL_TEST);
+        boolean savedScissor   = GL11.glIsEnabled(GL11.GL_SCISSOR_TEST);
+        boolean savedBlend     = GL11.glIsEnabled(GL11.GL_BLEND);
+        boolean savedCull      = GL11.glIsEnabled(GL11.GL_CULL_FACE);
         boolean savedDepthTest = GL11.glIsEnabled(GL11.GL_DEPTH_TEST);
         boolean savedDepthMask = GL11.glGetBoolean(GL11.GL_DEPTH_WRITEMASK);
-        int savedDepthFunc = GL11.glGetInteger(GL11.GL_DEPTH_FUNC);
+        int     savedDepthFunc = GL11.glGetInteger(GL11.GL_DEPTH_FUNC);
 
         if (!isIrisShaderpackActive()) {
             if (MC.getMainRenderTarget().isStencilEnabled() && !maskTarget.isStencilEnabled()) {
@@ -504,6 +580,7 @@ public class ThermalRenderer {
             if (!outlinePredicate.test(entity)) continue;
             if (entity == MC.player && MC.options.getCameraType() == CameraType.FIRST_PERSON) continue;
             if (!MC.getEntityRenderDispatcher().shouldRender(entity, frustum, camX, camY, camZ)) continue;
+            if (USE_ENTITYCULLING_CULL && EntityCullingCompat.isOccluded(entity)) continue;
 
             double lerpX = entity.xOld + (entity.getX() - entity.xOld) * partialTick;
             double lerpY = entity.yOld + (entity.getY() - entity.yOld) * partialTick;

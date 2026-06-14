@@ -1,0 +1,27 @@
+{
+  "blend": {
+    "func": "add",
+    "srcrgb": "one",
+    "dstrgb": "zero"
+  },
+  "vertex": "sobel",
+  "fragment": "mm:thermal_composite",
+  "attributes": [ "Position" ],
+  "samplers": [
+    { "name": "DiffuseSampler" },
+    { "name": "BlurSampler" },
+    { "name": "MaskSampler" },
+    { "name": "SceneDepthSampler" }
+  ],
+  "uniforms": [
+    { "name": "ProjMat",        "type": "matrix4x4", "count": 16, "values": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0] },
+    { "name": "InSize",         "type": "float",     "count": 2,  "values": [1.0, 1.0] },
+    { "name": "OutSize",        "type": "float",     "count": 2,  "values": [1.0, 1.0] },
+    { "name": "RenderMode",     "type": "float",     "count": 1,  "values": [2.0] },
+    { "name": "UseSourceColor", "type": "float",     "count": 1,  "values": [1.0] },
+    { "name": "OutlineColor",   "type": "float",     "count": 4,  "values": [1.0, 1.0, 1.0, 1.0] },
+    { "name": "ThermalPalette", "type": "float",     "count": 1,  "values": [0.0] },
+    { "name": "DetailStrength", "type": "float",     "count": 1,  "values": [0.65] },
+    { "name": "HandCull",       "type": "float",     "count": 1,  "values": [0.0] }
+  ]
+}
