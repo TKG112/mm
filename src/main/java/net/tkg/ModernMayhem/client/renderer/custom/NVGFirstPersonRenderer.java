@@ -28,6 +28,7 @@ public class NVGFirstPersonRenderer extends GeoItemRenderer<NVGFirstPersonFakeIt
 
     private static final float SCALE_RECIPROCAL = 1.0f / 16.0f;
     protected boolean renderArms = false;
+    protected boolean mirrored = false;
     protected MultiBufferSource currentBuffer;
     protected RenderType renderType;
 
@@ -39,6 +40,10 @@ public class NVGFirstPersonRenderer extends GeoItemRenderer<NVGFirstPersonFakeIt
     public void initCurrentItemStack(NVGFirstPersonFakeItem item) {
         // This method is used to initialize the current item stack for rendering
         this.currentItemStack = new ItemStack(item);
+    }
+
+    public void setMirrored(boolean mirrored) {
+        this.mirrored = mirrored;
     }
 
     @Override
@@ -116,16 +121,22 @@ public class NVGFirstPersonRenderer extends GeoItemRenderer<NVGFirstPersonFakeIt
                 RenderUtils.translateAwayFromPivotPoint(poseStack, bone);
                 poseStack.translate(0f, -0.8f, 0f);
                 ResourceLocation playerSkin = player.getSkinTextureLocation();
-                VertexConsumer armBuilder = this.currentBuffer.getBuffer(RenderType.entitySolid(playerSkin));
-                VertexConsumer sleeveBuilder = this.currentBuffer.getBuffer(RenderType.entityTranslucentCull(playerSkin));
+                RenderType armType = this.mirrored
+                        ? RenderType.entityCutoutNoCull(playerSkin)
+                        : RenderType.entitySolid(playerSkin);
+                RenderType sleeveType = this.mirrored
+                        ? RenderType.entityTranslucent(playerSkin)
+                        : RenderType.entityTranslucentCull(playerSkin);
+                VertexConsumer armBuilder = this.currentBuffer.getBuffer(armType);
+                VertexConsumer sleeveBuilder = this.currentBuffer.getBuffer(sleeveType);
                 if (boneName.equals("left_arm")) {
                     poseStack.translate(-SCALE_RECIPROCAL, 2.0f * SCALE_RECIPROCAL, 0.0f);
-                    AnimUtils.renderPartOverBone(model.leftArm, bone, poseStack, armBuilder, packedLight, OverlayTexture.NO_OVERLAY, armsAlpha);
-                    AnimUtils.renderPartOverBone(model.leftSleeve, bone, poseStack, sleeveBuilder, packedLight, OverlayTexture.NO_OVERLAY, armsAlpha);
+                    AnimUtils.renderPartOverBoneRotated(model.leftArm, bone, poseStack, armBuilder, packedLight, OverlayTexture.NO_OVERLAY, 0.0f, (float) Math.PI, 0.0f, armsAlpha);
+                    AnimUtils.renderPartOverBoneRotated(model.leftSleeve, bone, poseStack, sleeveBuilder, packedLight, OverlayTexture.NO_OVERLAY, 0.0f, (float) Math.PI, 0.0f, armsAlpha);
                 } else {
                     poseStack.translate(SCALE_RECIPROCAL, 2.0f * SCALE_RECIPROCAL, 0.0f);
-                    AnimUtils.renderPartOverBone(model.rightArm, bone, poseStack, armBuilder, packedLight, OverlayTexture.NO_OVERLAY, armsAlpha);
-                    AnimUtils.renderPartOverBone(model.rightSleeve, bone, poseStack, sleeveBuilder, packedLight, OverlayTexture.NO_OVERLAY, armsAlpha);
+                    AnimUtils.renderPartOverBoneRotated(model.rightArm, bone, poseStack, armBuilder, packedLight, OverlayTexture.NO_OVERLAY, 0.0f, (float) Math.PI, 0.0f, armsAlpha);
+                    AnimUtils.renderPartOverBoneRotated(model.rightSleeve, bone, poseStack, sleeveBuilder, packedLight, OverlayTexture.NO_OVERLAY, 0.0f, (float) Math.PI, 0.0f, armsAlpha);
                 }
                 this.currentBuffer.getBuffer(RenderType.entityTranslucent(getTextureLocation(this.animatable)));
                 poseStack.popPose();

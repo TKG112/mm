@@ -1,5 +1,6 @@
 package net.tkg.ModernMayhem.client.event;
 
+import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -10,6 +11,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -20,10 +22,9 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.client.item.NVGFirstPersonFakeItem;
+import net.tkg.ModernMayhem.client.config.ClientConfig;
 import net.tkg.ModernMayhem.client.renderer.custom.NVGFirstPersonRenderer;
-import net.tkg.ModernMayhem.client.renderer.ShaderCompatibleRenderTypes;
 import net.tkg.ModernMayhem.client.registry.ClientItemRegistryMM;
-import net.tkg.ModernMayhem.server.item.curios.facewear.VisorItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import net.tkg.ModernMayhem.client.compat.ar.ARCompat;
 import net.tkg.ModernMayhem.client.compat.oculus.OculusCompat;
@@ -38,6 +39,7 @@ public class RenderNVGFirstPerson {
     private static boolean initialized = false;
     private static boolean isRendering = false;
     public static boolean shouldRenderLeftArm = true;
+    public static boolean shouldRenderRightArm = true;
 
     private static final boolean TACZ_LOADED = ModList.get().isLoaded("tacz");
     private static final boolean OCULUS_LOADED = ModList.get().isLoaded("oculus");
@@ -98,12 +100,18 @@ public class RenderNVGFirstPerson {
         PoseStack nvgStack = new PoseStack();
         nvgStack.pushPose();
 
+        boolean mirrorForLeftHand = isMainHandLeft();
+        if (mirrorForLeftHand) {
+            nvgStack.scale(-1f, 1f, 1f);
+        }
+        RENDERER.setMirrored(mirrorForLeftHand);
+
         var model = RENDERER.getGeoModel();
         var bakedModel = model.getBakedModel(model.getModelResource(DUMMY_ITEM));
         var texture = RENDERER.getTextureLocation(DUMMY_ITEM);
 
         ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
-        boolean isVisor = facewearItem != null && facewearItem.getItem() instanceof VisorItem;
+        boolean isVisor = GenericSpecialGogglesItem.isVisor(facewearItem);
 
         if (shadersActive) {
             if (isVisor) {
@@ -116,7 +124,7 @@ public class RenderNVGFirstPerson {
                 }
             }
         } else {
-            renderWithoutShaders(nvgStack, buffer, event, bakedModel, texture, isVisor);
+            renderWithoutShaders(nvgStack, buffer, event, bakedModel, texture, isVisor, mirrorForLeftHand);
         }
 
         nvgStack.popPose();
@@ -184,8 +192,8 @@ public class RenderNVGFirstPerson {
         RenderSystem.disableBlend();
     }
 
-    private static void renderWithoutShaders(PoseStack nvgStack, MultiBufferSource.BufferSource buffer, RenderHandEvent event, BakedGeoModel bakedModel, ResourceLocation texture, boolean isVisor) {
-        var renderType = isVisor ? RenderType.entityTranslucent(texture) : RenderType.entityTranslucentCull(texture);
+    private static void renderWithoutShaders(PoseStack nvgStack, MultiBufferSource.BufferSource buffer, RenderHandEvent event, BakedGeoModel bakedModel, ResourceLocation texture, boolean isVisor, boolean mirrored) {
+        var renderType = (isVisor || mirrored) ? RenderType.entityTranslucent(texture) : RenderType.entityTranslucentCull(texture);
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
@@ -229,7 +237,13 @@ public class RenderNVGFirstPerson {
     public static boolean shouldRender() {
         LocalPlayer player = MC.player;
         if (player == null) return false;
+        if (ClientConfig.HIDE_FIRST_PERSON_GOGGLES.get()) return false;
         return CuriosUtil.hasNVGEquipped(player);
+    }
+
+    private static boolean isMainHandLeft() {
+        LocalPlayer player = MC.player;
+        return player != null && player.getMainArm() == HumanoidArm.LEFT;
     }
 
     public static void initialiseFirstPersonRenderer() {

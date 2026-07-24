@@ -1,0 +1,14 @@
+{
+  "type": "armor",
+  "slot": "leggings",
+  "material": "kevlar",
+  "model": "mm:geo/armor/iola.geo.json",
+  "texture": "mm:textures/armor/tan_iola.png",
+  "animation": "mm:animations/empty.animation.json",
+  "stats": {
+    "protection": 6,
+    "toughness": 3,
+    "knockback": 0.15,
+    "durability": 375
+  }
+}

@@ -5,7 +5,6 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.tkg.ModernMayhem.server.item.curios.facewear.TVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 
@@ -29,7 +28,8 @@ public final class TVGShaderController {
 
         if (CuriosUtil.hasNVGEquipped(player)) {
             facewearItem = CuriosUtil.getFaceWearItem(player);
-            if (facewearItem != null && facewearItem.getItem() instanceof TVGGogglesItem thermalItem) {
+            if (facewearItem != null && facewearItem.getItem() instanceof GenericSpecialGogglesItem thermalItem
+                    && thermalItem.getGoggleType() == GenericSpecialGogglesItem.GoggleType.THERMAL) {
                 if (thermalItem.shouldRenderShader()) {
                     shouldRender = GenericSpecialGogglesItem.getNVGCheck(facewearItem);
                 }

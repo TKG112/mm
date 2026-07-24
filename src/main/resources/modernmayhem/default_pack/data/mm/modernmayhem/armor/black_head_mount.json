@@ -1,0 +1,14 @@
+{
+  "type": "armor",
+  "slot": "helmet",
+  "material": "nothing",
+  "model": "mm:geo/armor/head_mount.geo.json",
+  "texture": "mm:textures/armor/black_head_mount.png",
+  "animation": "mm:animations/empty.animation.json",
+  "stats": {
+    "protection": 0,
+    "toughness": 0,
+    "knockback": 0,
+    "durability": 275
+  }
+}

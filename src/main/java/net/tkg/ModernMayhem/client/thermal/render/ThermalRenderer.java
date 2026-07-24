@@ -1,5 +1,6 @@
 package net.tkg.ModernMayhem.client.thermal.render;
 
+import net.tkg.ModernMayhem.client.thermal.ThermalPalettes;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.pipeline.TextureTarget;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -14,6 +15,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.RenderGuiEvent;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
@@ -21,8 +23,14 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.tkg.ModernMayhem.ModernMayhemMod;
+import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import net.tkg.ModernMayhem.client.shaderController.TVGShaderController;
 import net.tkg.ModernMayhem.client.shaderController.NVGShaderController;
+import net.tkg.ModernMayhem.client.config.ClientConfig;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.world.entity.HumanoidArm;
 import net.tkg.ModernMayhem.client.compat.ar.ARCompat;
 import net.tkg.ModernMayhem.client.compat.entityculling.EntityCullingCompat;
 import net.tkg.ModernMayhem.client.compat.oculus.OculusCompat;
@@ -49,11 +57,14 @@ public class ThermalRenderer {
     private static TextureTarget blurHTarget;
     private static TextureTarget blurVTarget;
     private static TextureTarget occludedMaskTarget;
+    private static TextureTarget coverageTarget;
+    private static TextureTarget armTarget;
 
     private static ThermalShader blurShader;
     private static ThermalShader applyShader;
     private static ThermalShader depthWriteShader;
     private static ThermalShader depthOccludeShader;
+    private static ThermalShader carveShader;
 
     private static int quadVAO = -1;
     private static int quadVBO = -1;
@@ -72,6 +83,8 @@ public class ThermalRenderer {
     private static float maskNear = 0.05f;
     private static float maskFar = 1000.0f;
 
+    private static float viewmodelNear = 0.05f, viewmodelFar = 1000.0f;
+
     public enum RenderMode { OFF, OUTLINE, OVERLAY }
 
     private static RenderMode renderMode = RenderMode.OUTLINE;
@@ -82,10 +95,10 @@ public class ThermalRenderer {
     private static boolean useColoredOutline = true;
     private static boolean useBlackOutline = true;
 
-    public enum ThermalPalette { WHITE_HOT, BLACK_HOT, RED_HOT, FUSION, IRONBOW }
+    public enum ThermalPalette { WHITE_HOT, BLACK_HOT, IRONBOW, RED_HOT, AMBER_HOT, PREDATOR, GREEN_HOT, ARCTIC }
 
     private static int thermalPalette = ThermalPalette.WHITE_HOT.ordinal();
-    private static float detailStrength = 0.3f;
+    private static float detailStrength = 0.5f;
 
     public static void setRenderMode(RenderMode mode) { renderMode = mode; }
     public static RenderMode getRenderMode() { return renderMode; }
@@ -108,29 +121,41 @@ public class ThermalRenderer {
     public static void setThermalPalette(ThermalPalette palette) { thermalPalette = palette.ordinal(); }
     public static void setThermalPalette(int paletteId) { thermalPalette = paletteId; }
     public static int getThermalPalette() { return thermalPalette; }
-    public static void cycleThermalPalette() { thermalPalette = (thermalPalette + 1) % ThermalPalette.values().length; }
+    /**
+     * Steps to the next palette <i>within the equipped goggle's own range</i>, so a pack-defined
+     * thermal cycles only the palettes it declared rather than wandering into ModernMayhem's.
+     */
+    public static void cycleThermalPalette() {
+        int[] range = currentPaletteRange();
+        int offset = range[0];
+        int count = Math.max(1, range[1]);
+        int relative = ((thermalPalette - offset) % count + count) % count;
+        thermalPalette = offset + ((relative + 1) % count);
+    }
+
+    /** {first row, row count} of the palettes the equipped thermal goggle may cycle. */
+    private static int[] currentPaletteRange() {
+        Minecraft mc = Minecraft.getInstance();
+        ItemStack face = mc.player == null ? ItemStack.EMPTY : CuriosUtil.getFaceWearItem(mc.player);
+        return ThermalPalettes.rangeFor(face);
+    }
+    /** As {@link #cycleThermalPalette()}, in reverse. */
     public static void cycleThermalPaletteBack() {
-        int n = ThermalPalette.values().length;
-        thermalPalette = (thermalPalette - 1 + n) % n;
+        int[] range = currentPaletteRange();
+        int offset = range[0];
+        int count = Math.max(1, range[1]);
+        int relative = ((thermalPalette - offset) % count + count) % count;
+        thermalPalette = offset + ((relative - 1 + count) % count);
     }
     public static void setDetailStrength(float strength) { detailStrength = Math.max(0.0f, Math.min(1.0f, strength)); }
     public static float getDetailStrength() { return detailStrength; }
 
-    private static final float[][] WORLD_TINTS = {
-            {1.00f, 1.00f, 1.00f},
-            {1.00f, 1.00f, 1.00f},
-            {1.00f, 0.55f, 0.40f},
-            {0.32f, 0.50f, 1.00f},
-            {0.50f, 0.42f, 0.78f},
-    };
-    private static int paletteIndex() {
-        int n = ThermalPalette.values().length;
-        return ((thermalPalette % n) + n) % n;
-    }
-    public static float getWorldTintR() { return WORLD_TINTS[paletteIndex()][0]; }
-    public static float getWorldTintG() { return WORLD_TINTS[paletteIndex()][1]; }
-    public static float getWorldTintB() { return WORLD_TINTS[paletteIndex()][2]; }
-    public static boolean isWorldInverted() { return thermalPalette == ThermalPalette.BLACK_HOT.ordinal(); }
+    // World tint and inversion come from the palette itself (see PaletteDefinition). They used to be a
+    // parallel array here, which meant a palette was described in two places -- shader and Java.
+    public static float getWorldTintR() { return ThermalPalettes.get(thermalPalette).worldColor()[0]; }
+    public static float getWorldTintG() { return ThermalPalettes.get(thermalPalette).worldColor()[1]; }
+    public static float getWorldTintB() { return ThermalPalettes.get(thermalPalette).worldColor()[2]; }
+    public static boolean isWorldInverted() { return ThermalPalettes.get(thermalPalette).inverted(); }
 
     public static void init() {
         Minecraft mc = Minecraft.getInstance();
@@ -140,17 +165,29 @@ public class ThermalRenderer {
         maskTarget  = new TextureTarget(width, height, true, Minecraft.ON_OSX);
         blurHTarget = new TextureTarget(width, height, false, Minecraft.ON_OSX);
         blurVTarget = new TextureTarget(width, height, false, Minecraft.ON_OSX);
-        occludedMaskTarget = new TextureTarget(width, height, false, Minecraft.ON_OSX);
+        occludedMaskTarget = new TextureTarget(width, height, true, Minecraft.ON_OSX);   // depth: vanilla sorts the two gun hands in here
+        coverageTarget = new TextureTarget(width, height, true, Minecraft.ON_OSX);   // keeps depth for depth-aware carve
+        armTarget = new TextureTarget(width, height, true, Minecraft.ON_OSX);        // arm heat + arm depth (hand projection)
         maskTarget.setClearColor(0, 0, 0, 0);
         blurHTarget.setClearColor(0, 0, 0, 0);
         blurVTarget.setClearColor(0, 0, 0, 0);
         occludedMaskTarget.setClearColor(0, 0, 0, 0);
+        coverageTarget.setClearColor(0, 0, 0, 0);
+        armTarget.setClearColor(0, 0, 0, 0);
+
+        // The viewmodel coverage replay runs TaCZ's real scope path, which stencil-masks the lens (so the gun
+        // body/optic body leave a see-through hole that grows with aim progress). That needs a stencil buffer on
+        // the coverage target. occludedMaskTarget must match its depth format because flushArmsSortedBlend blits
+        // depth coverageTarget -> occludedMaskTarget, and a depth blit requires matching depth formats.
+        occludedMaskTarget.enableStencil();
+        coverageTarget.enableStencil();
 
         try {
             blurShader  = new ThermalShader("thermal_blur", "thermal_sobel");
             applyShader = new ThermalShader("thermal_apply", "thermal_sobel");
             depthWriteShader = new ThermalShader("thermal_depth", "thermal_sobel");
             depthOccludeShader = new ThermalShader("thermal_occlude", "thermal_sobel");
+            carveShader = new ThermalShader("thermal_carve", "thermal_sobel");
         } catch (IOException e) {
             ModernMayhemMod.LOGGER.error("[ThermalRenderer] Failed to load shaders", e);
         }
@@ -165,10 +202,13 @@ public class ThermalRenderer {
         if (blurHTarget != null) { blurHTarget.destroyBuffers(); blurHTarget = null; }
         if (blurVTarget != null) { blurVTarget.destroyBuffers(); blurVTarget = null; }
         if (occludedMaskTarget != null) { occludedMaskTarget.destroyBuffers(); occludedMaskTarget = null; }
+        if (coverageTarget != null) { coverageTarget.destroyBuffers(); coverageTarget = null; }
+        if (armTarget != null) { armTarget.destroyBuffers(); armTarget = null; }
         if (blurShader  != null) { blurShader.close();  blurShader  = null; }
         if (applyShader != null) { applyShader.close(); applyShader = null; }
         if (depthWriteShader != null) { depthWriteShader.close(); depthWriteShader = null; }
         if (depthOccludeShader != null) { depthOccludeShader.close(); depthOccludeShader = null; }
+        if (carveShader != null) { carveShader.close(); carveShader = null; }
         if (quadVAO != -1) {
             GL30.glDeleteVertexArrays(quadVAO);
             GL30.glDeleteBuffers(quadVBO);
@@ -181,6 +221,8 @@ public class ThermalRenderer {
         if (blurHTarget != null) blurHTarget.resize(width, height, Minecraft.ON_OSX);
         if (blurVTarget != null) blurVTarget.resize(width, height, Minecraft.ON_OSX);
         if (occludedMaskTarget != null) occludedMaskTarget.resize(width, height, Minecraft.ON_OSX);
+        if (coverageTarget != null) coverageTarget.resize(width, height, Minecraft.ON_OSX);
+        if (armTarget != null) armTarget.resize(width, height, Minecraft.ON_OSX);
     }
 
     private static void createQuadVAO() {
@@ -273,42 +315,471 @@ public class ThermalRenderer {
     }
 
     private static void occludeWithSceneDepth() {
-        occludePass(maskTarget, occludedMaskTarget);
+        // Entities were captured under the world projection, so linearise with the world near/far.
+        occludePass(maskTarget, occludedMaskTarget, maskNear, maskFar, false);
     }
 
     public static void reoccludeMaskAgainstCurrentDepth() {
-        if (isIrisShaderpackActive()) return;
-        if (renderMode == RenderMode.OFF) return;
-        if (!compositePending) return; // AFTER_LEVEL prepared the mask this frame
-        if (!(TVGShaderController.isEnabled() || NVGShaderController.isEnabled())) return;
-        if (occludedMaskTarget == null || maskTarget == null) return;
+        boolean proceed = renderMode != RenderMode.OFF && compositePending && (TVGShaderController.isEnabled() || NVGShaderController.isEnabled()) && occludedMaskTarget != null && maskTarget != null;
+        if (!proceed) { pendingArms.clear(); pendingViewmodelOccluders.clear(); return; }
 
+        boolean armStaged = !pendingArms.isEmpty();
+        boolean viewmodelStaged = !pendingViewmodelOccluders.isEmpty();
+        boolean shaderpack = isIrisShaderpackActive();
         int savedFbo = GL11.glGetInteger(GL30.GL_DRAW_FRAMEBUFFER_BINDING);
         try {
-            occludeWithSceneDepth(); // maskTarget vs the live main depth = world + hand
+            if (viewmodelStaged) renderViewmodelCoverage();
+
+            if (shaderpack) {
+                if (viewmodelStaged) carveViewmodelFromOccluded();
+                if (armStaged) {
+                    if (viewmodelStaged) flushArmsSortedBlend(occludedMaskTarget, coverageTarget);
+                    else flushPendingArmsToMask(occludedMaskTarget, false);
+                }
+            } else {
+                occludeWithSceneDepth();
+                if (viewmodelStaged) carveViewmodelFromOccluded();
+                if (armStaged) {
+                    if (viewmodelStaged)
+                        flushArmsSortedBlend(occludedMaskTarget, coverageTarget);
+                    else
+                        flushPendingArmsToMask(occludedMaskTarget, false);
+                }
+            }
+
             runBlur(occludedMaskTarget);
         } catch (Exception e) {
-            ModernMayhemMod.LOGGER.error("[ThermalRenderer] hand re-occlude error", e);
         } finally {
+            pendingArms.clear();
+            pendingViewmodelOccluders.clear();
             GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, savedFbo);
         }
     }
 
-    private static void occludePass(RenderTarget colorSource, RenderTarget out) {
+    private static boolean handHeatReadingEnabled() {
+        try {
+            return Boolean.TRUE.equals(ClientConfig.THERMAL_HAND_HEAT_READING.get());
+        } catch (Throwable t) {
+            return false;
+        }
+    }
+
+    public static boolean isMaskActiveForArm() {
+        if (!handHeatReadingEnabled()) return false;
+        if (renderMode == RenderMode.OFF) return false;
+        if (!(TVGShaderController.isEnabled() || NVGShaderController.isEnabled())) return false;
+        if (maskTarget == null || maskBufferSource == null) return false;
+        return MC.options.getCameraType().isFirstPerson();
+    }
+
+    private static final class ArmStage {
+        final HumanoidArm side;
+        final AbstractClientPlayer player;
+        final PoseStack pose = new PoseStack();
+        final Matrix4f proj = new Matrix4f();
+        final Matrix4f modelView = new Matrix4f();
+        ArmStage(AbstractClientPlayer p, HumanoidArm s, PoseStack src) {
+            player = p; side = s;
+            pose.last().pose().set(src.last().pose());
+            pose.last().normal().set(src.last().normal());
+            proj.set(RenderSystem.getProjectionMatrix());
+            modelView.set(RenderSystem.getModelViewMatrix());
+        }
+    }
+    private static final java.util.List<ArmStage> pendingArms = new java.util.ArrayList<>(2);
+    private static float armNear = 0.05f, armFar = 1000.0f;
+
+    private static final class ViewmodelOccluder {
+        final Runnable reRender;
+        final Matrix4f proj = new Matrix4f();
+        final Matrix4f modelView = new Matrix4f();
+        ViewmodelOccluder(Runnable r) {
+            reRender = r;
+            proj.set(RenderSystem.getProjectionMatrix());
+            modelView.set(RenderSystem.getModelViewMatrix());
+        }
+    }
+
+    private static final java.util.List<ViewmodelOccluder> pendingViewmodelOccluders = new java.util.ArrayList<>(2);
+    private static boolean reRenderingViewmodel = false;
+
+    public static MultiBufferSource.BufferSource getMaskBufferSource() { return maskBufferSource; }
+
+    // True only while the offscreen viewmodel-coverage (cold-occluder) replay is running. The TaCZ attachment
+    // mixin uses this to render optics as plain solid geometry instead of their first-person stencil/lens
+    // routine, which can't be captured into the stencil-less coverage target.
+    public static boolean isReRenderingViewmodel() { return reRenderingViewmodel; }
+
+    public static void stageViewmodelOccluder(Runnable reRender) {
+        try {
+            if (reRender == null) return;
+            if (reRenderingViewmodel) return;
+            if (!isMaskActiveForArm()) return;
+            if (pendingViewmodelOccluders.size() >= 4) return;
+            pendingViewmodelOccluders.add(new ViewmodelOccluder(reRender));
+        } catch (Throwable ignored) { }
+    }
+
+    private static void renderViewmodelCoverage() {
+        if (pendingViewmodelOccluders.isEmpty() || coverageTarget == null || maskBufferSource == null) return;
+
+        int savedFbo = GL11.glGetInteger(GL30.GL_DRAW_FRAMEBUFFER_BINDING);
+        int[] savedViewport = new int[4];
+        GL11.glGetIntegerv(GL11.GL_VIEWPORT, savedViewport);
+        Matrix4f savedProj = new Matrix4f(RenderSystem.getProjectionMatrix());
+        boolean arDisabled = false;
+        float savedClearDepth = GL11.glGetFloat(GL11.GL_DEPTH_CLEAR_VALUE);
+        boolean reversedZ = savedClearDepth < 0.1f;
+        try {
+            coverageTarget.bindWrite(false);
+            GlStateManager._viewport(0, 0, coverageTarget.width, coverageTarget.height);
+            GL11.glDepthRange(reversedZ ? 1.0 : 0.0, reversedZ ? 0.0 : 1.0);
+            GlStateManager._clearDepth(1.0);   // far in the normalised mapping
+            RenderSystem.clearColor(0, 0, 0, 0);
+            RenderSystem.clear(GL30.GL_COLOR_BUFFER_BIT | GL30.GL_DEPTH_BUFFER_BIT | GL30.GL_STENCIL_BUFFER_BIT, false);
+            if (AR_LOADED) { try { ARCompat.disableAcceleration(); arDisabled = true; } catch (Throwable t) { } }
+            RenderSystem.enableDepthTest();
+            RenderSystem.depthFunc(GL11.GL_LEQUAL);
+            RenderSystem.depthMask(true);
+            RenderSystem.disableBlend();
+
+            PoseStack mv = RenderSystem.getModelViewStack();
+            reRenderingViewmodel = true;
+            for (ViewmodelOccluder o : pendingViewmodelOccluders) {
+                RenderSystem.setProjectionMatrix(o.proj, VertexSorting.DISTANCE_TO_ORIGIN);
+                viewmodelNear = o.proj.perspectiveNear();
+                viewmodelFar  = o.proj.perspectiveFar();
+                mv.pushPose();
+                mv.setIdentity();
+                mv.mulPoseMatrix(o.modelView);
+                RenderSystem.applyModelViewMatrix();
+                try {
+                    o.reRender.run();
+                    if (!OculusCompat.endBatch(maskBufferSource)) maskBufferSource.endBatch();
+                    MultiBufferSource.BufferSource main = MC.renderBuffers().bufferSource();
+                    if (!OculusCompat.endBatch(main)) main.endBatch();
+                } finally {
+                    mv.popPose();
+                    RenderSystem.applyModelViewMatrix();
+                }
+            }
+        } catch (Throwable t) {
+        } finally {
+            reRenderingViewmodel = false;
+            if (arDisabled && AR_LOADED) { try { ARCompat.resetAcceleration(); } catch (Throwable t) { } }
+            try {
+                GL11.glDepthRange(0.0, 1.0);
+                GlStateManager._clearDepth(savedClearDepth);
+                RenderSystem.depthMask(false);
+                RenderSystem.disableDepthTest();
+                RenderSystem.disableBlend();
+                RenderSystem.setProjectionMatrix(savedProj, VertexSorting.DISTANCE_TO_ORIGIN);
+                GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, savedFbo);
+                GlStateManager._viewport(savedViewport[0], savedViewport[1], savedViewport[2], savedViewport[3]);
+                BufferUploader.reset();
+            } catch (Throwable t) {
+
+            }
+        }
+    }
+
+    private static void carveViewmodelFromOccluded() {
+        if (carveShader == null || coverageTarget == null || occludedMaskTarget == null || maskTarget == null) return;
+        int savedFbo = GL11.glGetInteger(GL30.GL_DRAW_FRAMEBUFFER_BINDING);
+        boolean reversedZ = GL11.glGetFloat(GL11.GL_DEPTH_CLEAR_VALUE) < 0.1f;
+        int itemDepthTex   = coverageTarget.getDepthTextureId();
+        int entityDepthTex = maskTarget.getDepthTextureId();
+        try {
+            occludedMaskTarget.bindWrite(false);
+            GlStateManager._viewport(0, 0, occludedMaskTarget.width, occludedMaskTarget.height);
+            RenderSystem.disableBlend();
+            RenderSystem.disableDepthTest();
+            RenderSystem.depthMask(false);
+
+            GlStateManager._bindTexture(itemDepthTex);
+            int itemCmp = GL30.glGetTexParameteri(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_COMPARE_MODE);
+            GL30.glTexParameteri(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_COMPARE_MODE, GL30.GL_NONE);
+            GlStateManager._bindTexture(entityDepthTex);
+            int entCmp = GL30.glGetTexParameteri(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_COMPARE_MODE);
+            GL30.glTexParameteri(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_COMPARE_MODE, GL30.GL_NONE);
+            GlStateManager._bindTexture(0);
+
+            carveShader.use();
+            carveShader.setTexture("CoverageSampler",    coverageTarget.getColorTextureId());
+            carveShader.setTexture("ItemDepthSampler",   itemDepthTex);
+            carveShader.setTexture("EntityDepthSampler", entityDepthTex);
+            carveShader.setUniform("ItemNearFar",   viewmodelNear, viewmodelFar);
+            carveShader.setUniform("EntityNearFar", maskNear, maskFar);
+            carveShader.setUniform("IsReversedZItem",   0.0f);
+            carveShader.setUniform("IsReversedZEntity", reversedZ ? 1.0f : 0.0f);
+            carveShader.setUniform("DepthAware",    0.0f);
+            carveShader.setUniform("DepthBias",     0.02f);
+            drawFullscreenQuad();
+            GL20.glUseProgram(0);
+
+            GlStateManager._bindTexture(entityDepthTex);
+            GL30.glTexParameteri(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_COMPARE_MODE, entCmp);
+            GlStateManager._bindTexture(itemDepthTex);
+            GL30.glTexParameteri(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_COMPARE_MODE, itemCmp);
+            for (int i = 0; i < 3; i++) { RenderSystem.activeTexture(GL13.GL_TEXTURE0 + i); GlStateManager._bindTexture(0); }
+            RenderSystem.activeTexture(GL13.GL_TEXTURE0);
+        } catch (Throwable t) {
+
+        } finally {
+            try { GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, savedFbo); } catch (Throwable ignored) { }
+        }
+    }
+
+    public static void stageArmForMask(AbstractClientPlayer player, HumanoidArm arm, PoseStack poseStack) {
+        try {
+            if (player == null || poseStack == null) return;
+            if (!isMaskActiveForArm()) return;
+            if (pendingArms.size() >= 4) return;
+            pendingArms.add(new ArmStage(player, arm, poseStack));
+        } catch (Throwable ignored) { }
+    }
+
+    private static void flushPendingArmsToMask(RenderTarget target, boolean pinDepth) {
+        if (pendingArms.isEmpty() || target == null || maskBufferSource == null) return;
+        EntityRenderDispatcher dispatcher = MC.getEntityRenderDispatcher();
+
+        int savedFbo = GL11.glGetInteger(GL30.GL_DRAW_FRAMEBUFFER_BINDING);
+        int[] savedViewport = new int[4];
+        GL11.glGetIntegerv(GL11.GL_VIEWPORT, savedViewport);
+        Matrix4f savedProj = new Matrix4f(RenderSystem.getProjectionMatrix());
+        boolean arDisabled = false;
+        try {
+            target.bindWrite(false);
+            GlStateManager._viewport(0, 0, target.width, target.height);
+            if (AR_LOADED) { try { ARCompat.disableAcceleration(); arDisabled = true; } catch (Throwable t) { } }
+            if (pinDepth) {
+                RenderSystem.enableDepthTest();
+                RenderSystem.depthFunc(GL11.GL_LEQUAL);
+                RenderSystem.depthMask(true);
+                GL11.glDepthRange(0.0, 0.0);   // front-pin: the occlude pass can never cull the arm
+            } else {
+                RenderSystem.disableDepthTest();
+                RenderSystem.depthMask(false);
+                RenderSystem.enableBlend();
+                RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+            }
+
+            BufferUploader.reset();
+
+            PoseStack mv = RenderSystem.getModelViewStack();
+            for (ArmStage a : pendingArms) {
+                if (a.player == null) continue;
+                if (!(dispatcher.getRenderer(a.player) instanceof PlayerRenderer pr)) continue;
+                armNear = a.proj.perspectiveNear();   // all first-person arms share one projection
+                armFar  = a.proj.perspectiveFar();
+                RenderSystem.setProjectionMatrix(a.proj, VertexSorting.DISTANCE_TO_ORIGIN);
+                mv.pushPose();
+                mv.setIdentity();
+                mv.mulPoseMatrix(a.modelView);
+                RenderSystem.applyModelViewMatrix();
+                try {
+                    if (a.side == HumanoidArm.LEFT)
+                        pr.renderLeftHand(a.pose, maskBufferSource, 15728880, a.player);
+                    else
+                        pr.renderRightHand(a.pose, maskBufferSource, 15728880, a.player);
+                    if (!OculusCompat.endBatch(maskBufferSource)) maskBufferSource.endBatch();
+                } finally {
+                    mv.popPose();
+                    RenderSystem.applyModelViewMatrix();
+                }
+            }
+        } catch (Throwable t) {
+
+        } finally {
+            if (arDisabled && AR_LOADED) { try { ARCompat.resetAcceleration(); } catch (Throwable t) { } }
+            try {
+                if (pinDepth) GL11.glDepthRange(0.0, 1.0);   // undo the front-pin
+                else RenderSystem.disableBlend();
+                RenderSystem.setProjectionMatrix(savedProj, VertexSorting.DISTANCE_TO_ORIGIN);
+                GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, savedFbo);
+                GlStateManager._viewport(savedViewport[0], savedViewport[1], savedViewport[2], savedViewport[3]);
+                BufferUploader.reset();
+            } catch (Throwable t) {
+
+            }
+        }
+    }
+
+    private static void flushArmsSortedBlend(RenderTarget target, RenderTarget gunDepthSrc) {
+        if (pendingArms.isEmpty() || target == null || maskBufferSource == null) return;
+        EntityRenderDispatcher dispatcher = MC.getEntityRenderDispatcher();
+
+        int savedFbo = GL11.glGetInteger(GL30.GL_DRAW_FRAMEBUFFER_BINDING);
+        int[] savedViewport = new int[4];
+        GL11.glGetIntegerv(GL11.GL_VIEWPORT, savedViewport);
+        Matrix4f savedProj = new Matrix4f(RenderSystem.getProjectionMatrix());
+        boolean arDisabled = false;
+        boolean reversedZ = GL11.glGetFloat(GL11.GL_DEPTH_CLEAR_VALUE) < 0.1f;
+        try {
+            target.bindWrite(false);
+            GlStateManager._viewport(0, 0, target.width, target.height);
+            if (gunDepthSrc != null) {
+                GL30.glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, gunDepthSrc.frameBufferId);
+                GL30.glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, target.frameBufferId);
+                GL30.glBlitFramebuffer(0, 0, gunDepthSrc.width, gunDepthSrc.height,
+                        0, 0, target.width, target.height,
+                        GL30.GL_DEPTH_BUFFER_BIT, GL11.GL_NEAREST);
+                target.bindWrite(false);
+            } else {
+                RenderSystem.clear(GL30.GL_DEPTH_BUFFER_BIT, false);
+            }
+            if (AR_LOADED) { try { ARCompat.disableAcceleration(); arDisabled = true; } catch (Throwable t) {
+
+            }
+            }
+            RenderSystem.enableDepthTest();
+            RenderSystem.depthFunc(GL11.GL_LEQUAL);
+            RenderSystem.depthMask(true);
+            RenderSystem.enableBlend();
+            RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+            GL11.glDepthRange(reversedZ ? 1.0 : 0.0, reversedZ ? 0.0 : 1.0);
+
+            BufferUploader.reset();
+
+            PoseStack mv = RenderSystem.getModelViewStack();
+            for (ArmStage a : pendingArms) {
+                if (a.player == null) continue;
+                if (!(dispatcher.getRenderer(a.player) instanceof PlayerRenderer pr)) continue;
+                RenderSystem.setProjectionMatrix(a.proj, VertexSorting.DISTANCE_TO_ORIGIN);
+                mv.pushPose();
+                mv.setIdentity();
+                mv.mulPoseMatrix(a.modelView);
+                RenderSystem.applyModelViewMatrix();
+                try {
+                    if (a.side == HumanoidArm.LEFT)
+                        pr.renderLeftHand(a.pose, maskBufferSource, 15728880, a.player);
+                    else
+                        pr.renderRightHand(a.pose, maskBufferSource, 15728880, a.player);
+                    if (!OculusCompat.endBatch(maskBufferSource)) maskBufferSource.endBatch();
+                } finally {
+                    mv.popPose();
+                    RenderSystem.applyModelViewMatrix();
+                }
+            }
+        } catch (Throwable t) {
+        } finally {
+            if (arDisabled && AR_LOADED) { try { ARCompat.resetAcceleration(); } catch (Throwable t) { } }
+            try {
+                GL11.glDepthRange(0.0, 1.0);   // restore default window mapping
+                RenderSystem.depthMask(false);
+                RenderSystem.disableDepthTest();
+                RenderSystem.disableBlend();
+                RenderSystem.setProjectionMatrix(savedProj, VertexSorting.DISTANCE_TO_ORIGIN);
+                GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, savedFbo);
+                GlStateManager._viewport(savedViewport[0], savedViewport[1], savedViewport[2], savedViewport[3]);
+                BufferUploader.reset();
+            } catch (Throwable t) {
+
+            }
+        }
+    }
+
+    private static void renderArmsToArmTarget() {
+        if (pendingArms.isEmpty() || armTarget == null || maskBufferSource == null) return;
+        EntityRenderDispatcher dispatcher = MC.getEntityRenderDispatcher();
+
+        int savedFbo = GL11.glGetInteger(GL30.GL_DRAW_FRAMEBUFFER_BINDING);
+        int[] savedViewport = new int[4];
+        GL11.glGetIntegerv(GL11.GL_VIEWPORT, savedViewport);
+        Matrix4f savedProj = new Matrix4f(RenderSystem.getProjectionMatrix());
+        boolean arDisabled = false;
+        float savedClearDepth = GL11.glGetFloat(GL11.GL_DEPTH_CLEAR_VALUE);
+        boolean reversedZ = savedClearDepth < 0.1f;
+        try {
+            armTarget.bindWrite(false);
+            GlStateManager._viewport(0, 0, armTarget.width, armTarget.height);
+            GL11.glDepthRange(reversedZ ? 1.0 : 0.0, reversedZ ? 0.0 : 1.0);
+            GlStateManager._clearDepth(1.0);
+            RenderSystem.clearColor(0, 0, 0, 0);
+            RenderSystem.clear(GL30.GL_COLOR_BUFFER_BIT | GL30.GL_DEPTH_BUFFER_BIT, false);
+            if (AR_LOADED) { try { ARCompat.disableAcceleration(); arDisabled = true; } catch (Throwable t) {
+
+            }
+            }
+            RenderSystem.enableDepthTest();
+            RenderSystem.depthFunc(GL11.GL_LEQUAL);
+            RenderSystem.depthMask(true);
+            RenderSystem.disableBlend();
+
+            PoseStack mv = RenderSystem.getModelViewStack();
+            for (ArmStage a : pendingArms) {
+                if (a.player == null) continue;
+                if (!(dispatcher.getRenderer(a.player) instanceof PlayerRenderer pr)) continue;
+                armNear = a.proj.perspectiveNear();
+                armFar  = a.proj.perspectiveFar();
+                RenderSystem.setProjectionMatrix(a.proj, VertexSorting.DISTANCE_TO_ORIGIN);
+                mv.pushPose();
+                mv.setIdentity();
+                mv.mulPoseMatrix(a.modelView);
+                RenderSystem.applyModelViewMatrix();
+                try {
+                    if (a.side == HumanoidArm.LEFT)
+                        pr.renderLeftHand(a.pose, maskBufferSource, 15728880, a.player);
+                    else
+                        pr.renderRightHand(a.pose, maskBufferSource, 15728880, a.player);
+                    if (!OculusCompat.endBatch(maskBufferSource)) maskBufferSource.endBatch();
+                } finally {
+                    mv.popPose();
+                    RenderSystem.applyModelViewMatrix();
+                }
+            }
+        } catch (Throwable t) {
+
+        } finally {
+            if (arDisabled && AR_LOADED) { try { ARCompat.resetAcceleration(); } catch (Throwable t) { } }
+            try {
+                GL11.glDepthRange(0.0, 1.0);
+                GlStateManager._clearDepth(savedClearDepth);
+                RenderSystem.depthMask(false);
+                RenderSystem.disableDepthTest();
+                RenderSystem.setProjectionMatrix(savedProj, VertexSorting.DISTANCE_TO_ORIGIN);
+                GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, savedFbo);
+                GlStateManager._viewport(savedViewport[0], savedViewport[1], savedViewport[2], savedViewport[3]);
+                BufferUploader.reset();
+            } catch (Throwable t) {
+
+            }
+        }
+    }
+
+    private static void occludePass(RenderTarget colorSource, RenderTarget out,
+                                    float near, float far, boolean blendIntoOut) {
+        occludePass(colorSource, out, near, far, blendIntoOut,
+                MC.getMainRenderTarget().getDepthTextureId(), 0.25f);
+    }
+
+    private static void occludePass(RenderTarget colorSource, RenderTarget out,
+                                    float near, float far, boolean blendIntoOut,
+                                    int sceneDepthTex, float epsilon) {
+        occludePass(colorSource, out, near, far, blendIntoOut, sceneDepthTex, epsilon,
+                GL11.glGetFloat(GL11.GL_DEPTH_CLEAR_VALUE) < 0.1f);
+    }
+
+    private static void occludePass(RenderTarget colorSource, RenderTarget out,
+                                    float near, float far, boolean blendIntoOut,
+                                    int sceneDepthTex, float epsilon, boolean reversedZ) {
         if (depthOccludeShader == null || out == null || colorSource == null) return;
 
-        boolean reversedZ = GL11.glGetFloat(GL11.GL_DEPTH_CLEAR_VALUE) < 0.1f;
 
         out.bindWrite(false);
         GlStateManager._viewport(0, 0, out.width, out.height);
-        RenderSystem.clearColor(0, 0, 0, 0);
-        RenderSystem.clear(GL30.GL_COLOR_BUFFER_BIT, false);
+        if (blendIntoOut) {
+            RenderSystem.enableBlend();
+            RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+        } else {
+            RenderSystem.clearColor(0, 0, 0, 0);
+            RenderSystem.clear(GL30.GL_COLOR_BUFFER_BIT, false);
+            RenderSystem.disableBlend();
+        }
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
-        RenderSystem.disableBlend();
 
-        int maskDepthTex  = maskTarget.getDepthTextureId();
-        int sceneDepthTex = MC.getMainRenderTarget().getDepthTextureId();
+        int maskDepthTex  = colorSource.getDepthTextureId();
 
         GlStateManager._bindTexture(maskDepthTex);
         int maskCompareSaved = GL30.glGetTexParameteri(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_COMPARE_MODE);
@@ -326,8 +797,8 @@ public class ThermalRenderer {
         depthOccludeShader.setTexture("SceneDepthSampler",  sceneDepthTex);
         depthOccludeShader.setUniform("InSize",      (float) out.width, (float) out.height);
         depthOccludeShader.setUniform("IsReversedZ", reversedZ ? 1.0f : 0.0f);
-        depthOccludeShader.setUniform("NearFar",     maskNear, maskFar);
-        depthOccludeShader.setUniform("WorldEpsilon", 0.25f);
+        depthOccludeShader.setUniform("NearFar",     near, far);
+        depthOccludeShader.setUniform("WorldEpsilon", epsilon);
         drawFullscreenQuad();
 
         GL20.glUseProgram(0);
@@ -339,6 +810,7 @@ public class ThermalRenderer {
 
         for (int i = 0; i < 3; i++) { RenderSystem.activeTexture(GL13.GL_TEXTURE0 + i); GlStateManager._bindTexture(0); }
         RenderSystem.activeTexture(GL13.GL_TEXTURE0);
+        RenderSystem.disableBlend();
         RenderSystem.enableDepthTest();
         RenderSystem.depthMask(true);
         MC.getMainRenderTarget().bindWrite(false);
@@ -391,7 +863,7 @@ public class ThermalRenderer {
                 }
 
             } catch (Exception e) {
-                ModernMayhemMod.LOGGER.error("[ThermalRenderer] Capture error", e);
+
             } finally {
                 if (arDisabled && AR_LOADED) { try { ARCompat.resetAcceleration(); } catch (Throwable t) { } }
                 if (isIrisShaderpackActive()) {
@@ -412,7 +884,7 @@ public class ThermalRenderer {
                 compositePending = true;
 
             } catch (Exception e) {
-                ModernMayhemMod.LOGGER.error("[ThermalRenderer] Iris prepare error", e);
+
             } finally {
                 GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, MC.getMainRenderTarget().frameBufferId);
             }
@@ -428,7 +900,7 @@ public class ThermalRenderer {
         try {
             compositeToMain(blurVTarget, occludedMaskTarget);
         } catch (Exception e) {
-            ModernMayhemMod.LOGGER.error("[ThermalRenderer] GUI composite error", e);
+
         } finally {
             RenderTarget main = MC.getMainRenderTarget();
             main.bindWrite(false);
@@ -509,7 +981,7 @@ public class ThermalRenderer {
             renderEntityMasks(poseStack, projectionMatrix);
             return true;
         } catch (Throwable t) {
-            ModernMayhemMod.LOGGER.error("[ThermalRenderer] Error rendering entity masks", t);
+
             return false;
         }
     }

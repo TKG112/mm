@@ -1,0 +1,14 @@
+{
+  "type": "armor",
+  "slot": "helmet",
+  "material": "kevlar",
+  "model": "mm:geo/armor/combat_helmet.geo.json",
+  "texture": "mm:textures/armor/black_combat_helmet.png",
+  "animation": "mm:animations/empty.animation.json",
+  "stats": {
+    "protection": 3,
+    "toughness": 3,
+    "knockback": 0.15,
+    "durability": 275
+  }
+}

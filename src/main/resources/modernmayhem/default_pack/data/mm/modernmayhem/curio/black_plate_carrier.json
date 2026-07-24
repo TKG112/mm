@@ -1,0 +1,103 @@
+{
+  "slot": "body",
+  "model": "mm:geo/item/curios/body/plate_carrier.geo.json",
+  "texture": "mm:textures/item/curios/body/black_plate_carrier.png",
+  "storage": { "rows": 0, "columns": 0, "supplies_ammo": false },
+  "stats": { "durability": 400, "protection": 7.0, "toughness": 2.0, "knockback": 0.3 },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        60,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        -8,
+        -14
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        60,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        -8,
+        -14
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        138,
+        0
+      ],
+      "translation": [
+        0,
+        -15,
+        0
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        138,
+        0
+      ],
+      "translation": [
+        0,
+        -15,
+        0
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        -10,
+        0
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "gui": {
+      "rotation": [
+        30,
+        150,
+        0
+      ],
+      "translation": [
+        0,
+        -13.75,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ]
+    },
+    "fixed": {
+      "translation": [
+        0,
+        -17.25,
+        0
+      ]
+    }
+  }
+}

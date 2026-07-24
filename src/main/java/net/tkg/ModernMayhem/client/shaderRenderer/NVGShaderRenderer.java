@@ -1,6 +1,8 @@
 package net.tkg.ModernMayhem.client.shaderRenderer;
 
+import net.tkg.ModernMayhem.client.thermal.ThermalPalettes;
 import com.mojang.blaze3d.pipeline.RenderTarget;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -24,7 +26,9 @@ public final class NVGShaderRenderer extends ShaderRendererBase {
     @Override
     public void render() {
         NVGShaderController.recomputeUniforms();
-        if (NVGShaderController.isEnabled()) super.render();
+        Minecraft mc = Minecraft.getInstance();
+        boolean visible = mc.options.getCameraType().isFirstPerson() && !mc.options.hideGui;
+        if (NVGShaderController.isEnabled() && visible) super.render();
     }
 
     @Override
@@ -35,6 +39,20 @@ public final class NVGShaderRenderer extends ShaderRendererBase {
         if (blur != null) targets.put("thermalBlur", blur);
         if (mask != null) targets.put("thermalMask", mask);
         return targets;
+    }
+
+    @Override
+    protected ResourceLocation resolveChainLocation() {
+        return chainFromEquippedGoggles();
+    }
+
+    @Override
+    protected String[] drivenUniforms() {
+        return new String[]{"NightVisionEnabled", "Brightness", "RedValue", "GreenValue", "BlueValue",
+                "NoiseMultiplier", "MinGain", "MaxGain", "AutoGainEnabled", "AutoGainSpeed",
+                "AutoGatingEnabled", "AutoGatingOffset", "AutoGatingSpeed",
+                "RenderMode", "UseSourceColor", "OutlineColor", "ThermalPalette", "PaletteCount",
+                "DetailStrength", "HandCull"};
     }
 
     @Override
@@ -49,6 +67,7 @@ public final class NVGShaderRenderer extends ShaderRendererBase {
                 ThermalRenderer.getOutlineR(), ThermalRenderer.getOutlineG(),
                 ThermalRenderer.getOutlineB(), ThermalRenderer.getOutlineA());
         this.postChain.setUniform1f("ThermalPalette", (float) ThermalRenderer.getThermalPalette());
+        this.postChain.setUniform1f("PaletteCount", ThermalPalettes.paletteCount());
         this.postChain.setUniform1f("DetailStrength", ThermalRenderer.getDetailStrength());
         this.postChain.setUniform1f("HandCull", ThermalRenderer.isIrisShaderpackActive() ? 0.0f : 1.0f);
 

@@ -10,6 +10,30 @@ public class ARCompat {
         LOADED = ModList.get().isLoaded(MOD_ID);
     }
 
+    public static boolean isLoaded() {
+        return LOADED;
+    }
+
+    public static void useVanillaEntityPipeline() {
+        if (LOADED) {
+            try {
+                ARCompatImpl.useVanillaEntityPipeline();
+            } catch (Throwable t) {
+                t.printStackTrace();
+            }
+        }
+    }
+
+    public static void resetEntityPipeline() {
+        if (LOADED) {
+            try {
+                ARCompatImpl.resetEntityPipeline();
+            } catch (Throwable t) {
+                t.printStackTrace();
+            }
+        }
+    }
+
     public static void disableAcceleration() {
         if (LOADED) {
             try {

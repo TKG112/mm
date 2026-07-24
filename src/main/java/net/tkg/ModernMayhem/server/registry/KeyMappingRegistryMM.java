@@ -1,5 +1,6 @@
 package net.tkg.ModernMayhem.server.registry;
 
+import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
@@ -7,7 +8,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.tkg.ModernMayhem.client.thermal.render.ThermalRenderer;
-import net.tkg.ModernMayhem.server.item.curios.facewear.TVGGogglesItem;
 import net.tkg.ModernMayhem.server.network.*;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import org.lwjgl.glfw.GLFW;
@@ -20,7 +20,7 @@ public class KeyMappingRegistryMM {
     private static boolean isThermalGoggleEquipped(Player player) {
         if (player == null) return false;
         ItemStack face = CuriosUtil.getFaceWearItem(player);
-        return face != null && face.getItem() instanceof TVGGogglesItem;
+        return GenericSpecialGogglesItem.isThermal(face);
     }
 
     public static final KeyMapping TOGGLE_NVG_KEY = new KeyMapping("key.mm.toggle_nvg", GLFW.GLFW_KEY_N, CATEGORY) {

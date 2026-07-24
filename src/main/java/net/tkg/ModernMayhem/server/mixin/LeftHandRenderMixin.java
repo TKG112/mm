@@ -14,9 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class LeftHandRenderMixin {
 
     @Inject(method = "render", at = @At("HEAD"), cancellable = true, remap = false)
-    private void cancelLeftHandRender(PoseStack poseStack, VertexConsumer vertexBuffer,
-                                      ItemDisplayContext transformType, int light, int overlay,
-                                      CallbackInfo ci) {
+    private void cancelLeftHandRender(PoseStack poseStack, VertexConsumer vertexBuffer, ItemDisplayContext transformType, int light, int overlay, CallbackInfo ci) {
         if (!RenderNVGFirstPerson.shouldRenderLeftArm) {
             ci.cancel();
         }

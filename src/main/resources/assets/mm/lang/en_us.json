@@ -73,6 +73,10 @@
 
 
   "key.categories.mm" : "Modern Mayhem",
+  "message.mm.facewear_on" : "%s: On",
+  "message.mm.facewear_off" : "%s: Off",
+  "message.mm.visor_down" : "%s: Down",
+  "message.mm.visor_up" : "%s: Up",
   "key.mm.toggle_nvg" : "Toggle Facewear Effect",
   "key.mm.increase_tube_gain" : "Increase Tube Gain",
   "key.mm.decrease_tube_gain" : "Decrease Tube Gain",

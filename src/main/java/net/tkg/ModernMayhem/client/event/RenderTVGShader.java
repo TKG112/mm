@@ -15,7 +15,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.client.shaderRenderer.TVGShaderRenderer;
 import net.tkg.ModernMayhem.client.shaderController.TVGShaderController;
-import net.tkg.ModernMayhem.server.item.curios.facewear.TVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import org.lwjgl.opengl.GL13;
@@ -23,7 +22,7 @@ import org.lwjgl.opengl.GL13;
 @Mod.EventBusSubscriber(modid = ModernMayhemMod.ID, value = Dist.CLIENT)
 public class RenderTVGShader {
 
-    @SubscribeEvent(priority = EventPriority.NORMAL)
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onRenderScreenEffects(RenderGuiEvent.Pre event) {
         TVGShaderRenderer.INSTANCE.render();
     }
@@ -51,7 +50,7 @@ public class RenderTVGShader {
             RenderSystem.setShaderColor(1, 1, 1, 1);
 
             ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
-            if (facewearItem != null && facewearItem.getItem() instanceof TVGGogglesItem) {
+            if (GenericSpecialGogglesItem.isThermal(facewearItem)) {
                 if (GenericSpecialGogglesItem.getNVGCheck(facewearItem) &&
                         Minecraft.getInstance().options.getCameraType().isFirstPerson()) {
 

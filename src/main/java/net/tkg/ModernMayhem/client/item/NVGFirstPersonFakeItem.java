@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -104,31 +105,11 @@ public class NVGFirstPersonFakeItem extends Item implements GeoAnimatable {
             if (!(state.isCurrentAnimation(GenericSpecialGogglesItem.ANIM_CLOSE) || state.isCurrentAnimation(GenericSpecialGogglesItem.ANIM_OPEN) || state.isCurrentAnimation(GenericSpecialGogglesItem.ANIM_IDLE))) {
                 state.setAnimation(GenericSpecialGogglesItem.ANIM_IDLE);
             }
-            RenderNVGFirstPerson.shouldRenderLeftArm = !(state.isCurrentAnimationStage("opening") || state.isCurrentAnimationStage("closing")); // Prevent the player from rendering a third arm when the NVG animation shows the left arm
+            boolean animatingArm = state.isCurrentAnimationStage("opening") || state.isCurrentAnimationStage("closing");
+            boolean mainHandLeft = player.getMainArm() == HumanoidArm.LEFT;
+            RenderNVGFirstPerson.shouldRenderLeftArm  = !(animatingArm && !mainHandLeft);
+            RenderNVGFirstPerson.shouldRenderRightArm = !(animatingArm &&  mainHandLeft);
             return PlayState.CONTINUE;
-        });
-
-        // Add a custom instruction keyframe handler to handle the NVG effect enabling/disabling
-        controller.setCustomInstructionKeyframeHandler(event -> {
-            // Check if it's the open animation or the close animation
-            CustomInstructionKeyframeData keyframeData = event.getKeyframeData();
-            String key = keyframeData.getInstructions();
-            LocalPlayer player = Minecraft.getInstance().player;
-            ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
-            if (player != null) {
-                if (facewearItem.getItem() instanceof GenericSpecialGogglesItem) {
-                    // We switch on the NVG mode on the client side and then on the server side.
-                    // This is done to avoid the delay of the server response.
-                    // Since the server will synchronize the state later.
-                    if (key.equals("enableNVGEffect;")) {
-                        GenericSpecialGogglesItem.switchOnNVGMode(facewearItem);
-                        PacketsRegistryMM.getChannel().sendToServer(new NVGSyncSwitchOnPacket());
-                    } else if (key.equals("disableNVGEffect;")) {
-                        GenericSpecialGogglesItem.switchOffNVGMode(facewearItem);
-                        PacketsRegistryMM.getChannel().sendToServer(new NVGSyncSwitchOffPacket());
-                    }
-                }
-            }
         });
 
         // Add a custom instruction keyframe handler to handle the NVG effect enabling/disabling

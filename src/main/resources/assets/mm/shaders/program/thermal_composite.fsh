@@ -8,6 +8,8 @@ uniform float RenderMode;
 uniform float UseSourceColor;
 uniform vec4  OutlineColor;
 uniform float ThermalPalette;
+uniform float PaletteCount;
+uniform sampler2D PaletteSampler;
 uniform float DetailStrength;
 uniform float HandCull;
 
@@ -17,35 +19,10 @@ out vec4 fragColor;
 const vec3 LUMA = vec3(0.299, 0.587, 0.114);
 
 vec3 thermalPalette(float palette, float heat) {
-    heat = clamp(heat, 0.0, 1.0);
-
-    if (palette < 0.5) {
-        return vec3(heat);
-    } else if (palette < 1.5) {
-        return vec3(1.0 - heat);
-    } else if (palette < 2.5) {
-        vec3 c = vec3(0.0);
-        c = mix(c, vec3(0.55, 0.00, 0.00), smoothstep(0.00, 0.35, heat));
-        c = mix(c, vec3(1.00, 0.35, 0.00), smoothstep(0.35, 0.60, heat));
-        c = mix(c, vec3(1.00, 0.85, 0.10), smoothstep(0.60, 0.85, heat));
-        c = mix(c, vec3(1.00, 1.00, 0.92), smoothstep(0.85, 1.00, heat));
-        return c;
-    } else if (palette < 3.5) {
-        vec3 c = vec3(0.06, 0.00, 0.32);
-        c = mix(c, vec3(0.42, 0.00, 0.60), smoothstep(0.00, 0.28, heat));
-        c = mix(c, vec3(0.85, 0.08, 0.35), smoothstep(0.28, 0.52, heat));
-        c = mix(c, vec3(1.00, 0.45, 0.05), smoothstep(0.52, 0.78, heat));
-        c = mix(c, vec3(1.00, 0.95, 0.30), smoothstep(0.78, 1.00, heat));
-        return c;
-    } else {
-        vec3 c = vec3(0.10, 0.00, 0.22);
-        c = mix(c, vec3(0.55, 0.00, 0.45), smoothstep(0.00, 0.22, heat));
-        c = mix(c, vec3(0.90, 0.10, 0.12), smoothstep(0.22, 0.45, heat));
-        c = mix(c, vec3(1.00, 0.50, 0.00), smoothstep(0.45, 0.68, heat));
-        c = mix(c, vec3(1.00, 0.90, 0.20), smoothstep(0.68, 0.90, heat));
-        c = mix(c, vec3(1.00, 1.00, 1.00), smoothstep(0.90, 1.00, heat));
-        return c;
-    }
+    // Palettes are baked into a LUT on the Java side (see ThermalPalettes): one row per palette,
+    // 256 texels of heat across. Keeps palette definitions out of GLSL entirely.
+    float v = (palette + 0.5) / max(PaletteCount, 1.0);
+    return texture(PaletteSampler, vec2(clamp(heat, 0.0, 1.0), v)).rgb;
 }
 
 float heatFromColor(vec3 rgb) {

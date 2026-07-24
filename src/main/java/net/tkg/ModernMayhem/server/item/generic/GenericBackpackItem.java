@@ -43,6 +43,22 @@ public abstract class GenericBackpackItem extends Item implements ICurioItem {
 
     public abstract boolean canSupplyAmmo();
 
+    protected String getCuriosSlotIdentifier() {
+        return switch (this.curiosSlotType) {
+            case 0 -> "back";
+            case 1 -> "body";
+            default -> "";
+        };
+    }
+
+    protected int getCuriosSlotID(Player player) {
+        return switch (this.curiosSlotType) {
+            case 0 -> CuriosUtil.getBackpackSlotID(player);
+            case 1 -> CuriosUtil.getRigSlotID(player);
+            default -> -1;
+        };
+    }
+
     public int getInventorySize() {
         return getInventoryLines() * getInventoryColumns();
     }
@@ -176,16 +192,8 @@ public abstract class GenericBackpackItem extends Item implements ICurioItem {
             FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
             CompoundTag tag = pStack.getOrCreateTag();
             boolean resetStackInInv = !tag.contains("inventory");
-            String curiosSlotTypeIdentifer = switch (this.curiosSlotType) {
-                case 0 -> "back";
-                case 1 -> "body";
-                default -> "";
-            };
-            int backpackSlotID = switch (this.curiosSlotType) {
-                case 0 -> CuriosUtil.getBackpackSlotID(pPlayer);
-                case 1 -> CuriosUtil.getRigSlotID(pPlayer);
-                default -> -1;
-            };
+            String curiosSlotTypeIdentifer = getCuriosSlotIdentifier();
+            int backpackSlotID = getCuriosSlotID(pPlayer);
 
             validateAndResizeInventory(pStack, pPlayer);
 
@@ -202,7 +210,7 @@ public abstract class GenericBackpackItem extends Item implements ICurioItem {
             data.writeNbt(tag.getCompound("inventory"));
             data.writeBoolean(true);
             data.writeByte(backpackSlotID);
-            data.writeByte(this.curiosSlotType);
+            data.writeUtf(curiosSlotTypeIdentifer);
 
             ICuriosItemHandler finalPlayerCuriosInventory = playerCuriosInventory;
             NetworkHooks.openScreen(player, new SimpleMenuProvider(((pContainerId, pPlayerInventory, pPlayer1) -> new GenericBackpackGUI(pContainerId, pPlayerInventory, data, finalPlayerCuriosInventory)), pStack.getDisplayName()), friendlyByteBuf -> {
@@ -211,7 +219,7 @@ public abstract class GenericBackpackItem extends Item implements ICurioItem {
                 friendlyByteBuf.writeNbt(tag.getCompound("inventory"));
                 friendlyByteBuf.writeBoolean(true);
                 friendlyByteBuf.writeByte(backpackSlotID);
-                friendlyByteBuf.writeByte(this.curiosSlotType);
+                friendlyByteBuf.writeUtf(curiosSlotTypeIdentifer);
             });
         }
     }

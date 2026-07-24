@@ -93,6 +93,56 @@ public class CuriosUtil {
         return rigItem.get();
     }
 
+    // --- generic, identifier-based lookups (used by data-driven curios, incl. pack-invented slots) ---
+
+    /** First {@link GenericBackpackItem} held in the given Curios slot, or an empty stack. */
+    public static ItemStack getCurioInSlot(Player player, String slot) {
+        AtomicReference<ItemStack> found = new AtomicReference<>(ItemStack.EMPTY);
+        CuriosApi.getCuriosInventory(player).ifPresent(curiosInventory ->
+                curiosInventory.getStacksHandler(slot).ifPresent(handler -> {
+                    for (int i = 0; i < handler.getStacks().getSlots(); i++) {
+                        ItemStack stack = handler.getStacks().getStackInSlot(i);
+                        if (stack.getItem() instanceof GenericBackpackItem) {
+                            found.set(stack);
+                            break;
+                        }
+                    }
+                }));
+        return found.get();
+    }
+
+    /** Index of the first {@link GenericBackpackItem} in the given Curios slot, or -1. */
+    public static int getCurioSlotID(Player player, String slot) {
+        AtomicReference<Integer> index = new AtomicReference<>(-1);
+        CuriosApi.getCuriosInventory(player).ifPresent(curiosInventory ->
+                curiosInventory.getStacksHandler(slot).ifPresent(handler -> {
+                    for (int i = 0; i < handler.getStacks().getSlots(); i++) {
+                        if (handler.getStacks().getStackInSlot(i).getItem() instanceof GenericBackpackItem) {
+                            index.set(i);
+                            break;
+                        }
+                    }
+                }));
+        return index.get();
+    }
+
+    public static boolean hasCurioInSlot(Player player, String slot) {
+        return !getCurioInSlot(player, slot).isEmpty();
+    }
+
+    /**
+     * Whether this player actually has the given Curios slot at all.
+     * <p>
+     * Curios slots are server-authoritative and synced to clients, so this is the natural parity check
+     * between a client that has a content pack and a server that may not.
+     */
+    public static boolean hasSlot(Player player, String slot) {
+        AtomicBoolean present = new AtomicBoolean(false);
+        CuriosApi.getCuriosInventory(player).ifPresent(curiosInventory ->
+                present.set(curiosInventory.getStacksHandler(slot).isPresent()));
+        return present.get();
+    }
+
     public static int getBackpackSlotID(Player player) {
         AtomicReference<Integer> backpackSlotID = new AtomicReference<Integer>(-1);
         CuriosApi.getCuriosInventory(player).ifPresent( curiosInventory -> {

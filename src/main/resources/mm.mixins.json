@@ -6,25 +6,32 @@
   "compatibilityLevel": "JAVA_17",
   "target": "@env(DEFAULT)",
   "client": [
+    "RenderHelperArmMixin",
     "client.DimensionEffectsMixin",
     "client.DimensionEffectsMixin$EndMixin",
     "client.DimensionEffectsMixin$NetherMixin",
     "client.DynamicTextureMixin",
     "client.GameRendererInvoker",
     "client.GameRendererMixin",
+    "client.GameRendererNightVisionMixin",
+    "client.GameRendererThermalARMixin",
     "client.GunAnimationStateContextMixin",
     "client.GunHudOverlayAccessor",
     "client.GunHudOverlayMixin",
     "client.HandRendererMixin",
+    "client.ItemInHandRendererMixin",
     "client.LightTextureAccessor",
-    "client.LightTextureMixin"
+    "client.LightTextureMixin",
+    "client.PlayerRendererSkinOverlayMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "mixins": [
     "AbstractGunItemMixin",
+    "BedrockGunModelMixin",
     "LeftHandRenderMixin",
-    "ModernKineticGunScriptAPIMixin"
+    "ModernKineticGunScriptAPIMixin",
+    "RightHandRenderMixin"
   ]
 }

@@ -17,7 +17,8 @@ import net.tkg.ModernMayhem.client.config.ClientConfig;
 import net.tkg.ModernMayhem.client.event.ItemInteractionEvent;
 import net.tkg.ModernMayhem.client.event.RenderNVGFirstPerson;
 import net.tkg.ModernMayhem.client.registry.ClientItemRegistryMM;
-import net.tkg.ModernMayhem.server.config.ArmorConfig;
+import net.tkg.ModernMayhem.content.DataDrivenContent;
+import net.tkg.ModernMayhem.content.client.DataContentClient;
 import net.tkg.ModernMayhem.server.config.CommonConfig;
 import net.tkg.ModernMayhem.server.config.ServerConfig;
 import net.tkg.ModernMayhem.server.registry.*;
@@ -35,6 +36,7 @@ public class ModernMayhemMod {
         IEventBus modEventBus = context.getModEventBus();
 
         ItemRegistryMM.init(modEventBus);
+        DataDrivenContent.init(modEventBus);
         BlockRegistryMM.init(modEventBus);
         BlockEntityRegistryMM.init(modEventBus);
         PacketsRegistryMM.init();
@@ -50,13 +52,13 @@ public class ModernMayhemMod {
 
         if (FMLEnvironment.dist.isClient()) {
             ClientItemRegistryMM.init(modEventBus);
+            DataContentClient.init(modEventBus);
             ItemInteractionEvent.register();
         }
 
         context.registerConfig(ModConfig.Type.COMMON, CommonConfig.CONFIG, "modern-mayhem-common.toml");
         context.registerConfig(ModConfig.Type.CLIENT, ClientConfig.CONFIG, "modern-mayhem-client.toml");
         context.registerConfig(ModConfig.Type.SERVER, ServerConfig.CONFIG, "modern-mayhem-server.toml");
-        ArmorConfig.init();
 
         MinecraftForge.EVENT_BUS.register(this);
     }

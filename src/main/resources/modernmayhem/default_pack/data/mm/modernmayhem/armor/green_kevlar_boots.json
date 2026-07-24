@@ -1,0 +1,16 @@
+{
+  "type": "armor",
+  "slot": "boots",
+  "material": "kevlar",
+  "model": "mm:geo/armor/kevlar_clothing.geo.json",
+  "texture": "mm:textures/armor/green_kevlar_clothing.png",
+  "slim_model": "mm:geo/armor/kevlar_clothing_thin.geo.json",
+  "slim_texture": "mm:textures/armor/green_kevlar_clothing_thin.png",
+  "animation": "mm:animations/empty.animation.json",
+  "stats": {
+    "protection": 3,
+    "toughness": 3,
+    "knockback": 0.15,
+    "durability": 325
+  }
+}

@@ -14,8 +14,6 @@ import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.phys.Vec3;
 import net.tkg.ModernMayhem.client.config.ClientConfig;
 import net.tkg.ModernMayhem.server.config.ServerConfig;
-import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
-import net.tkg.ModernMayhem.server.item.curios.facewear.TVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 
@@ -85,20 +83,22 @@ public class Darkness {
         if (facewearItem != null) {
             boolean isPowered = GenericSpecialGogglesItem.getNVGCheck(facewearItem);
 
-            if (facewearItem.getItem() instanceof NVGGogglesItem && isPowered) {
+            if (GenericSpecialGogglesItem.isNightVision(facewearItem) && isPowered) {
                 nvgActive = true;
-            } else if (facewearItem.getItem() instanceof TVGGogglesItem && isPowered) {
+            } else if (GenericSpecialGogglesItem.isThermal(facewearItem) && isPowered) {
                 tvgActive = true;
             }
         }
 
-        if (nvgActive && client.options.getCameraType().isFirstPerson()) {
+        final boolean firstPersonHud = client.options.getCameraType().isFirstPerson() && !client.options.hideGui;
+
+        if (nvgActive && firstPersonHud) {
             enabled = false;
             return;
         }
 
-        if (tvgActive && client.options.getCameraType().isFirstPerson()) {
-            enabled = true;
+        if (tvgActive && firstPersonHud) {
+            enabled = false;
             return;
         }
 

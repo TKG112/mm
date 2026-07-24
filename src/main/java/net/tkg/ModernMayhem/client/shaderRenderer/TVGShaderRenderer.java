@@ -1,5 +1,6 @@
 package net.tkg.ModernMayhem.client.shaderRenderer;
 
+import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
@@ -7,9 +8,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.tkg.ModernMayhem.ModernMayhemMod;
+import net.minecraft.client.renderer.PostPass;
 import net.tkg.ModernMayhem.client.shaderController.TVGShaderController;
+import net.tkg.ModernMayhem.client.thermal.ThermalPalettes;
 import net.tkg.ModernMayhem.client.thermal.render.ThermalRenderer;
-import net.tkg.ModernMayhem.server.item.curios.facewear.TVGGogglesItem;
+import net.tkg.ModernMayhem.client.utils.DynamicPostChain;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 
 import java.util.HashMap;
@@ -35,12 +38,14 @@ public final class TVGShaderRenderer extends ShaderRendererBase {
     @Override
     public void render() {
         TVGShaderController.recomputeUniforms();
-        boolean enabled = TVGShaderController.isEnabled();
+        Minecraft mc = Minecraft.getInstance();
+        boolean visible = mc.options.getCameraType().isFirstPerson() && !mc.options.hideGui;
+        boolean enabled = TVGShaderController.isEnabled() && visible;
 
         if (enabled && !wasActive) {
-            ItemStack face = CuriosUtil.getFaceWearItem(Minecraft.getInstance().player);
-            if (face != null && face.getItem() instanceof TVGGogglesItem) {
-                ThermalRenderer.setThermalPalette(TVGGogglesItem.getThermalPalette(face));
+            ItemStack face = CuriosUtil.getFaceWearItem(mc.player);
+            if (GenericSpecialGogglesItem.isThermal(face)) {
+                ThermalRenderer.setThermalPalette(GenericSpecialGogglesItem.getThermalPalette(face));
             }
         }
         wasActive = enabled;
@@ -59,8 +64,21 @@ public final class TVGShaderRenderer extends ShaderRendererBase {
     }
 
     @Override
+    protected ResourceLocation resolveChainLocation() {
+        return chainFromEquippedGoggles();
+    }
+
+    @Override
+    protected String[] drivenUniforms() {
+        return new String[]{"RenderMode", "UseSourceColor", "OutlineColor", "ThermalPalette",
+                "PaletteCount", "DetailStrength", "HandCull", "TintColor", "InvertWorld", "Phosphor"};
+    }
+
+    @Override
     protected void syncUniforms() {
         if (postChain == null) return;
+
+        postChain.setUniform1f("PaletteCount", ThermalPalettes.paletteCount());
 
         postChain.setUniform1f("RenderMode",
                 ThermalRenderer.getRenderMode() == ThermalRenderer.RenderMode.OVERLAY ? 2.0f : 1.0f);

@@ -8,6 +8,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import net.tkg.ModernMayhem.ModernMayhemMod;
+import net.tkg.ModernMayhem.content.DataDrivenContent;
 
 public class CreativeTabsRegistryMM {
 
@@ -18,73 +19,13 @@ public class CreativeTabsRegistryMM {
             () -> CreativeModeTab.builder().
                     title(Component.translatable("item_group."+ModernMayhemMod.ID))
                     .icon(() -> new ItemStack(ItemRegistryMM.MENU_ITEM.get())).displayItems( ((pParameters, pOutput) -> {
-                        pOutput.accept(ItemRegistryMM.BLACK_GPNVG.get());
-                        pOutput.accept(ItemRegistryMM.TAN_GPNVG.get());
-                        pOutput.accept(ItemRegistryMM.ULTRA_GAMER_GPNVG.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_PVS14.get());
-                        pOutput.accept(ItemRegistryMM.TAN_PVS14.get());
-                        pOutput.accept(ItemRegistryMM.GREEN_PVS14.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_PVS7.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_VISOR.get());
-                        pOutput.accept(ItemRegistryMM.TAN_VISOR.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_TVG.get());
                         pOutput.accept(ItemRegistryMM.COTI.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_BACKPACK_T1.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_BACKPACK_T2.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_BACKPACK_T3.get());
-                        pOutput.accept(ItemRegistryMM.GREEN_BACKPACK_T1.get());
-                        pOutput.accept(ItemRegistryMM.GREEN_BACKPACK_T2.get());
-                        pOutput.accept(ItemRegistryMM.GREEN_BACKPACK_T3.get());
-                        pOutput.accept(ItemRegistryMM.TAN_BACKPACK_T1.get());
-                        pOutput.accept(ItemRegistryMM.TAN_BACKPACK_T2.get());
-                        pOutput.accept(ItemRegistryMM.TAN_BACKPACK_T3.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_PLATE_CARRIER.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_PLATE_CARRIER_AMMO.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_PLATE_CARRIER_POUCHES.get());
-                        pOutput.accept(ItemRegistryMM.TAN_PLATE_CARRIER.get());
-                        pOutput.accept(ItemRegistryMM.TAN_PLATE_CARRIER_AMMO.get());
-                        pOutput.accept(ItemRegistryMM.TAN_PLATE_CARRIER_POUCHES.get());
-                        pOutput.accept(ItemRegistryMM.TAN_BANDOLEER.get());
-                        pOutput.accept(ItemRegistryMM.GREEN_RECON.get());
-                        pOutput.accept(ItemRegistryMM.HEXAGON_RIG.get());
-                        pOutput.accept(ItemRegistryMM.C1300.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_COMBAT_HELMET.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_KEVLAR_CHESTPLATE.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_KEVLAR_LEGGINGS.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_KEVLAR_BOOTS.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_IOLA.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_KNEE_PADS.get());
-                        pOutput.accept(ItemRegistryMM.GREEN_SSH68_HELMET.get());
-                        pOutput.accept(ItemRegistryMM.GREEN_KEVLAR_CHESTPLATE.get());
-                        pOutput.accept(ItemRegistryMM.GREEN_KEVLAR_LEGGINGS.get());
-                        pOutput.accept(ItemRegistryMM.GREEN_KEVLAR_BOOTS.get());
-                        pOutput.accept(ItemRegistryMM.GREEN_IOLA.get());
-                        pOutput.accept(ItemRegistryMM.GREEN_KNEE_PADS.get());
-                        pOutput.accept(ItemRegistryMM.TAN_COMBAT_HELMET.get());
-                        pOutput.accept(ItemRegistryMM.TAN_KEVLAR_CHESTPLATE.get());
-                        pOutput.accept(ItemRegistryMM.TAN_KEVLAR_LEGGINGS.get());
-                        pOutput.accept(ItemRegistryMM.TAN_KEVLAR_BOOTS.get());
-                        pOutput.accept(ItemRegistryMM.TAN_IOLA.get());
-                        pOutput.accept(ItemRegistryMM.TAN_KNEE_PADS.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_HEAD_MOUNT.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_RONIN_HELMET.get());
-                        pOutput.accept(ItemRegistryMM.YELLOW_HAZMAT_HELMET.get());
-                        pOutput.accept(ItemRegistryMM.YELLOW_HAZMAT_CHESTPLATE.get());
-                        pOutput.accept(ItemRegistryMM.YELLOW_HAZMAT_LEGGINGS.get());
-                        pOutput.accept(ItemRegistryMM.ORANGE_HAZMAT_HELMET.get());
-                        pOutput.accept(ItemRegistryMM.ORANGE_HAZMAT_CHESTPLATE.get());
-                        pOutput.accept(ItemRegistryMM.ORANGE_HAZMAT_LEGGINGS.get());
-                        pOutput.accept(ItemRegistryMM.BALACLAVA.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_GLASSES.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_GOGGLES.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_HEADSET.get());
-                        pOutput.accept(ItemRegistryMM.BLACK_MILITARY_BALACLAVA.get());
-                        pOutput.accept(ItemRegistryMM.GP5_GAS_MASK.get());
                         pOutput.accept(ItemRegistryMM.DUFFEL_BAG.get());
                         pOutput.accept(ItemRegistryMM.WHITE_PHOSPHOR.get());
                         pOutput.accept(ItemRegistryMM.GREEN_PHOSPHOR.get());
                         pOutput.accept(ItemRegistryMM.RED_PHOSPHOR.get());
 
+                        DataDrivenContent.registeredItems().forEach(pOutput::accept);
 
                     })).build()
             );

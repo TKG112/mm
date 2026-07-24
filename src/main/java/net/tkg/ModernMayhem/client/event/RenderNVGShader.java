@@ -15,7 +15,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.tkg.ModernMayhem.ModernMayhemMod;
 import net.tkg.ModernMayhem.client.shaderRenderer.NVGShaderRenderer;
 import net.tkg.ModernMayhem.client.shaderController.NVGShaderController;
-import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import org.lwjgl.opengl.GL13;
@@ -23,7 +22,7 @@ import org.lwjgl.opengl.GL13;
 @Mod.EventBusSubscriber(modid = ModernMayhemMod.ID, value = Dist.CLIENT)
 public class RenderNVGShader {
 
-    @SubscribeEvent(priority = EventPriority.NORMAL)
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onRenderScreenEffects(RenderGuiEvent.Pre event) {
         NVGShaderRenderer.INSTANCE.render();
     }
@@ -46,7 +45,8 @@ public class RenderNVGShader {
             RenderSystem.setShaderColor(1, 1, 1, 1);
 
             ItemStack facewearItem = CuriosUtil.getFaceWearItem(player);
-            if (facewearItem != null && facewearItem.getItem() instanceof NVGGogglesItem nvgGogglesItem) {
+            if (facewearItem != null && facewearItem.getItem() instanceof GenericSpecialGogglesItem nvgGogglesItem
+                    && nvgGogglesItem.getGoggleType() == GenericSpecialGogglesItem.GoggleType.NIGHT_VISION) {
 
                 if (nvgGogglesItem.shouldRenderShader() &&
                         GenericSpecialGogglesItem.getNVGCheck(facewearItem) &&  // was getNVGMode == 1
