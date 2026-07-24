@@ -21,4 +21,12 @@ public class AnimUtils {
         model.yRot = 0.0f;
         model.zRot = 0.0f;
     }
+
+    public static void renderPartOverBoneRotated(ModelPart model, GeoBone bone, PoseStack stack, VertexConsumer buffer, int packedLightIn, int packedOverlayIn, float xRot, float yRot, float zRot, float alpha) {
+        model.setPos(bone.getPivotX(), bone.getPivotY(), bone.getPivotZ());
+        model.xRot = xRot;
+        model.yRot = yRot;
+        model.zRot = zRot;
+        model.render(stack, buffer, packedLightIn, packedOverlayIn, 1.0f, 1.0f, 1.0f, alpha);
+    }
 }

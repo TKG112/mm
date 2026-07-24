@@ -24,7 +24,9 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.RegistryObject;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.server.item.NVGGoggleList;
+import net.tkg.ModernMayhem.content.def.ArmorFeatures;
+import net.tkg.ModernMayhem.content.def.PaletteDefinition;
+import net.tkg.ModernMayhem.content.item.DataArmorItem;
 import net.tkg.ModernMayhem.server.registry.ItemRegistryMM;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import org.jetbrains.annotations.NotNull;
@@ -63,6 +65,7 @@ public abstract class GenericSpecialGogglesItem extends Item implements GeoItem,
 
     private static final TagKey<Item> HAS_HEAD_MOUNT_TAG = ItemTags.create(fromNamespaceAndPath(ModernMayhemMod.ID, "has_head_mount"));
     private static final TagKey<Item> HAS_VISOR_MOUNT_TAG = ItemTags.create(fromNamespaceAndPath(ModernMayhemMod.ID, "has_visor_mount"));
+    private static final TagKey<Item> COTI_TAG = ItemTags.create(fromNamespaceAndPath(ModernMayhemMod.ID, "coti"));
 
     private static final String COTI_CONTENTS_TAG = "CotiContents";
 
@@ -77,7 +80,46 @@ public abstract class GenericSpecialGogglesItem extends Item implements GeoItem,
     private final boolean hasAutoGain;
     private final boolean hasAutoGating;
 
-    public abstract NVGGoggleList getConfig();
+    public abstract ResourceLocation getGoggleModel(boolean hasCoti);
+
+    public abstract ResourceLocation getGoggleTexture(boolean hasCoti);
+
+    public abstract ResourceLocation getGoggleAnimation(boolean hasCoti);
+
+    public abstract ResourceLocation getFirstPersonModel(boolean hasCoti);
+
+    public abstract ResourceLocation getFirstPersonTexture(boolean hasCoti);
+
+    public abstract ResourceLocation getFirstPersonAnimation(boolean hasCoti);
+
+    private static final String PALETTE_TAG = "ThermalPalette";
+
+    public int getPaletteCount() {
+        return PaletteDefinition.BUILTIN_COUNT;
+    }
+
+    private static int paletteCountOf(ItemStack stack) {
+        return stack != null && stack.getItem() instanceof GenericSpecialGogglesItem goggles
+                ? Math.max(1, goggles.getPaletteCount())
+                : 1;
+    }
+
+    public static int getThermalPalette(ItemStack stack) {
+        if (stack == null) return 0;
+        CompoundTag tag = stack.getTag();
+        if (tag == null || !tag.contains(PALETTE_TAG)) return 0;
+        int count = paletteCountOf(stack);
+        return Math.floorMod(tag.getInt(PALETTE_TAG), count);
+    }
+
+    public static void setThermalPalette(ItemStack stack, int palette) {
+        if (stack == null) return;
+        stack.getOrCreateTag().putInt(PALETTE_TAG, Math.floorMod(palette, paletteCountOf(stack)));
+    }
+
+    public static void cycleThermalPalette(ItemStack stack, boolean forward) {
+        setThermalPalette(stack, getThermalPalette(stack) + (forward ? 1 : -1));
+    }
 
     public GenericSpecialGogglesItem(NVGConfig pConfig) {
         super(new Item.Properties().stacksTo(1).durability(0));
@@ -142,7 +184,7 @@ public abstract class GenericSpecialGogglesItem extends Item implements GeoItem,
     }
 
     public boolean shouldRenderShader() {
-        return true;
+        return getGoggleType() != GoggleType.VISOR;
     }
 
     public boolean canHoldCoti() {
@@ -155,6 +197,30 @@ public abstract class GenericSpecialGogglesItem extends Item implements GeoItem,
 
     public boolean hasAutoGating() {
         return hasAutoGating;
+    }
+
+    @Nullable
+    public ResourceLocation getPostChain() {
+        return null;
+    }
+
+    public boolean hasRainbowPhosphor() {
+        return false;
+    }
+
+    public static boolean isNightVision(ItemStack stack) {
+        return stack != null && stack.getItem() instanceof GenericSpecialGogglesItem goggles
+                && goggles.getGoggleType() == GoggleType.NIGHT_VISION;
+    }
+
+    public static boolean isThermal(ItemStack stack) {
+        return stack != null && stack.getItem() instanceof GenericSpecialGogglesItem goggles
+                && goggles.getGoggleType() == GoggleType.THERMAL;
+    }
+
+    public static boolean isVisor(ItemStack stack) {
+        return stack != null && stack.getItem() instanceof GenericSpecialGogglesItem goggles
+                && goggles.getGoggleType() == GoggleType.VISOR;
     }
 
     public GoggleType getGoggleType() {
@@ -305,9 +371,8 @@ public abstract class GenericSpecialGogglesItem extends Item implements GeoItem,
         return ItemStack.of(cotiTag);
     }
 
-
     private boolean isCotiItem(ItemStack stack) {
-        return stack.is(ItemRegistryMM.COTI.get());
+        return stack.is(COTI_TAG);
     }
 
 
@@ -375,14 +440,12 @@ public abstract class GenericSpecialGogglesItem extends Item implements GeoItem,
     }
 
     public static void switchOnNVGMode(ItemStack item) {
-        System.out.println("[ModernMayhem] Switching on NVG mode for item: " + item);
         CompoundTag tag = item.getOrCreateTag();
         tag.putBoolean("NvgCheck", true);
         item.setTag(tag);
     }
 
     public static void switchOffNVGMode(ItemStack item) {
-        System.out.println("[ModernMayhem] Switching off NVG mode for item: " + item);
         CompoundTag tag = item.getOrCreateTag();
         tag.putBoolean("NvgCheck", false);
         item.setTag(tag);
@@ -583,6 +646,21 @@ public abstract class GenericSpecialGogglesItem extends Item implements GeoItem,
             overlay = fromNamespaceAndPath(ModernMayhemMod.ID, pOverlay);
         }
 
+        public NVGConfig(float pBrightness, float pRed, float pGreen, float pBlue, ResourceLocation pOverlay,
+                         float pNoiseMultiplier, float pAutoGainSpeed, float pAutoGainOffset,
+                         float pAutoGatingOffset, float pAutoGatingSpeed) {
+            brightness = pBrightness;
+            redValue = pRed;
+            greenValue = pGreen;
+            blueValue = pBlue;
+            overlay = pOverlay;
+            noiseMultiplier = pNoiseMultiplier;
+            autoGainSpeed = pAutoGainSpeed;
+            autoGainOffset = pAutoGainOffset;
+            autoGatingOffset = pAutoGatingOffset;
+            autoGatingSpeed = pAutoGatingSpeed;
+        }
+
         public float getBrightness() { return brightness; }
         public float getRedValue() { return redValue; }
         public float getGreenValue() { return greenValue; }
@@ -606,9 +684,7 @@ public abstract class GenericSpecialGogglesItem extends Item implements GeoItem,
         if (entity instanceof Player player && !player.level().isClientSide()) {
             ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
 
-            TagKey<Item> requiredTag = (getGoggleType() == GoggleType.VISOR) ? HAS_VISOR_MOUNT_TAG : HAS_HEAD_MOUNT_TAG;
-
-            if (helmet.isEmpty() || !helmet.is(requiredTag)) {
+            if (helmet.isEmpty() || !helmetSupportsMount(helmet)) {
                 CuriosApi.getCuriosInventory(player).ifPresent(curios -> {
                     curios.getStacksHandler(slotContext.identifier()).ifPresent(handler -> {
                         ItemStack removedStack = handler.getStacks().getStackInSlot(slotContext.index()).copy();
@@ -633,9 +709,21 @@ public abstract class GenericSpecialGogglesItem extends Item implements GeoItem,
 
         ItemStack headItem = player.getItemBySlot(EquipmentSlot.HEAD);
 
-        TagKey<Item> requiredTag = (getGoggleType() == GoggleType.VISOR) ? HAS_VISOR_MOUNT_TAG : HAS_HEAD_MOUNT_TAG;
+        return !headItem.isEmpty() && helmetSupportsMount(headItem);
+    }
 
-        return !headItem.isEmpty() && headItem.is(requiredTag);
+    private boolean helmetSupportsMount(ItemStack helmet) {
+        boolean visor = getGoggleType() == GoggleType.VISOR;
+        TagKey<Item> requiredTag = visor ? HAS_VISOR_MOUNT_TAG : HAS_HEAD_MOUNT_TAG;
+
+        if (helmet.is(requiredTag)) {
+            return true;
+        }
+        if (helmet.getItem() instanceof DataArmorItem dataArmor) {
+            ArmorFeatures features = dataArmor.definition().features();
+            return visor ? features.visorMount() : features.headMount();
+        }
+        return false;
     }
 
     public static boolean hasConfigIndexChanged(Player player, ItemStack stack) {

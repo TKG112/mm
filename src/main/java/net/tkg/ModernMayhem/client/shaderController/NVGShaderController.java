@@ -6,7 +6,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.tkg.ModernMayhem.ModernMayhemMod;
-import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
 import net.tkg.ModernMayhem.server.util.NVGConfigs;
@@ -63,7 +62,8 @@ public final class NVGShaderController {
 
         if (CuriosUtil.hasNVGEquipped(player)) {
             facewearItem = CuriosUtil.getFaceWearItem(player);
-            if (facewearItem != null && facewearItem.getItem() instanceof NVGGogglesItem nvgGogglesItem) {
+            if (facewearItem != null && facewearItem.getItem() instanceof GenericSpecialGogglesItem nvgGogglesItem
+                    && nvgGogglesItem.getGoggleType() == GenericSpecialGogglesItem.GoggleType.NIGHT_VISION) {
                 if (nvgGogglesItem.shouldRenderShader()) {
                     shouldRender = GenericSpecialGogglesItem.getNVGCheck(facewearItem);
                     try {
@@ -79,13 +79,13 @@ public final class NVGShaderController {
         enabled = shouldRender;
 
         if (isEnabled() && nvgItemConfig != null && facewearItem != null) {
-            boolean isUltraGamer = (facewearItem.getItem() instanceof NVGGogglesItem nvgGogglesItem && nvgGogglesItem.isGamerNVG());
+            boolean isUltraGamer = facewearItem.getItem() instanceof GenericSpecialGogglesItem g && g.hasRainbowPhosphor();
 
             boolean autoGainActive = false;
             boolean autoGatingActive = false;
 
-            if (facewearItem.getItem() instanceof NVGGogglesItem nvgItem) {
-                autoGainActive = nvgItem.hasAutoGain() && NVGGogglesItem.isAutoGainEnabled(facewearItem);
+            if (facewearItem.getItem() instanceof GenericSpecialGogglesItem nvgItem) {
+                autoGainActive = nvgItem.hasAutoGain() && GenericSpecialGogglesItem.isAutoGainEnabled(facewearItem);
 
                 if (!autoGainActive && nvgItem.hasAutoGating()) {
                     autoGatingActive = true;

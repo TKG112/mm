@@ -5,7 +5,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
-import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import net.tkg.ModernMayhem.server.registry.SoundRegistryMM;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
@@ -29,7 +28,7 @@ public class NVGTubeGainDownPacket extends PacketBase {
             ServerPlayer player = context.getSender();
             if (player != null && CuriosUtil.hasNVGEquipped(player)) {
                 ItemStack nvgItem = CuriosUtil.getFaceWearItem(player);
-                if (nvgItem.getItem() instanceof NVGGogglesItem) {
+                if (GenericSpecialGogglesItem.isNightVision(nvgItem)) {
                     if (GenericSpecialGogglesItem.isAutoGainEnabled(nvgItem)) {
                         return;
                     }

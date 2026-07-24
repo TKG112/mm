@@ -32,10 +32,11 @@ public enum PacketsRegistryMM {
     NVG_AUTO_GAIN_TOGGLE(NVGAutoGainTogglePacket.class, NVGAutoGainTogglePacket::new, PLAY_TO_SERVER),
     NVG_COTI_TOGGLE(NVGCotiTogglePacket.class, NVGCotiTogglePacket::new, PLAY_TO_SERVER),
     THERMAL_PALETTE_CYCLE(ThermalPaletteCyclePacket.class, ThermalPaletteCyclePacket::new, PLAY_TO_SERVER),
-    ;
+    OPEN_CURIO_FROM_CONTROL(OpenCurioKeyPacket.class, OpenCurioKeyPacket::new, PLAY_TO_SERVER),
 
     // Server to Client
-    // There is no Server to Client packets at the moment
+    SYNC_CURIO_SLOTS(SyncCurioSlotsPacket.class, SyncCurioSlotsPacket::new, NetworkDirection.PLAY_TO_CLIENT),
+    ;
 
     public static final ResourceLocation CHANNEL_NAME = fromNamespaceAndPath(ModernMayhemMod.ID, "main");
     private static SimpleChannel channel;

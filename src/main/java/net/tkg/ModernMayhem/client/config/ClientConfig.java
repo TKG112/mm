@@ -21,7 +21,11 @@ public class ClientConfig {
     public static final ForgeConfigSpec.DoubleValue DARKNESS_NEW_MOON_BRIGHT;
     public static final ForgeConfigSpec.DoubleValue DARKNESS_FULL_MOON_BRIGHT;
 
-    //public static final ForgeConfigSpec.ConfigValue<Boolean> REALISTIC_MASK_MODE;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> THERMAL_HAND_HEAT_READING;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> HIDE_FIRST_PERSON_GOGGLES;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_FACEWEAR_STATUS;
+
+//    public static final ForgeConfigSpec.ConfigValue<Boolean> REALISTIC_MASK_MODE;
 
     static {
         BUILDER.push("Modern Mayhem Client Config Settings");
@@ -75,13 +79,29 @@ public class ClientConfig {
         BUILDER.pop();
 
 
-        /*
-        BUILDER.push("Night Vision Settings");
-        REALISTIC_MASK_MODE = BUILDER
-                .comment("If true, NVGs will use a realistic viewport mask texture (blacking out the peripheral vision) instead of a fullscreen overlay.")
-                .define("realisticMaskMode", false);
+        BUILDER.push("Goggle Vision Settings");
+        THERMAL_HAND_HEAT_READING = BUILDER
+                .comment("If true, the player's own first-person hand/held item reads as a warm body (heat signature) through thermal and night-vision goggles.")
+                .define("thermalHandHeatReading", true);
+        HIDE_FIRST_PERSON_GOGGLES = BUILDER
+                .comment("If true, goggles are not drawn in front of the camera in first person.",
+                        "Night vision and thermal still work -- you simply don't see the housing on screen.",
+                        "A visor gives no other visual cue that it is down, so consider leaving",
+                        "'showFacewearStatus' on if you enable this.")
+                .define("hideFirstPersonGoggles", false);
+        SHOW_FACEWEAR_STATUS = BUILDER
+                .comment("If true, a short message above the hotbar says whether your facewear was",
+                        "switched on or off. Mainly useful with 'hideFirstPersonGoggles' enabled,",
+                        "where there is no on-screen model to tell you.")
+                .define("showFacewearStatus", true);
         BUILDER.pop();
-        */
+
+
+//        BUILDER.push("Night Vision Settings");
+//        REALISTIC_MASK_MODE = BUILDER
+//                .comment("If true, NVGs will use a realistic viewport mask texture (blacking out the peripheral vision) instead of a fullscreen overlay.")
+//                .define("realisticMaskMode", false);
+//        BUILDER.pop();
 
         CONFIG = BUILDER.build();
     }

@@ -1,0 +1,14 @@
+{
+  "type": "armor",
+  "slot": "helmet",
+  "material": "hazmat",
+  "model": "mm:geo/armor/hazmat_suit.geo.json",
+  "texture": "mm:textures/armor/orange_hazmat_suit.png",
+  "animation": "mm:animations/empty.animation.json",
+  "stats": {
+    "protection": 1,
+    "toughness": 0,
+    "knockback": 0,
+    "durability": 275
+  }
+}

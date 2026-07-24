@@ -1,0 +1,15 @@
+{
+  "type": "armor",
+  "slot": "helmet",
+  "material": "ronin",
+  "model": "mm:geo/armor/ronin.geo.json",
+  "texture": "mm:textures/armor/black_ronin.png",
+  "screen_overlay": "mm:textures/screens/ronin_overlay.png",
+  "animation": "mm:animations/empty.animation.json",
+  "stats": {
+    "protection": 4,
+    "toughness": 3,
+    "knockback": 0.25,
+    "durability": 275
+  }
+}

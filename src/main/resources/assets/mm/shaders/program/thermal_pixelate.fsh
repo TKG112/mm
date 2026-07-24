@@ -1,6 +1,5 @@
 #version 150
 
-// Mosaic / pixelate the whole composited image (world + thermal entity).
 uniform sampler2D DiffuseSampler;
 uniform vec2  InSize;
 uniform float MosaicSize;

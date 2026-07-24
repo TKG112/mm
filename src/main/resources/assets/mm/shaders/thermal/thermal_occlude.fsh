@@ -23,9 +23,10 @@ void main() {
     vec4 mask = texture(MaskSampler, texCoord);
     if (mask.a < 0.01) discard;
 
-    float entityZ  = texture(EntityDepthSampler, texCoord).r;
-    float sceneRaw = texture(SceneDepthSampler,  texCoord).r;
-    float sceneZ   = (IsReversedZ > 0.5) ? (1.0 - sceneRaw) : sceneRaw;
+    float entityRaw = texture(EntityDepthSampler, texCoord).r;
+    float sceneRaw  = texture(SceneDepthSampler,  texCoord).r;
+    float entityZ = (IsReversedZ > 0.5) ? (1.0 - entityRaw) : entityRaw;
+    float sceneZ  = (IsReversedZ > 0.5) ? (1.0 - sceneRaw)  : sceneRaw;
 
     float entityLin = linearize(entityZ);
     float sceneLin  = linearize(sceneZ);

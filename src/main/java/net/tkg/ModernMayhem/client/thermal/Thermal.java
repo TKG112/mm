@@ -12,12 +12,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.tkg.ModernMayhem.server.config.ServerConfig;
 import net.tkg.ModernMayhem.client.thermal.render.ThermalRenderer;
 import net.tkg.ModernMayhem.client.shaderController.NVGShaderController;
 import net.tkg.ModernMayhem.client.shaderController.TVGShaderController;
-import net.tkg.ModernMayhem.server.item.curios.facewear.NVGGogglesItem;
 import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
 import net.tkg.ModernMayhem.server.util.CuriosUtil;
+
+import java.util.List;
 
 /**
  * Example usage of the ThermalRenderer system
@@ -42,6 +46,15 @@ public class Thermal {
             if (entity instanceof HangingEntity) return false;
 
             if (entity instanceof ArmorStand) return false;
+
+            try {
+                List<? extends String> blacklist = ServerConfig.THERMAL_BLACKLIST.get();
+                if (!blacklist.isEmpty()) {
+                    ResourceLocation id = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
+                    if (id != null && blacklist.contains(id.toString())) return false;
+                }
+            } catch (IllegalStateException ignored) {
+            }
 
             return true;
         });
@@ -217,6 +230,6 @@ public class Thermal {
     private static boolean isCotiEnabledOnPlayer(LocalPlayer player) {
         ItemStack stack = CuriosUtil.getFaceWearItem(player);
         if (stack == null) return false;
-        return stack.getItem() instanceof NVGGogglesItem && GenericSpecialGogglesItem.isCotiEnabled(stack);
+        return GenericSpecialGogglesItem.isNightVision(stack) && GenericSpecialGogglesItem.isCotiEnabled(stack);
     }
 }

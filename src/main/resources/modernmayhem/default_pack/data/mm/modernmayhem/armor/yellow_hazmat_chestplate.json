@@ -1,0 +1,14 @@
+{
+  "type": "armor",
+  "slot": "chestplate",
+  "material": "hazmat",
+  "model": "mm:geo/armor/hazmat_suit.geo.json",
+  "texture": "mm:textures/armor/yellow_hazmat_suit.png",
+  "animation": "mm:animations/empty.animation.json",
+  "stats": {
+    "protection": 4,
+    "toughness": 0,
+    "knockback": 0,
+    "durability": 400
+  }
+}

@@ -3,6 +3,8 @@ package net.tkg.ModernMayhem.server.config;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.tkg.ModernMayhem.client.Darkness;
 
+import java.util.List;
+
 public class ServerConfig {
 
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
@@ -24,7 +26,9 @@ public class ServerConfig {
     public static final ForgeConfigSpec.DoubleValue DARKNESS_NEW_MOON_BRIGHT;
     public static final ForgeConfigSpec.DoubleValue DARKNESS_FULL_MOON_BRIGHT;
 
-    //public static final ForgeConfigSpec.ConfigValue<Boolean> REALISTIC_MASK_MODE;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> THERMAL_BLACKLIST;
+
+//    public static final ForgeConfigSpec.ConfigValue<Boolean> REALISTIC_MASK_MODE;
 
     static {
         BUILDER.push("Modern Mayhem Server Config Settings");
@@ -85,14 +89,21 @@ public class ServerConfig {
         BUILDER.pop();
         BUILDER.pop();
 
-
-        /*
-        BUILDER.push("Night Vision Settings");
-        REALISTIC_MASK_MODE = BUILDER
-                .comment("If true, NVGs will use a realistic viewport mask texture (blacking out the peripheral vision) instead of a fullscreen overlay.")
-                .define("realisticMaskMode", false);
+        BUILDER.push("Thermal Vision");
+        THERMAL_BLACKLIST = BUILDER
+                .comment("Entity type IDs that give off NO thermal signature, matched against the entity's",
+                        "registry ID - they read as cold and are invisible to thermal goggles.",
+                        "Example: [\"minecraft:zombie\", \"minecraft:warden\", \"somemod:wraith\"].")
+                .defineList("thermalBlacklist", List.of(), o -> o instanceof String);
         BUILDER.pop();
-        */
+
+
+//        BUILDER.push("Night Vision Settings");
+//        REALISTIC_MASK_MODE = BUILDER
+//                .comment("If true, NVGs will use a realistic viewport mask texture (blacking out the peripheral vision) instead of a fullscreen overlay.")
+//                .define("realisticMaskMode", false);
+//        BUILDER.pop();
+
 
         CONFIG = BUILDER.build();
     }

@@ -16,4 +16,14 @@ public class ARCompatImpl {
         AcceleratedItemRenderingFeature.resetPipeline();
         AcceleratedTextRenderingFeature.resetPipeline();
     }
+
+    // Entity-only pipeline override (used to stop thermal z-fighting against AR-accelerated entities).
+    // AR's pipeline controller is a balanced push/pop stack - each push MUST be matched by exactly one pop.
+    public static void useVanillaEntityPipeline() {
+        AcceleratedEntityRenderingFeature.useVanillaPipeline();
+    }
+
+    public static void resetEntityPipeline() {
+        AcceleratedEntityRenderingFeature.resetPipeline();
+    }
 }

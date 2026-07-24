@@ -1,0 +1,113 @@
+{
+  "goggle_type": "visor",
+  "worn": {
+    "model": "mm:geo/item/curios/facewear/visor.geo.json",
+    "texture": "mm:textures/item/curios/facewear/black_visor.png",
+    "animation": "mm:animations/item/curios/facewear/visor.animation.json"
+  },
+  "first_person": {
+    "model": "mm:geo/fpm/facewear/visor_fpm.geo.json",
+    "texture": "mm:textures/item/curios/facewear/black_visor_transparent.png",
+    "animation": "mm:animations/item/fpa/facewear/visor_fpa.animation.json"
+  },
+  "sounds": { "activate": "mm:sound_visor_close", "deactivate": "mm:sound_visor_close" },
+  "tooltip": ["description.mm.nvgs"],
+  "default_gain": 0,
+  "stats": { "durability": 0, "protection": 4.0, "toughness": 0.0, "knockback": 0.0 },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        -4,
+        -15.25
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        -4,
+        -15.25
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        1,
+        150,
+        0
+      ],
+      "translation": [
+        -2.75,
+        -16,
+        0
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        1,
+        150,
+        0
+      ],
+      "translation": [
+        -2.75,
+        -16,
+        0
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        -28,
+        2.5
+      ]
+    },
+    "gui": {
+      "rotation": [
+        30,
+        150,
+        0
+      ],
+      "translation": [
+        1.5,
+        -22.25,
+        0
+      ]
+    },
+    "fixed": {
+      "translation": [
+        0,
+        -28.5,
+        4
+      ]
+    }
+  }
+}

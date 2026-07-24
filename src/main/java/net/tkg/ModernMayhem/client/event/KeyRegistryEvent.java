@@ -19,5 +19,7 @@ public class KeyRegistryEvent {
         event.register(KeyMappingRegistryMM.TOGGLE_COTI_KEY);
         event.register(KeyMappingRegistryMM.OPEN_BACKPACK_KEY);
         event.register(KeyMappingRegistryMM.OPEN_RIG_KEY);
+
+        net.tkg.ModernMayhem.content.client.DataKeybinds.onRegisterKeyMappings(event);
     }
 }

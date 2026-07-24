@@ -1,0 +1,187 @@
+{
+  "goggle_type": "night_vision",
+  "worn": {
+    "model": "mm:geo/item/curios/facewear/pvs14.geo.json",
+    "texture": "mm:textures/item/curios/facewear/tan_pvs14.png",
+    "animation": "mm:animations/item/curios/facewear/pvs14.animation.json",
+    "coti": {
+      "model": "mm:geo/item/curios/facewear/pvs14_coti.geo.json",
+      "texture": "mm:textures/item/curios/facewear/tan_pvs14_coti.png",
+      "animation": "mm:animations/item/curios/facewear/pvs14_coti.animation.json"
+    }
+  },
+  "first_person": {
+    "model": "mm:geo/fpm/facewear/pvs14_fpm.geo.json",
+    "texture": "mm:textures/item/curios/facewear/tan_pvs14.png",
+    "animation": "mm:animations/item/fpa/facewear/pvs14_fpa.animation.json",
+    "coti": {
+      "model": "mm:geo/fpm/facewear/pvs14_coti_fpm.geo.json",
+      "texture": "mm:textures/item/curios/facewear/tan_pvs14_coti.png",
+      "animation": "mm:animations/item/fpa/facewear/pvs14_coti_fpa.animation.json"
+    }
+  },
+  "sounds": { "activate": "mm:sound_nvg_on", "deactivate": "mm:sound_nvg_off" },
+  "features": {
+    "can_hold_coti": true,
+    "auto_gain": true,
+    "auto_gating": true,
+    "rainbow_phosphor": false
+  },
+  "tooltip": ["description.mm.nvgs"],
+  "default_gain": 1,
+  "gain_steps": [
+    {
+      "brightness": 0.4,
+      "color": [0.25, 0.5, 0.5],
+      "overlay": "mm:textures/screens/pvs7_overlay.png",
+      "noise": 1.2,
+      "auto_gain_speed": 0.06,
+      "auto_gain_offset": 0.3,
+      "auto_gating_offset": 0.2,
+      "auto_gating_speed": 0.04
+    },
+    {
+      "brightness": 0.45,
+      "color": [0.25, 0.5, 0.5],
+      "overlay": "mm:textures/screens/pvs7_overlay.png",
+      "noise": 1.2,
+      "auto_gain_speed": 0.06,
+      "auto_gain_offset": 0.3,
+      "auto_gating_offset": 0.2,
+      "auto_gating_speed": 0.04
+    },
+    {
+      "brightness": 0.5,
+      "color": [0.25, 0.5, 0.5],
+      "overlay": "mm:textures/screens/pvs7_overlay.png",
+      "noise": 1.2,
+      "auto_gain_speed": 0.06,
+      "auto_gain_offset": 0.3,
+      "auto_gating_offset": 0.2,
+      "auto_gating_speed": 0.04
+    }
+  ],
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        60,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        -14,
+        -16
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        60,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        -14,
+        -16
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        80,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        -6,
+        -18
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        80,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        -6,
+        -18
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        -20,
+        4.5
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "gui": {
+      "rotation": [
+        30,
+        150,
+        0
+      ],
+      "translation": [
+        6,
+        -32,
+        0
+      ],
+      "scale": [
+        1.5,
+        1.5,
+        1.5
+      ]
+    },
+    "head": {
+      "translation": [
+        0,
+        -41,
+        0.5
+      ],
+      "scale": [
+        1.5,
+        1.5,
+        1.5
+      ]
+    },
+    "fixed": {
+      "translation": [
+        0,
+        -40.75,
+        9
+      ],
+      "scale": [
+        1.5,
+        1.5,
+        1.5
+      ]
+    }
+  }
+}

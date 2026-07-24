@@ -80,11 +80,8 @@ public class GenericBackpackGUI extends AbstractContainerMenuUtil implements Sup
             this.isCuriosBackpack = pExtraData.readBoolean();
             if (this.isCuriosBackpack) {
                 this.backpackSlotID = pExtraData.readByte();
-                this.curiosSlotType = switch (pExtraData.readByte()) {
-                    case 0 -> "back";
-                    case 1 -> "body";
-                    default -> "";
-                };
+                // Sent as the Curios slot identifier itself, so content packs can use custom slots.
+                this.curiosSlotType = pExtraData.readUtf();
                 if (pPlayerCuriosInventory == null) {
                     this.playerCuriosInventory = CuriosApi.getCuriosInventory(playerInventory.player).resolve().get();
                 }
