@@ -25,6 +25,8 @@ public class ClientConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> HIDE_FIRST_PERSON_GOGGLES;
     public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_FACEWEAR_STATUS;
 
+    public static final ForgeConfigSpec.DoubleValue FIRST_PERSON_NVG_VERTICAL_OFFSET;
+
 //    public static final ForgeConfigSpec.ConfigValue<Boolean> REALISTIC_MASK_MODE;
 
     static {
@@ -94,6 +96,13 @@ public class ClientConfig {
                         "switched on or off. Mainly useful with 'hideFirstPersonGoggles' enabled,",
                         "where there is no on-screen model to tell you.")
                 .define("showFacewearStatus", true);
+        BUILDER.pop();
+
+        BUILDER.push("First person model Settings");
+        FIRST_PERSON_NVG_VERTICAL_OFFSET = BUILDER
+                .comment("Vertical offset for the first-person model of night vision goggles.")
+                .comment("Adjust if the model is too high or low on the screen. 0 is default, a higher value will make the goggle render higher on the screen.")
+                .defineInRange("NVGfirstPersonVerticalOffset", 0.0, 0.0, 1.0);
         BUILDER.pop();
 
 

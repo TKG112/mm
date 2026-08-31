@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.tkg.ModernMayhem.client.config.ClientConfig;
 import net.tkg.ModernMayhem.client.item.NVGFirstPersonFakeItem;
 import net.tkg.ModernMayhem.client.models.custom.NVGFirstPersonModel;
 import net.tkg.ModernMayhem.server.util.AnimUtils;
@@ -66,6 +67,11 @@ public class NVGFirstPersonRenderer extends GeoItemRenderer<NVGFirstPersonFakeIt
         LocalPlayer player = Minecraft.getInstance().player;
         this.currentBuffer = bufferSource;
         this.renderType = renderType;
+
+        if (ClientConfig.FIRST_PERSON_NVG_VERTICAL_OFFSET.get() != 0.0f) {
+            poseStack.translate(0.0f, ClientConfig.FIRST_PERSON_NVG_VERTICAL_OFFSET.get(), 0.0f);
+        }
+
         super.actuallyRender(
                 poseStack,
                 animatable,
